@@ -29,9 +29,9 @@ namespace TicketManagementSystem.Data.EF.Models
 
         #region Navigation properties
 
-        public Color Color { get; set; }
-        public Serial Serial { get; set; }
-        public IList<Ticket> Tickets { get; set; }
+        public virtual Color Color { get; set; }
+        public virtual Serial Serial { get; set; }
+        public virtual IList<Ticket> Tickets { get; set; }
 
         #endregion
 

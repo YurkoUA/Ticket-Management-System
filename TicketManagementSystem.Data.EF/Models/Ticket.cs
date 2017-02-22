@@ -28,9 +28,9 @@ namespace TicketManagementSystem.Data.EF.Models
 
         #region Navigation properties
 
-        public Package Package { get; set; }
-        public Color Color { get; set; }
-        public Serial Serial { get; set; }
+        public virtual Package Package { get; set; }
+        public virtual Color Color { get; set; }
+        public virtual Serial Serial { get; set; }
 
         #endregion
 

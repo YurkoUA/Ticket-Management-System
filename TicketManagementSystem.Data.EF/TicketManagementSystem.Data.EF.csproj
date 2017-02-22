@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDbContext.cs" />
+    <Compile Include="EFRepository.cs" />
     <Compile Include="Migrations\201702221436300_Initial.cs" />
     <Compile Include="Migrations\201702221436300_Initial.Designer.cs">
       <DependentUpon>201702221436300_Initial.cs</DependentUpon>
