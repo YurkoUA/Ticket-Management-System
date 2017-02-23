@@ -6,7 +6,7 @@ using TicketManagementSystem.Data.Interfaces;
 
 namespace TicketManagementSystem.Data.EF
 {
-    public abstract class EFRepository<T> : IRepository<T> where T : class
+    public class EFRepository<T> : IRepository<T> where T : class
     {
         public EFRepository(AppDbContext context)
         {
@@ -17,30 +17,30 @@ namespace TicketManagementSystem.Data.EF
         protected AppDbContext _dbContext;
         protected DbSet<T> _dbSet;
 
-        public int Count => _dbSet.Count();
+        public virtual int Count => _dbSet.Count();
 
-        public bool IsEmpty() => !_dbSet.Any();
+        public virtual bool IsEmpty() => !_dbSet.Any();
 
-        public bool ExistsById(int id) => _dbSet.Find(id) != null;
+        public virtual bool ExistsById(int id) => _dbSet.Find(id) != null;
 
-        public bool ExisysById<TEntity>(int id) where TEntity : class
+        public virtual bool ExisysById<TEntity>(int id) where TEntity : class
         {
             return _dbContext.Set<TEntity>().Find(id) != null;
         }
 
         #region Is contains methods
 
-        public bool Contains(T item)
+        public virtual bool Contains(T item)
         {
             return _dbSet.Contains(item);
         }
 
-        public bool Contains(Func<T, bool> predicate)
+        public virtual bool Contains(Func<T, bool> predicate)
         {
             return _dbSet.Any(predicate);
         }
 
-        public bool Contains<TEntity>(Func<TEntity, bool> predicate) where TEntity : class
+        public virtual bool Contains<TEntity>(Func<TEntity, bool> predicate) where TEntity : class
         {
             return _dbContext.Set<TEntity>().Any(predicate);
         }
@@ -49,22 +49,22 @@ namespace TicketManagementSystem.Data.EF
 
         #region Read (Get) methods
 
-        public IQueryable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
             return _dbSet;
         }
 
-        public IEnumerable<T> GetAll(Func<T, bool> predicate)
+        public virtual IEnumerable<T> GetAll(Func<T, bool> predicate)
         {
             return _dbSet.Where(predicate);
         }
 
-        public T GetById(int id)
+        public virtual T GetById(int id)
         {
             return _dbSet.Find(id);
         }
 
-        public T GetLastItem()
+        public virtual T GetLastItem()
         {
             return _dbSet.Last();
         }
@@ -91,7 +91,7 @@ namespace TicketManagementSystem.Data.EF
         }
         #endregion
 
-        public void SaveChanges()
+        public virtual void SaveChanges()
         {
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
