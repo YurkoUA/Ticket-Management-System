@@ -1,7 +1,7 @@
 ﻿using System;
 using TicketManagementSystem.Data.EF;
-using TicketManagementSystem.Data.EF.Models;
 using TicketManagementSystem.Data.Interfaces;
+using TicketManagementSystem.Data.Models;
 
 namespace TicketManagementSystem.Business
 {
@@ -44,7 +44,7 @@ namespace TicketManagementSystem.Business
         }
 
         public IRepository<Color> Colours
-        {
+        { 
             get
             {
                 if (_colours == null)

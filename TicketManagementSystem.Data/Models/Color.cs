@@ -3,24 +3,21 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using TicketManagementSystem.Data.Interfaces;
 
-namespace TicketManagementSystem.Data.EF.Models
+namespace TicketManagementSystem.Data.Models
 {
-    public class Serial : IRowVersion
+    public class Color : IRowVersion
     {
         public byte[] RowVersion { get; set; }
 
         public int Id { get; set; }
 
-        [StringLength(4, MinimumLength = 4)]
+        [StringLength(32, MinimumLength = 3)]
         public string Name { get; set; }
-
-        [StringLength(128)]
-        public string Note { get; set; }
 
         #region Navigation properties
 
-        public virtual IList<Package> Packages { get; set; }
-        public virtual IList<Ticket> Tickets { get; set; }
+        public virtual IList<Package> Packages { get; set; } = new List<Package>();
+        public virtual IList<Ticket> Tickets { get; set; } = new List<Ticket>();
 
         #endregion
 
@@ -32,11 +29,11 @@ namespace TicketManagementSystem.Data.EF.Models
 
         public override bool Equals(object obj)
         {
-            var serial = obj as Serial;
+            var color = obj as Color;
 
-            if (serial != null)
+            if (color != null)
             {
-                return serial.Name.Equals(Name, StringComparison.CurrentCultureIgnoreCase);
+                return color.Name.Equals(Name, StringComparison.CurrentCultureIgnoreCase);
             }
             return false;
         }

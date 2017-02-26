@@ -43,6 +43,11 @@
   <ItemGroup>
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IRowVersion.cs" />
+    <Compile Include="Models\Color.cs" />
+    <Compile Include="Models\Package.cs" />
+    <Compile Include="Models\Serial.cs" />
+    <Compile Include="Models\Ticket.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserRole.cs" />
   </ItemGroup>

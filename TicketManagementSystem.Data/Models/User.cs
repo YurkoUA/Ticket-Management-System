@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using TicketManagementSystem.Data.Interfaces;
 
-namespace TicketManagementSystem.Data.EF.Models
+namespace TicketManagementSystem.Data.Models
 {
     public class User : IRowVersion
     {
@@ -38,7 +38,7 @@ namespace TicketManagementSystem.Data.EF.Models
             if (user != null)
             {
                 return user.Email.Equals(Email, StringComparison.CurrentCultureIgnoreCase)
-                    && user.Login.Equals(Login, StringComparison.CurrentCultureIgnoreCase);
+                    && user.Login.Equals(Login);
             }
             return false;
         }

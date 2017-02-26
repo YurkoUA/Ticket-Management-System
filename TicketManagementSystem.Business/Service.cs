@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TicketManagementSystem.Data.Interfaces;
 
 namespace TicketManagementSystem.Business
 {
     public abstract class Service<T> where T : class
     {
-        protected UnitOfWork _uow = UnitOfWork.GetInstance();
+        protected UnitOfWork _uow;
+        protected IRepository<T> _repo;
+
+        public Service()
+        {
+            _uow = UnitOfWork.GetInstance();
+        }
     }
 }

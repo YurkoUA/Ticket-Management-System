@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title – приложение ASP.NET</title>
+    <title>@ViewBag.Title – Ticket Management System</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -17,13 +17,27 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Имя приложения", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Ticket MS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
-                    <li>@Html.ActionLink("О программе", "About", "Home")</li>
-                    <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Головна", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Кольори", "Index", "Color")</li>
+                    <li>@Html.ActionLink("Серії", "Index", "Serial")</li>
+                    <li>@Html.ActionLink("Пачки", "Index", "Package")</li>
+                    <li>@Html.ActionLink("Квитки", "Index", "Ticket")</li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    @if(User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink(User.Identity.Name, "Index", "Account")</li>
+                        <li>@Html.ActionLink("Вийти", "Logout", "Account")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Увійти", "Login", "Account")</li>
+                    }
                 </ul>
             </div>
         </div>
@@ -32,7 +46,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
+            <p>&copy; 2014 - @DateTime.Now.Year – Носач Юрій</p>
         </footer>
     </div>
 

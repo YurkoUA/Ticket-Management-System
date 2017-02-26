@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using TicketManagementSystem.Data.Interfaces;
 
-namespace TicketManagementSystem.Data.EF.Models
+namespace TicketManagementSystem.Data.Models
 {
     public class Ticket : IRowVersion
     {

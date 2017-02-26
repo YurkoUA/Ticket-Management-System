@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using TicketManagementSystem.Data.Interfaces;
 
-namespace TicketManagementSystem.Data.EF.Models
+namespace TicketManagementSystem.Data.Models
 {
     public class Package : IRowVersion
     {
@@ -31,7 +31,7 @@ namespace TicketManagementSystem.Data.EF.Models
 
         public virtual Color Color { get; set; }
         public virtual Serial Serial { get; set; }
-        public virtual IList<Ticket> Tickets { get; set; }
+        public virtual IList<Ticket> Tickets { get; set; } = new List<Ticket>();
 
         #endregion
 

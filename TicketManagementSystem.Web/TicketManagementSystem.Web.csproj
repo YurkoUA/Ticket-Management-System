@@ -44,6 +44,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -120,11 +128,23 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Filters\AdminAttribute.cs" />
+    <Compile Include="Filters\OnlyAnonymous.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Account\AccountIndexModel.cs" />
+    <Compile Include="ViewModels\Account\ChangePasswordModel.cs" />
+    <Compile Include="ViewModels\Account\EntryConfirmationModel.cs" />
+    <Compile Include="ViewModels\Account\LoginModel.cs" />
+    <Compile Include="ViewModels\Account\MainSettingsModel.cs" />
+    <Compile Include="ViewModels\Color\ColorCreateModel.cs" />
+    <Compile Include="ViewModels\Color\ColorIndexModel.cs" />
+    <Compile Include="ViewModels\Serial\SerialCreateModel.cs" />
+    <Compile Include="ViewModels\Serial\SerialIndexModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -161,10 +181,13 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\LoginPartial.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\IndexPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -177,6 +200,14 @@
     <ProjectReference Include="..\TicketManagementSystem.Business\TicketManagementSystem.Business.csproj">
       <Project>{55b12f31-41fc-4fc6-9ec8-2ff9faac7c62}</Project>
       <Name>TicketManagementSystem.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketManagementSystem.Data.EF\TicketManagementSystem.Data.EF.csproj">
+      <Project>{EB767E15-10C8-4471-8101-AE735C6E9A91}</Project>
+      <Name>TicketManagementSystem.Data.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketManagementSystem.Data\TicketManagementSystem.Data.csproj">
+      <Project>{9BC75759-129F-4FE8-B46C-85997638185D}</Project>
+      <Name>TicketManagementSystem.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

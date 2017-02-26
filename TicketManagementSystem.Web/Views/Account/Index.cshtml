@@ -1,0 +1,11 @@
+﻿@model TicketManagementSystem.Web.ViewModels.Account.AccountIndexModel
+
+@{
+    ViewBag.Title = $"Сторінка профілю {Model.Login}";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div name="accountGrid">
+    @Html.Partial("IndexPartial", Model)
+</div>
