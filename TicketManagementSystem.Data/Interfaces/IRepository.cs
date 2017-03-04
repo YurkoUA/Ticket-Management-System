@@ -20,7 +20,7 @@ namespace TicketManagementSystem.Data.Interfaces
         T GetById(int id);
         T GetLastItem();
 
-        void Create(T item);
+        T Create(T item);
         void Update(T item);
         void Remove(T item);
         void SaveChanges();

@@ -129,12 +129,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApplicationController.cs" />
+    <Compile Include="Controllers\ColorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Data\PageInfo.cs" />
+    <Compile Include="Enumerations\ViewMode.cs" />
     <Compile Include="Filters\AdminAttribute.cs" />
     <Compile Include="Filters\OnlyAnonymous.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PagingHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account\AccountIndexModel.cs" />
     <Compile Include="ViewModels\Account\ChangePasswordModel.cs" />
@@ -142,6 +147,8 @@
     <Compile Include="ViewModels\Account\LoginModel.cs" />
     <Compile Include="ViewModels\Account\MainSettingsModel.cs" />
     <Compile Include="ViewModels\Color\ColorCreateModel.cs" />
+    <Compile Include="ViewModels\Color\ColorDetailsModel.cs" />
+    <Compile Include="ViewModels\Color\ColorEditModel.cs" />
     <Compile Include="ViewModels\Color\ColorIndexModel.cs" />
     <Compile Include="ViewModels\Serial\SerialCreateModel.cs" />
     <Compile Include="ViewModels\Serial\SerialIndexModel.cs" />
@@ -159,6 +166,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -166,6 +175,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\site.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -185,6 +195,15 @@
     <Content Include="Views\Account\LoginPartial.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\IndexPartial.cshtml" />
+    <Content Include="Views\Color\Index.cshtml" />
+    <Content Include="Views\Color\Create.cshtml" />
+    <Content Include="Views\Shared\SuccessAlertLinkPartial.cshtml" />
+    <Content Include="Views\Shared\ErrorListPartial.cshtml" />
+    <Content Include="Views\Color\DetailsPartial.cshtml" />
+    <Content Include="Views\Color\EditPartial.cshtml" />
+    <Content Include="Views\Color\DeletePartial.cshtml" />
+    <Content Include="Views\Color\Color.cshtml" />
+    <Content Include="Views\Shared\SuccessAlertPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

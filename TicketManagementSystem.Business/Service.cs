@@ -11,5 +11,8 @@ namespace TicketManagementSystem.Business
         {
             _uow = UnitOfWork.GetInstance();
         }
+
+        public UnitOfWork UoW => _uow;
+        public IRepository<T> Repository => _repo;
     }
 }

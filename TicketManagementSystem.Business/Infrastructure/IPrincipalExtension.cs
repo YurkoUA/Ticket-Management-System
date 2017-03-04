@@ -5,7 +5,7 @@ namespace TicketManagementSystem.Business.Infrastructure
 {
     public static class IPrincipalExtension
     {
-        public static bool IsAdmin(IPrincipal user)
+        public static bool IsAdmin(this IPrincipal user)
         {
             if (!user.Identity.IsAuthenticated)
                 return false;

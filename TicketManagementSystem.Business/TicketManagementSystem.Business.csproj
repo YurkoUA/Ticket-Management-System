@@ -48,6 +48,8 @@
     <Compile Include="Email.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\ColorService.cs" />
+    <Compile Include="Services\SerialService.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

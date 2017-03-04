@@ -1,0 +1,30 @@
+﻿@using TicketManagementSystem.Enumerations;
+@using TicketManagementSystem.Data.Models;
+@using TicketManagementSystem.Web.ViewModels.Color;
+
+@model ViewMode
+
+@{
+    
+}
+
+<div id="colorGrid">
+    @switch (Model)
+    {
+        case ViewMode.Details:
+            @Html.Partial("DetailsPartial", ViewBag.ViewModel as ColorDetailsModel);
+            break;
+
+        case ViewMode.Edit:
+            @Html.Partial("EditPartial", ViewBag.ViewModel as ColorEditModel);
+            break;
+
+        case ViewMode.Delete:
+            @Html.Partial("DeletePartial", ViewBag.ViewModel as Color);
+            break;
+    }
+</div>
+
+<div id="colorResult">
+
+</div>

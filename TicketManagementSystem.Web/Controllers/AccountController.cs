@@ -7,12 +7,13 @@ using System.Web.Security;
 using TicketManagementSystem.Business;
 using TicketManagementSystem.Business.Infrastructure.Exceptions;
 using TicketManagementSystem.Business.Services;
+using TicketManagementSystem.Data.Models;
 using TicketManagementSystem.Web.Filters;
 using TicketManagementSystem.Web.ViewModels.Account;
 
 namespace TicketManagementSystem.Web.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : ApplicationController<User>
     {
         private AccountService _service;
 

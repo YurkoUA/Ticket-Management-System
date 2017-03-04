@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TicketManagementSystem.Data.Models;
 
 namespace TicketManagementSystem.Web.ViewModels.Account
 {

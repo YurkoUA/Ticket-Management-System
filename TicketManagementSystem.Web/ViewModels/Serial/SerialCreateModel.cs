@@ -4,8 +4,9 @@ using TicketManagementSystem.Data.Interfaces;
 
 namespace TicketManagementSystem.Web.ViewModels.Serial
 {
-    public class SerialCreateModel : IRowVersion
+    public class SerialCreateModel
     {
+        [Timestamp]
         [HiddenInput(DisplayValue = false)]
         public byte[] RowVersion { get; set; }
 

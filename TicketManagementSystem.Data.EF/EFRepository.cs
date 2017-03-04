@@ -72,10 +72,12 @@ namespace TicketManagementSystem.Data.EF
         #endregion
 
         #region CUD operations (withot Read)
-        public void Create(T item)
+        public T Create(T item)
         {
-            _dbSet.Add(item);
+            T dbItem = _dbSet.Add(item);
             SaveChanges();
+
+            return dbItem;
         }
 
         public void Update(T item)

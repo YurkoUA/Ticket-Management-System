@@ -3,15 +3,19 @@ using System.Web.Mvc;
 
 namespace TicketManagementSystem.Web.ViewModels.Color
 {
-    public class ColorCreateModel
+    public class ColorEditModel
     {
         [Timestamp]
         [HiddenInput(DisplayValue = false)]
         public byte[] RowVersion { get; set; }
 
+        [HiddenInput(DisplayValue = false)]
+        public int Id { get; set; }
+
         [Display(Name = "Назва")]
-        [Required(ErrorMessage = "Необхідно вказати назву.")]
-        [StringLength(32, MinimumLength = 3, ErrorMessage = "Назва повинна бути від 3 до 32 символів.")]
         public string Name { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public bool CanBeDeleted { get; set; }
     }
 }

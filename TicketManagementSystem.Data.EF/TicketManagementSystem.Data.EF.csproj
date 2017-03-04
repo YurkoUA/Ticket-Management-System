@@ -55,9 +55,9 @@
   <ItemGroup>
     <Compile Include="AppDbContext.cs" />
     <Compile Include="EFRepository.cs" />
-    <Compile Include="Migrations\201702260853171_Initial.cs" />
-    <Compile Include="Migrations\201702260853171_Initial.Designer.cs">
-      <DependentUpon>201702260853171_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201702271915170_Initial.cs" />
+    <Compile Include="Migrations\201702271915170_Initial.Designer.cs">
+      <DependentUpon>201702271915170_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,15 +68,14 @@
       <Name>TicketManagementSystem.Data</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201702271915170_Initial.resx">
+      <DependentUpon>201702271915170_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201702260853171_Initial.resx">
-      <DependentUpon>201702260853171_Initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
