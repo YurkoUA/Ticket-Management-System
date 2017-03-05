@@ -132,8 +132,9 @@
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\ColorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SerialController.cs" />
     <Compile Include="Data\PageInfo.cs" />
-    <Compile Include="Enumerations\ViewMode.cs" />
+    <Compile Include="Enumerations\PartialType.cs" />
     <Compile Include="Filters\AdminAttribute.cs" />
     <Compile Include="Filters\OnlyAnonymous.cs" />
     <Compile Include="Global.asax.cs">
@@ -151,6 +152,8 @@
     <Compile Include="ViewModels\Color\ColorEditModel.cs" />
     <Compile Include="ViewModels\Color\ColorIndexModel.cs" />
     <Compile Include="ViewModels\Serial\SerialCreateModel.cs" />
+    <Compile Include="ViewModels\Serial\SerialDetailsModel.cs" />
+    <Compile Include="ViewModels\Serial\SerialEditModel.cs" />
     <Compile Include="ViewModels\Serial\SerialIndexModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +207,12 @@
     <Content Include="Views\Color\DeletePartial.cshtml" />
     <Content Include="Views\Color\Color.cshtml" />
     <Content Include="Views\Shared\SuccessAlertPartial.cshtml" />
+    <Content Include="Views\Serial\Serial.cshtml" />
+    <Content Include="Views\Serial\Index.cshtml" />
+    <Content Include="Views\Serial\Create.cshtml" />
+    <Content Include="Views\Serial\DetailsPartial.cshtml" />
+    <Content Include="Views\Serial\EditPartial.cshtml" />
+    <Content Include="Views\Serial\DeletePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

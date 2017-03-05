@@ -1,0 +1,71 @@
+﻿@model TicketManagementSystem.Web.ViewModels.Serial.SerialEditModel
+
+@{ 
+    Layout = null;
+    ViewBag.Title = $"Редагування серії \"{Model.Name}\"";
+}
+
+<script type="text/javascript">
+    function OnBegin() {
+        $("#serialResult").html("");
+    }
+</script>
+
+@using (Ajax.BeginForm("Edit", null, new AjaxOptions
+{
+    UpdateTargetId = "serialResult",
+    OnBegin = "OnBegin"
+}, new { id = "ajaxForm" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>@ViewBag.Title</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.RowVersion)
+        @Html.HiddenFor(model => model.Id)
+       
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Зберегти" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.CanBeDeleted)
+{
+    @Ajax.ActionLink("Видалити серію", "Delete", new { id = Model.Id, partial = true }, new AjaxOptions
+    {
+        HttpMethod = "GET",
+        UpdateTargetId = "serialGrid",
+        OnBegin = "OnBegin"
+    })
+}
+
+<br />
+
+@Ajax.ActionLink("Повернутися до серії", "Details", new { id = Model.Id, partial = true }, new AjaxOptions
+{
+    HttpMethod = "GET",
+    UpdateTargetId = "serialGrid",
+    OnBegin = "OnBegin"
+})

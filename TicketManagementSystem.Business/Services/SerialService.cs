@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TicketManagementSystem.Data.Models;
 
 namespace TicketManagementSystem.Business.Services
@@ -26,12 +22,17 @@ namespace TicketManagementSystem.Business.Services
         }
         #endregion
 
-        public void CreateSerial(string name, string note, byte[] rowVersion)
+        public bool CanBeEdited(int id, string name)
         {
-            _repo.Create(new Serial { Name = name, Note = note, RowVersion = rowVersion });
+            return !Repository.Contains(m => m.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase) && m.Id != id);
         }
 
-        public void EditColor(int id, string name, string note, byte[] rowVersion)
+        public Serial CreateSerial(string name, string note, byte[] rowVersion)
+        {
+            return _repo.Create(new Serial { Name = name, Note = note, RowVersion = rowVersion });
+        }
+
+        public void EditSerial(int id, string name, string note, byte[] rowVersion)
         {
             var serial = _repo.GetById(id);
             serial.Name = name;
@@ -40,7 +41,7 @@ namespace TicketManagementSystem.Business.Services
             _repo.Update(serial);
         }
 
-        public void RemoveColor(int id)
+        public void RemoveSerial(int id)
         {
             _repo.Remove(_repo.GetById(id));
         }

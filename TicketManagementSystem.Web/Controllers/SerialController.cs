@@ -6,28 +6,29 @@ using TicketManagementSystem.Business.Services;
 using TicketManagementSystem.Data.Models;
 using TicketManagementSystem.Enumerations;
 using TicketManagementSystem.Web.Filters;
-using TicketManagementSystem.Web.ViewModels.Color;
+using TicketManagementSystem.Web.ViewModels.Serial;
 
 namespace TicketManagementSystem.Web.Controllers
 {
-    public class ColorController : ApplicationController<Color>
+    public class SerialController : ApplicationController<Serial>
     {
-        private ColorService _service;
+        private SerialService _service;
 
-        public ColorController()
+        public SerialController()
         {
-            _service = ColorService.GetInstance();
+            _service = SerialService.GetInstance();
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            var colours = _service.Repository.GetAll();
+            var serials = _service.Repository.GetAll();
 
-            return View(colours.Select(m => new ColorIndexModel
+            return View(serials.Select(m => new SerialIndexModel
             {
                 Id = m.Id,
                 Name = m.Name,
+                Note = m.Note,
                 PackagesCount = m.Packages.Count,
                 TicketsCount = m.Tickets.Count
             }));
@@ -39,25 +40,27 @@ namespace TicketManagementSystem.Web.Controllers
             if (id == null)
                 return RedirectToAction("Index");
 
-            var color = _service.Repository.GetById((int)id);
+            Serial serial = _service.Repository.GetById((int)id);
 
-            if (color == null)
+            if (serial == null)
                 return NotFound();
 
-            var viewModel = new ColorDetailsModel
+            var viewModel = new SerialDetailsModel
             {
-                Id = color.Id,
-                Name = color.Name,
-                PackagesCount = color.Packages.Count,
-                TicketsCount = color.Tickets.Count
+                Id = serial.Id,
+                Name = serial.Name,
+                Note = serial.Note,
+                PackagesCount = serial.Packages.Count,
+                TicketsCount = serial.Tickets.Count
             };
 
             if (partial)
                 return PartialView("DetailsPartial", viewModel);
 
             ViewBag.ViewModel = viewModel;
-            ViewBag.Title = $"Колір \"{viewModel.Name}\"";
-            return View("Color", PartialType.Details);
+            ViewBag.Title = $"Серія \"{serial.Name}\"";
+
+            return View("Serial", PartialType.Details);
         }
 
         [HttpGet]
@@ -70,28 +73,23 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Admin]
-        public ActionResult Create(ColorCreateModel model)
+        public ActionResult Create(SerialCreateModel model)
         {
             if (model == null)
                 throw new ModelIsNullException();
 
             if (!ModelState.IsValid)
-            {
                 return ErrorPartial(ModelState);
-            }
 
             if (_service.Repository.Contains(m => m.Name.Equals(model.Name, StringComparison.CurrentCultureIgnoreCase)))
             {
-                ModelState.AddModelError("", $"Колір \"{model.Name}\" вже існує.");
-
+                ModelState.AddModelError("", $"Серія \"{model.Name}\" вже існує.");
                 return ErrorPartial(ModelState);
             }
 
-            var id = _service.CreateColor(model.Name, model.RowVersion).Id;
+            var id = _service.CreateSerial(model.Name, model.Note, model.RowVersion).Id;
 
-            return SuccessAlert($"Колір \"{model.Name}\" успішно додано!", 
-                Url.Action("Details", "Color", new { id = id }), 
-                "Переглянути");
+            return SuccessAlert($"Серію \"{model.Name}\" успішно додано!", Url.Action("Details", new { id = id }), "Переглянути");
         }
 
         [HttpGet]
@@ -101,31 +99,33 @@ namespace TicketManagementSystem.Web.Controllers
             if (id == null)
                 return RedirectToAction("Index");
 
-            var color = _service.Repository.GetById((int)id);
+            Serial serial = _service.Repository.GetById((int)id);
 
-            if (color == null)
+            if (serial == null)
                 return NotFound();
 
-            var viewModel = new ColorEditModel
+            var viewModel = new SerialEditModel
             {
-                Id = color.Id,
-                Name = color.Name,
-                RowVersion = color.RowVersion,
-                CanBeDeleted = !color.Packages.Any() && !color.Tickets.Any()
+                Id = serial.Id,
+                Name = serial.Name,
+                Note = serial.Note,
+                RowVersion = serial.RowVersion,
+                CanBeDeleted = !serial.Packages.Any() && !serial.Tickets.Any()
             };
 
             if (partial)
                 return PartialView("EditPartial", viewModel);
 
             ViewBag.ViewModel = viewModel;
-            ViewBag.Title = $"Редагування кольору \"{viewModel.Name}\"";
-            return View("Color", PartialType.Edit);
+            ViewBag.Title = $"Редагування серії \"{serial.Name}\"";
+
+            return View("Serial", PartialType.Edit);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Admin]
-        public ActionResult Edit(ColorEditModel model)
+        public ActionResult Edit(SerialEditModel model)
         {
             if (model == null)
                 throw new ModelIsNullException();
@@ -135,12 +135,11 @@ namespace TicketManagementSystem.Web.Controllers
 
             if (!_service.CanBeEdited(model.Id, model.Name))
             {
-                ModelState.AddModelError("", $"Колір \"{model.Name}\" вже існує!");
+                ModelState.AddModelError("", $"Серія \"{model.Name}\" вже існує!");
                 return ErrorPartial(ModelState);
             }
 
-            _service.EditColor(model.Id, model.Name, model.RowVersion);
-
+            _service.EditSerial(model.Id, model.Name, model.Note, model.RowVersion);
             return SuccessAlert("Зміни збережено!");
         }
 
@@ -151,17 +150,18 @@ namespace TicketManagementSystem.Web.Controllers
             if (id == null)
                 return RedirectToAction("Index");
 
-            if (!_service.Repository.ExistsById((int)id))
+            Serial serial = _service.Repository.GetById((int)id);
+
+            if (serial == null)
                 return NotFound();
 
-            var viewModel = _service.Repository.GetById((int)id);
-
             if (partial)
-                return PartialView("DeletePartial", viewModel);
+                return PartialView("DeletePartial", serial);
 
-            ViewBag.ViewModel = viewModel;
-            ViewBag.Title = $"Видалення кольору \"{viewModel.Name}\"";
-            return View("Color", PartialType.Delete);
+            ViewBag.ViewModel = serial;
+            ViewBag.Title = $"Видалення серії \"{serial.Name}\"";
+
+            return View("Serial", PartialType.Delete);
         }
 
         [HttpPost]
@@ -172,18 +172,15 @@ namespace TicketManagementSystem.Web.Controllers
             if (id == null)
                 return RedirectToAction("Index");
 
-            var color = _service.Repository.GetById((int)id);
+            Serial serial = _service.Repository.GetById((int)id);
 
-            if (color == null)
-                return NotFound();
-
-            if (!color.Packages.Any() && !color.Tickets.Any())
+            if (!serial.Packages.Any() && !serial.Tickets.Any())
             {
-                _service.RemoveColor((int)id);
+                _service.RemoveSerial(serial.Id);
                 return RedirectToAction("Index");
             }
 
-            ModelState.AddModelError("", "Неможливо видалити цей колір, бо є квитки та пачки, що до нього належать!");
+            ModelState.AddModelError("", "Неможливо видалити цей колір, бо є квитки та пачки, що до неї належать!");
             return ErrorPartial(ModelState);
         }
     }

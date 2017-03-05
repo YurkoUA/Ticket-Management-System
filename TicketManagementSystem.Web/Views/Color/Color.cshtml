@@ -2,7 +2,7 @@
 @using TicketManagementSystem.Data.Models;
 @using TicketManagementSystem.Web.ViewModels.Color;
 
-@model ViewMode
+@model PartialType
 
 @{
     
@@ -11,15 +11,15 @@
 <div id="colorGrid">
     @switch (Model)
     {
-        case ViewMode.Details:
+        case PartialType.Details:
             @Html.Partial("DetailsPartial", ViewBag.ViewModel as ColorDetailsModel);
             break;
 
-        case ViewMode.Edit:
+        case PartialType.Edit:
             @Html.Partial("EditPartial", ViewBag.ViewModel as ColorEditModel);
             break;
 
-        case ViewMode.Delete:
+        case PartialType.Delete:
             @Html.Partial("DeletePartial", ViewBag.ViewModel as Color);
             break;
     }

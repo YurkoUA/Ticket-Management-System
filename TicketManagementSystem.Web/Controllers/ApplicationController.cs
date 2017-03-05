@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using TicketManagementSystem.Business.Infrastructure;
 
 namespace TicketManagementSystem.Web.Controllers
 {

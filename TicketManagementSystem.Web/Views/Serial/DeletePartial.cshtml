@@ -1,0 +1,44 @@
+﻿@model TicketManagementSystem.Data.Models.Serial
+
+@{ 
+    Layout = null;
+    ViewBag.Title = $"Видалення серії \"{Model.Name}\"";
+}
+
+<div>
+    <h4>@ViewBag.Title</h4>
+    <hr />
+
+    @if (!Model.Packages.Any() && !Model.Tickets.Any())
+    {
+        <h3>Ви дійсно хочете видалити серію "@Model.Name"</h3>
+
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Видалити" class="btn btn-default" />
+            </div>
+        }
+    }
+    else
+    {
+        <p>Неможливо видалити цю серію, бо є квитки та пачки, що до неї належать!</p>
+    }
+</div>
+
+@Ajax.ActionLink("Редагувати серію", "Edit", new { id = Model.Id, partial = true }, new AjaxOptions
+{
+    HttpMethod = "GET",
+    UpdateTargetId = "serialGrid"
+})
+
+<br />
+
+@Ajax.ActionLink("Повернутися до серії", "Details", new { id = Model.Id, partial = true }, new AjaxOptions
+{
+    HttpMethod = "GET",
+    UpdateTargetId = "serialGrid"
+})

@@ -3,11 +3,17 @@ using System.Web.Mvc;
 
 namespace TicketManagementSystem.Web.ViewModels.Serial
 {
-    public class SerialCreateModel
+    public class SerialEditModel
     {
         [Timestamp]
         [HiddenInput(DisplayValue = false)]
         public byte[] RowVersion { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public int Id { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public bool CanBeDeleted { get; set; }
 
         [Display(Name = "Назва")]
         [Required(ErrorMessage = "Необхідно вказати назву серії.")]

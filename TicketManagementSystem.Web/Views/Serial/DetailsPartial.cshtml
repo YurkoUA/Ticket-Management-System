@@ -1,0 +1,57 @@
+﻿@using TicketManagementSystem.Business.Infrastructure;
+
+@model TicketManagementSystem.Web.ViewModels.Serial.SerialDetailsModel
+
+@{ 
+    Layout = null;
+    ViewBag.Title = $"Серія \"{Model.Name}\"";
+
+    var isAdmin = User.IsAdmin();
+}
+
+<div>
+    <h4>@ViewBag.Title</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Id)</dt>
+        <dd>@Html.DisplayFor(model => model.Id)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.PackagesCount)</dt>
+        <dd>@Html.DisplayFor(model => model.PackagesCount)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.TicketsCount)</dt>
+        <dd>@Html.DisplayFor(model => model.TicketsCount)</dd>
+
+        @if (!string.IsNullOrEmpty(Model.Note))
+        {
+            <dt>@Html.DisplayNameFor(model => model.Note)</dt>
+            <dd>@Html.DisplayFor(model => model.Note)</dd>
+        }
+    </dl>
+</div>
+
+@if (isAdmin)
+{
+    <p>
+        @Ajax.ActionLink("Редагувати", "Edit", new { id = Model.Id, partial = true }, new AjaxOptions
+        {
+            HttpMethod = "GET",
+            UpdateTargetId = "serialGrid"
+        })
+
+
+        @if (Model.PackagesCount == 0 && Model.TicketsCount == 0)
+        {
+            <span> | </span>
+
+                @Ajax.ActionLink("Видалити", "Delete", new { id = Model.Id, partial = true }, new AjaxOptions
+                {
+                    HttpMethod = "GET",
+                    UpdateTargetId = "serialGrid"
+                })
+        }
+    </p>
+}

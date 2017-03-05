@@ -1,0 +1,30 @@
+﻿@using TicketManagementSystem.Data.Models;
+@using TicketManagementSystem.Enumerations;
+@using TicketManagementSystem.Web.ViewModels.Serial;
+
+@model PartialType
+
+@{
+
+}
+
+<div id="serialGrid">
+    @switch(Model)
+    {
+        case PartialType.Details:
+            @Html.Partial("DetailsPartial", (SerialDetailsModel)ViewBag.ViewModel)
+            break;
+
+        case PartialType.Edit:
+            @Html.Partial("EditPartial", (SerialEditModel)ViewBag.ViewModel)
+            break;
+
+        case PartialType.Delete:
+            @Html.Partial("DeletePartial", (Serial)ViewBag.ViewModel)
+            break;
+    }
+</div>
+
+<div id="serialResult">
+
+</div>

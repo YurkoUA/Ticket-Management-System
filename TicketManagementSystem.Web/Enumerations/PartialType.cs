@@ -1,6 +1,6 @@
 ﻿namespace TicketManagementSystem.Enumerations
 {
-    public enum ViewMode
+    public enum PartialType
     {
         Details,
         Edit,
