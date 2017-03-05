@@ -9,7 +9,7 @@
     <h4>@ViewBag.Title</h4>
     <hr />
 
-    @if (Model.Packages.Count == 0 && Model.Tickets.Count == 0)
+    @if (!Model.Packages.Any() && !Model.Tickets.Any())
     {
         <h3>Ви дійсно хочете видалити колір "@Model.Name"</h3>
 

@@ -1,7 +1,10 @@
-﻿@model IEnumerable<TicketManagementSystem.Web.ViewModels.Color.ColorIndexModel>
+﻿@using TicketManagementSystem.Business.Infrastructure;
+
+@model IEnumerable<TicketManagementSystem.Web.ViewModels.Color.ColorIndexModel>
 
 @{
     ViewBag.Title = "Кольори";
+    var isAdmin = User.IsAdmin();
 }
 
 <h2>@ViewBag.Title</h2>
@@ -22,7 +25,7 @@
             <th>@Html.DisplayNameFor(model => model.PackagesCount)</th>
             <th>@Html.DisplayNameFor(model => model.TicketsCount)</th>
 
-            @if (PageData["isAdmin"])
+            @if (isAdmin)
             {
                 <th></th>
             }
@@ -36,7 +39,7 @@
             <td>@Html.DisplayFor(modelItem => item.PackagesCount)</td>
             <td>@Html.DisplayFor(modelItem => item.TicketsCount)</td>
 
-            @if (ViewData["isAdmin"] as bool? == true)
+            @if (isAdmin)
             {
                 <td>
                     @Html.ActionLink("Редагувати", "Edit", new { id = item.Id })

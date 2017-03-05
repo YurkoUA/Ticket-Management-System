@@ -6,13 +6,6 @@ namespace TicketManagementSystem.Web.Controllers
 {
     public class ApplicationController<T> : Controller where T : class
     {
-        protected override void OnResultExecuting(ResultExecutingContext filterContext)
-        {
-            ViewData["isAdmin"] = User.IsAdmin();
-            
-            base.OnResultExecuting(filterContext);
-        }
-
         protected HttpStatusCodeResult NotFound() => new HttpStatusCodeResult(404);
 
         protected HttpStatusCodeResult BadRequest() => new HttpStatusCodeResult(400);

@@ -1,8 +1,11 @@
-﻿@model TicketManagementSystem.Web.ViewModels.Color.ColorDetailsModel
+﻿@using TicketManagementSystem.Business.Infrastructure;
+
+@model TicketManagementSystem.Web.ViewModels.Color.ColorDetailsModel
 
 @{
     Layout = null;
     ViewBag.Title = $"Колір \"{Model.Name}\"";
+    var isAdmin = User.IsAdmin();
 }
 
 <div>
@@ -24,7 +27,7 @@
 
     </dl>
     
-    @if (ViewData["isAdmin"] as bool? == true)
+    @if (isAdmin)
     {
         <p>
             @Ajax.ActionLink("Редагувати", "Edit", new { id = Model.Id, partial = true }, new AjaxOptions
