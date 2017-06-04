@@ -6,8 +6,9 @@ using System.Web.Mvc;
 using System.Web.Security;
 using TicketManagementSystem.Business;
 using TicketManagementSystem.Business.Infrastructure.Exceptions;
+using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Business.Services;
-using TicketManagementSystem.Data.Models;
+using TicketManagementSystem.Data.EF.Models;
 using TicketManagementSystem.Web.Filters;
 using TicketManagementSystem.Web.ViewModels.Account;
 
@@ -15,18 +16,18 @@ namespace TicketManagementSystem.Web.Controllers
 {
     public class AccountController : ApplicationController<User>
     {
-        private AccountService _service;
+        private IAccountService _accountService;
 
-        public AccountController()
+        public AccountController(IAccountService accountService)  
         {
-            _service = AccountService.GetInstance();
+            _accountService = accountService;
         }
 
         [HttpGet]
         [Authorize]
         public ActionResult Index()
         {
-            var user = _service.FindByLogin(User.Identity.Name);
+            var user = _accountService.FindByLogin(User.Identity.Name);
 
             if (user == null)
                 throw new UserNotFoundException();
@@ -58,7 +59,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = _service.FindByPassword(model.Login, model.Password);
+            var user = _accountService.FindByPassword(model.Login, model.Password);
 
             if (user == null)
             {

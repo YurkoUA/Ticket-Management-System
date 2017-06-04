@@ -1,60 +1,46 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using TicketManagementSystem.Business.Infrastructure.Exceptions;
 using TicketManagementSystem.Business.Services;
-using TicketManagementSystem.Data.Models;
+using TicketManagementSystem.Data.EF.Models;
 using TicketManagementSystem.Enumerations;
 using TicketManagementSystem.Web.Filters;
 using TicketManagementSystem.Web.ViewModels.Serial;
+using TicketManagementSystem.Business.DTO;
+using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
 {
     public class SerialController : ApplicationController<Serial>
     {
-        private SerialService _service;
+        private ISerialService _serialService;
 
-        public SerialController()
+        public SerialController(ISerialService serialService)
         {
-            _service = SerialService.GetInstance();
+            _serialService = serialService;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            var serials = _service.Repository.GetAll();
-
-            return View(serials.Select(m => new SerialIndexModel
-            {
-                Id = m.Id,
-                Name = m.Name,
-                Note = m.Note,
-                PackagesCount = m.Packages.Count,
-                TicketsCount = m.Tickets.Count
-            }));
+            var viewModel = MapperInstance.Map<IEnumerable<SerialIndexModel>>(_serialService.GetSeries());
+            return View(viewModel);
         }
 
         [HttpGet]
-        public ActionResult Details(int? id, bool partial = false)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-                return RedirectToAction("Index");
-
-            Serial serial = _service.Repository.GetById((int)id);
+            var serial = _serialService.GetSerial(id);
 
             if (serial == null)
-                return NotFound();
+                return HttpNotFound();
 
-            var viewModel = new SerialDetailsModel
-            {
-                Id = serial.Id,
-                Name = serial.Name,
-                Note = serial.Note,
-                PackagesCount = serial.Packages.Count,
-                TicketsCount = serial.Tickets.Count
-            };
+            var viewModel = MapperInstance.Map<SerialDetailsModel>(serial);
 
-            if (partial)
+            if (Request.IsAjaxRequest())
                 return PartialView("DetailsPartial", viewModel);
 
             ViewBag.ViewModel = viewModel;
@@ -75,45 +61,31 @@ namespace TicketManagementSystem.Web.Controllers
         [Admin]
         public ActionResult Create(SerialCreateModel model)
         {
-            if (model == null)
-                throw new ModelIsNullException();
-
             if (!ModelState.IsValid)
                 return ErrorPartial(ModelState);
 
-            if (_service.Repository.Contains(m => m.Name.Equals(model.Name, StringComparison.CurrentCultureIgnoreCase)))
+            if (_serialService.ExistsByName(model.Name))
             {
                 ModelState.AddModelError("", $"Серія \"{model.Name}\" вже існує.");
                 return ErrorPartial(ModelState);
             }
 
-            var id = _service.CreateSerial(model.Name, model.Note, model.RowVersion).Id;
-
+            var id = _serialService.Create(MapperInstance.Map<SerialCreateDTO>(model)).Id;
             return SuccessAlert($"Серію \"{model.Name}\" успішно додано!", Url.Action("Details", new { id = id }), "Переглянути");
         }
 
         [HttpGet]
         [Admin]
-        public ActionResult Edit(int? id, bool partial = false)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-                return RedirectToAction("Index");
-
-            Serial serial = _service.Repository.GetById((int)id);
+            SerialEditDTO serial = _serialService.GetSerialEdit(id);
 
             if (serial == null)
-                return NotFound();
+                return HttpNotFound();
 
-            var viewModel = new SerialEditModel
-            {
-                Id = serial.Id,
-                Name = serial.Name,
-                Note = serial.Note,
-                RowVersion = serial.RowVersion,
-                CanBeDeleted = !serial.Packages.Any() && !serial.Tickets.Any()
-            };
+            var viewModel = MapperInstance.Map<SerialEditModel>(serial);
 
-            if (partial)
+            if (Request.IsAjaxRequest())
                 return PartialView("EditPartial", viewModel);
 
             ViewBag.ViewModel = viewModel;
@@ -127,39 +99,35 @@ namespace TicketManagementSystem.Web.Controllers
         [Admin]
         public ActionResult Edit(SerialEditModel model)
         {
-            if (model == null)
-                throw new ModelIsNullException();
-
             if (!ModelState.IsValid)
                 return ErrorPartial(ModelState);
 
-            if (!_service.CanBeEdited(model.Id, model.Name))
+            if (!_serialService.IsNameFree(model.Id, model.Name))
             {
                 ModelState.AddModelError("", $"Серія \"{model.Name}\" вже існує!");
                 return ErrorPartial(ModelState);
             }
 
-            _service.EditSerial(model.Id, model.Name, model.Note, model.RowVersion);
+            _serialService.Edit(MapperInstance.Map<SerialEditDTO>(model));
             return SuccessAlert("Зміни збережено!");
         }
 
         [HttpGet]
         [Admin]
-        public ActionResult Delete(int? id, bool partial = false)
+        public ActionResult Delete(int? id)
         {
-            if (id == null)
-                return RedirectToAction("Index");
-
-            Serial serial = _service.Repository.GetById((int)id);
+            SerialDTO serial = _serialService.GetSerial((int)id);
 
             if (serial == null)
-                return NotFound();
+                return HttpNotFound();
 
-            if (partial)
-                return PartialView("DeletePartial", serial);
+            var viewModel = MapperInstance.Map<SerialDetailsModel>(serial);
 
-            ViewBag.ViewModel = serial;
-            ViewBag.Title = $"Видалення серії \"{serial.Name}\"";
+            if (Request.IsAjaxRequest())
+                return PartialView("DeletePartial", viewModel);
+
+            ViewBag.ViewModel = viewModel;
+            ViewBag.Title = $"Видалення серії \"{viewModel.Name}\"";
 
             return View("Serial", PartialType.Delete);
         }
@@ -167,16 +135,16 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Admin]
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-                return RedirectToAction("Index");
+            var serial = _serialService.GetSerial(id);
 
-            Serial serial = _service.Repository.GetById((int)id);
+            if (serial == null)
+                return HttpNotFound();
 
-            if (!serial.Packages.Any() && !serial.Tickets.Any())
+            if (serial.PackagesCount == 0 && serial.TicketsCount == 0)
             {
-                _service.RemoveSerial(serial.Id);
+                _serialService.Remove(serial.Id);
                 return RedirectToAction("Index");
             }
 

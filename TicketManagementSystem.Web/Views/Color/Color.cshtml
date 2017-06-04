@@ -1,5 +1,4 @@
 ﻿@using TicketManagementSystem.Enumerations;
-@using TicketManagementSystem.Data.Models;
 @using TicketManagementSystem.Web.ViewModels.Color;
 
 @model PartialType
@@ -20,7 +19,7 @@
             break;
 
         case PartialType.Delete:
-            @Html.Partial("DeletePartial", ViewBag.ViewModel as Color);
+            @Html.Partial("DeletePartial", ViewBag.ViewModel as ColorDetailsModel);
             break;
     }
 </div>

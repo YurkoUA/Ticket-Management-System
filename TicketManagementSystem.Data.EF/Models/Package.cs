@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
-using TicketManagementSystem.Data.Interfaces;
 
-namespace TicketManagementSystem.Data.Models
+namespace TicketManagementSystem.Data.EF.Models
 {
-    public class Package : IRowVersion
+    public class Package
     {
         public byte[] RowVersion { get; set; }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using TicketManagementSystem.Data.Interfaces;
+using TicketManagementSystem.Data.EF.Interfaces;
 
 namespace TicketManagementSystem.Data.EF
 {
@@ -17,15 +17,19 @@ namespace TicketManagementSystem.Data.EF
         protected AppDbContext _dbContext;
         protected DbSet<T> _dbSet;
 
-        public virtual int Count => _dbSet.Count();
-
-        public virtual bool IsEmpty() => !_dbSet.Any();
-
-        public virtual bool ExistsById(int id) => _dbSet.Find(id) != null;
-
-        public virtual bool ExisysById<TEntity>(int id) where TEntity : class
+        public virtual int GetCount()
         {
-            return _dbContext.Set<TEntity>().Find(id) != null;
+            return _dbSet.Count();
+        }
+
+        public virtual bool IsEmpty()
+        {
+            return !_dbSet.Any();
+        }
+
+        public virtual bool ExistsById(int id)
+        {
+            return _dbSet.Find(id) != null;
         }
 
         #region Is contains methods
@@ -39,12 +43,7 @@ namespace TicketManagementSystem.Data.EF
         {
             return _dbSet.Any(predicate);
         }
-
-        public virtual bool Contains<TEntity>(Func<TEntity, bool> predicate) where TEntity : class
-        {
-            return _dbContext.Set<TEntity>().Any(predicate);
-        }
-
+        
         #endregion
 
         #region Read (Get) methods
@@ -63,50 +62,26 @@ namespace TicketManagementSystem.Data.EF
         {
             return _dbSet.Find(id);
         }
-
-        public virtual T GetLastItem()
-        {
-            return _dbSet.Last();
-        }
-
+        
         #endregion
 
         #region CUD operations (withot Read)
+
         public T Create(T item)
         {
-            T dbItem = _dbSet.Add(item);
-            SaveChanges();
-
-            return dbItem;
+            return _dbSet.Add(item);
         }
 
         public void Update(T item)
         {
             _dbContext.Entry(item).State = EntityState.Modified;
-            SaveChanges();
         }
 
         public void Remove(T item)
         {
             _dbSet.Remove(item);
-            SaveChanges();
         }
-        #endregion
 
-        public virtual void SaveChanges()
-        {
-            using (var transaction = _dbContext.Database.BeginTransaction())
-            {
-                try
-                {
-                    _dbContext.SaveChanges();
-                    transaction.Commit();
-                }
-                catch
-                {
-                    transaction.Rollback();
-                }
-            }
-        }
+        #endregion
     }
 }

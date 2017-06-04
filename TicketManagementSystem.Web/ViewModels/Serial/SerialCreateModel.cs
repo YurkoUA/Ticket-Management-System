@@ -5,10 +5,6 @@ namespace TicketManagementSystem.Web.ViewModels.Serial
 {
     public class SerialCreateModel
     {
-        [Timestamp]
-        [HiddenInput(DisplayValue = false)]
-        public byte[] RowVersion { get; set; }
-
         [Display(Name = "Назва")]
         [Required(ErrorMessage = "Необхідно вказати назву серії.")]
         [RegularExpression(@"[А-Я]{4}", ErrorMessage = "Назва серії може містити чотири великі літери українського алфавіту.")]

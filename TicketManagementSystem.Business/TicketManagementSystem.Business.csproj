@@ -30,6 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -41,28 +48,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoMapperConfig.cs" />
+    <Compile Include="DTO\ColorCreateDTO.cs" />
+    <Compile Include="DTO\ColorDTO.cs" />
+    <Compile Include="DTO\ColorEditDTO.cs" />
+    <Compile Include="DTO\PackageDTO.cs" />
+    <Compile Include="DTO\SerialCreateDTO.cs" />
+    <Compile Include="DTO\SerialDTO.cs" />
+    <Compile Include="DTO\SerialEditDTO.cs" />
+    <Compile Include="DTO\TicketDTO.cs" />
     <Compile Include="Infrastructure\Exceptions\SystemExceptions.cs" />
     <Compile Include="Infrastructure\Exceptions\UserExceptions.cs" />
     <Compile Include="Infrastructure\IPrincipalExtension.cs" />
+    <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\ColorService.cs" />
+    <Compile Include="Interfaces\IAccountService.cs" />
+    <Compile Include="Interfaces\IColorService.cs" />
+    <Compile Include="Interfaces\ISerialService.cs" />
+    <Compile Include="Services\PackageService.cs" />
     <Compile Include="Services\SerialService.cs" />
-    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TicketManagementSystem.Data.EF\TicketManagementSystem.Data.EF.csproj">
       <Project>{eb767e15-10c8-4471-8101-ae735c6e9a91}</Project>
       <Name>TicketManagementSystem.Data.EF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TicketManagementSystem.Data\TicketManagementSystem.Data.csproj">
-      <Project>{9BC75759-129F-4FE8-B46C-85997638185D}</Project>
-      <Name>TicketManagementSystem.Data</Name>
-    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

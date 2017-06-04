@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TicketManagementSystem.Data
+namespace TicketManagementSystem.Data.EF
 {
     public enum UserRole
     {

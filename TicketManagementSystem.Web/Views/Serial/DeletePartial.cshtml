@@ -1,4 +1,4 @@
-﻿@model TicketManagementSystem.Data.Models.Serial
+﻿@model TicketManagementSystem.Web.ViewModels.Serial.SerialDetailsModel
 
 @{ 
     Layout = null;
@@ -9,7 +9,7 @@
     <h4>@ViewBag.Title</h4>
     <hr />
 
-    @if (!Model.Packages.Any() && !Model.Tickets.Any())
+    @if (Model.PackagesCount == 0 && Model.TicketsCount == 0)
     {
         <h3>Ви дійсно хочете видалити серію "@Model.Name"</h3>
 

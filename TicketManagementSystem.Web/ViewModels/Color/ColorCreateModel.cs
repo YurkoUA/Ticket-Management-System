@@ -5,10 +5,6 @@ namespace TicketManagementSystem.Web.ViewModels.Color
 {
     public class ColorCreateModel
     {
-        [Timestamp]
-        [HiddenInput(DisplayValue = false)]
-        public byte[] RowVersion { get; set; }
-
         [Display(Name = "Назва")]
         [Required(ErrorMessage = "Необхідно вказати назву.")]
         [StringLength(32, MinimumLength = 3, ErrorMessage = "Назва повинна бути від 3 до 32 символів.")]

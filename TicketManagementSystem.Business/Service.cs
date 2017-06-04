@@ -1,18 +1,17 @@
-﻿using TicketManagementSystem.Data.Interfaces;
+﻿using AutoMapper;
+using TicketManagementSystem.Data.EF.Interfaces;
 
 namespace TicketManagementSystem.Business
 {
-    public abstract class Service<T> where T : class
+    public abstract class Service
     {
-        protected UnitOfWork _uow;
-        protected IRepository<T> _repo;
+        public IUnitOfWork Database { get; set; }
+        public IMapper MapperInstance { get; }
 
-        public Service()
+        public Service(IUnitOfWork database)
         {
-            _uow = UnitOfWork.GetInstance();
+            Database = database;
+            MapperInstance = AutoMapperConfig.CreateMapper();
         }
-
-        public UnitOfWork UoW => _uow;
-        public IRepository<T> Repository => _repo;
     }
 }

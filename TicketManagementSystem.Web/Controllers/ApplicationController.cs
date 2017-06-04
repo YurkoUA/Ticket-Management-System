@@ -1,13 +1,14 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 
 namespace TicketManagementSystem.Web.Controllers
 {
     public class ApplicationController<T> : Controller where T : class
     {
-        protected HttpStatusCodeResult NotFound() => new HttpStatusCodeResult(404);
+        protected IMapper MapperInstance => AutoMapperConfig.CreateMapper();
 
-        protected HttpStatusCodeResult BadRequest() => new HttpStatusCodeResult(400);
+        protected HttpStatusCodeResult HttpBadRequest() => new HttpStatusCodeResult(400);
 
         protected ActionResult ErrorPartial(ModelStateDictionary modelState)
         {

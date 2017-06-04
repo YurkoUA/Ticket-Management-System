@@ -1,48 +1,95 @@
 ﻿using System;
-using TicketManagementSystem.Data.Models;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using TicketManagementSystem.Business.DTO;
+using TicketManagementSystem.Business.Interfaces;
+using TicketManagementSystem.Data.EF.Interfaces;
+using TicketManagementSystem.Data.EF.Models;
 
 namespace TicketManagementSystem.Business.Services
 {
-    public class ColorService : Service<Color>
+    public class ColorService : Service, IColorService
     {
-        public ColorService()
+        public ColorService(IUnitOfWork database) : base(database)
         {
-            _repo = _uow.Colours;
         }
 
-        #region Singleton implementation
-        private static ColorService _serviceSingleton;
-
-        public static ColorService GetInstance()
+        public IEnumerable<ColorDTO> GetColors()
         {
-            if (_serviceSingleton == null)
-                _serviceSingleton = new ColorService();
-
-            return _serviceSingleton;
-        }
-        #endregion
-
-        public bool CanBeEdited(int id, string name)
-        {
-            return !Repository.Contains(m => m.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase) && m.Id != id);
+            Mapper.Initialize(cfg => cfg.CreateMap<Color, ColorDTO>()
+                .ForMember(dest => dest.PackagesCount, opt => opt.MapFrom(src => src.Packages.Count))
+                .ForMember(dest => dest.TicketsCount, opt => opt.MapFrom(src => src.Tickets.Count))
+            );
+            return Mapper.Map<IEnumerable<Color>, IEnumerable<ColorDTO>>(Database.Colours.GetAll());
         }
 
-        public Color CreateColor(string name, byte[] rowVersion)
+        public ColorDTO GetColor(int id)
         {
-            return _repo.Create(new Color { Name = name, RowVersion = rowVersion });
+            var color = Database.Colours.GetById(id);
+
+            if (color == null)
+                return null;
+
+            return MapperInstance.Map<ColorDTO>(color);
         }
 
-        public void EditColor(int id, string name, byte[] rowVersion)
+        public ColorEditDTO GetColorEdit(int id)
         {
-            var color = _repo.GetById(id);
-            color.Name = name;
-            color.RowVersion = rowVersion;
-            _repo.Update(color);
+            var color = Database.Colours.GetById(id);
+
+            if (color == null)
+                return null;
+
+            return MapperInstance.Map<ColorEditDTO>(color);
         }
 
-        public void RemoveColor(int id)
+        public ColorDTO Create(ColorCreateDTO colorDTO)
         {
-            _repo.Remove(_repo.GetById(id));
+            Mapper.Initialize(cfg => cfg.CreateMap<ColorCreateDTO, Color>());
+
+            var color = Database.Colours.Create(Mapper.Map<ColorCreateDTO, Color>(colorDTO));
+            Database.SaveChanges();
+
+            Mapper.Initialize(cfg => cfg.CreateMap<Color, ColorDTO>()
+                .ForMember(dest => dest.PackagesCount, opt => opt.MapFrom(src => src.Packages.Count))
+                .ForMember(dest => dest.TicketsCount, opt => opt.MapFrom(src => src.Tickets.Count)));
+
+            return Mapper.Map<Color, ColorDTO>(color);
+        }
+
+        public void Edit(ColorEditDTO colorDTO)
+        {
+            var color = Database.Colours.GetById(colorDTO.Id);
+            color.Name = colorDTO.Name;
+            color.RowVersion = colorDTO.RowVersion;
+
+            Database.Colours.Update(color);
+            Database.SaveChanges();
+        }
+
+        public void Remove(int id)
+        {
+            Database.Colours.Remove(Database.Colours.GetById(id));
+            Database.SaveChanges();
+        }
+
+        public bool ExistsById(int id)
+        {
+            return Database.Colours.ExistsById(id);
+        }
+
+        public bool ExistsByName(string name)
+        {
+            return Database.Colours
+                .Contains(c => c.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
+        }
+
+        public bool IsNameFree(int id, string name)
+        {
+            return !Database.Colours
+                .Contains(m => m.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase) && m.Id != id);
         }
     }
 }

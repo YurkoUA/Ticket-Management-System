@@ -1,11 +1,11 @@
 ﻿using System.Data.Entity;
-using TicketManagementSystem.Data.Models;
+using TicketManagementSystem.Data.EF.Models;
 
 namespace TicketManagementSystem.Data.EF
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext() : base("TicketMS")
+        public AppDbContext(string connectionString) : base(connectionString)
         {
         }
 

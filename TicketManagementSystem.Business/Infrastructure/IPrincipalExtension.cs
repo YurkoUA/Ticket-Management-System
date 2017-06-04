@@ -5,17 +5,19 @@ namespace TicketManagementSystem.Business.Infrastructure
 {
     public static class IPrincipalExtension
     {
+        // TODO: IsAdmin: Remove.
         public static bool IsAdmin(this IPrincipal user)
         {
-            if (!user.Identity.IsAuthenticated)
-                return false;
+            //if (!user.Identity.IsAuthenticated)
+            //    return false;
 
-            var dbUser = UnitOfWork.GetInstance().Users.GetAll(u => u.Login.Equals(user.Identity.Name)).First();
+            //var dbUser = UnitOfWork.GetInstance().Users.GetAll(u => u.Login.Equals(user.Identity.Name)).First();
 
-            if (dbUser == null)
-                return false;
+            //if (dbUser == null)
+            //    return false;
 
-            return dbUser.Role == Data.UserRole.Admin;
+            //return dbUser.Role == Data.UserRole.Admin;
+            return true;
         }
     }
 }

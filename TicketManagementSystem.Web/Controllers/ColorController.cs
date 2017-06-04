@@ -1,58 +1,48 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using TicketManagementSystem.Business.Infrastructure.Exceptions;
 using TicketManagementSystem.Business.Services;
-using TicketManagementSystem.Data.Models;
+using TicketManagementSystem.Data.EF.Models;
 using TicketManagementSystem.Enumerations;
 using TicketManagementSystem.Web.Filters;
 using TicketManagementSystem.Web.ViewModels.Color;
+using TicketManagementSystem.Business.DTO;
+using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
 {
     public class ColorController : ApplicationController<Color>
     {
-        private ColorService _service;
+        private IColorService _colorService;
 
-        public ColorController()
+        public ColorController(IColorService colorService)
         {
-            _service = ColorService.GetInstance();
+            _colorService = colorService;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            var colours = _service.Repository.GetAll();
-
-            return View(colours.Select(m => new ColorIndexModel
-            {
-                Id = m.Id,
-                Name = m.Name,
-                PackagesCount = m.Packages.Count,
-                TicketsCount = m.Tickets.Count
-            }));
+            var viewModel = MapperInstance.Map<IEnumerable<ColorIndexModel>>(_colorService.GetColors());
+            return View(viewModel);
         }
 
         [HttpGet]
-        public ActionResult Details(int? id, bool partial = false)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-                return RedirectToAction("Index");
-
-            var color = _service.Repository.GetById((int)id);
+            var color = _colorService.GetColor(id);
 
             if (color == null)
-                return NotFound();
+                return HttpNotFound();
 
-            var viewModel = new ColorDetailsModel
-            {
-                Id = color.Id,
-                Name = color.Name,
-                PackagesCount = color.Packages.Count,
-                TicketsCount = color.Tickets.Count
-            };
+            //Mapper.Initialize(cfg => cfg.CreateMap<ColorDTO, ColorDetailsModel>());
+            //var viewModel = Mapper.Map<ColorDTO, ColorDetailsModel>(color);
+            var viewModel = MapperInstance.Map<ColorDetailsModel>(color);
 
-            if (partial)
+            if (Request.IsAjaxRequest())
                 return PartialView("DetailsPartial", viewModel);
 
             ViewBag.ViewModel = viewModel;
@@ -72,49 +62,33 @@ namespace TicketManagementSystem.Web.Controllers
         [Admin]
         public ActionResult Create(ColorCreateModel model)
         {
-            if (model == null)
-                throw new ModelIsNullException();
-
             if (!ModelState.IsValid)
-            {
                 return ErrorPartial(ModelState);
-            }
 
-            if (_service.Repository.Contains(m => m.Name.Equals(model.Name, StringComparison.CurrentCultureIgnoreCase)))
+            if (_colorService.ExistsByName(model.Name))
             {
                 ModelState.AddModelError("", $"Колір \"{model.Name}\" вже існує.");
-
                 return ErrorPartial(ModelState);
             }
+            var id = _colorService.Create(MapperInstance.Map<ColorCreateDTO>(model)).Id;
 
-            var id = _service.CreateColor(model.Name, model.RowVersion).Id;
-
-            return SuccessAlert($"Колір \"{model.Name}\" успішно додано!", 
-                Url.Action("Details", "Color", new { id = id }), 
+            return SuccessAlert($"Колір \"{model.Name}\" успішно додано!",
+                Url.Action("Details", "Color", new { id = id }),
                 "Переглянути");
         }
 
         [HttpGet]
         [Admin]
-        public ActionResult Edit(int? id, bool partial = false)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-                return RedirectToAction("Index");
-
-            var color = _service.Repository.GetById((int)id);
+            ColorEditDTO color = _colorService.GetColorEdit(id);
 
             if (color == null)
-                return NotFound();
+                return HttpNotFound();
 
-            var viewModel = new ColorEditModel
-            {
-                Id = color.Id,
-                Name = color.Name,
-                RowVersion = color.RowVersion,
-                CanBeDeleted = !color.Packages.Any() && !color.Tickets.Any()
-            };
+            var viewModel = MapperInstance.Map<ColorEditModel>(color);
 
-            if (partial)
+            if (Request.IsAjaxRequest())
                 return PartialView("EditPartial", viewModel);
 
             ViewBag.ViewModel = viewModel;
@@ -127,36 +101,31 @@ namespace TicketManagementSystem.Web.Controllers
         [Admin]
         public ActionResult Edit(ColorEditModel model)
         {
-            if (model == null)
-                throw new ModelIsNullException();
-
             if (!ModelState.IsValid)
                 return ErrorPartial(ModelState);
 
-            if (!_service.CanBeEdited(model.Id, model.Name))
+            if (!_colorService.IsNameFree(model.Id, model.Name))
             {
                 ModelState.AddModelError("", $"Колір \"{model.Name}\" вже існує!");
                 return ErrorPartial(ModelState);
             }
 
-            _service.EditColor(model.Id, model.Name, model.RowVersion);
-
+            _colorService.Edit(MapperInstance.Map<ColorEditDTO>(model));
             return SuccessAlert("Зміни збережено!");
         }
 
         [HttpGet]
         [Admin]
-        public ActionResult Delete(int? id, bool partial = false)
+        public ActionResult Delete(int? id)
         {
-            if (id == null)
-                return RedirectToAction("Index");
+            ColorDTO color = _colorService.GetColor((int)id);
 
-            if (!_service.Repository.ExistsById((int)id))
-                return NotFound();
+            if (color == null)
+                return HttpNotFound();
 
-            var viewModel = _service.Repository.GetById((int)id);
+            var viewModel = MapperInstance.Map<ColorDetailsModel>(color);
 
-            if (partial)
+            if (Request.IsAjaxRequest())
                 return PartialView("DeletePartial", viewModel);
 
             ViewBag.ViewModel = viewModel;
@@ -167,19 +136,16 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Admin]
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-                return RedirectToAction("Index");
-
-            var color = _service.Repository.GetById((int)id);
+            var color = _colorService.GetColor(id);
 
             if (color == null)
-                return NotFound();
+                return HttpNotFound();
 
-            if (!color.Packages.Any() && !color.Tickets.Any())
+            if (color.PackagesCount == 0 && color.TicketsCount == 0)
             {
-                _service.RemoveColor((int)id);
+                _colorService.Remove(id);
                 return RedirectToAction("Index");
             }
 

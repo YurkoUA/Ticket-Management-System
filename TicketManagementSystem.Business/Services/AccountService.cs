@@ -2,38 +2,28 @@
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using TicketManagementSystem.Data.Models;
+using TicketManagementSystem.Business.Interfaces;
+using TicketManagementSystem.Data.EF.Interfaces;
+using TicketManagementSystem.Data.EF.Models;
 
 namespace TicketManagementSystem.Business.Services
 {
-    public class AccountService : Service<User>
+    // TODO: Make new authentication system (OWIN).
+    public class AccountService : Service, IAccountService
     {
-        private AccountService()
+        public AccountService(IUnitOfWork database) : base(database)
         {
-            _repo = _uow.Users;
         }
-
-        #region Singleton implementation
-        private static AccountService _serviceSingleton;
-
-        public static AccountService GetInstance()
-        {
-            if (_serviceSingleton == null)
-                _serviceSingleton = new AccountService();
-
-            return _serviceSingleton;
-        }
-        #endregion
 
         public User FindByPassword(string login, string password)
         {
-            return _repo.GetAll(u => u.Password.SequenceEqual(ComputeSHA1(password)) && (u.Email.Equals(login) ||
+            return Database.Users.GetAll(u => u.Password.SequenceEqual(ComputeSHA1(password)) && (u.Email.Equals(login) ||
                 u.Login.Equals(login))).FirstOrDefault();
         }
 
         public User FindByLogin(string login)
         {
-            return _repo.GetAll(u => u.Login.Equals(login)).FirstOrDefault();
+            return Database.Users.GetAll(u => u.Login.Equals(login)).FirstOrDefault();
         }
 
         #region private methods

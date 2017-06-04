@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using TicketManagementSystem.Data.Interfaces;
 
-namespace TicketManagementSystem.Data.Models
+namespace TicketManagementSystem.Data.EF.Models
 {
-    public class Color : IRowVersion
+    public class Color
     {
         public byte[] RowVersion { get; set; }
 

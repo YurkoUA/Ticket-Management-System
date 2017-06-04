@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using TicketManagementSystem.Data.Interfaces;
 
-namespace TicketManagementSystem.Data.Models
+namespace TicketManagementSystem.Data.EF.Models
 {
-    public class Serial : IRowVersion
+    public class Serial
     {
         public byte[] RowVersion { get; set; }
 

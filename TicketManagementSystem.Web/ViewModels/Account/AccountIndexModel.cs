@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TicketManagementSystem.Data.Models;
+using TicketManagementSystem.Data.EF.Models;
 
 namespace TicketManagementSystem.Web.ViewModels.Account
 {

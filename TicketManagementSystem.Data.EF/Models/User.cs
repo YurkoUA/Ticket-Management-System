@@ -1,10 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using TicketManagementSystem.Data.Interfaces;
 
-namespace TicketManagementSystem.Data.Models
+namespace TicketManagementSystem.Data.EF.Models
 {
-    public class User : IRowVersion
+    public class User
     {
         public byte[] RowVersion { get; set; }
 
