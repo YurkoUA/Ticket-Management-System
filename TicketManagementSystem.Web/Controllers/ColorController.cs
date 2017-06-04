@@ -36,9 +36,7 @@ namespace TicketManagementSystem.Web.Controllers
 
             if (color == null)
                 return HttpNotFound();
-
-            //Mapper.Initialize(cfg => cfg.CreateMap<ColorDTO, ColorDetailsModel>());
-            //var viewModel = Mapper.Map<ColorDTO, ColorDetailsModel>(color);
+            
             var viewModel = MapperInstance.Map<ColorDetailsModel>(color);
 
             if (Request.IsAjaxRequest())

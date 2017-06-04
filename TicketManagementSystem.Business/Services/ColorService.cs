@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Data.EF.Interfaces;
@@ -47,16 +45,10 @@ namespace TicketManagementSystem.Business.Services
 
         public ColorDTO Create(ColorCreateDTO colorDTO)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<ColorCreateDTO, Color>());
-
-            var color = Database.Colours.Create(Mapper.Map<ColorCreateDTO, Color>(colorDTO));
+            var color = Database.Colours.Create(MapperInstance.Map<Color>(colorDTO));
             Database.SaveChanges();
 
-            Mapper.Initialize(cfg => cfg.CreateMap<Color, ColorDTO>()
-                .ForMember(dest => dest.PackagesCount, opt => opt.MapFrom(src => src.Packages.Count))
-                .ForMember(dest => dest.TicketsCount, opt => opt.MapFrom(src => src.Tickets.Count)));
-
-            return Mapper.Map<Color, ColorDTO>(color);
+            return MapperInstance.Map<ColorDTO>(color);
         }
 
         public void Edit(ColorEditDTO colorDTO)

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using AutoMapper;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Data.EF.Interfaces;
@@ -16,11 +15,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<SerialDTO> GetSeries()
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<Serial, SerialDTO>()
-                .ForMember(dest => dest.PackagesCount, opt => opt.MapFrom(src => src.Packages.Count))
-                .ForMember(dest => dest.TicketsCount, opt => opt.MapFrom(src => src.Tickets.Count))
-            );
-            return Mapper.Map<IEnumerable<Serial>, IEnumerable<SerialDTO>>(Database.Series.GetAll());
+            return MapperInstance.Map<IEnumerable<SerialDTO>>(Database.Series.GetAll());
         }
 
         public SerialDTO GetSerial(int id)
@@ -30,12 +25,7 @@ namespace TicketManagementSystem.Business.Services
             if (serial == null)
                 return null;
 
-            Mapper.Initialize(cfg => cfg.CreateMap<Serial, SerialDTO>()
-                .ForMember(dest => dest.PackagesCount, opt => opt.MapFrom(src => src.Packages.Count))
-                .ForMember(dest => dest.TicketsCount, opt => opt.MapFrom(src => src.Tickets.Count))
-            );
-
-            return Mapper.Map<Serial, SerialDTO>(serial);
+            return MapperInstance.Map<SerialDTO>(serial);
         }
 
         public SerialEditDTO GetSerialEdit(int id)
@@ -50,16 +40,10 @@ namespace TicketManagementSystem.Business.Services
 
         public SerialDTO Create(SerialCreateDTO serialDTO)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<SerialCreateDTO, Serial>());
-
-            var serial = Database.Series.Create(Mapper.Map<SerialCreateDTO, Serial>(serialDTO));
+            var serial = Database.Series.Create(MapperInstance.Map<Serial>(serialDTO));
             Database.SaveChanges();
 
-            Mapper.Initialize(cfg => cfg.CreateMap<Serial, SerialDTO>()
-                 .ForMember(dest => dest.PackagesCount, opt => opt.MapFrom(src => src.Packages.Count))
-                 .ForMember(dest => dest.TicketsCount, opt => opt.MapFrom(src => src.Tickets.Count)));
-
-            return Mapper.Map<Serial, SerialDTO>(serial);
+            return MapperInstance.Map<SerialDTO>(serial);
         }
 
         public void Edit(SerialEditDTO serialDTO)
