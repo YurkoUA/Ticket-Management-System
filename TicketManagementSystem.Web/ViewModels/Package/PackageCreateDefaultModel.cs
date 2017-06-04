@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace TicketManagementSystem.Web.ViewModels.Package
+namespace TicketManagementSystem.Web
 {
     public class PackageCreateDefaultModel
     {

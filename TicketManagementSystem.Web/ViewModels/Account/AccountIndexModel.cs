@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TicketManagementSystem.Data.EF.Models;
 
-namespace TicketManagementSystem.Web.ViewModels.Account
+namespace TicketManagementSystem.Web
 {
     public class AccountIndexModel
     {

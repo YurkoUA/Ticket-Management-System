@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TicketManagementSystem.Web.ViewModels.Account
+namespace TicketManagementSystem.Web
 {
     public class LoginModel
     {

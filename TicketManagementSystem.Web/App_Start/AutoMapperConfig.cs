@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using TicketManagementSystem.Business.DTO;
-using TicketManagementSystem.Web.ViewModels.Color;
-using TicketManagementSystem.Web.ViewModels.Serial;
 
 namespace TicketManagementSystem.Web
 {

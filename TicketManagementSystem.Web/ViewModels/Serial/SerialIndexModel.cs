@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TicketManagementSystem.Web.ViewModels.Serial
+namespace TicketManagementSystem.Web
 {
     public class SerialIndexModel
     {

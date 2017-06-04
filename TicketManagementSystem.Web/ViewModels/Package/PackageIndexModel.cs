@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using TicketManagementSystem.Web.Data;
 
-namespace TicketManagementSystem.Web.ViewModels.Package
+namespace TicketManagementSystem.Web
 {
     public class PackageIndexModel
     {

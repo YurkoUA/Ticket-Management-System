@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 
-namespace TicketManagementSystem.Web.ViewModels.Color
+namespace TicketManagementSystem.Web
 {
     public class ColorCreateModel
     {

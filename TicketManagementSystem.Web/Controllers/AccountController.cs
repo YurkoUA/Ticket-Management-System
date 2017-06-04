@@ -10,7 +10,6 @@ using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Business.Services;
 using TicketManagementSystem.Data.EF.Models;
 using TicketManagementSystem.Web.Filters;
-using TicketManagementSystem.Web.ViewModels.Account;
 
 namespace TicketManagementSystem.Web.Controllers
 {

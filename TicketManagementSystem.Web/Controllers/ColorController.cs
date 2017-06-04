@@ -8,7 +8,6 @@ using TicketManagementSystem.Business.Services;
 using TicketManagementSystem.Data.EF.Models;
 using TicketManagementSystem.Enumerations;
 using TicketManagementSystem.Web.Filters;
-using TicketManagementSystem.Web.ViewModels.Color;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 
