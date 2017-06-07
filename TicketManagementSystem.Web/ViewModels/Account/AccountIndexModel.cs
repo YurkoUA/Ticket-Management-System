@@ -7,11 +7,11 @@ namespace TicketManagementSystem.Web
         [Display(Name = "ID:")]
         public int Id { get; set; }
 
-        [Display(Name = "Логін")]
-        public string Login { get; set; }
+        [Display(Name = "Email:")]
+        public string Email { get; set; }
 
         [Display(Name = "Ім'я:")]
-        public string Name { get; set; }
+        public string UserName { get; set; }
 
         [Display(Name = "Група:")]
         public string Role { get; set; }

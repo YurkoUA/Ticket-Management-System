@@ -1,11 +1,9 @@
-﻿@using TicketManagementSystem.Business.Infrastructure;
-
-@model TicketManagementSystem.Web.ColorDetailsModel
+﻿@model TicketManagementSystem.Web.ColorDetailsModel
 
 @{
+    bool isAdmin = User.IsInRole("Admin");
     Layout = null;
     ViewBag.Title = $"Колір \"{Model.Name}\"";
-    var isAdmin = User.IsAdmin();
 }
 
 <div>

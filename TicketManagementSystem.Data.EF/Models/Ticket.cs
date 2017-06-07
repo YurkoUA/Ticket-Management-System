@@ -45,9 +45,7 @@ namespace TicketManagementSystem.Data.EF.Models
 
         public override bool Equals(object obj)
         {
-            var ticket = obj as Ticket;
-
-            if (ticket != null)
+            if (obj is Ticket ticket)
             {
                 return Number.Equals(ticket.Number, StringComparison.CurrentCultureIgnoreCase)
                     && ColorId == ticket.ColorId && SerialId == ticket.SerialId

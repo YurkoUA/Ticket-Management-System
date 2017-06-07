@@ -31,7 +31,8 @@ namespace TicketManagementSystem.Web.Util
 
         private void AddBindings()
         {
-            _kernel.Bind<IAccountService>().To<AccountService>();
+            _kernel.Bind<IUserService>().To<UserService>();
+            _kernel.Bind<IRoleService>().To<RoleService>();
             _kernel.Bind<IColorService>().To<ColorService>();
             _kernel.Bind<ISerialService>().To<SerialService>();
         }

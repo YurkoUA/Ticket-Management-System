@@ -1,7 +1,8 @@
 namespace TicketManagementSystem.Data.EF.Migrations
 {
+    using System;
     using System.Data.Entity.Migrations;
-
+    
     public partial class Initial : DbMigration
     {
         public override void Up()
@@ -73,34 +74,48 @@ namespace TicketManagementSystem.Data.EF.Migrations
                 .Index(t => t.SerialId);
             
             CreateTable(
+                "dbo.Roles",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(maxLength: 32),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.Users",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         RowVersion = c.Binary(),
                         Email = c.String(maxLength: 64),
-                        Login = c.String(maxLength: 64),
-                        Name = c.String(maxLength: 64),
-                        Password = c.Binary(),
-                        Role = c.Int(nullable: false),
+                        UserName = c.String(maxLength: 64),
+                        PasswordHash = c.Binary(),
+                        Salt = c.Binary(),
+                        RoleId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: true)
+                .Index(t => t.RoleId);
             
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.Users", "RoleId", "dbo.Roles");
             DropForeignKey("dbo.Tickets", "SerialId", "dbo.Serials");
             DropForeignKey("dbo.Tickets", "PackageId", "dbo.Packages");
             DropForeignKey("dbo.Tickets", "ColorId", "dbo.Colors");
             DropForeignKey("dbo.Packages", "SerialId", "dbo.Serials");
             DropForeignKey("dbo.Packages", "ColorId", "dbo.Colors");
+            DropIndex("dbo.Users", new[] { "RoleId" });
             DropIndex("dbo.Tickets", new[] { "SerialId" });
             DropIndex("dbo.Tickets", new[] { "ColorId" });
             DropIndex("dbo.Tickets", new[] { "PackageId" });
             DropIndex("dbo.Packages", new[] { "SerialId" });
             DropIndex("dbo.Packages", new[] { "ColorId" });
             DropTable("dbo.Users");
+            DropTable("dbo.Roles");
             DropTable("dbo.Tickets");
             DropTable("dbo.Serials");
             DropTable("dbo.Packages");

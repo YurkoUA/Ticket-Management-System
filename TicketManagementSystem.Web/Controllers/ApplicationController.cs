@@ -1,11 +1,14 @@
 ﻿using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using Microsoft.Owin.Security;
 using AutoMapper;
 
 namespace TicketManagementSystem.Web.Controllers
 {
     public class ApplicationController<T> : Controller where T : class
     {
+        protected IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
         protected IMapper MapperInstance => AutoMapperConfig.CreateMapper();
 
         protected HttpStatusCodeResult HttpBadRequest() => new HttpStatusCodeResult(400);

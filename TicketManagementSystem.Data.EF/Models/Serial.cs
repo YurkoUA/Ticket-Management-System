@@ -31,9 +31,7 @@ namespace TicketManagementSystem.Data.EF.Models
 
         public override bool Equals(object obj)
         {
-            var serial = obj as Serial;
-
-            if (serial != null)
+            if (obj is Serial serial)
             {
                 return serial.Name.Equals(Name, StringComparison.CurrentCultureIgnoreCase);
             }

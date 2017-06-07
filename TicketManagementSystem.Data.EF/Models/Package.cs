@@ -74,9 +74,7 @@ namespace TicketManagementSystem.Data.EF.Models
 
         public override bool Equals(object obj)
         {
-            var package = obj as Package;
-
-            if (package != null)
+            if (obj is Package package)
             {
                 if (IsSpecial)
                     return package.Name.Equals(Name);

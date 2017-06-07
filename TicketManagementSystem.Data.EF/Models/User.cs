@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNet.Identity;
 
 namespace TicketManagementSystem.Data.EF.Models
 {
-    public class User
+    public class User : IUser<int>
     {
         public byte[] RowVersion { get; set; }
 
@@ -13,31 +14,29 @@ namespace TicketManagementSystem.Data.EF.Models
         public string Email { get; set; }
 
         [StringLength(64)]
-        public string Login { get; set; }
+        public string UserName { get; set; }
 
-        [StringLength(64)]
-        public string Name { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public byte[] Salt { get; set; }
 
-        public byte[] Password { get; set; }
-        public UserRole Role { get; set; } = UserRole.User;
+        public int RoleId { get; set; }
+        public virtual Role Role { get; set; }
 
         #region System.Object methods
 
-        public override string ToString() => $"{Email} | {Login}";
+        public override string ToString() => $"{Email} | {UserName}";
 
         public override int GetHashCode()
         {
-            return Email.GetHashCode() ^ Login.GetHashCode();
+            return Email.GetHashCode() ^ UserName.GetHashCode();
         }
 
         public override bool Equals(object obj)
         {
-            var user = obj as User;
-
-            if (user != null)
+            if (obj is User user)
             {
                 return user.Email.Equals(Email, StringComparison.CurrentCultureIgnoreCase)
-                    && user.Login.Equals(Login);
+                    && user.UserName.Equals(UserName);
             }
             return false;
         }

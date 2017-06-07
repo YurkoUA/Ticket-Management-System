@@ -49,7 +49,7 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        [Admin]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -57,7 +57,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Admin]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(SerialCreateModel model)
         {
             if (!ModelState.IsValid)
@@ -74,7 +74,7 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        [Admin]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             SerialEditDTO serial = _serialService.GetSerialEdit(id);
@@ -95,7 +95,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Admin]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(SerialEditModel model)
         {
             if (!ModelState.IsValid)
@@ -112,7 +112,7 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        [Admin]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             SerialDTO serial = _serialService.GetSerial((int)id);
@@ -133,7 +133,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Admin]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             var serial = _serialService.GetSerial(id);

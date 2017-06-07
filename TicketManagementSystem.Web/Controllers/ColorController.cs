@@ -36,7 +36,7 @@ namespace TicketManagementSystem.Web.Controllers
 
             if (color == null)
                 return HttpNotFound();
-            
+
             var viewModel = MapperInstance.Map<ColorDetailsModel>(color);
 
             if (Request.IsAjaxRequest())
@@ -48,7 +48,7 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        [Admin]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -56,7 +56,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Admin]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(ColorCreateModel model)
         {
             if (!ModelState.IsValid)
@@ -75,7 +75,7 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        [Admin]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             ColorEditDTO color = _colorService.GetColorEdit(id);
@@ -95,7 +95,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Admin]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(ColorEditModel model)
         {
             if (!ModelState.IsValid)
@@ -112,7 +112,7 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        [Admin]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             ColorDTO color = _colorService.GetColor((int)id);
@@ -132,7 +132,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Admin]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             var color = _colorService.GetColor(id);

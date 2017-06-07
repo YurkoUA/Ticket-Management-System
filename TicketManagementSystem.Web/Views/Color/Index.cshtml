@@ -1,15 +1,13 @@
-﻿@using TicketManagementSystem.Business.Infrastructure;
-
-@model IEnumerable<TicketManagementSystem.Web.ColorIndexModel>
+﻿@model IEnumerable<ColorIndexModel>
 
 @{
     ViewBag.Title = "Кольори";
-    var isAdmin = User.IsAdmin();
+    bool isAdmin = User.IsInRole("Admin");
 }
 
 <h2>@ViewBag.Title</h2>
 
-@if (ViewData["isAdmin"] as bool? == true)
+@if (isAdmin)
 {
     <p>
         @Html.ActionLink("Додати новий", "Create")

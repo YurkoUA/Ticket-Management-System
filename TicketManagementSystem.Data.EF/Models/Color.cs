@@ -28,9 +28,7 @@ namespace TicketManagementSystem.Data.EF.Models
 
         public override bool Equals(object obj)
         {
-            var color = obj as Color;
-
-            if (color != null)
+            if (obj is Color color)
             {
                 return color.Name.Equals(Name, StringComparison.CurrentCultureIgnoreCase);
             }

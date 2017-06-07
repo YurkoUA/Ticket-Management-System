@@ -40,6 +40,13 @@ namespace TicketManagementSystem.Business
                 cfg.CreateMap<SerialCreateDTO, Serial>();
 
                 #endregion
+
+                #region User
+
+                cfg.CreateMap<User, UserDTO>()
+                    .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()));
+
+                #endregion
             });
 
             return config.CreateMapper();

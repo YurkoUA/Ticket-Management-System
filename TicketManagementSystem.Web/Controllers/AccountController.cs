@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -15,29 +19,23 @@ namespace TicketManagementSystem.Web.Controllers
 {
     public class AccountController : ApplicationController<User>
     {
-        private IAccountService _accountService;
+        private IUserService _userService;
 
-        public AccountController(IAccountService accountService)  
+        public AccountController(IUserService userService)
         {
-            _accountService = accountService;
+            _userService = userService;
         }
 
         [HttpGet]
         [Authorize]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var user = _accountService.FindByLogin(User.Identity.Name);
+            var user = await _userService.GetUserAsync(User.Identity.GetUserId<int>());
 
             if (user == null)
-                throw new UserNotFoundException();
+                return HttpNotFound();
 
-            return View(new AccountIndexModel
-            {
-                Id = user.Id,
-                Login = user.Login,
-                Name = user.Name,
-                Role = user.Role.ToString()
-            });
+            return View(MapperInstance.Map<AccountIndexModel>(user));
         }
 
         [HttpGet]
@@ -50,32 +48,51 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpPost]
         [OnlyAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model)
+        public async Task<ActionResult> Login(LoginModel model)
         {
-            if (model == null)
-                throw new ModelIsNullException();
-
-            if (!ModelState.IsValid)
-                return View(model);
-
-            var user = _accountService.FindByPassword(model.Login, model.Password);
-
-            if (user == null)
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Невірний логін або пароль.");
-                return View(model);
-            }
+                var user = await _userService.FindByLoginDataAsync(model.Login, model.Password);
 
-            FormsAuthentication.SetAuthCookie(user.Login, model.Remember);            
-            return RedirectToAction("Index", "Home");
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "Невірний логін або пароль.");
+                }
+                else
+                {
+                    var claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+
+                    claim.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), ClaimValueTypes.Integer));
+                    claim.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName, ClaimValueTypes.String));
+                    claim.AddClaim(new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role, ClaimValueTypes.String));
+
+                    claim.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider",
+                        "OWIN Provider", ClaimValueTypes.String));
+
+                    AuthenticationManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = model.Remember
+                    }, claim);
+
+                    return RedirectToAction("Index");
+                }
+            }
+            return View(model);
         }
 
         [HttpGet]
         [Authorize]
         public ActionResult Logout()
         {
-            FormsAuthentication.SignOut();
+            AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
+
+        //[HttpGet]
+        //public async Task<ActionResult> Register(string email, string userName, string password)
+        //{
+        //    await _userService.CreateAsync(new User { Email = email, UserName = userName }, password);
+        //    return null;
+        //}
     }
 }

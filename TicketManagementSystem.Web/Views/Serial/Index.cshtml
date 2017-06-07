@@ -1,10 +1,8 @@
-﻿@using TicketManagementSystem.Business.Infrastructure;
-
-@model IEnumerable<TicketManagementSystem.Web.SerialIndexModel>
+﻿@model IEnumerable<SerialIndexModel>
 
 @{
     ViewBag.Title = "Серії";
-    var isAdmin = User.IsAdmin();
+    bool isAdmin = User.IsInRole("Admin");
 }
 
 <h2>@ViewBag.Title</h2>

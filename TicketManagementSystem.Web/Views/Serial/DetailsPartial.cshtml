@@ -1,12 +1,9 @@
-﻿@using TicketManagementSystem.Business.Infrastructure;
-
-@model TicketManagementSystem.Web.SerialDetailsModel
+﻿@model SerialDetailsModel
 
 @{ 
     Layout = null;
+    bool isAdmin = User.IsInRole("Admin");
     ViewBag.Title = $"Серія \"{Model.Name}\"";
-
-    var isAdmin = User.IsAdmin();
 }
 
 <div>

@@ -30,6 +30,12 @@ namespace TicketManagementSystem.Web
                 cfg.CreateMap<SerialEditDTO, SerialEditModel>();
 
                 #endregion
+
+                #region User
+
+                cfg.CreateMap<UserDTO, AccountIndexModel>();
+
+                #endregion
             });
 
             return config.CreateMapper();
