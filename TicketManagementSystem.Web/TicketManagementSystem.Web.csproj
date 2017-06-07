@@ -170,7 +170,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SerialController.cs" />
     <Compile Include="Data\PageInfo.cs" />
-    <Compile Include="Enumerations\PartialType.cs" />
     <Compile Include="Filters\OnlyAnonymous.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -194,6 +193,7 @@
     <Compile Include="ViewModels\Serial\SerialDetailsModel.cs" />
     <Compile Include="ViewModels\Serial\SerialEditModel.cs" />
     <Compile Include="ViewModels\Serial\SerialIndexModel.cs" />
+    <Compile Include="Views\PartialModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

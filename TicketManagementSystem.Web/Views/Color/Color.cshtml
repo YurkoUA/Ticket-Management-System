@@ -1,25 +1,12 @@
-﻿@using TicketManagementSystem.Enumerations;
-
-@model PartialType
+﻿@model PartialModel<int>
 
 @{
-    
+
 }
 
 <div id="colorGrid">
-    @switch (Model)
-    {
-        case PartialType.Details:
-            @Html.Partial("DetailsPartial", ViewBag.ViewModel as ColorDetailsModel);
-            break;
-
-        case PartialType.Edit:
-            @Html.Partial("EditPartial", ViewBag.ViewModel as ColorEditModel);
-            break;
-
-        case PartialType.Delete:
-            @Html.Partial("DeletePartial", ViewBag.ViewModel as ColorDetailsModel);
-            break;
+    @{
+        Html.RenderAction(Model.Action, Model.Controller, new { id = Model.Param, partial = true });
     }
 </div>
 

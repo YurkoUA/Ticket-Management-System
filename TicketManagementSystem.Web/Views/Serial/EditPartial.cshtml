@@ -11,11 +11,11 @@
     }
 </script>
 
-@using (Ajax.BeginForm("Edit", null, new AjaxOptions
+@using (Ajax.BeginForm("Edit", new AjaxOptions
 {
     UpdateTargetId = "serialResult",
     OnBegin = "OnBegin"
-}, new { id = "ajaxForm" }))
+}))
 {
     @Html.AntiForgeryToken()
     
@@ -53,7 +53,7 @@
 
 @if (Model.CanBeDeleted)
 {
-    @Ajax.ActionLink("Видалити серію", "Delete", new { id = Model.Id, partial = true }, new AjaxOptions
+    @Ajax.ActionLink("Видалити серію", "Delete", new { id = Model.Id }, new AjaxOptions
     {
         HttpMethod = "GET",
         UpdateTargetId = "serialGrid",
@@ -63,7 +63,7 @@
 
 <br />
 
-@Ajax.ActionLink("Повернутися до серії", "Details", new { id = Model.Id, partial = true }, new AjaxOptions
+@Ajax.ActionLink("Повернутися до серії", "Details", new { id = Model.Id }, new AjaxOptions
 {
     HttpMethod = "GET",
     UpdateTargetId = "serialGrid",

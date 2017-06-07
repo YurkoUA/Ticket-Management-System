@@ -29,7 +29,7 @@
     }
 </div>
 
-@Ajax.ActionLink("Редагувати колір", "Edit", new { id = Model.Id, partial = true }, new AjaxOptions
+@Ajax.ActionLink("Редагувати колір", "Edit", new { id = Model.Id }, new AjaxOptions
 {
     HttpMethod = "GET",
     UpdateTargetId = "colorGrid"
@@ -37,7 +37,7 @@
 
 <br />
 
-@Ajax.ActionLink("Повернутися до кольору", "Details", new { id = Model.Id, partial = true }, new AjaxOptions
+@Ajax.ActionLink("Повернутися до кольору", "Details", new { id = Model.Id }, new AjaxOptions
 {
     HttpMethod = "GET",
     UpdateTargetId = "colorGrid"

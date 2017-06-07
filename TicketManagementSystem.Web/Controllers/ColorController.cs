@@ -6,7 +6,6 @@ using AutoMapper;
 using TicketManagementSystem.Business.Infrastructure.Exceptions;
 using TicketManagementSystem.Business.Services;
 using TicketManagementSystem.Data.EF.Models;
-using TicketManagementSystem.Enumerations;
 using TicketManagementSystem.Web.Filters;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
@@ -30,21 +29,28 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, bool partial = false)
         {
             var color = _colorService.GetColor(id);
 
             if (color == null)
                 return HttpNotFound();
 
-            var viewModel = MapperInstance.Map<ColorDetailsModel>(color);
-
-            if (Request.IsAjaxRequest())
+            if (Request.IsAjaxRequest() || partial)
+            {
+                var viewModel = MapperInstance.Map<ColorDetailsModel>(color);
                 return PartialView("DetailsPartial", viewModel);
+            }
+            
+            ViewBag.Title = $"Колір \"{color.Name}\"";
 
-            ViewBag.ViewModel = viewModel;
-            ViewBag.Title = $"Колір \"{viewModel.Name}\"";
-            return View("Color", PartialType.Details);
+            var partialModel = new PartialModel<int>
+            {
+                Action = "Details",
+                Controller = "Color",
+                Param = id
+            };
+            return View("Color", partialModel);
         }
 
         [HttpGet]
@@ -76,21 +82,28 @@ namespace TicketManagementSystem.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, bool partial = false)
         {
             ColorEditDTO color = _colorService.GetColorEdit(id);
 
             if (color == null)
                 return HttpNotFound();
 
-            var viewModel = MapperInstance.Map<ColorEditModel>(color);
-
-            if (Request.IsAjaxRequest())
+            if (Request.IsAjaxRequest() || partial)
+            {
+                var viewModel = MapperInstance.Map<ColorEditModel>(color);
                 return PartialView("EditPartial", viewModel);
+            }
+            
+            ViewBag.Title = $"Редагування кольору \"{color.Name}\"";
 
-            ViewBag.ViewModel = viewModel;
-            ViewBag.Title = $"Редагування кольору \"{viewModel.Name}\"";
-            return View("Color", PartialType.Edit);
+            var partialModel = new PartialModel<int>
+            {
+                Action = "Edit",
+                Controller = "Color",
+                Param = id
+            };
+            return View("Color", partialModel);
         }
 
         [HttpPost]
@@ -113,21 +126,28 @@ namespace TicketManagementSystem.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool partial = false)
         {
             ColorDTO color = _colorService.GetColor((int)id);
 
             if (color == null)
                 return HttpNotFound();
 
-            var viewModel = MapperInstance.Map<ColorDetailsModel>(color);
-
-            if (Request.IsAjaxRequest())
+            if (Request.IsAjaxRequest() || partial)
+            {
+                var viewModel = MapperInstance.Map<ColorDetailsModel>(color);
                 return PartialView("DeletePartial", viewModel);
+            }
+            
+            ViewBag.Title = $"Видалення кольору \"{color.Name}\"";
 
-            ViewBag.ViewModel = viewModel;
-            ViewBag.Title = $"Видалення кольору \"{viewModel.Name}\"";
-            return View("Color", PartialType.Delete);
+            var partialModel = new PartialModel<int>
+            {
+                Action = "Delete",
+                Controller = "Color",
+                Param = (int)id
+            };
+            return View("Color", partialModel);
         }
 
         [HttpPost]

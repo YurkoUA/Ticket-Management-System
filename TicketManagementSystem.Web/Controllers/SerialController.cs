@@ -6,7 +6,6 @@ using AutoMapper;
 using TicketManagementSystem.Business.Infrastructure.Exceptions;
 using TicketManagementSystem.Business.Services;
 using TicketManagementSystem.Data.EF.Models;
-using TicketManagementSystem.Enumerations;
 using TicketManagementSystem.Web.Filters;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
@@ -30,22 +29,28 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, bool partial = false)
         {
             var serial = _serialService.GetSerial(id);
 
             if (serial == null)
                 return HttpNotFound();
 
-            var viewModel = MapperInstance.Map<SerialDetailsModel>(serial);
-
-            if (Request.IsAjaxRequest())
+            if (Request.IsAjaxRequest() || partial)
+            {
+                var viewModel = MapperInstance.Map<SerialDetailsModel>(serial);
                 return PartialView("DetailsPartial", viewModel);
+            }
 
-            ViewBag.ViewModel = viewModel;
+            var partialModel = new PartialModel<int>
+            {
+                Action = "Details",
+                Controller = "Serial",
+                Param = id
+            };
+
             ViewBag.Title = $"Серія \"{serial.Name}\"";
-
-            return View("Serial", PartialType.Details);
+            return View("Serial", partialModel);
         }
 
         [HttpGet]
@@ -75,22 +80,28 @@ namespace TicketManagementSystem.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, bool partial = false)
         {
             SerialEditDTO serial = _serialService.GetSerialEdit(id);
 
             if (serial == null)
                 return HttpNotFound();
 
-            var viewModel = MapperInstance.Map<SerialEditModel>(serial);
-
-            if (Request.IsAjaxRequest())
+            if (Request.IsAjaxRequest() || partial)
+            {
+                var viewModel = MapperInstance.Map<SerialEditModel>(serial);
                 return PartialView("EditPartial", viewModel);
+            }
 
-            ViewBag.ViewModel = viewModel;
+            var partialModel = new PartialModel<int>
+            {
+                Action = "Edit",
+                Controller = "Serial",
+                Param = id
+            };
             ViewBag.Title = $"Редагування серії \"{serial.Name}\"";
 
-            return View("Serial", PartialType.Edit);
+            return View("Serial", partialModel);
         }
 
         [HttpPost]
@@ -113,22 +124,28 @@ namespace TicketManagementSystem.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, bool partial = false)
         {
             SerialDTO serial = _serialService.GetSerial((int)id);
 
             if (serial == null)
                 return HttpNotFound();
 
-            var viewModel = MapperInstance.Map<SerialDetailsModel>(serial);
-
-            if (Request.IsAjaxRequest())
+            if (Request.IsAjaxRequest() || partial)
+            {
+                var viewModel = MapperInstance.Map<SerialDetailsModel>(serial);
                 return PartialView("DeletePartial", viewModel);
+            }
 
-            ViewBag.ViewModel = viewModel;
-            ViewBag.Title = $"Видалення серії \"{viewModel.Name}\"";
+            var partialModel = new PartialModel<int>
+            {
+                Action = "Delete",
+                Controller = "Serial",
+                Param = (int)id
+            };
 
-            return View("Serial", PartialType.Delete);
+            ViewBag.Title = $"Видалення серії \"{serial.Name}\"";
+            return View("Serial", partialModel);
         }
 
         [HttpPost]

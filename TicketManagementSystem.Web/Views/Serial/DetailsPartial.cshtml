@@ -33,7 +33,7 @@
 @if (isAdmin)
 {
     <p>
-        @Ajax.ActionLink("Редагувати", "Edit", new { id = Model.Id, partial = true }, new AjaxOptions
+        @Ajax.ActionLink("Редагувати", "Edit", new { id = Model.Id }, new AjaxOptions
         {
             HttpMethod = "GET",
             UpdateTargetId = "serialGrid"
@@ -44,7 +44,7 @@
         {
             <span> | </span>
 
-                @Ajax.ActionLink("Видалити", "Delete", new { id = Model.Id, partial = true }, new AjaxOptions
+                @Ajax.ActionLink("Видалити", "Delete", new { id = Model.Id }, new AjaxOptions
                 {
                     HttpMethod = "GET",
                     UpdateTargetId = "serialGrid"

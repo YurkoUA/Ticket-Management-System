@@ -1,25 +1,12 @@
-﻿@using TicketManagementSystem.Enumerations;
-
-@model PartialType
+﻿@model PartialModel<int>
 
 @{
 
 }
 
 <div id="serialGrid">
-    @switch(Model)
-    {
-        case PartialType.Details:
-            @Html.Partial("DetailsPartial", (SerialDetailsModel)ViewBag.ViewModel)
-            break;
-
-        case PartialType.Edit:
-            @Html.Partial("EditPartial", (SerialEditModel)ViewBag.ViewModel)
-            break;
-
-        case PartialType.Delete:
-            @Html.Partial("DeletePartial", (SerialDetailsModel)ViewBag.ViewModel)
-            break;
+    @{
+        Html.RenderAction(Model.Action, Model.Controller, new { id = Model.Param, partial = true });
     }
 </div>
 

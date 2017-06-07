@@ -12,16 +12,16 @@
     }
 
     function OnComplete(request, status) {
-        $('form[id = ajaxForm]').trigger('reset');
+        $('form[id = form0]').trigger('reset');
     }
 </script>
 
-@using (Ajax.BeginForm("Create", null, new AjaxOptions
+@using (Ajax.BeginForm("Create", new AjaxOptions
 {
     UpdateTargetId = "createResult",
     OnComplete = "OnComplete",
     OnBegin = "OnBegin"
-}, new { id = "ajaxForm" }))
+}))
 {
     @Html.AntiForgeryToken()
 
