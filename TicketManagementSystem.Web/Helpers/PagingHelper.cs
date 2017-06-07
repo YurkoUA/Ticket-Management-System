@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Text;
 using System.Web.Mvc;
-using TicketManagementSystem.Web.Data;
 
-namespace TicketManagementSystem.Web.Helpers
+namespace TicketManagementSystem.Web
 {
     public static class PagingHelper
     {

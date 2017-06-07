@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using TicketManagementSystem.Business.Infrastructure.Exceptions;
 using TicketManagementSystem.Business.Services;
 using TicketManagementSystem.Data.EF.Models;
 using TicketManagementSystem.Web.Filters;

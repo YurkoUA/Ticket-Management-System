@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TicketManagementSystem.Web.Data
+namespace TicketManagementSystem.Web
 {
     public class PageInfo
     {

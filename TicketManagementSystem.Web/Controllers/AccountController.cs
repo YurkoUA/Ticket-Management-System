@@ -9,7 +9,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using TicketManagementSystem.Business;
-using TicketManagementSystem.Business.Infrastructure.Exceptions;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Business.Services;
 using TicketManagementSystem.Data.EF.Models;

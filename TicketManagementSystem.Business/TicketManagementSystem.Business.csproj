@@ -70,8 +70,6 @@
     <Compile Include="DTO\SerialEditDTO.cs" />
     <Compile Include="DTO\TicketDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
-    <Compile Include="Infrastructure\Exceptions\SystemExceptions.cs" />
-    <Compile Include="Infrastructure\Exceptions\UserExceptions.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Interfaces\IRoleService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />

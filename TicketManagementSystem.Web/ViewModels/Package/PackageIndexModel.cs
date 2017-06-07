@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using TicketManagementSystem.Web.Data;
 
 namespace TicketManagementSystem.Web
 {
