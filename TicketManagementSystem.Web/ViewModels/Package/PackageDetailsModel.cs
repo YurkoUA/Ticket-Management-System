@@ -1,35 +1,39 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace TicketManagementSystem.Web
 {
-    public class PackageIndexModel
+    public class PackageDetailsModel
     {
-        [Display(Name = "ID")]
+        [Display(Name = "ID:")]
         public int Id { get; set; }
 
-        [Display(Name = "Назва")]
+        [Display(Name = "Назва:")]
         public string Name { get; set; }
 
-        [Display(Name = "Колір")]
+        [Display(Name = "Колір:")]
         public string ColorName { get; set; }
 
-        [Display(Name = "Серія")]
+        [Display(Name = "Серія:")]
         public string SerialName { get; set; }
 
-        [Display(Name = "Квитків")]
+        [Display(Name = "Квитків:")]
         public int TicketsCount { get; set; }
 
-        [Display(Name = "Номінал")]
+        [Display(Name = "Номінал:")]
         public double Nominal { get; set; }
 
-        [Display(Name = "Перша цифра")]
+        [Display(Name = "Перша цифра:")]
         public int? FirstNumber { get; set; }
 
-        [Display(Name = "Примітка")]
+        [Display(Name = "Примітка:")]
         public string Note { get; set; }
 
-        [Display(Name = "Статус")]
+        [Display(Name = "Статус:")]
         public string Status
         {
             get
@@ -42,6 +46,9 @@ namespace TicketManagementSystem.Web
         }
 
         #region Hidden properties
+
+        [HiddenInput(DisplayValue = false)]
+        public PageInfo PageInfo { get; set; }
 
         [HiddenInput(DisplayValue = false)]
         public bool IsOpened { get; set; }

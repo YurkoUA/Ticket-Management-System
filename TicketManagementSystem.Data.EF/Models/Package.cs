@@ -77,7 +77,7 @@ namespace TicketManagementSystem.Data.EF.Models
             if (obj is Package package)
             {
                 if (IsSpecial)
-                    return package.Name.Equals(Name);
+                    return package.Name?.Equals(Name) == true;
             }
             return false;
         }

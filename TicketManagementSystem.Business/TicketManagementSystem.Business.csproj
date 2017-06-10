@@ -64,13 +64,18 @@
     <Compile Include="DTO\ColorCreateDTO.cs" />
     <Compile Include="DTO\ColorDTO.cs" />
     <Compile Include="DTO\ColorEditDTO.cs" />
+    <Compile Include="DTO\PackageCreateDTO.cs" />
     <Compile Include="DTO\PackageDTO.cs" />
+    <Compile Include="DTO\PackageEditDTO.cs" />
+    <Compile Include="DTO\PackageSpecialCreateDTO.cs" />
+    <Compile Include="DTO\PackageSpecialEditDTO.cs" />
     <Compile Include="DTO\SerialCreateDTO.cs" />
     <Compile Include="DTO\SerialDTO.cs" />
     <Compile Include="DTO\SerialEditDTO.cs" />
     <Compile Include="DTO\TicketDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
+    <Compile Include="Interfaces\IPackageService.cs" />
     <Compile Include="Interfaces\IRoleService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,6 +86,7 @@
     <Compile Include="Interfaces\ISerialService.cs" />
     <Compile Include="Services\Identity\RoleService.cs" />
     <Compile Include="Services\Identity\UserService.cs" />
+    <Compile Include="Services\PackageService.cs" />
     <Compile Include="Services\SerialService.cs" />
   </ItemGroup>
   <ItemGroup>

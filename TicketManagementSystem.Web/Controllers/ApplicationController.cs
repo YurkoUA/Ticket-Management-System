@@ -6,7 +6,7 @@ using AutoMapper;
 
 namespace TicketManagementSystem.Web.Controllers
 {
-    public class ApplicationController<T> : Controller where T : class
+    public class ApplicationController : Controller
     {
         protected IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
         protected IMapper MapperInstance => AutoMapperConfig.CreateMapper();

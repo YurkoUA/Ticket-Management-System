@@ -36,6 +36,22 @@ namespace TicketManagementSystem.Web
                 cfg.CreateMap<UserDTO, AccountIndexModel>();
 
                 #endregion
+
+                #region Package
+
+                cfg.CreateMap<PackageDTO, PackageIndexModel>();
+                cfg.CreateMap<PackageDTO, PackageDetailsModel>();
+
+                cfg.CreateMap<PackageCreateDefaultModel, PackageCreateDTO>();
+                cfg.CreateMap<PackageCreateSpecialModel, PackageSpecialCreateDTO>();
+
+                cfg.CreateMap<PackageEditDefaultModel, PackageEditDTO>();
+                cfg.CreateMap<PackageEditSpecialModel, PackageSpecialEditDTO>();
+
+                cfg.CreateMap<PackageEditDTO, PackageEditDefaultModel>();
+                cfg.CreateMap<PackageSpecialEditDTO, PackageEditSpecialModel>();
+
+                #endregion
             });
 
             return config.CreateMapper();

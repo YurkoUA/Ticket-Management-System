@@ -11,7 +11,7 @@ using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
 {
-    public class SerialController : ApplicationController<Serial>
+    public class SerialController : ApplicationController
     {
         private ISerialService _serialService;
 

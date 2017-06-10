@@ -11,7 +11,7 @@ using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
 {
-    public class ColorController : ApplicationController<Color>
+    public class ColorController : ApplicationController
     {
         private IColorService _colorService;
 

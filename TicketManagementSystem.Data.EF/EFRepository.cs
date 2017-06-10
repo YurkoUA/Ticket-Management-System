@@ -82,6 +82,11 @@ namespace TicketManagementSystem.Data.EF
             _dbSet.Remove(item);
         }
 
+        public void Remove(int id, string table)
+        {
+            _dbContext.Database.ExecuteSqlCommand($"DELETE FROM {table} WHERE Id = {id}");
+        }
+
         #endregion
     }
 }

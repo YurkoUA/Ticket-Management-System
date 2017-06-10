@@ -1,0 +1,61 @@
+﻿@model TicketManagementSystem.Web.PackageDetailsModel
+
+@{
+    ViewBag.Title = $"Видалення пачки \"{Model.Name}\"";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div id="package-delete-grid">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Id)</dt>
+        <dd>@Html.DisplayFor(model => model.Id)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+        @if (!string.IsNullOrEmpty(Model.ColorName))
+        {
+            <dt>@Html.DisplayNameFor(model => model.ColorName)</dt>
+            <dd>@Html.DisplayFor(model => model.ColorName)</dd>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.SerialName))
+        {
+            <dt>@Html.DisplayNameFor(model => model.SerialName)</dt>
+            <dd>@Html.DisplayFor(model => model.SerialName)</dd>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.Note))
+        {
+            <dt>@Html.DisplayNameFor(model => model.Note)</dt>
+            <dd>@Html.DisplayFor(model => model.Note)</dd>
+        }
+
+        <dt>@Html.DisplayNameFor(model => model.TicketsCount)</dt>
+        <dd>@Html.DisplayFor(model => model.TicketsCount)</dd>
+    </dl>
+
+    @if (Model.TicketsCount == 0)
+    {
+        using (Ajax.BeginForm("Delete", new AjaxOptions
+        {
+            UpdateTargetId = "package-delete-grid",
+            InsertionMode = InsertionMode.Replace
+        }))
+        {
+            @Html.AntiForgeryToken()
+
+            <h5>Ви дійсно хочете повністю видалити пачку "@Model.Name"?</h5>
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Видалити" class="btn btn-default" />
+            </div>
+        }
+    }
+    else
+    {
+        @Html.AlertWarning("Неможливо видалити цю пачку, оскільки є квитки, що до неї належать.")
+    }
+</div>

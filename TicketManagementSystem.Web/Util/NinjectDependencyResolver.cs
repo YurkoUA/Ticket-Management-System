@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Ninject;
 using TicketManagementSystem.Business.Interfaces;
@@ -35,6 +33,7 @@ namespace TicketManagementSystem.Web.Util
             _kernel.Bind<IRoleService>().To<RoleService>();
             _kernel.Bind<IColorService>().To<ColorService>();
             _kernel.Bind<ISerialService>().To<SerialService>();
+            _kernel.Bind<IPackageService>().To<PackageService>();
         }
     }
 }

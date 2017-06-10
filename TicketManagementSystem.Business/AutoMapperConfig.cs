@@ -47,6 +47,25 @@ namespace TicketManagementSystem.Business
                     .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()));
 
                 #endregion
+
+                #region Package
+
+                cfg.CreateMap<Package, PackageDTO>()
+                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ToString()))
+                    .ForMember(dest => dest.ColorName, opt => opt.MapFrom(src => src.Color.ToString()))
+                    .ForMember(dest => dest.SerialName, opt => opt.MapFrom(src => src.Serial.ToString()))
+                    .ForMember(dest => dest.TicketsCount, opt => opt.MapFrom(src => src.Tickets.Count));
+
+                cfg.CreateMap<Package, PackageEditDTO>()
+                    .ForMember(dest => dest.TicketsCount, opt => opt.MapFrom(src => src.Tickets.Count));
+
+                cfg.CreateMap<Package, PackageSpecialEditDTO>()
+                    .ForMember(dest => dest.TicketsCount, opt => opt.MapFrom(src => src.Tickets.Count));
+
+                cfg.CreateMap<PackageCreateDTO, Package>();
+                cfg.CreateMap<PackageSpecialCreateDTO, Package>();
+
+                #endregion
             });
 
             return config.CreateMapper();

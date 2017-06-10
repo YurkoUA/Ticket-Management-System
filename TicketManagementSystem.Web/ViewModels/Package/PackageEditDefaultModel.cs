@@ -1,10 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace TicketManagementSystem.Web
 {
-    public class PackageCreateDefaultModel
+    public class PackageEditDefaultModel
     {
+        [HiddenInput(DisplayValue = false)]
+        public int Id { get; set; }
+
         [Timestamp]
         [HiddenInput(DisplayValue = false)]
         public byte[] RowVersion { get; set; }
@@ -30,6 +37,9 @@ namespace TicketManagementSystem.Web
         [DataType(DataType.MultilineText)]
         [StringLength(128, ErrorMessage = "Довжина не може перевищувати 128 символів.")]
         public string Note { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public int TicketsCount { get; set; }
 
         [HiddenInput(DisplayValue = false)]
         public SelectList Colors { get; set; }

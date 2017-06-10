@@ -9,15 +9,16 @@ namespace TicketManagementSystem.Web
         [HiddenInput(DisplayValue = false)]
         public byte[] RowVersion { get; set; }
 
+        [Display(Name = "Назва")]
         [Required(ErrorMessage = "Необхідно вказати назву пачки.")]
         [StringLength(64, MinimumLength = 2, ErrorMessage = "Назва може бути від 2 до 64 символів.")]
         public string Name { get; set; }
         
         [Display(Name = "Колір")]
-        public int ColorId { get; set; }
+        public int? ColorId { get; set; }
         
         [Display(Name = "Серія")]
-        public int SerialId { get; set; }
+        public int? SerialId { get; set; }
 
         [Display(Name = "Номінал")]
         [Required(ErrorMessage = "Необхідно вказати номінал пачки.")]
@@ -33,6 +34,6 @@ namespace TicketManagementSystem.Web
         public SelectList Colors { get; set; }
 
         [HiddenInput(DisplayValue = false)]
-        public SelectList Serial { get; set; }
+        public SelectList Series { get; set; }
     }
 }

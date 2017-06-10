@@ -1,7 +1,7 @@
-﻿@model SerialCreateModel
+﻿@model PackageCreateSpecialModel
 
 @{
-    ViewBag.Title = "Створити нову серію";
+    ViewBag.Title = "Створити спеціальну пачку";
 }
 
 <script type="text/javascript">
@@ -16,7 +16,8 @@
 
 <h2>@ViewBag.Title</h2>
 
-@using (Ajax.BeginForm("Create", new AjaxOptions
+
+@using (Ajax.BeginForm("CreateSpecial", new AjaxOptions
 {
     UpdateTargetId = "createResult",
     OnComplete = "OnComplete",
@@ -24,16 +25,39 @@
 }))
 {
     @Html.AntiForgeryToken()
-
+    
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ColorId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ColorId, Model.Colors, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ColorId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SerialId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SerialId, Model.Series, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SerialId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nominal, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nominal, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nominal, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -56,5 +80,5 @@
 <div id="createResult"></div>
 
 <div>
-    @Html.ActionLink("На до списку", "Index")
+    @Html.ActionLink("Назад до списку", "Index")
 </div>

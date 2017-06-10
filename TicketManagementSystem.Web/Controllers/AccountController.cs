@@ -16,7 +16,7 @@ using TicketManagementSystem.Web.Filters;
 
 namespace TicketManagementSystem.Web.Controllers
 {
-    public class AccountController : ApplicationController<User>
+    public class AccountController : ApplicationController
     {
         private IUserService _userService;
 
@@ -87,11 +87,11 @@ namespace TicketManagementSystem.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult> Register(string email, string userName, string password)
-        //{
-        //    await _userService.CreateAsync(new User { Email = email, UserName = userName }, password);
-        //    return null;
-        //}
+        [HttpGet]
+        public async Task<ActionResult> Register(string email, string userName, string password)
+        {
+            await _userService.CreateAsync(new User { Email = email, UserName = userName }, password);
+            return null;
+        }
     }
 }

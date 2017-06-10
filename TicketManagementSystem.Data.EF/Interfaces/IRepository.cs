@@ -19,5 +19,6 @@ namespace TicketManagementSystem.Data.EF.Interfaces
         T Create(T item);
         void Update(T item);
         void Remove(T item);
+        void Remove(int id, string table);
     }
 }
