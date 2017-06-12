@@ -19,5 +19,7 @@
         public bool IsOpened { get; set; }
 
         public string Note { get; set; }
+
+        public string SelectListOptionValue => $"{Name} - {TicketsCount} шт.";
     }
 }

@@ -34,6 +34,7 @@ namespace TicketManagementSystem.Web.Util
             _kernel.Bind<IColorService>().To<ColorService>();
             _kernel.Bind<ISerialService>().To<SerialService>();
             _kernel.Bind<IPackageService>().To<PackageService>();
+            _kernel.Bind<ITicketService>().To<TicketService>();
         }
     }
 }

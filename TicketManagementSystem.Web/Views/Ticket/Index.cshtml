@@ -1,0 +1,59 @@
+﻿@model TicketIndexModel
+
+@{
+    bool isAdmin = User.IsInRole("Admin");
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (isAdmin)
+{
+    <p>
+        @Html.ActionLink("Додати квиток", "Create")
+    </p>
+}
+
+@if (Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th><b>ID</b></th>
+            <th><b>Номер</b></th>
+            <th><b>Пачка</b></th>
+            <th><b>Колір</b></th>
+            <th><b>Серія</b></th>
+            <th><b>Дата</b></th>
+            <th><b>Примітка</b></th>
+
+            @if (isAdmin)
+            {
+                <th></th>
+            }
+        </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@Html.ActionLink(item.Number, "Details", new { id = item.Id })</td>          
+            <td><a href="@Url.Action("Details", "Package", new { id = item.PackageId })">@item.PackageName</a></td>
+            <td><a href="@Url.Action("Details", "Color", new { id = item.ColorId })">@item.ColorName</a></td>
+            <td><a href="@Url.Action("Details", "Serial", new { id = item.SerialId })">@item.SerialFull</a></td>
+            <td>@item.Date</td>
+            <td>@item.Note</td>
+
+            @if (isAdmin)
+            {
+                <td>
+                    @Html.ActionLink("Редагувати", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
+                </td>
+            }
+        </tr>
+    }
+    </table>
+}
+else
+{
+    @Html.AlertDanger("Матеріали відсутні.")
+}

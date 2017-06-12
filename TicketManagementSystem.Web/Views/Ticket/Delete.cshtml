@@ -1,0 +1,41 @@
+﻿@model TicketManagementSystem.Web.TicketDetailsModel
+
+@{
+    ViewBag.Title = $"Видалення квитка №{Model.Number}";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div id="delete-result-grid">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Id)</dt>
+        <dd>@Html.DisplayFor(model => model.Id)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Number)</dt>
+        <dd>@Html.DisplayFor(model => model.Number)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.PackageName)</dt>
+        <dd>@Html.DisplayFor(model => model.PackageName)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.ColorName)</dt>
+        <dd>@Html.DisplayFor(model => model.ColorName)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.SerialFull)</dt>
+        <dd>@Html.DisplayFor(model => model.SerialFull)</dd>
+    </dl>
+
+    @using (Ajax.BeginForm(new AjaxOptions
+    {
+        UpdateTargetId = "delete-result-grid",
+        InsertionMode = InsertionMode.Replace
+    })) {
+        @Html.AntiForgeryToken()
+
+        <h4>Ви дійсно бажаєте видалити цей квиток?</h4>
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Видалити" class="btn btn-default" />
+        </div>
+    }
+</div>

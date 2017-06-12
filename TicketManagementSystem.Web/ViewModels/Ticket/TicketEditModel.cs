@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace TicketManagementSystem.Web
+{
+    public class TicketEditModel
+    {
+        [HiddenInput(DisplayValue = false)]
+        public byte[] RowVersion { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public int Id { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public string Number { get; set; }
+
+        //[Display(Name = "Пачка")]
+        //public int? PackageId { get; set; }
+
+        [Display(Name = "Колір")]
+        public int ColorId { get; set; }
+
+        [Display(Name = "Серія")]
+        public int SerialId { get; set; }
+
+        [Display(Name = "Номер серії")]
+        [Required(ErrorMessage = "Необхідно вказати номер серії.")]
+        [RegularExpression(@"\d{2}", ErrorMessage = "Номер серії повинен складатися з двох цифр.")]
+        public string SerialNumber { get; set; }
+
+        [Display(Name = "Примітка")]
+        [StringLength(128, ErrorMessage = "Примітка не може бути більшою за 128 символів.")]
+        public string Note { get; set; }
+
+        [Display(Name = "Дата")]
+        public DateTime? Date { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public SelectList Colors { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public SelectList Series { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public SelectList Packages { get; set; }
+    }
+}

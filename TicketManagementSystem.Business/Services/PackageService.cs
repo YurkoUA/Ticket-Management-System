@@ -16,9 +16,26 @@ namespace TicketManagementSystem.Business.Services
 
         public int TotalCount => Database.Packages.GetCount();
 
+        public IEnumerable<PackageDTO> GetPackages()
+        {
+            return MapperInstance.Map<IEnumerable<PackageDTO>>(Database.Packages.GetAll());
+        }
+
         public IEnumerable<PackageDTO> GetPackages(int skip, int take)
         {
             var packages = Database.Packages.GetAll().AsEnumerable().Skip(skip).Take(take);
+            return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
+        }
+
+        public IEnumerable<PackageDTO> GetPackagesByColor(int colorId)
+        {
+            var packages = Database.Packages.GetAll(p => p.ColorId == colorId);
+            return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
+        }
+
+        public IEnumerable<PackageDTO> GetPackagesBySerial(int serialId)
+        {
+            var packages = Database.Packages.GetAll(p => p.SerialId == serialId);
             return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
         }
 

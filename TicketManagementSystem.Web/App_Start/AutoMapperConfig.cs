@@ -52,6 +52,18 @@ namespace TicketManagementSystem.Web
                 cfg.CreateMap<PackageSpecialEditDTO, PackageEditSpecialModel>();
 
                 #endregion
+
+                #region Ticket
+
+                cfg.CreateMap<TicketDTO, TicketDetailsModel>()
+                    .ForMember(dest => dest.AddDate, opt => opt.MapFrom(src => src.AddDate.ToShortDateString()))
+                    .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Date != null ? src.Date.Value.ToShortDateString() : string.Empty));
+
+                cfg.CreateMap<TicketCreateModel, TicketCreateDTO>();
+                cfg.CreateMap<TicketEditDTO, TicketEditModel>();
+                cfg.CreateMap<TicketEditModel, TicketEditDTO>();
+
+                #endregion
             });
 
             return config.CreateMapper();

@@ -1,0 +1,55 @@
+﻿@model TicketDetailsModel
+
+@{
+    ViewBag.Title = $"Квиток №{Model.Number}";
+    bool isAdmin = User.IsInRole("Admin");
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Id)</dt>
+        <dd>@Html.DisplayFor(model => model.Id)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Number)</dt>
+        <dd>@Html.DisplayFor(model => model.Number)</dd>
+
+        @if (Model.PackageId != null)
+        {
+            <dt>@Html.DisplayNameFor(model => model.PackageName)</dt>
+            <dd>@Html.DisplayFor(model => model.PackageName)</dd>
+        }
+
+        <dt>@Html.DisplayNameFor(model => model.ColorName)</dt>
+        <dd>@Html.DisplayFor(model => model.ColorName)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.SerialFull)</dt>
+        <dd>@Html.DisplayFor(model => model.SerialFull)</dd>
+
+        @if (!string.IsNullOrEmpty(Model.Date))
+        {
+            <dt>@Html.DisplayNameFor(model => model.Date)</dt>
+            <dd>@Html.DisplayFor(model => model.Date)</dd>
+        }
+
+        <dt>@Html.DisplayNameFor(model => model.AddDate)</dt>
+        <dd>@Html.DisplayFor(model => model.AddDate)</dd>
+
+        @if (!string.IsNullOrEmpty(Model.Note))
+        {
+            <dt>@Html.DisplayNameFor(model => model.Note)</dt>
+            <dd>@Html.DisplayFor(model => model.Note)</dd>
+        }
+
+    </dl>
+</div>
+
+@if (isAdmin)
+{
+    <p>
+        @Html.ActionLink("Редагувати", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Видалити", "Delete", new { id = Model.Id })
+    </p>
+}

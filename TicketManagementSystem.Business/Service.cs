@@ -8,6 +8,8 @@ namespace TicketManagementSystem.Business
         public IUnitOfWork Database { get; set; }
         public IMapper MapperInstance { get; }
 
+        // TODO: TotalCount property.
+
         public Service(IUnitOfWork database)
         {
             Database = database;

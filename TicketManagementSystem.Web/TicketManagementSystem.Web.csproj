@@ -170,6 +170,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PackageController.cs" />
     <Compile Include="Controllers\SerialController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Data\PageInfo.cs" />
     <Compile Include="Filters\OnlyAnonymous.cs" />
     <Compile Include="Global.asax.cs">
@@ -194,10 +195,15 @@
     <Compile Include="ViewModels\Package\PackageEditSpecialModel.cs" />
     <Compile Include="ViewModels\Package\PackageIndexModel.cs" />
     <Compile Include="ViewModels\Package\PackageDetailsModel.cs" />
+    <Compile Include="ViewModels\SelectListModel.cs" />
     <Compile Include="ViewModels\Serial\SerialCreateModel.cs" />
     <Compile Include="ViewModels\Serial\SerialDetailsModel.cs" />
     <Compile Include="ViewModels\Serial\SerialEditModel.cs" />
     <Compile Include="ViewModels\Serial\SerialIndexModel.cs" />
+    <Compile Include="ViewModels\Ticket\TicketCreateModel.cs" />
+    <Compile Include="ViewModels\Ticket\TicketDetailsModel.cs" />
+    <Compile Include="ViewModels\Ticket\TicketEditModel.cs" />
+    <Compile Include="ViewModels\Ticket\TicketIndexModel.cs" />
     <Compile Include="Views\PartialModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +227,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jquery.validation.double.fix.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\packages.select-list.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\site.js" />
@@ -265,6 +272,12 @@
     <Content Include="Views\Package\Edit.cshtml" />
     <Content Include="Views\Package\EditSpecial.cshtml" />
     <Content Include="Views\Package\Details.cshtml" />
+    <Content Include="Views\Ticket\Index.cshtml" />
+    <Content Include="Views\Ticket\Details.cshtml" />
+    <Content Include="Views\Ticket\Delete.cshtml" />
+    <Content Include="Views\Shared\SelectListPartial.cshtml" />
+    <Content Include="Views\Ticket\Create.cshtml" />
+    <Content Include="Views\Ticket\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

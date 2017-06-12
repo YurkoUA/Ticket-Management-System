@@ -66,6 +66,18 @@ namespace TicketManagementSystem.Business
                 cfg.CreateMap<PackageSpecialCreateDTO, Package>();
 
                 #endregion
+
+                #region Ticket
+
+                cfg.CreateMap<Ticket, TicketDTO>()
+                    .ForMember(dest => dest.ColorName, opt => opt.MapFrom(src => src.Color.ToString()))
+                    .ForMember(dest => dest.SerialName, opt => opt.MapFrom(src => src.Serial.ToString()))
+                    .ForMember(dest => dest.PackageName, opt => opt.MapFrom(src => src.Package.ToString()));
+
+                cfg.CreateMap<TicketCreateDTO, Ticket>();
+                cfg.CreateMap<Ticket, TicketEditDTO>();
+
+                #endregion
             });
 
             return config.CreateMapper();

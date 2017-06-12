@@ -10,7 +10,6 @@ namespace TicketManagementSystem.Web.Controllers
 {
     public class PackageController : ApplicationController
     {
-        // TODO: Lock change Serial or Color if Package contains a tickets.
         // TODO: Make default/special.
         // TODO: Open/Close package.
 
@@ -106,19 +105,20 @@ namespace TicketManagementSystem.Web.Controllers
                     ModelState.AddModelError("", $"Пачка з іменем \"{viewModel.Name}\" вже існує.");
                 }
 
-                if (viewModel.SerialId != null && !_serialService.ExistsById((int)viewModel.SerialId))
+                else if (viewModel.SerialId != null && !_serialService.ExistsById((int)viewModel.SerialId))
                 {
                     ModelState.AddModelError("", $"Серії ID: {viewModel.SerialId} не існує.");
                 }
 
-                if (viewModel.ColorId != null && !_colorService.ExistsById((int)viewModel.ColorId))
+                else if (viewModel.ColorId != null && !_colorService.ExistsById((int)viewModel.ColorId))
                 {
                     ModelState.AddModelError("", $"Кольору ID: {viewModel.ColorId} не існує.");
                 }
-
-                var packageId = _packageService.CreateSpecialPackage(MapperInstance.Map<PackageSpecialCreateDTO>(viewModel)).Id;
-
-                return SuccessAlert($"Пачку \"{viewModel.Name}\" успішно створено", Url.Action("Details", new { id = packageId }), "Переглянути");
+                else
+                {
+                    var packageId = _packageService.CreateSpecialPackage(MapperInstance.Map<PackageSpecialCreateDTO>(viewModel)).Id;
+                    return SuccessAlert($"Пачку \"{viewModel.Name}\" успішно створено", Url.Action("Details", new { id = packageId }), "Переглянути");
+                }
             }
             return ErrorPartial(ModelState);
         }
@@ -189,6 +189,7 @@ namespace TicketManagementSystem.Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult EditSpecial(PackageEditSpecialModel viewModel)
         {
+            // TODO: Validate changing Serial or Color.
             if (ModelState.IsValid)
             {
                 if (viewModel.ColorId == 0) viewModel.ColorId = null;

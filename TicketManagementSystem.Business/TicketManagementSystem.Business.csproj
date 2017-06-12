@@ -61,22 +61,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMapperConfig.cs" />
-    <Compile Include="DTO\ColorCreateDTO.cs" />
-    <Compile Include="DTO\ColorDTO.cs" />
-    <Compile Include="DTO\ColorEditDTO.cs" />
-    <Compile Include="DTO\PackageCreateDTO.cs" />
-    <Compile Include="DTO\PackageDTO.cs" />
-    <Compile Include="DTO\PackageEditDTO.cs" />
-    <Compile Include="DTO\PackageSpecialCreateDTO.cs" />
-    <Compile Include="DTO\PackageSpecialEditDTO.cs" />
-    <Compile Include="DTO\SerialCreateDTO.cs" />
-    <Compile Include="DTO\SerialDTO.cs" />
-    <Compile Include="DTO\SerialEditDTO.cs" />
-    <Compile Include="DTO\TicketDTO.cs" />
-    <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="DTO\Color\ColorCreateDTO.cs" />
+    <Compile Include="DTO\Color\ColorDTO.cs" />
+    <Compile Include="DTO\Color\ColorEditDTO.cs" />
+    <Compile Include="DTO\Package\PackageCreateDTO.cs" />
+    <Compile Include="DTO\Package\PackageDTO.cs" />
+    <Compile Include="DTO\Package\PackageEditDTO.cs" />
+    <Compile Include="DTO\Package\PackageSpecialCreateDTO.cs" />
+    <Compile Include="DTO\Package\PackageSpecialEditDTO.cs" />
+    <Compile Include="DTO\Serial\SerialCreateDTO.cs" />
+    <Compile Include="DTO\Serial\SerialDTO.cs" />
+    <Compile Include="DTO\Serial\SerialEditDTO.cs" />
+    <Compile Include="DTO\Ticket\TicketCreateDTO.cs" />
+    <Compile Include="DTO\Ticket\TicketDTO.cs" />
+    <Compile Include="DTO\Ticket\TicketEditDTO.cs" />
+    <Compile Include="DTO\User\UserDTO.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Interfaces\IPackageService.cs" />
     <Compile Include="Interfaces\IRoleService.cs" />
+    <Compile Include="Interfaces\ITicketService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Email.cs" />
@@ -88,6 +91,7 @@
     <Compile Include="Services\Identity\UserService.cs" />
     <Compile Include="Services\PackageService.cs" />
     <Compile Include="Services\SerialService.cs" />
+    <Compile Include="Services\TicketService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TicketManagementSystem.Data.EF\TicketManagementSystem.Data.EF.csproj">

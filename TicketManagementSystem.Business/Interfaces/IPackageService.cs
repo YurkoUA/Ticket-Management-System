@@ -7,7 +7,11 @@ namespace TicketManagementSystem.Business.Interfaces
     {
         int TotalCount { get; }
 
+        IEnumerable<PackageDTO> GetPackages();
         IEnumerable<PackageDTO> GetPackages(int skip, int take);
+
+        IEnumerable<PackageDTO> GetPackagesByColor(int colorId);
+        IEnumerable<PackageDTO> GetPackagesBySerial(int serialId);
 
         PackageDTO GetPackage(int id);
 
