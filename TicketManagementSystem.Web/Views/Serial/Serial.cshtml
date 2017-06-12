@@ -5,11 +5,11 @@
 }
 
 <div id="serialGrid">
-    @{
-        Html.RenderAction(Model.Action, Model.Controller, new { id = Model.Param, partial = true });
-    }
+    @Html.Action(Model.Action, Model.Controller, new { id = Model.Param, partial = true })
 </div>
 
-<div id="serialResult">
+<div id="serialResult"></div>
 
-</div>
+@section scripts {
+    @Scripts.Render("~/Scripts/packages-modal.js")
+}

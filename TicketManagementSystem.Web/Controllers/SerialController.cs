@@ -14,10 +14,12 @@ namespace TicketManagementSystem.Web.Controllers
     public class SerialController : ApplicationController
     {
         private ISerialService _serialService;
+        private IPackageService _packageService;
 
-        public SerialController(ISerialService serialService)
+        public SerialController(ISerialService serialService, IPackageService packageService)
         {
             _serialService = serialService;
+            _packageService = packageService;
         }
 
         [HttpGet]
@@ -50,6 +52,15 @@ namespace TicketManagementSystem.Web.Controllers
 
             ViewBag.Title = $"Серія \"{serial.Name}\"";
             return View("Serial", partialModel);
+        }
+
+        [HttpGet]
+        public ActionResult GetPackages(int id)
+        {
+            if (!_serialService.ExistsById(id)) return HttpNotFound();
+
+            var packages = _packageService.GetPackagesBySerial(id);
+            return PartialView("~/Views/Package/PackagesModal.cshtml", MapperInstance.Map<IEnumerable<PackageDetailsModel>>(packages));
         }
 
         [HttpGet]

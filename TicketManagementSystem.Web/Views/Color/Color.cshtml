@@ -1,15 +1,14 @@
 ﻿@model PartialModel<int>
 
 @{
-
 }
 
 <div id="colorGrid">
-    @{
-        Html.RenderAction(Model.Action, Model.Controller, new { id = Model.Param, partial = true });
-    }
+    @Html.Action(Model.Action, Model.Controller, new { id = Model.Param, partial = true })
 </div>
 
-<div id="colorResult">
+<div id="colorResult"></div>
 
-</div>
+@section scripts {
+    @Scripts.Render("~/Scripts/packages-modal.js")
+}

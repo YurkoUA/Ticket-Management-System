@@ -14,10 +14,12 @@ namespace TicketManagementSystem.Web.Controllers
     public class ColorController : ApplicationController
     {
         private IColorService _colorService;
+        private IPackageService _packageService;
 
-        public ColorController(IColorService colorService)
+        public ColorController(IColorService colorService, IPackageService packageService)
         {
             _colorService = colorService;
+            _packageService = packageService;
         }
 
         [HttpGet]
@@ -50,6 +52,16 @@ namespace TicketManagementSystem.Web.Controllers
                 Param = id
             };
             return View("Color", partialModel);
+        }
+
+        [HttpGet]
+        public ActionResult GetPackages(int id)
+        {
+            if (!_colorService.ExistsById(id)) return HttpNotFound();
+
+            var packages = _packageService.GetPackagesByColor(id);
+            
+            return PartialView("~/Views/Package/PackagesModal.cshtml", MapperInstance.Map<IEnumerable<PackageDetailsModel>>(packages));
         }
 
         [HttpGet]

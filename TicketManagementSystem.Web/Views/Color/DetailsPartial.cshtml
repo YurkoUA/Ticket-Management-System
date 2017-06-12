@@ -1,4 +1,4 @@
-﻿@model TicketManagementSystem.Web.ColorDetailsModel
+﻿@model ColorDetailsModel
 
 @{
     bool isAdmin = User.IsInRole("Admin");
@@ -7,7 +7,7 @@
 }
 
 <div>
-    <h4>@ViewBag.Title</h4>
+    <h2>@ViewBag.Title</h2>
     <hr />
 
     <dl class="dl-horizontal">
@@ -24,27 +24,33 @@
         <dd>@Html.DisplayFor(model => model.TicketsCount)</dd>
 
     </dl>
-    
-    @if (isAdmin)
-    {
-        <p>
-            @Ajax.ActionLink("Редагувати", "Edit", new { id = Model.Id }, new AjaxOptions
-            {
-                HttpMethod = "GET",
-                UpdateTargetId = "colorGrid"
-            })
+</div>
+
+@if (Model.PackagesCount > 0)
+{
+    @Html.HiddenFor(model => model.Id)
+    <button id="packages-by-color" class="btn btn-default">Список пачок</button>
+}
+
+@if (isAdmin)
+{
+    <p>
+        @Ajax.ActionLink("Редагувати", "Edit", new { id = Model.Id }, new AjaxOptions
+       {
+           HttpMethod = "GET",
+           UpdateTargetId = "colorGrid"
+       })
 
 
-            @if (Model.PackagesCount == 0 && Model.TicketsCount == 0)
-            {
-                <span> | </span>
+        @if (Model.PackagesCount == 0 && Model.TicketsCount == 0)
+        {
+            <span> | </span>
 
                 @Ajax.ActionLink("Видалити", "Delete", new { id = Model.Id }, new AjaxOptions
-                {
-                    HttpMethod = "GET",
-                    UpdateTargetId = "colorGrid"
-                })
-            }
-        </p>
-    }
-</div>
+           {
+               HttpMethod = "GET",
+               UpdateTargetId = "colorGrid"
+           })
+        }
+    </p>
+}

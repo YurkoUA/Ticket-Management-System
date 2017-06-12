@@ -1,13 +1,13 @@
 ﻿@model SerialDetailsModel
 
-@{ 
+@{
     Layout = null;
     bool isAdmin = User.IsInRole("Admin");
     ViewBag.Title = $"Серія \"{Model.Name}\"";
 }
 
 <div>
-    <h4>@ViewBag.Title</h4>
+    <h2>@ViewBag.Title</h2>
     <hr />
     <dl class="dl-horizontal">
         <dt>@Html.DisplayNameFor(model => model.Id)</dt>
@@ -30,6 +30,12 @@
     </dl>
 </div>
 
+@if (Model.PackagesCount > 0)
+{
+    @Html.HiddenFor(model => model.Id)
+    <button id="packages-by-serial" class="btn btn-default">Список пачок</button>
+}
+
 @if (isAdmin)
 {
     <p>
@@ -42,9 +48,9 @@
 
         @if (Model.PackagesCount == 0 && Model.TicketsCount == 0)
         {
-            <span> | </span>
+        <span> | </span>
 
-                @Ajax.ActionLink("Видалити", "Delete", new { id = Model.Id }, new AjaxOptions
+        @Ajax.ActionLink("Видалити", "Delete", new { id = Model.Id }, new AjaxOptions
                 {
                     HttpMethod = "GET",
                     UpdateTargetId = "serialGrid"

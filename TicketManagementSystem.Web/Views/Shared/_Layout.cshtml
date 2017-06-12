@@ -48,6 +48,8 @@
         <footer>
             <p>&copy; 2014 - @DateTime.Now.Year – Носач Юрій</p>
         </footer>
+
+        @Html.Partial("Modal")
     </div>
 
     @Scripts.Render("~/bundles/jquery")
@@ -55,6 +57,7 @@
     @Scripts.Render("~/bundles/bootstrap")
 
     @Scripts.Render("~/Scripts/site.js")
+    @Scripts.Render("~/Scripts/modal.js")
 
     @RenderSection("scripts", required: false)
 </body>
