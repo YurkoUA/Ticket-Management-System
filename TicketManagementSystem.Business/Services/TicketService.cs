@@ -104,6 +104,7 @@ namespace TicketManagementSystem.Business.Services
                 ticket.SerialId = ticketDTO.SerialId;
                 ticket.SerialNumber = ticketDTO.SerialNumber;
                 ticket.Note = ticketDTO.Note;
+                ticket.Date = ticketDTO.Date;
 
                 Database.Tickets.Update(ticket);
                 Database.SaveChanges();

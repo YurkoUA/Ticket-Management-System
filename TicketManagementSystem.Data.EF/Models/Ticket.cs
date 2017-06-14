@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace TicketManagementSystem.Data.EF.Models
 {
@@ -22,7 +23,8 @@ namespace TicketManagementSystem.Data.EF.Models
         [StringLength(128)]
         public string Note { get; set; }
 
-        public DateTime? Date { get; set; }
+        [StringLength(32)]
+        public string Date { get; set; }
         public DateTime AddDate { get; set; } = DateTime.Now;
 
         #region Navigation properties
@@ -32,6 +34,12 @@ namespace TicketManagementSystem.Data.EF.Models
         public virtual Serial Serial { get; set; }
 
         #endregion
+
+        public bool IsHappy()
+        {
+            var numbers = Number.Select(n => int.Parse(n.ToString())).ToArray();
+            return numbers[0] + numbers[1] + numbers[2] == numbers[3] + numbers[4] + numbers[5];
+        }
 
         #region System.Object methods
 

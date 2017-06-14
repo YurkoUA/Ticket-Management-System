@@ -23,16 +23,9 @@ namespace TicketManagementSystem.Business.DTO
 
         public string Note { get; set; }
 
-        public DateTime? Date { get; set; }
+        public string Date { get; set; }
         public DateTime AddDate { get; set; }
 
-        public bool IsHappy
-        {
-            get
-            {
-                var numbers = Number.Select(n => int.Parse(n.ToString())).ToArray();
-                return numbers[0] + numbers[1] + numbers[2] == numbers[3] + numbers[4] + numbers[5];
-            }
-        }
+        public bool IsHappy { get; set; }
     }
 }

@@ -33,7 +33,8 @@ namespace TicketManagementSystem.Web
         public string Note { get; set; }
 
         [Display(Name = "Дата")]
-        public DateTime? Date { get; set; }       
+        [StringLength(32, ErrorMessage = "Дата не може бути довша за 32 символи.")]
+        public string Date { get; set; }
 
         [HiddenInput(DisplayValue = false)]
         public SelectList Colors { get; set; }

@@ -14,6 +14,6 @@ namespace TicketManagementSystem.Web
         public string UserName { get; set; }
 
         [Display(Name = "Група:")]
-        public string Role { get; set; }
+        public string RoleDescription { get; set; }
     }
 }

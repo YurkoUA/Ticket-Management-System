@@ -87,11 +87,11 @@ namespace TicketManagementSystem.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet]
-        public async Task<ActionResult> Register(string email, string userName, string password)
-        {
-            await _userService.CreateAsync(new User { Email = email, UserName = userName }, password);
-            return null;
-        }
+        //[HttpGet]
+        //public async Task<ActionResult> Register(string email, string userName, string password)
+        //{
+        //    await _userService.CreateAsync(new User { Email = email, UserName = userName }, password);
+        //    return null;
+        //}
     }
 }

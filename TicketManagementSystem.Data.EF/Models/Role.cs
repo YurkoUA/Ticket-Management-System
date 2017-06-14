@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
 namespace TicketManagementSystem.Data.EF.Models
@@ -15,7 +12,8 @@ namespace TicketManagementSystem.Data.EF.Models
         [StringLength(32, MinimumLength = 4)]
         public string Name { get; set; }
 
-        // TODO: Add role description property.
+        [StringLength(32, MinimumLength = 4)]
+        public string Description { get; set; }
 
         #region Navigation properties
 
@@ -27,19 +25,20 @@ namespace TicketManagementSystem.Data.EF.Models
 
         public override string ToString()
         {
-            return Name;
+            return Description;
         }
 
         public override int GetHashCode()
         {
-            return Name.GetHashCode();
+            return Name.GetHashCode() ^ Description.GetHashCode();
         }
 
         public override bool Equals(object obj)
         {
             if (obj is Role role)
             {
-                return role.Name.Equals(Name, StringComparison.CurrentCultureIgnoreCase);
+                return role.Name.Equals(Name, StringComparison.CurrentCultureIgnoreCase)
+                    && role.Description.Equals(Description, StringComparison.CurrentCultureIgnoreCase);
             }
             return false;
         }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TicketManagementSystem.Business.DTO
+﻿namespace TicketManagementSystem.Business.DTO
 {
     public class TicketCreateDTO
     {
@@ -12,6 +10,6 @@ namespace TicketManagementSystem.Business.DTO
         public int SerialId { get; set; }
         public string SerialNumber { get; set; }
         public string Note { get; set; }
-        public DateTime? Date { get; set; }
+        public string Date { get; set; }
     }
 }

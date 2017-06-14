@@ -44,7 +44,8 @@ namespace TicketManagementSystem.Business
                 #region User
 
                 cfg.CreateMap<User, UserDTO>()
-                    .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()));
+                    .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.Name))
+                    .ForMember(dest => dest.RoleDescription, opt => opt.MapFrom(src => src.Role.ToString()));
 
                 #endregion
 
@@ -72,7 +73,8 @@ namespace TicketManagementSystem.Business
                 cfg.CreateMap<Ticket, TicketDTO>()
                     .ForMember(dest => dest.ColorName, opt => opt.MapFrom(src => src.Color.ToString()))
                     .ForMember(dest => dest.SerialName, opt => opt.MapFrom(src => src.Serial.ToString()))
-                    .ForMember(dest => dest.PackageName, opt => opt.MapFrom(src => src.Package.ToString()));
+                    .ForMember(dest => dest.PackageName, opt => opt.MapFrom(src => src.Package.ToString()))
+                    .ForMember(dest => dest.IsHappy, opt => opt.MapFrom(src => src.IsHappy()));
 
                 cfg.CreateMap<TicketCreateDTO, Ticket>();
                 cfg.CreateMap<Ticket, TicketEditDTO>();
