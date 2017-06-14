@@ -16,11 +16,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<ColorDTO> GetColors()
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<Color, ColorDTO>()
-                .ForMember(dest => dest.PackagesCount, opt => opt.MapFrom(src => src.Packages.Count))
-                .ForMember(dest => dest.TicketsCount, opt => opt.MapFrom(src => src.Tickets.Count))
-            );
-            return Mapper.Map<IEnumerable<Color>, IEnumerable<ColorDTO>>(Database.Colours.GetAll());
+            return MapperInstance.Map<IEnumerable<ColorDTO>>(Database.Colours.GetAll());
         }
 
         public ColorDTO GetColor(int id)

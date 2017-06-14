@@ -252,7 +252,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         private SelectList GetColorsSelectList(bool nullElement = false)
         {
-            var colors = _colorService.GetColors().OrderBy(c => c.ToString()).ToList();
+            var colors = _colorService.GetColors().OrderBy(c => c.Name).ToList();
 
             if (nullElement)
                 colors.Add(new ColorDTO { Name = "(Немає)" });
@@ -262,7 +262,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         private SelectList GetSeriesSelectList(bool nullElement = false)
         {
-            var series = _serialService.GetSeries().OrderBy(s => s.ToString()).ToList();
+            var series = _serialService.GetSeries().OrderBy(s => s.Name).ToList();
 
             if (nullElement)
                 series.Add(new SerialDTO { Name = "(Немає)" });

@@ -15,6 +15,9 @@ namespace TicketManagementSystem.Business.Interfaces
         IEnumerable<TicketDTO> GetUnallocatedTickets();
         IEnumerable<TicketDTO> GetUnallocatedTickets(int skip, int take);
 
+        IEnumerable<TicketDTO> GetHappyTickets();
+        IEnumerable<TicketDTO> GetHappyTickets(int skip, int take);
+
         TicketDTO GetById(int id);
         IEnumerable<TicketDTO> GetByNumber(string number);
         IEnumerable<TicketDTO> GetByNumber(string number, int id);

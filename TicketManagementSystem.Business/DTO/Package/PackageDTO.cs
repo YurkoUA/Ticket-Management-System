@@ -20,6 +20,17 @@
 
         public string Note { get; set; }
 
-        public string SelectListOptionValue => $"{Name} - {TicketsCount} шт.";
+        public string SelectListOptionValue
+        {
+            get
+            {
+                var retValue = Name;
+
+                if (TicketsCount > 0)
+                    retValue += $": {TicketsCount} шт.";
+
+                return retValue;
+            }
+        }
     }
 }

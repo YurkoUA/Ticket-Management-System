@@ -7,51 +7,56 @@
 
 <h2>@ViewBag.Title</h2>
 
-@if (isAdmin)
-{
-    <p>
-        @Html.ActionLink("Додати новий", "Create")
-    </p>
-}
 
 @if (Model.Any())
 {
-    <table class="table">
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.Id)</th>
-            <th>@Html.DisplayNameFor(model => model.Name)</th>
-            <th>@Html.DisplayNameFor(model => model.PackagesCount)</th>
-            <th>@Html.DisplayNameFor(model => model.TicketsCount)</th>
+    <div class="panel panel-default">
+        <div class="panel-heading">@ViewBag.Title</div>
 
-            @if (isAdmin)
+        @if (isAdmin)
+        {
+            <div class="panel-body">
+                @Html.ActionLink("Додати новий", "Create")
+            </div>
+        }
+
+        <table class="table">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.PackagesCount)</th>
+                <th>@Html.DisplayNameFor(model => model.TicketsCount)</th>
+
+                @if (isAdmin)
+                {
+                    <th></th>
+                }
+            </tr>
+
+            @foreach (var item in Model)
             {
-                <th></th>
-            }
-        </tr>
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <td>@Html.ActionLink(item.Name, "Details", new { id = item.Id })</td>
+                    <td>@Html.DisplayFor(modelItem => item.PackagesCount)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TicketsCount)</td>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.Id)</td>
-            <td>@Html.ActionLink(item.Name, "Details", new { id = item.Id })</td>
-            <td>@Html.DisplayFor(modelItem => item.PackagesCount)</td>
-            <td>@Html.DisplayFor(modelItem => item.TicketsCount)</td>
-
-            @if (isAdmin)
-            {
-                <td>
-                    @Html.ActionLink("Редагувати", "Edit", new { id = item.Id })
-
-                    @if (item.PackagesCount == 0 && item.TicketsCount == 0)
+                    @if (isAdmin)
                     {
-                        <span> | </span>
-                        @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
+                        <td>
+                            @Html.ActionLink("Редагувати", "Edit", new { id = item.Id })
+
+                            @if (item.PackagesCount == 0 && item.TicketsCount == 0)
+                        {
+                                <span> | </span>
+                                @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
+                            }
+                        </td>
                     }
-                </td>
+                </tr>
             }
-        </tr>
-    }
-    </table>
+        </table>
+    </div>
 }
 else
 {

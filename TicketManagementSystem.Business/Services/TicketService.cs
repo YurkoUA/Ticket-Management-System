@@ -53,6 +53,24 @@ namespace TicketManagementSystem.Business.Services
                 .Take(take));
         }
 
+        public IEnumerable<TicketDTO> GetHappyTickets()
+        {
+            return MapperInstance.Map<IEnumerable<TicketDTO>>(
+                Database.Tickets.GetAll()
+                .Where(t => t.IsHappy())
+                .AsEnumerable());
+        }
+
+        public IEnumerable<TicketDTO> GetHappyTickets(int skip, int take)
+        {
+            return MapperInstance.Map<IEnumerable<TicketDTO>>(
+                Database.Tickets.GetAll()
+                .Where(t => t.IsHappy())
+                .AsEnumerable()
+                .Skip(skip)
+                .Take(take));
+        }
+
         public TicketDTO GetById(int id)
         {
             var ticket = Database.Tickets.GetById(id);

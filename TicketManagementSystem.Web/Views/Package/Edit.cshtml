@@ -40,6 +40,9 @@
         else
         {
             @Html.AlertWarning("Не можна змінити колір або серію пачки, якщо в ній вже є квитки.")
+
+            @Html.HiddenFor(model => model.ColorId)
+            @Html.HiddenFor(model => model.SerialId)
         }
 
         <div class="form-group">

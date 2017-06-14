@@ -287,7 +287,9 @@ namespace TicketManagementSystem.Web.Controllers
         private SelectList GetPackagesList(int colorId, int serialId, int? number = null)
         {
             IEnumerable<PackageDTO> packages = _packageService.GetPackages()
-                .Where(p => (p.ColorId == null || p.ColorId == colorId) && (p.SerialId == null || p.SerialId == serialId))
+                .Where(p => (p.ColorId == null || p.ColorId == colorId) 
+                    && (p.SerialId == null || p.SerialId == serialId) 
+                    && p.IsOpened)
                 .OrderBy(p => p.Name);
 
             if (number != null)

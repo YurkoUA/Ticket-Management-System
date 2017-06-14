@@ -8,10 +8,6 @@
     function OnBegin() {
         $("#createResult").html("");
     }
-
-    function OnComplete(request, status) {
-        $('form[id = form0]').trigger('reset');
-    }
 </script>
 
 <h2>@ViewBag.Title</h2>
@@ -20,7 +16,6 @@
 @using (Ajax.BeginForm("Create", new AjaxOptions
 {
     UpdateTargetId = "createResult",
-    OnComplete = "OnComplete",
     OnBegin = "OnBegin"
 })) 
 {
