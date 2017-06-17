@@ -1,15 +1,11 @@
 ﻿@model TicketChangeNumberModel
 
-@{ 
-    ViewBag.Title = "Змінити номер квитка";
-}
-
-<h2>@ViewBag.Title</h2>
+<h2>Змінити номер квитка</h2>
 <hr />
 
 @using (Ajax.BeginForm("ChangeNumber", new AjaxOptions
 {
-    UpdateTargetId = "change-result"
+    UpdateTargetId = "ticket-result"
 }))
 {
     @Html.AntiForgeryToken()
@@ -32,5 +28,3 @@
         </div>
     </div>
 }
-
-<div id="change-result"></div>

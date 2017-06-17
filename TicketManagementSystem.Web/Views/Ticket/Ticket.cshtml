@@ -1,0 +1,44 @@
+﻿@model PartialModel<int>
+
+@{
+    bool isAdmin = User.IsInRole("Admin");
+    var ajaxOptions = new AjaxOptions { UpdateTargetId = "ticket-grid", OnBegin = "OnBegin" };
+    var routeValues = new { id = Model.Param, partial = true };
+}
+
+<script>
+    function OnBegin() {
+        $('#ticket-result').html('');
+    }
+</script>
+
+<div id="ticket-grid">
+    @Html.Action(Model.Action, Model.Controller, new { id = Model.Param, partial = true })
+</div>
+
+<div id="ticket-result"></div>
+
+<div class="btn-group" role="group">
+
+    @Ajax.ActionLink("Деталі", "Details", routeValues,
+                    ajaxOptions, new { @class = "btn btn-default" })
+
+    @if (isAdmin)
+    {
+
+        @Ajax.ActionLink("Редагувати", "Edit", routeValues,
+                    ajaxOptions, new { @class = "btn btn-default" })
+
+
+        @Ajax.ActionLink("Видалити", "Delete", routeValues,
+                    ajaxOptions, new { @class = "btn btn-default" })
+
+
+        @Ajax.ActionLink("Змінити номер", "ChangeNumber", routeValues,
+                    ajaxOptions, new { @class = "btn btn-default" })
+
+
+        @Ajax.ActionLink("Перемістити", "Move", routeValues,
+                    ajaxOptions, new { @class = "btn btn-default" })
+    }
+</div>

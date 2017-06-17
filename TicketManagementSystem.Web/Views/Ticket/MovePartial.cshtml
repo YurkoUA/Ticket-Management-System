@@ -1,15 +1,11 @@
 ﻿@model TicketMoveModel
 
-@{ 
-    ViewBag.Title = $"Перемістити квиток №{Model.Number}";
-}
-
-<h2>@ViewBag.Title</h2>
+<h2>Перемістити квиток №@Model.Number</h2>
 <hr />
 
 @using (Ajax.BeginForm("Move", new AjaxOptions
 {
-    UpdateTargetId = "move-result"
+    UpdateTargetId = "ticket-result"
 }))
 {
     @Html.AntiForgeryToken()
@@ -31,5 +27,3 @@
         </div>
     </div>
 }
-
-<div id="move-result"></div>
