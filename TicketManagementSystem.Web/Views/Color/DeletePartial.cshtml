@@ -9,36 +9,30 @@
     <h2>@ViewBag.Title</h2>
     <hr />
 
-    @if (Model.PackagesCount == 0 && Model.TicketsCount == 0)
-    {
-        <h3>Ви дійсно хочете видалити колір "@Model.Name"</h3>
-
-        using (Html.BeginForm())
+    <div id="color-delete-grid">
+        @if (Model.PackagesCount == 0 && Model.TicketsCount == 0)
         {
-            @Html.AntiForgeryToken()
-            @Html.HiddenFor(model => model.Id)
+            <h4>Ви дійсно хочете видалити колір "@Model.Name"</h4>
 
-            <div class="form-actions no-color">
-                <input type="submit" value="Видалити" class="btn btn-default" />
-            </div>
+            using (Ajax.BeginForm(new AjaxOptions
+            {
+                OnSuccess = "OnSuccess",
+                UpdateTargetId = "color-delete-grid",
+                Confirm = $"Видалити колір \"{Model.Name}\""
+            }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Видалити" class="btn btn-danger" />
+                </div>
+                <br />
+            }
         }
-    }
-    else
-    {
-        <p>Неможливо видалити цей колір, бо є квитки та пачки, що до нього належать!</p>
-    }
+        else
+        {
+            @Html.AlertDanger("Неможливо видалити цей колір, бо є квитки та пачки, що до нього належать!")
+        }
+    </div>
 </div>
-
-@Ajax.ActionLink("Редагувати колір", "Edit", new { id = Model.Id }, new AjaxOptions
-{
-    HttpMethod = "GET",
-    UpdateTargetId = "colorGrid"
-})
-
-<br />
-
-@Ajax.ActionLink("Повернутися до кольору", "Details", new { id = Model.Id }, new AjaxOptions
-{
-    HttpMethod = "GET",
-    UpdateTargetId = "colorGrid"
-})

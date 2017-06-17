@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using AutoMapper;
-using TicketManagementSystem.Business.Services;
-using TicketManagementSystem.Data.EF.Models;
-using TicketManagementSystem.Web.Filters;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 
@@ -64,35 +58,33 @@ namespace TicketManagementSystem.Web.Controllers
             return PartialView("~/Views/Package/PackagesModal.cshtml", MapperInstance.Map<IEnumerable<PackageDetailsModel>>(packages));
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [HttpGet, Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
         public ActionResult Create(ColorCreateModel model)
         {
-            if (!ModelState.IsValid)
-                return ErrorPartial(ModelState);
-
-            if (_colorService.ExistsByName(model.Name))
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", $"Колір \"{model.Name}\" вже існує.");
-                return ErrorPartial(ModelState);
-            }
-            var id = _colorService.Create(MapperInstance.Map<ColorCreateDTO>(model)).Id;
+                var createDTO = MapperInstance.Map<ColorCreateDTO>(model);
+                var errors = _colorService.Validate(createDTO);
+                errors.ToModelState(ModelState);
 
-            return SuccessAlert($"Колір \"{model.Name}\" успішно додано!",
-                Url.Action("Details", "Color", new { id = id }),
-                "Переглянути");
+                if (ModelState.IsValid)
+                {
+                    var id = _colorService.Create(createDTO).Id;
+                    return SuccessPartial($"Колір \"{model.Name}\" успішно додано!",
+                        Url.Action("Details", "Color", new { id = id }),
+                        "Переглянути");
+                }
+            }
+            return ErrorPartial(ModelState);
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [HttpGet, Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, bool partial = false)
         {
             ColorEditDTO color = _colorService.GetColorEdit(id);
@@ -117,26 +109,25 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Color", partialModel);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
         public ActionResult Edit(ColorEditModel model)
         {
-            if (!ModelState.IsValid)
-                return ErrorPartial(ModelState);
-
-            if (!_colorService.IsNameFree(model.Id, model.Name))
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", $"Колір \"{model.Name}\" вже існує!");
-                return ErrorPartial(ModelState);
-            }
+                var editDTO = MapperInstance.Map<ColorEditDTO>(model);
+                var errors = _colorService.Validate(editDTO);
+                errors.ToModelState(ModelState);
 
-            _colorService.Edit(MapperInstance.Map<ColorEditDTO>(model));
-            return SuccessAlert("Зміни збережено!");
+                if (ModelState.IsValid)
+                {
+                    _colorService.Edit(editDTO);
+                    return SuccessPartial("Зміни збережено!");
+                }
+            }
+            return ErrorPartial(ModelState);
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [HttpGet, Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id, bool partial = false)
         {
             ColorDTO color = _colorService.GetColor((int)id);
@@ -161,9 +152,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Color", partialModel);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             var color = _colorService.GetColor(id);
@@ -174,9 +163,8 @@ namespace TicketManagementSystem.Web.Controllers
             if (color.PackagesCount == 0 && color.TicketsCount == 0)
             {
                 _colorService.Remove(id);
-                return RedirectToAction("Index");
+                return SuccessPartial("Колір видалено.");
             }
-
             ModelState.AddModelError("", "Неможливо видалити цей колір, бо є квитки та пачки, що до нього належать!");
             return ErrorPartial(ModelState);
         }

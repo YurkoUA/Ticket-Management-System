@@ -126,7 +126,7 @@ namespace TicketManagementSystem.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     var ticket = _ticketService.Create(createDTO);
-                    return SuccessAlert($"Квиток №{model.Number} успішно додано!", Url.Action("Details", new { id = ticket.Id }), "Переглянути");
+                    return SuccessPartial($"Квиток №{model.Number} успішно додано!", Url.Action("Details", new { id = ticket.Id }), "Переглянути");
                 }
             }
             return ErrorPartial(ModelState);
@@ -172,7 +172,7 @@ namespace TicketManagementSystem.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     var id = _ticketService.Edit(editDTO).Id;
-                    return SuccessAlert("Зміни збережено!", Url.Action("Details", new { id = id }), "Переглянути");
+                    return SuccessPartial("Зміни збережено!", Url.Action("Details", new { id = id }), "Переглянути");
                 }
             }
             return ErrorPartial(ModelState);
@@ -212,7 +212,7 @@ namespace TicketManagementSystem.Web.Controllers
             else
             {
                 _ticketService.Remove(id);
-                return SuccessAlert("Квиток видалено.");
+                return SuccessPartial("Квиток видалено.");
             }
         }
 
@@ -253,7 +253,7 @@ namespace TicketManagementSystem.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     _ticketService.MoveToPackage(viewModel.Id, viewModel.PackageId);
-                    return SuccessAlert("Квиток успішно переміщено.");
+                    return SuccessPartial("Квиток успішно переміщено.");
                 }
             }
             return ErrorPartial(ModelState);
@@ -294,7 +294,7 @@ namespace TicketManagementSystem.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     _ticketService.ChangeNumber(viewModel.Id, viewModel.Number);
-                    return SuccessAlert($"Номер квитка змінено на №{viewModel.Number}.");
+                    return SuccessPartial($"Номер квитка змінено на №{viewModel.Number}.");
                 }
             }
             return ErrorPartial(ModelState);

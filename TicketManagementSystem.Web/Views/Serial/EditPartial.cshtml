@@ -5,15 +5,9 @@
     ViewBag.Title = $"Редагування серії \"{Model.Name}\"";
 }
 
-<script type="text/javascript">
-    function OnBegin() {
-        $("#serialResult").html("");
-    }
-</script>
-
 @using (Ajax.BeginForm("Edit", new AjaxOptions
 {
-    UpdateTargetId = "serialResult",
+    UpdateTargetId = "serial-result",
     OnBegin = "OnBegin"
 }))
 {
@@ -45,27 +39,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Зберегти" class="btn btn-default" />
+                <input type="submit" value="Зберегти" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
-
-@if (Model.CanBeDeleted)
-{
-    @Ajax.ActionLink("Видалити серію", "Delete", new { id = Model.Id }, new AjaxOptions
-    {
-        HttpMethod = "GET",
-        UpdateTargetId = "serialGrid",
-        OnBegin = "OnBegin"
-    })
-}
-
-<br />
-
-@Ajax.ActionLink("Повернутися до серії", "Details", new { id = Model.Id }, new AjaxOptions
-{
-    HttpMethod = "GET",
-    UpdateTargetId = "serialGrid",
-    OnBegin = "OnBegin"
-})

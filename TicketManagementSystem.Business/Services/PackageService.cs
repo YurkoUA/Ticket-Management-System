@@ -10,8 +10,13 @@ namespace TicketManagementSystem.Business.Services
 {
     public class PackageService : Service, IPackageService
     {
-        public PackageService(IUnitOfWork database) : base(database)
+        private IColorService _colorService;
+        private ISerialService _serialService;
+
+        public PackageService(IUnitOfWork database, IColorService colorService, ISerialService serialService) : base(database)
         {
+            _colorService = colorService;
+            _serialService = serialService;
         }
 
         public int TotalCount => Database.Packages.GetCount();
@@ -229,8 +234,90 @@ namespace TicketManagementSystem.Business.Services
 
         public bool IsNameFree(int id, string name)
         {
-            return Database.Packages
+            return !Database.Packages
                 .Contains(p => p.Name?.Equals(name, StringComparison.CurrentCultureIgnoreCase) == true && p.Id != id);
+        }
+
+        public IEnumerable<string> Validate(PackageCreateDTO createDTO)
+        {
+            var errors = new List<string>();
+            errors.AddRange(ValidateObject(createDTO));
+
+            if (!_colorService.ExistsById(createDTO.ColorId))
+            {
+                errors.Add($"Кольору ID: {createDTO.ColorId} не існує.");
+            }
+
+            if (!_serialService.ExistsById(createDTO.SerialId))
+            {
+                errors.Add($"Серії ID: {createDTO.SerialId} не існує.");
+            }
+
+            return errors;
+        }
+
+        public IEnumerable<string> Validate(PackageSpecialCreateDTO createDTO)
+        {
+            var errors = new List<string>();
+            errors.AddRange(ValidateObject(createDTO));
+
+            if (ExistsByName(createDTO.Name))
+            {
+                errors.Add($"Пачка \"{createDTO.Name}\" вже існує.");
+            }
+
+            if (createDTO.ColorId != null && !_colorService.ExistsById((int)createDTO.ColorId))
+            {
+                errors.Add($"Кольору ID: {createDTO.ColorId} не існує.");
+            }
+
+            if (createDTO.SerialId != null && !_serialService.ExistsById((int)createDTO.SerialId))
+            {
+                errors.Add($"Серії ID: {createDTO.SerialId} не існує.");
+            }
+
+            return errors;
+        }
+
+        public IEnumerable<string> Validate(PackageEditDTO editDTO)
+        {
+            var errors = new List<string>();
+            errors.AddRange(ValidateObject(editDTO));
+
+            if (!_colorService.ExistsById(editDTO.ColorId))
+            {
+                errors.Add($"Кольору ID: {editDTO.ColorId} не існує.");
+            }
+
+            if (!_serialService.ExistsById(editDTO.SerialId))
+            {
+                errors.Add($"Серії ID: {editDTO.SerialId} не існує.");
+            }
+
+            return errors;
+        }
+
+        public IEnumerable<string> Validate(PackageSpecialEditDTO editDTO)
+        {
+            var errors = new List<string>();
+            errors.AddRange(ValidateObject(editDTO));
+
+            if (!IsNameFree(editDTO.Id, editDTO.Name))
+            {
+                errors.Add($"Пачка \"{editDTO.Name}\" вже існує.");
+            }
+
+            if (editDTO.ColorId != null && !_colorService.ExistsById((int)editDTO.ColorId))
+            {
+                errors.Add($"Кольору ID: {editDTO.ColorId} не існує.");
+            }
+
+            if (editDTO.SerialId != null && !_serialService.ExistsById((int)editDTO.SerialId))
+            {
+                errors.Add($"Серії ID: {editDTO.SerialId} не існує.");
+            }
+
+            return errors;
         }
     }
 }

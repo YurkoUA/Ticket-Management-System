@@ -291,6 +291,8 @@
     <Content Include="Views\Package\Package.cshtml" />
     <Content Include="Views\Ticket\ToolbarPartial.cshtml" />
     <Content Include="Views\Package\ToolbarPartial.cshtml" />
+    <Content Include="Views\Serial\ToolbarPartial.cshtml" />
+    <Content Include="Views\Color\ToolbarPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

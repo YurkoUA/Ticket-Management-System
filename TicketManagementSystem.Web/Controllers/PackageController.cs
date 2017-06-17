@@ -13,6 +13,7 @@ namespace TicketManagementSystem.Web.Controllers
         // TODO: Make default/special.
         // TODO: Open/Close package.
         // TODO: In "ToolbarPartial" hide delete button if package contains tickets.
+        // TODO: Edit: validate change FirstNumber.
 
         private IPackageService _packageService;
         private IColorService _colorService;
@@ -85,18 +86,16 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!_serialService.ExistsById(viewModel.SerialId))
-                {
-                    ModelState.AddModelError("", $"Серії ID: {viewModel.SerialId} не існує.");
-                }
+                var createDTO = MapperInstance.Map<PackageCreateDTO>(viewModel);
+                var errors = _packageService.Validate(createDTO);
 
-                if (!_colorService.ExistsById(viewModel.ColorId))
-                {
-                    ModelState.AddModelError("", $"Кольору ID: {viewModel.ColorId} не існує.");
-                }
-                var packageId = _packageService.CreatePackage(MapperInstance.Map<PackageCreateDTO>(viewModel)).Id;
+                errors.ToModelState(ModelState);
 
-                return SuccessAlert("Пачку успішно створено", Url.Action("Details", new { id = packageId }), "Переглянути");
+                if (ModelState.IsValid)
+                {
+                    var packageId = _packageService.CreatePackage(createDTO).Id;
+                    return SuccessPartial("Пачку успішно створено", Url.Action("Details", new { id = packageId }), "Переглянути");
+                }
             }
             return ErrorPartial(ModelState);
         }
@@ -109,24 +108,14 @@ namespace TicketManagementSystem.Web.Controllers
                 if (viewModel.ColorId == 0)     viewModel.ColorId = null;
                 if (viewModel.SerialId == 0)    viewModel.SerialId = null;
 
-                if (_packageService.ExistsByName(viewModel.Name))
-                {
-                    ModelState.AddModelError("", $"Пачка з іменем \"{viewModel.Name}\" вже існує.");
-                }
+                var createDTO = MapperInstance.Map<PackageSpecialCreateDTO>(viewModel);
+                var errors = _packageService.Validate(createDTO);
+                errors.ToModelState(ModelState);
 
-                else if (viewModel.SerialId != null && !_serialService.ExistsById((int)viewModel.SerialId))
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError("", $"Серії ID: {viewModel.SerialId} не існує.");
-                }
-
-                else if (viewModel.ColorId != null && !_colorService.ExistsById((int)viewModel.ColorId))
-                {
-                    ModelState.AddModelError("", $"Кольору ID: {viewModel.ColorId} не існує.");
-                }
-                else
-                {
-                    var packageId = _packageService.CreateSpecialPackage(MapperInstance.Map<PackageSpecialCreateDTO>(viewModel)).Id;
-                    return SuccessAlert($"Пачку \"{viewModel.Name}\" успішно створено", Url.Action("Details", new { id = packageId }), "Переглянути");
+                    var packageId = _packageService.CreateSpecialPackage(createDTO).Id;
+                    return SuccessPartial($"Пачку \"{viewModel.Name}\" успішно створено", Url.Action("Details", new { id = packageId }), "Переглянути");
                 }
             }
             return ErrorPartial(ModelState);
@@ -202,18 +191,15 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!_serialService.ExistsById(viewModel.SerialId))
-                {
-                    ModelState.AddModelError("", $"Серії ID: {viewModel.SerialId} не існує.");
-                }
+                var editDTO = MapperInstance.Map<PackageEditDTO>(viewModel);
+                var errors = _packageService.Validate(editDTO);
+                errors.ToModelState(ModelState);
 
-                if (!_colorService.ExistsById(viewModel.ColorId))
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError("", $"Кольору ID: {viewModel.ColorId} не існує.");
+                    _packageService.EditPackage(editDTO);
+                    return SuccessPartial("Пачку успішно відредаговано", Url.Action("Details", new { id = viewModel.Id }), "Переглянути");
                 }
-                _packageService.EditPackage(MapperInstance.Map<PackageEditDTO>(viewModel));
-
-                return SuccessAlert("Пачку успішно відредаговано", Url.Action("Details", new { id = viewModel.Id }), "Переглянути");
             }
             return ErrorPartial(ModelState);
         }
@@ -227,23 +213,15 @@ namespace TicketManagementSystem.Web.Controllers
                 if (viewModel.ColorId == 0) viewModel.ColorId = null;
                 if (viewModel.SerialId == 0) viewModel.SerialId = null;
 
-                if (!_packageService.IsNameFree(viewModel.Id, viewModel.Name))
-                {
-                    ModelState.AddModelError("", $"Пачка \"{viewModel.Name}\" вже існує.");
-                }
+                var editDTO = MapperInstance.Map<PackageSpecialEditDTO>(viewModel);
+                var errors = _packageService.Validate(editDTO);
+                errors.ToModelState(ModelState);
 
-                if (viewModel.SerialId != null && !_serialService.ExistsById((int)viewModel.SerialId))
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError("", $"Серії ID: {viewModel.SerialId} не існує.");
+                    _packageService.EditSpecialPackage(editDTO);
+                    return SuccessPartial("Пачку успішно відредаговано", Url.Action("Details", new { id = viewModel.Id }), "Переглянути");
                 }
-
-                if (viewModel.ColorId != null && !_colorService.ExistsById((int)viewModel.ColorId))
-                {
-                    ModelState.AddModelError("", $"Кольору ID: {viewModel.ColorId} не існує.");
-                }
-                _packageService.EditSpecialPackage(MapperInstance.Map<PackageSpecialEditDTO>(viewModel));
-
-                return SuccessAlert("Пачку успішно відредаговано", Url.Action("Details", new { id = viewModel.Id }), "Переглянути");
             }
             return ErrorPartial(ModelState);
         }
@@ -283,7 +261,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (package.TicketsCount == 0)
             {
                 _packageService.Remove((int)id);
-                return SuccessAlert("Пачку успішно видалено.");
+                return SuccessPartial("Пачку успішно видалено.");
             }
             else
             {

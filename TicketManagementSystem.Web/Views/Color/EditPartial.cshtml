@@ -5,15 +5,9 @@
     ViewBag.Title = $"Редагування кольору \"{Model.Name}\"";
 }
 
-<script type="text/javascript">
-    function OnBegin() {
-        $("#colorResult").html("");
-    }
-</script>
-
 @using (Ajax.BeginForm("Edit", new AjaxOptions
 {
-    UpdateTargetId = "colorResult",
+    UpdateTargetId = "color-result",
     OnBegin = "OnBegin"
 }))
 {
@@ -36,27 +30,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Зберегти" class="btn btn-default" />
+                <input type="submit" value="Зберегти" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
-
-@if (Model.CanBeDeleted)
-{
-    @Ajax.ActionLink("Видалити колір", "Delete", new { id = Model.Id }, new AjaxOptions
-    {
-        HttpMethod = "GET",
-        UpdateTargetId = "colorGrid",
-        OnBegin = "OnBegin"
-    })
-}
-
-<br />
-
-@Ajax.ActionLink("Повернутися до кольору", "Details", new { id = Model.Id }, new AjaxOptions
-{
-    HttpMethod = "GET",
-    UpdateTargetId = "colorGrid",
-    OnBegin = "OnBegin"
-})

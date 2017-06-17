@@ -1,6 +1,6 @@
 ﻿@model SerialDetailsModel
 
-@{ 
+@{
     Layout = null;
     ViewBag.Title = $"Видалення серії \"{Model.Name}\"";
 }
@@ -8,37 +8,30 @@
 <div>
     <h2>@ViewBag.Title</h2>
     <hr />
-
-    @if (Model.PackagesCount == 0 && Model.TicketsCount == 0)
-    {
-        <h3>Ви дійсно хочете видалити серію "@Model.Name"</h3>
-
-        using (Html.BeginForm())
+    <div id="serial-delete-grid">
+        @if (Model.PackagesCount == 0 && Model.TicketsCount == 0)
         {
-            @Html.AntiForgeryToken()
-            @Html.HiddenFor(model => model.Id)
+            <h4>Ви дійсно хочете видалити серію "@Model.Name"</h4>
 
-            <div class="form-actions no-color">
-                <input type="submit" value="Видалити" class="btn btn-default" />
-            </div>
+            using (Ajax.BeginForm(new AjaxOptions
+            {
+                UpdateTargetId = "serial-delete-grid",
+                OnSuccess = "OnSuccess",
+                Confirm = $"Дійсно видалити серію \"{Model.Name}\""
+            }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Видалити" class="btn btn-danger" />
+                </div>
+                <br />
+            }
         }
-    }
-    else
-    {
-        <p>Неможливо видалити цю серію, бо є квитки та пачки, що до неї належать!</p>
-    }
+        else
+        {
+            @Html.AlertDanger("Неможливо видалити цю серію, бо є квитки та пачки, що до неї належать!")
+        }
+    </div>
 </div>
-
-@Ajax.ActionLink("Редагувати серію", "Edit", new { id = Model.Id }, new AjaxOptions
-{
-    HttpMethod = "GET",
-    UpdateTargetId = "serialGrid"
-})
-
-<br />
-
-@Ajax.ActionLink("Повернутися до серії", "Details", new { id = Model.Id }, new AjaxOptions
-{
-    HttpMethod = "GET",
-    UpdateTargetId = "serialGrid"
-})

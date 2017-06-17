@@ -1,0 +1,18 @@
+﻿@model int
+
+@{ 
+    Layout = null;
+    var isAdmin = User.IsInRole("Admin");
+    var routeValues = new { id = Model };
+    var ajaxOptions = new AjaxOptions { UpdateTargetId = "color-grid", OnBegin = "OnBegin" };
+}
+
+<div id="color-toolbar" class="btn-group">
+    @Ajax.ActionLink("Деталі", "Details", "Color", routeValues, ajaxOptions, new { @class = "btn btn-default" })
+
+    @if (isAdmin)
+    {
+        @Ajax.ActionLink("Редагувати", "Edit", "Color", routeValues, ajaxOptions, new { @class = "btn btn-default" })
+        @Ajax.ActionLink("Видалити", "Delete", "Color", routeValues, ajaxOptions, new { @class = "btn btn-default" })
+    }
+</div>

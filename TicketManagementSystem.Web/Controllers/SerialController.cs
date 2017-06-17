@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using AutoMapper;
-using TicketManagementSystem.Business.Services;
-using TicketManagementSystem.Data.EF.Models;
-using TicketManagementSystem.Web.Filters;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 
@@ -63,33 +57,31 @@ namespace TicketManagementSystem.Web.Controllers
             return PartialView("~/Views/Package/PackagesModal.cshtml", MapperInstance.Map<IEnumerable<PackageDetailsModel>>(packages));
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [HttpGet, Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
         public ActionResult Create(SerialCreateModel model)
         {
-            if (!ModelState.IsValid)
-                return ErrorPartial(ModelState);
-
-            if (_serialService.ExistsByName(model.Name))
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", $"Серія \"{model.Name}\" вже існує.");
-                return ErrorPartial(ModelState);
-            }
+                var createDTO = MapperInstance.Map<SerialCreateDTO>(model);
+                var errors = _serialService.Validate(createDTO);
+                errors.ToModelState(ModelState);
 
-            var id = _serialService.Create(MapperInstance.Map<SerialCreateDTO>(model)).Id;
-            return SuccessAlert($"Серію \"{model.Name}\" успішно додано!", Url.Action("Details", new { id = id }), "Переглянути");
+                if (ModelState.IsValid)
+                {
+                    var id = _serialService.Create(createDTO).Id;
+                    return SuccessPartial($"Серію \"{model.Name}\" успішно додано!", Url.Action("Details", new { id = id }), "Переглянути");
+                }
+            }
+            return ErrorPartial(ModelState);
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [HttpGet, Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, bool partial = false)
         {
             SerialEditDTO serial = _serialService.GetSerialEdit(id);
@@ -114,26 +106,25 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Serial", partialModel);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
         public ActionResult Edit(SerialEditModel model)
         {
-            if (!ModelState.IsValid)
-                return ErrorPartial(ModelState);
-
-            if (!_serialService.IsNameFree(model.Id, model.Name))
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", $"Серія \"{model.Name}\" вже існує!");
-                return ErrorPartial(ModelState);
-            }
+                var editDTO = MapperInstance.Map<SerialEditDTO>(model);
+                var errors = _serialService.Validate(editDTO);
+                errors.ToModelState(ModelState);
 
-            _serialService.Edit(MapperInstance.Map<SerialEditDTO>(model));
-            return SuccessAlert("Зміни збережено!");
+                if (ModelState.IsValid)
+                {
+                    _serialService.Edit(editDTO);
+                    return SuccessPartial("Зміни збережено!");
+                }
+            }
+            return ErrorPartial(ModelState);
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [HttpGet, Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id, bool partial = false)
         {
             SerialDTO serial = _serialService.GetSerial((int)id);
@@ -158,9 +149,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Serial", partialModel);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             var serial = _serialService.GetSerial(id);
@@ -171,9 +160,8 @@ namespace TicketManagementSystem.Web.Controllers
             if (serial.PackagesCount == 0 && serial.TicketsCount == 0)
             {
                 _serialService.Remove(serial.Id);
-                return RedirectToAction("Index");
+                return SuccessPartial("Серію видалено.");
             }
-
             ModelState.AddModelError("", "Неможливо видалити цей колір, бо є квитки та пачки, що до неї належать!");
             return ErrorPartial(ModelState);
         }

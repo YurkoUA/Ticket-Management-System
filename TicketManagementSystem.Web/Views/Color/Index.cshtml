@@ -47,7 +47,7 @@
                             @Html.ActionLink("Редагувати", "Edit", new { id = item.Id })
 
                             @if (item.PackagesCount == 0 && item.TicketsCount == 0)
-                        {
+                            {
                                 <span> | </span>
                                 @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
                             }
@@ -60,5 +60,5 @@
 }
 else
 {
-    <p>Дані відсутні!</p>
+    @Html.AlertDanger("Дані відсутні!")
 }

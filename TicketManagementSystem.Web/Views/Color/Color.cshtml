@@ -3,11 +3,28 @@
 @{
 }
 
-<div id="colorGrid">
+<script>
+    function OnBegin() {
+        $('#color-result').html('');
+    }
+
+    // For delete action.
+    function OnSuccess(data) {
+        $('#color-toolbar').html('');
+    }
+</script>
+
+<div id="color-grid">
     @Html.Action(Model.Action, Model.Controller, new { id = Model.Param, partial = true })
 </div>
 
-<div id="colorResult"></div>
+<div id="color-result"></div>
+@Html.Partial("ToolbarPartial", Model.Param)
+<br />
+
+<div>
+    @Html.ActionLink("Назад до списку", "Index")
+</div>
 
 @section scripts {
     @Scripts.Render("~/Scripts/packages-modal.js")

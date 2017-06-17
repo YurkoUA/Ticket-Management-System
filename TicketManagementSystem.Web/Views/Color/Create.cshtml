@@ -1,4 +1,4 @@
-﻿@model TicketManagementSystem.Web.ColorCreateModel
+﻿@model ColorCreateModel
 
 @{
     ViewBag.Title = "Додати колір";
@@ -18,7 +18,7 @@
 
 @using (Ajax.BeginForm("Create", new AjaxOptions
 {
-    UpdateTargetId = "createResult",
+    UpdateTargetId = "create-result",
     OnComplete = "OnComplete",
     OnBegin = "OnBegin"
 }))
@@ -39,15 +39,13 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Створити" class="btn btn-default" />
+                <input type="submit" value="Створити" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
-<div id="createResult">
-
-</div>
+<div id="create-result"></div>
 
 <div>
     @Html.ActionLink("Назад до списку", "Index")

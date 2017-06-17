@@ -17,13 +17,13 @@ namespace TicketManagementSystem.Web.Controllers
             return PartialView("ErrorListPartial", modelState.ToEnumerableString());
         }
 
-        protected ActionResult SuccessAlert(string message)
+        protected ActionResult SuccessPartial(string message)
         {
             ViewBag.Message = message;
             return PartialView("SuccessAlertPartial");
         }
 
-        protected ActionResult SuccessAlert(string message, string url, string urlMessage)
+        protected ActionResult SuccessPartial(string message, string url, string urlMessage)
         {
             ViewBag.Message = message;
             ViewBag.Url = url;

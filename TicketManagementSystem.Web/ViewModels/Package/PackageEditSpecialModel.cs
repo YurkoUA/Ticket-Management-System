@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace TicketManagementSystem.Web
@@ -16,6 +12,7 @@ namespace TicketManagementSystem.Web
         [HiddenInput(DisplayValue = false)]
         public byte[] RowVersion { get; set; }
 
+        [Display(Name = "Назва")]
         [Required(ErrorMessage = "Необхідно вказати назву пачки.")]
         [StringLength(64, MinimumLength = 2, ErrorMessage = "Назва може бути від 2 до 64 символів.")]
         public string Name { get; set; }

@@ -35,26 +35,3 @@
     @Html.HiddenFor(model => model.Id)
     <button id="packages-by-serial" class="btn btn-default">Список пачок</button>
 }
-
-@if (isAdmin)
-{
-    <p>
-        @Ajax.ActionLink("Редагувати", "Edit", new { id = Model.Id }, new AjaxOptions
-        {
-            HttpMethod = "GET",
-            UpdateTargetId = "serialGrid"
-        })
-
-
-        @if (Model.PackagesCount == 0 && Model.TicketsCount == 0)
-        {
-        <span> | </span>
-
-        @Ajax.ActionLink("Видалити", "Delete", new { id = Model.Id }, new AjaxOptions
-                {
-                    HttpMethod = "GET",
-                    UpdateTargetId = "serialGrid"
-                })
-        }
-    </p>
-}

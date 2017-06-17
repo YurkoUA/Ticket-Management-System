@@ -79,5 +79,29 @@ namespace TicketManagementSystem.Business.Services
             return !Database.Series
                 .Contains(m => m.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase) && m.Id != id);
         }
+
+        public IEnumerable<string> Validate(SerialCreateDTO createDTO)
+        {
+            var errors = new List<string>();
+            errors.AddRange(ValidateObject(createDTO));
+
+            if (ExistsByName(createDTO.Name))
+            {
+                errors.Add($"Серія \"{createDTO.Name}\" вже існує.");
+            }
+            return errors;
+        }
+
+        public IEnumerable<string> Validate(SerialEditDTO editDTO)
+        {
+            var errors = new List<string>();
+            errors.AddRange(ValidateObject(editDTO));
+
+            if (!IsNameFree(editDTO.Id, editDTO.Name))
+            {
+                errors.Add($"Серія \"{editDTO.Name}\" вже існує.");
+            }
+            return errors;
+        }
     }
 }

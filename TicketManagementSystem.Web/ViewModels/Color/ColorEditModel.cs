@@ -13,6 +13,7 @@ namespace TicketManagementSystem.Web
         public int Id { get; set; }
 
         [Display(Name = "Назва")]
+        [StringLength(32, MinimumLength = 3, ErrorMessage = "Назва повинна бути від 3 до 32 символів.")]
         public string Name { get; set; }
 
         [HiddenInput(DisplayValue = false)]

@@ -4,11 +4,27 @@
 
 }
 
-<div id="serialGrid">
+<script>
+    function OnBegin() {
+        $('#serial-result').html('');
+    }
+
+    // For delete action.
+    function OnSuccess(data) {
+        $('#serial-toolbar').html('');
+    }
+</script>
+
+<div id="serial-grid">
     @Html.Action(Model.Action, Model.Controller, new { id = Model.Param, partial = true })
 </div>
 
-<div id="serialResult"></div>
+<div id="serial-result"></div>
+@Html.Partial("ToolbarPartial", Model.Param)
+
+<div>
+    @Html.ActionLink("На до списку", "Index")
+</div>
 
 @section scripts {
     @Scripts.Render("~/Scripts/packages-modal.js")

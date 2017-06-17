@@ -39,7 +39,7 @@
                     <td>@Html.DisplayFor(modelItem => item.Note)</td>
                     <td>
                         @if (isAdmin)
-                    {
+                        {
                             @Html.ActionLink("Редагувати", "Edit", new { id = item.Id })
 
                             if (item.PackagesCount == 0 && item.TicketsCount == 0)
@@ -57,5 +57,5 @@
 }
 else
 {
-    <p>Дані відсутні!</p>
+    @Html.AlertDanger("Дані відсутні!")
 }
