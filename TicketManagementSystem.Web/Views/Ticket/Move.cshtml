@@ -1,0 +1,35 @@
+﻿@model TicketMoveModel
+
+@{ 
+    ViewBag.Title = $"Перемістити квиток №{Model.Number}";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+@using (Ajax.BeginForm("Move", new AjaxOptions
+{
+    UpdateTargetId = "move-result"
+}))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Packages, htmlAttributes: new { @class = "control-label col-md-2"})
+
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.PackageId, Model.Packages, new { @class = "form-control "})
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-primary" value="Перемістити" />
+            </div>
+        </div>
+    </div>
+}
+
+<div id="move-result"></div>

@@ -28,14 +28,15 @@
     @using (Ajax.BeginForm(new AjaxOptions
     {
         UpdateTargetId = "delete-result-grid",
-        InsertionMode = InsertionMode.Replace
+        InsertionMode = InsertionMode.Replace,
+        Confirm = $"Видалити квиток №{Model.Number}?"
     })) {
         @Html.AntiForgeryToken()
 
         <h4>Ви дійсно бажаєте видалити цей квиток?</h4>
 
         <div class="form-actions no-color">
-            <input type="submit" value="Видалити" class="btn btn-default" />
+            <input type="submit" value="Видалити" class="btn btn-danger" />
         </div>
     }
 </div>

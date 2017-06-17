@@ -172,6 +172,7 @@
     <Compile Include="Controllers\SerialController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Data\PageInfo.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Filters\OnlyAnonymous.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -200,10 +201,12 @@
     <Compile Include="ViewModels\Serial\SerialDetailsModel.cs" />
     <Compile Include="ViewModels\Serial\SerialEditModel.cs" />
     <Compile Include="ViewModels\Serial\SerialIndexModel.cs" />
+    <Compile Include="ViewModels\Ticket\TicketChangeNumberModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketCreateModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketDetailsModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketEditModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketIndexModel.cs" />
+    <Compile Include="ViewModels\Ticket\TicketMoveModel.cs" />
     <Compile Include="Views\PartialModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -226,7 +229,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jquery.validation.double.fix.js" />
-    <Content Include="Scripts\modal.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\packages-modal.js" />
     <Content Include="Scripts\packages.select-list.js" />
@@ -282,6 +284,9 @@
     <Content Include="Views\Ticket\Edit.cshtml" />
     <Content Include="Views\Package\PackagesModal.cshtml" />
     <Content Include="Views\Shared\Modal.cshtml" />
+    <Content Include="Views\Ticket\ChangeNumber.cshtml" />
+    <Content Include="Views\Ticket\Move.cshtml" />
+    <Content Include="Views\Shared\ModalPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

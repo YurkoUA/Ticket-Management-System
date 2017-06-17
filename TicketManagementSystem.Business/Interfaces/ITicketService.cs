@@ -33,5 +33,10 @@ namespace TicketManagementSystem.Business.Interfaces
 
         bool ExistsById(int id);
         bool ExistsByNumber(string number);
+
+        IEnumerable<string> Validate(TicketCreateDTO createDTO);
+        IEnumerable<string> Validate(TicketEditDTO editDTO);
+        IEnumerable<string> ValidateChangeNumber(int ticketId, string newNumber);
+        IEnumerable<string> ValidateMoveToPackage(int ticketId, int packageId);
     }
 }

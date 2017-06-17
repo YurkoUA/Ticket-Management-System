@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace TicketManagementSystem.Data.EF.Models
 {
-    public class Ticket
+    public class Ticket : IComparable<Ticket>
     {
         public byte[] RowVersion { get; set; }
 
@@ -39,6 +39,12 @@ namespace TicketManagementSystem.Data.EF.Models
         {
             var numbers = Number.Select(n => int.Parse(n.ToString())).ToArray();
             return numbers[0] + numbers[1] + numbers[2] == numbers[3] + numbers[4] + numbers[5];
+        }
+
+        public int CompareTo(Ticket other)
+        {
+            return int.Parse(Number.First().ToString())
+                .CompareTo(int.Parse(other.Number.First().ToString()));
         }
 
         #region System.Object methods

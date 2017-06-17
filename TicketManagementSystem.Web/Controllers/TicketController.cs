@@ -68,6 +68,15 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
+        public ActionResult Happy()
+        {
+            // TODO: Happy().
+
+            var tickets = _ticketService.GetHappyTickets();
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
         public ActionResult Details(int id)
         {
             var ticket = _ticketService.GetById(id);
@@ -77,8 +86,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View(MapperInstance.Map<TicketDetailsModel>(ticket));
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [HttpGet, Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             var viewModel = new TicketCreateModel
@@ -89,55 +97,28 @@ namespace TicketManagementSystem.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
         public ActionResult Create(TicketCreateModel model)
         {
             if (ModelState.IsValid)
             {
                 if (model.PackageId == 0) model.PackageId = null;
 
-                if (!_colorService.ExistsById(model.ColorId))
-                {
-                    ModelState.AddModelError("", $"Кольору ID: {model.ColorId} не існує.");
-                }
-                else if (!_serialService.ExistsById(model.SerialId))
-                {
-                    ModelState.AddModelError("", $"Серії ID: {model.SerialId} не існує.");
-                }
-                else if (model.PackageId != null)
-                {
-                    var package = _packageService.GetPackage((int)model.PackageId);
-                    var first = int.Parse(model.Number.First().ToString());
+                var createDTO = MapperInstance.Map<TicketCreateDTO>(model);
+                var errors = _ticketService.Validate(createDTO);
 
-                    if (package == null)
-                    {
-                        ModelState.AddModelError("", $"Пачки ID: {model.PackageId} не існує.");
-                    }
-                    else if (package.ColorId != null && model.ColorId != package.ColorId)
-                    {
-                        ModelState.AddModelError("", "Неможливо додати квиток до пачки іншого кольору.");
-                    }
-                    else if (package.SerialId != null && model.SerialId != package.SerialId)
-                    {
-                        ModelState.AddModelError("", "Неможливо додати квиток до пачки іншої серії.");
-                    }
-                    else if (package.FirstNumber != null && first != package.FirstNumber)
-                    {
-                        ModelState.AddModelError("", $"До цієї пачки можна додавати лише квитки на цифру {package.FirstNumber}.");
-                    }
-                }
-                if (!ModelState.IsValid) return ErrorPartial(ModelState);
+                errors.ToModelState(ModelState);
 
-                var ticket = _ticketService.Create(MapperInstance.Map<TicketCreateDTO>(model));
-                return SuccessAlert($"Квиток {model.Number} успішно додано!", Url.Action("Details", new { id = ticket.Id }), "Переглянути");
+                if (ModelState.IsValid)
+                {
+                    var ticket = _ticketService.Create(createDTO);
+                    return SuccessAlert($"Квиток №{model.Number} успішно додано!", Url.Action("Details", new { id = ticket.Id }), "Переглянути");
+                }
             }
             return ErrorPartial(ModelState);
         }
-
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
+        
+        [HttpGet, Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             var ticket = _ticketService.GetEdit(id);
@@ -151,48 +132,26 @@ namespace TicketManagementSystem.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
         public ActionResult Edit(TicketEditModel model)
         {
             if (ModelState.IsValid)
             {
-                if (!_colorService.ExistsById(model.ColorId))
+                var editDTO = MapperInstance.Map<TicketEditDTO>(model);
+                var errors = _ticketService.Validate(editDTO);
+
+                errors.ToModelState(ModelState);
+
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError("", $"Кольору ID: {model.ColorId} не існує.");
+                    var id = _ticketService.Edit(editDTO).Id;
+                    return SuccessAlert("Зміни збережено!", Url.Action("Details", new { id = id }), "Переглянути");
                 }
-                else if (!_serialService.ExistsById(model.SerialId))
-                {
-                    ModelState.AddModelError("", $"Серії ID: {model.SerialId} не існує.");
-                }
-
-                var ticket = _ticketService.GetById(model.Id);
-
-                if (ticket.PackageId != null)
-                {
-                    var package = _packageService.GetPackage((int)ticket.PackageId);
-
-                    if (package.ColorId != null && package.ColorId != model.ColorId)
-                    {
-                        ModelState.AddModelError("", "Неможливо додати квиток до пачки іншого кольору.");
-                    }
-                    else if (package.SerialId != null && package.SerialId != model.SerialId)
-                    {
-                        ModelState.AddModelError("", "Неможливо додати квиток до пачки іншої серії.");
-                    }
-                }
-
-                if (!ModelState.IsValid) return ErrorPartial(ModelState);
-
-                var id = _ticketService.Edit(MapperInstance.Map<TicketEditDTO>(model)).Id;
-                return SuccessAlert("Зміни збережено!", Url.Action("Details", new { id = id }),"Переглянути");
             }
             return ErrorPartial(ModelState);
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [HttpGet, Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             var ticket = _ticketService.GetById((int)id);
@@ -202,9 +161,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View(MapperInstance.Map<TicketDetailsModel>(ticket));
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             if (!_ticketService.ExistsById(id))
@@ -219,53 +176,72 @@ namespace TicketManagementSystem.Web.Controllers
             }
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [HttpGet, Authorize(Roles = "Admin")]
         public ActionResult Move(int id)
         {
-            // TODO: Move (GET).
+            var ticket = _ticketService.GetById(id);
 
-            throw new NotImplementedException();
+            if (ticket == null) return HttpNotFound();
+
+            var viewModel = MapperInstance.Map<TicketMoveModel>(ticket);
+            viewModel.Packages = GetPackagesList(ticket.ColorId, ticket.SerialId, int.Parse(ticket.Number.First().ToString()));
+
+            return View(viewModel);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public ActionResult Move(int ticketId, int packageId)
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        public ActionResult Move(TicketMoveModel viewModel)
         {
-            // TODO: Move (POST).
+            if (ModelState.IsValid)
+            {
+                var errors = _ticketService.ValidateMoveToPackage(viewModel.Id, viewModel.PackageId);
+                errors.ToModelState(ModelState);
 
-            throw new NotImplementedException();
+                if (ModelState.IsValid)
+                {
+                    _ticketService.MoveToPackage(viewModel.Id, viewModel.PackageId);
+                    return SuccessAlert("Квиток успішно переміщено.");
+                }
+            }
+            return ErrorPartial(ModelState);
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [HttpGet, Authorize(Roles = "Admin")]
         public ActionResult ChangeNumber(int id)
         {
-            // TODO: Change number (GET).
+            var ticket = _ticketService.GetById(id);
 
-            throw new NotImplementedException();
+            if (ticket == null) return HttpNotFound();
+
+            var viewModel = MapperInstance.Map<TicketChangeNumberModel>(ticket);
+            return View(viewModel);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public ActionResult ChangeNumber(int id, string number)
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        public ActionResult ChangeNumber(TicketChangeNumberModel viewModel)
         {
-            // TODO: Change number (POST).
+            if (ModelState.IsValid)
+            {
+                var errors = _ticketService.ValidateChangeNumber(viewModel.Id, viewModel.Number);
+                errors.ToModelState(ModelState);
 
-            throw new NotImplementedException();
+                if (ModelState.IsValid)
+                {
+                    _ticketService.ChangeNumber(viewModel.Id, viewModel.Number);
+                    return SuccessAlert($"Номер квитка змінено на №{viewModel.Number}.");
+                }
+            }
+            return ErrorPartial(ModelState);
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [HttpGet, Authorize(Roles = "Admin")]
         public ActionResult GetPackageSelectPartial(int colorId, int serialId, string selectId, string selectName, int? number = null)
         {
             var viewModel = new SelectListModel
             {
                 Id = selectId,
                 Name = selectName,
-                Options = GetPackagesList(colorId, serialId, number)
+                Options = GetPackagesList(colorId, serialId, number, true)
             };
             return PartialView("SelectListPartial", viewModel);
         }
@@ -284,7 +260,7 @@ namespace TicketManagementSystem.Web.Controllers
             return new SelectList(series, "Id", "Name");
         }
 
-        private SelectList GetPackagesList(int colorId, int serialId, int? number = null)
+        private SelectList GetPackagesList(int colorId, int serialId, int? number = null, bool nullable = false)
         {
             IEnumerable<PackageDTO> packages = _packageService.GetPackages()
                 .Where(p => (p.ColorId == null || p.ColorId == colorId) 
@@ -298,7 +274,9 @@ namespace TicketManagementSystem.Web.Controllers
             }
 
             var packagesList = packages.ToList();
-            packagesList.Add(new PackageDTO { Name = "(Немає)" });
+
+            if (nullable)
+                packagesList.Add(new PackageDTO { Name = "(Немає)" });
             
             return new SelectList(packagesList, "Id", "SelectListOptionValue");
         }

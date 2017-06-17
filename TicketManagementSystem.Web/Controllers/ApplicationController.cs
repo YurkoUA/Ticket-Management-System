@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
 using AutoMapper;
@@ -15,7 +14,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         protected ActionResult ErrorPartial(ModelStateDictionary modelState)
         {
-            return PartialView("ErrorListPartial", GetModelStateErrors(modelState));
+            return PartialView("ErrorListPartial", modelState.ToEnumerableString());
         }
 
         protected ActionResult SuccessAlert(string message)
@@ -31,14 +30,6 @@ namespace TicketManagementSystem.Web.Controllers
             ViewBag.UrlMessage = urlMessage;
 
             return PartialView("SuccessAlertLinkPartial");
-        }
-
-        protected string[] GetModelStateErrors(ModelStateDictionary modelState)
-        {
-            return modelState.Values.Where(e => e.Errors.Count > 0)
-                    .SelectMany(e => e.Errors)
-                    .Select(e => e.ErrorMessage)
-                    .ToArray();
         }
     }
 }

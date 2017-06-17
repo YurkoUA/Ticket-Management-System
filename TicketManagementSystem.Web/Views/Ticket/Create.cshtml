@@ -6,7 +6,22 @@
 
 <h2>@ViewBag.Title</h2>
 
-@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "create-result" }))
+<script>
+    function OnBegin() {
+        $('create-result').html("");
+    }
+
+    function OnSuccess(date) {
+        $('form[id = form0]').trigger('reset');
+    }
+</script>
+
+@using (Ajax.BeginForm(new AjaxOptions
+{
+    UpdateTargetId = "create-result",
+    OnBegin = "OnBegin",
+    OnSuccess = "OnSuccess"
+}))
 {
     @Html.AntiForgeryToken()
     
@@ -73,7 +88,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Створити" class="btn btn-default" />
+                <input type="submit" value="Створити" class="btn btn-primary" />
             </div>
         </div>
     </div>

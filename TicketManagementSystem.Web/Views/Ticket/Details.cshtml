@@ -19,14 +19,14 @@
         @if (Model.PackageId != null)
         {
             <dt>@Html.DisplayNameFor(model => model.PackageName)</dt>
-            <dd>@Html.DisplayFor(model => model.PackageName)</dd>
+            <dd>@Html.ActionLink(Model.PackageName, "Details", "Package", new { id = Model.PackageId }, new { })</dd>
         }
 
         <dt>@Html.DisplayNameFor(model => model.ColorName)</dt>
-        <dd>@Html.DisplayFor(model => model.ColorName)</dd>
+        <dd>@Html.ActionLink(Model.ColorName, "Details", "Color", new { id = Model.ColorId }, new { })</dd>
 
         <dt>@Html.DisplayNameFor(model => model.SerialFull)</dt>
-        <dd>@Html.DisplayFor(model => model.SerialFull)</dd>
+        <dd>@Html.ActionLink(Model.SerialFull, "Details", "Serial", new { id = Model.SerialId }, new { })</dd>
 
         @if (!string.IsNullOrEmpty(Model.Date))
         {
@@ -42,7 +42,6 @@
             <dt>@Html.DisplayNameFor(model => model.Note)</dt>
             <dd>@Html.DisplayFor(model => model.Note)</dd>
         }
-
     </dl>
 </div>
 

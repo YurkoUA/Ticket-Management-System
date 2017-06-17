@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.RegularExpressions;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Data.EF.Interfaces;
@@ -10,8 +12,19 @@ namespace TicketManagementSystem.Business.Services
 {
     public class TicketService : Service, ITicketService
     {
-        public TicketService(IUnitOfWork database) : base(database)
+        private IPackageService _packageService;
+        private ISerialService _serialService;
+        private IColorService _colorService;
+
+        public TicketService
+            (IUnitOfWork database, 
+            IPackageService packageService, 
+            ISerialService serialService, 
+            IColorService colorService) : base(database)
         {
+            _packageService = packageService;
+            _serialService = serialService;
+            _colorService = colorService;
         }
 
         #region Get
@@ -20,12 +33,15 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetTickets()
         {
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(Database.Tickets.GetAll());
+            var tickets = Database.Tickets.GetAll()
+                .OrderBy(t => t.Number);
+            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetTickets(int skip, int take)
         {
-            var tickets = Database.Tickets.GetAll().AsEnumerable().Skip(skip).Take(take);
+            var tickets = Database.Tickets.GetAll().AsEnumerable().Skip(skip).Take(take)
+                .OrderBy(t => t.Number);
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
@@ -40,6 +56,7 @@ namespace TicketManagementSystem.Business.Services
             return MapperInstance.Map<IEnumerable<TicketDTO>>(
                 Database.Tickets.GetAll()
                 .Where(t => t.PackageId == null)
+                .OrderBy(t => t.Number)
                 .AsEnumerable());
         }
 
@@ -50,7 +67,8 @@ namespace TicketManagementSystem.Business.Services
                 .Where(t => t.PackageId == null)
                 .AsEnumerable()
                 .Skip(skip)
-                .Take(take));
+                .Take(take)
+                .OrderBy(t => t.Number));
         }
 
         public IEnumerable<TicketDTO> GetHappyTickets()
@@ -58,7 +76,8 @@ namespace TicketManagementSystem.Business.Services
             return MapperInstance.Map<IEnumerable<TicketDTO>>(
                 Database.Tickets.GetAll()
                 .Where(t => t.IsHappy())
-                .AsEnumerable());
+                .AsEnumerable()
+                .OrderBy(t => t.Number));
         }
 
         public IEnumerable<TicketDTO> GetHappyTickets(int skip, int take)
@@ -68,7 +87,8 @@ namespace TicketManagementSystem.Business.Services
                 .Where(t => t.IsHappy())
                 .AsEnumerable()
                 .Skip(skip)
-                .Take(take));
+                .Take(take)
+                .OrderBy(t => t.Number));
         }
 
         public TicketDTO GetById(int id)
@@ -177,6 +197,141 @@ namespace TicketManagementSystem.Business.Services
         public bool ExistsByNumber(string number)
         {
             return Database.Tickets.Contains(t => t.Number.Equals(number));
+        }
+
+        public IEnumerable<string> Validate(TicketCreateDTO createDTO)
+        {
+            var errors = new List<string>();
+            errors.AddRange(ValidateObject(createDTO));
+
+            if (!_colorService.ExistsById(createDTO.ColorId))
+            {
+                errors.Add($"Кольору ID: {createDTO.ColorId} не існує.");
+            }
+
+            if (!_serialService.ExistsById(createDTO.SerialId))
+            {
+                errors.Add($"Серії ID: {createDTO.SerialId} не існує.");
+            }
+
+            if (createDTO.PackageId != null)
+            {
+                var package = _packageService.GetPackage((int)createDTO.PackageId);
+
+                if (package == null)
+                {
+                    errors.Add($"Пачки ID: {createDTO.PackageId} не існує.");
+                }
+                else if (!package.IsOpened)
+                {
+                    errors.Add($"Пачка \"{package.Name}\" закрита.");
+                }
+                else if (package.FirstNumber != null && package.FirstNumber != int.Parse(createDTO.Number.First().ToString()))
+                {
+                    errors.Add($"До пачки \"{package.Name}\" можна додавати лише квитки на цифру {package.FirstNumber}.");
+                }
+                else
+                {
+                    if (package.ColorId != null && package.ColorId != createDTO.ColorId)
+                    {
+                        errors.Add("Колір квитка не збігається з кольором пачки.");
+                    }
+
+                    if (package.SerialId != null && package.SerialId != createDTO.SerialId)
+                    {
+                        errors.Add("Серія квитка не збігається з серією пачки.");
+                    }
+                }
+            }
+            return errors;
+        }
+
+        public IEnumerable<string> Validate(TicketEditDTO editDTO)
+        {
+            var errors = new List<string>();
+            errors.AddRange(ValidateObject(editDTO));
+
+            var ticketDTO = GetById(editDTO.Id);
+
+            if (!_colorService.ExistsById(editDTO.ColorId))
+            {
+                errors.Add($"Кольору ID: {editDTO.ColorId} не існує.");
+            }
+
+            if (!_serialService.ExistsById(editDTO.SerialId))
+            {
+                errors.Add($"Серії ID: {editDTO.SerialId} не існує.");
+            }
+
+            if (ticketDTO.PackageId != null)
+            {
+                var packageDTO = _packageService.GetPackage((int)ticketDTO.PackageId);
+
+                if (packageDTO.ColorId != null && packageDTO.ColorId != editDTO.ColorId)
+                {
+                    errors.Add("Колір квитка не збігається з кольором пачки.");
+                }
+
+                if (packageDTO.SerialId != null && packageDTO.SerialId != editDTO.SerialId)
+                {
+                    errors.Add("Серія квитка не збігається з серією пачки.");
+                }
+            }
+
+            return errors;
+        }
+
+        public IEnumerable<string> ValidateChangeNumber(int ticketId, string newNumber)
+        {
+            if (!Regex.IsMatch(newNumber, @"\d{6}"))
+            {
+                return new string[] { "Номер повинен складатися з шести цифр. "};
+            }
+
+            var ticketDTO = GetById(ticketId);
+            var errors = new List<string>();
+
+            if (ticketDTO.PackageId != null)
+            {
+                var firstNumber = int.Parse(newNumber.First().ToString());
+                var packageDTO = _packageService.GetPackage((int)ticketDTO.PackageId);
+
+                if (packageDTO.FirstNumber != null && packageDTO.FirstNumber != firstNumber)
+                {
+                    errors.Add($"Квиток повинен починатися на цифру {packageDTO.FirstNumber}.");
+                }
+            }
+
+            return errors;
+        }
+
+        public IEnumerable<string> ValidateMoveToPackage(int ticketId, int packageId)
+        {
+            var errors = new List<string>();
+            var ticketDTO = GetById(ticketId);
+            var packageDTO = _packageService.GetPackage(packageId);
+
+            if (!packageDTO.IsOpened)
+            {
+                errors.Add($"Пачка \"{packageDTO.Name}\" закрита.");
+            }
+
+            if (packageDTO.FirstNumber != null && packageDTO.FirstNumber != int.Parse(ticketDTO.Number.First().ToString()))
+            {
+                errors.Add($"До пачки \"{packageDTO.Name}\" можна додавати лише квитки на цифру {packageDTO.FirstNumber}.");
+            }
+
+            if (packageDTO.ColorId != null && ticketDTO.ColorId != packageDTO.ColorId)
+            {
+                errors.Add("Колір квитка не збігається з кольором пачки.");
+            }
+
+            if (packageDTO.SerialId != null && ticketDTO.SerialId != packageDTO.SerialId)
+            {
+                errors.Add("Серія квитка не збігається з серією пачки.");
+            }
+
+            return errors;
         }
     }
 }
