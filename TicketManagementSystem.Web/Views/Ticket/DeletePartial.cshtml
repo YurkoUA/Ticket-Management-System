@@ -25,7 +25,8 @@
     {
         UpdateTargetId = "delete-result-grid",
         InsertionMode = InsertionMode.Replace,
-        Confirm = $"Видалити квиток №{Model.Number}?"
+        Confirm = $"Видалити квиток №{Model.Number}?",
+        OnSuccess = "OnSuccess"
     })) {
         @Html.AntiForgeryToken()
 

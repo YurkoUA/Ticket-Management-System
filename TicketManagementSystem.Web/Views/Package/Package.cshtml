@@ -1,0 +1,28 @@
+﻿@model PartialModel<int>
+
+@{
+    
+}
+
+<script>
+    function OnBegin() {
+        $('#package-result').html('');
+    }
+
+    // For delete action.
+    function OnSuccess(data) {
+        $('#package-toolbar').html('');
+    }
+</script>
+
+<div id="package-grid">
+    @Html.Action(Model.Action, Model.Controller, new { id = Model.Param, partial = true })
+</div>
+
+<div id="package-result"></div>
+@Html.Partial("ToolbarPartial", Model.Param)
+<br />
+
+<div>
+    @Html.ActionLink("Назад до списку", "Index")
+</div>

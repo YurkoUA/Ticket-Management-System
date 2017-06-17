@@ -272,10 +272,10 @@
     <Content Include="Views\Package\Index.cshtml" />
     <Content Include="Views\Package\CreateDefault.cshtml" />
     <Content Include="Views\Package\CreateSpecial.cshtml" />
-    <Content Include="Views\Package\Delete.cshtml" />
-    <Content Include="Views\Package\Edit.cshtml" />
-    <Content Include="Views\Package\EditSpecial.cshtml" />
-    <Content Include="Views\Package\Details.cshtml" />
+    <Content Include="Views\Package\DeletePartial.cshtml" />
+    <Content Include="Views\Package\EditPartial.cshtml" />
+    <Content Include="Views\Package\EditSpecialPartial.cshtml" />
+    <Content Include="Views\Package\DetailsPartial.cshtml" />
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Ticket\DetailsPartial.cshtml" />
     <Content Include="Views\Ticket\DeletePartial.cshtml" />
@@ -288,6 +288,9 @@
     <Content Include="Views\Ticket\MovePartial.cshtml" />
     <Content Include="Views\Shared\ModalPartial.cshtml" />
     <Content Include="Views\Ticket\Ticket.cshtml" />
+    <Content Include="Views\Package\Package.cshtml" />
+    <Content Include="Views\Ticket\ToolbarPartial.cshtml" />
+    <Content Include="Views\Package\ToolbarPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

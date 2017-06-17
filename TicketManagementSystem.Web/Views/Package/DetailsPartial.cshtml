@@ -1,11 +1,6 @@
 ﻿@model PackageDetailsModel
 
-@{
-    ViewBag.Title = $"Пачка \"{Model.Name}\"";
-    bool isAdmin = User.IsInRole("Admin");
-}
-
-<h2>@ViewBag.Title</h2>
+<h2>Пачка "@Model.Name"</h2>
 
 <div>
     <hr />
@@ -19,13 +14,13 @@
         @if (!string.IsNullOrEmpty(Model.ColorName))
         {
             <dt>@Html.DisplayNameFor(model => model.ColorName)</dt>
-            <dd>@Html.DisplayFor(model => model.ColorName)</dd>
+            <dd>@Html.ActionLink(Model.ColorName, "Details", "Color", new { id = Model.Id }, new { })</dd>
         }
 
         @if (!string.IsNullOrEmpty(Model.SerialName))
         {
             <dt>@Html.DisplayNameFor(model => model.SerialName)</dt>
-            <dd>@Html.DisplayFor(model => model.SerialName)</dd>
+            <dd>@Html.ActionLink(Model.SerialName, "Details", "Serial", new { id = Model.Id }, new { })</dd>
         }
 
         <dt>@Html.DisplayNameFor(model => model.Status)</dt>
@@ -50,16 +45,3 @@
         }
     </dl>
 </div>
-
-@if (isAdmin)
-{
-    <p>
-        @Html.ActionLink("Редагувати", "Edit", new { id = Model.Id })
-
-        @if (Model.TicketsCount == 0)
-        {
-            <br />
-            @Html.ActionLink("Видалити", "Delete", new { id = Model.Id })
-        }
-    </p>
-}

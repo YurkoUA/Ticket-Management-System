@@ -1,10 +1,6 @@
 ﻿@model TicketManagementSystem.Web.PackageDetailsModel
 
-@{
-    ViewBag.Title = $"Видалення пачки \"{Model.Name}\"";
-}
-
-<h2>@ViewBag.Title</h2>
+<h2>Видалення пачки "@Model.Name"</h2>
 
 <div id="package-delete-grid">
     <hr />
@@ -42,7 +38,8 @@
         using (Ajax.BeginForm("Delete", new AjaxOptions
         {
             UpdateTargetId = "package-delete-grid",
-            InsertionMode = InsertionMode.Replace
+            InsertionMode = InsertionMode.Replace,
+            OnSuccess = "OnSuccess"
         }))
         {
             @Html.AntiForgeryToken()
@@ -50,12 +47,13 @@
             <h5>Ви дійсно хочете повністю видалити пачку "@Model.Name"?</h5>
 
             <div class="form-actions no-color">
-                <input type="submit" value="Видалити" class="btn btn-default" />
+                <input type="submit" value="Видалити" class="btn btn-danger" />
             </div>
+            <br />
         }
     }
     else
     {
-        @Html.AlertWarning("Неможливо видалити цю пачку, оскільки є квитки, що до неї належать.")
+        @Html.AlertDanger("Неможливо видалити цю пачку, оскільки є квитки, що до неї належать.")
     }
 </div>

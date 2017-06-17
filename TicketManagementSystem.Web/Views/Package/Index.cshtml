@@ -25,8 +25,6 @@
             <tr>
                 <th>@Html.DisplayNameFor(model => model.Id)</th>
                 <th>@Html.DisplayNameFor(model => model.Name)</th>
-                <th>@Html.DisplayNameFor(model => model.ColorName)</th>
-                <th>@Html.DisplayNameFor(model => model.SerialName)</th>
                 <th>@Html.DisplayNameFor(model => model.TicketsCount)</th>
                 <th>@Html.DisplayNameFor(model => model.Status)</th>
                 <th>@Html.DisplayNameFor(model => model.Nominal)</th>
@@ -39,8 +37,6 @@
                 <tr>
                     <td>@Html.DisplayFor(modelItem => item.Id)</td>
                     <td>@Html.ActionLink(item.Name, "Details", new { id = item.Id })</td>
-                    <td>@Html.DisplayFor(modelItem => item.ColorName)</td>
-                    <td>@Html.DisplayFor(modelItem => item.SerialName)</td>
                     <td>@Html.DisplayFor(modelItem => item.TicketsCount)</td>
                     <td>@Html.DisplayFor(modelItem => item.Status)</td>
                     <td>@Html.DisplayFor(modelItem => item.Nominal)</td>

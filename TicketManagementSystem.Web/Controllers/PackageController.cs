@@ -12,6 +12,7 @@ namespace TicketManagementSystem.Web.Controllers
     {
         // TODO: Make default/special.
         // TODO: Open/Close package.
+        // TODO: In "ToolbarPartial" hide delete button if package contains tickets.
 
         private IPackageService _packageService;
         private IColorService _colorService;
@@ -42,19 +43,31 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, bool partial = false)
         {
             var package = _packageService.GetPackage(id);
 
             if (package == null)
                 return HttpNotFound();
 
-            var viewModel = MapperInstance.Map<PackageDetailsModel>(package);
-            return View(viewModel);
+            if (Request.IsAjaxRequest() || partial)
+            {
+                var viewModel = MapperInstance.Map<PackageDetailsModel>(package);
+                return PartialView("DetailsPartial", viewModel);
+            }
+
+            var partialModel = new PartialModel<int>
+            {
+                Action = "Details",
+                Controller = "Package",
+                Param = id
+            };
+
+            ViewBag.Title = $"Пачка \"{package.Name}\"";
+            return View("Package", partialModel);
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [HttpGet, Authorize(Roles = "Admin")]
         public ActionResult Create(bool special = false)
         {
             if (special)
@@ -67,9 +80,7 @@ namespace TicketManagementSystem.Web.Controllers
             }
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
         public ActionResult Create(PackageCreateDefaultModel viewModel)
         {
             if (ModelState.IsValid)
@@ -90,9 +101,7 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
         public ActionResult CreateSpecial(PackageCreateSpecialModel viewModel)
         {
             if (ModelState.IsValid)
@@ -123,9 +132,8 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public ActionResult Edit(int id)
+        [HttpGet, Authorize(Roles = "Admin")]
+        public ActionResult Edit(int id, bool partial = false)
         {
             if (_packageService.GetPackage(id)?.IsSpecial == true)
                 return RedirectToAction("EditSpecial", new { id = id });
@@ -135,35 +143,61 @@ namespace TicketManagementSystem.Web.Controllers
             if (editDTO == null)
                 return HttpNotFound();
 
-            var viewModel = MapperInstance.Map<PackageEditDefaultModel>(editDTO);
-            viewModel.Colors = GetColorsSelectList();
-            viewModel.Series = GetSeriesSelectList();
+            if (Request.IsAjaxRequest() || partial)
+            {
+                var viewModel = MapperInstance.Map<PackageEditDefaultModel>(editDTO);
+                viewModel.Colors = GetColorsSelectList();
+                viewModel.Series = GetSeriesSelectList();
 
-            return View(viewModel);
+                return PartialView("EditPartial", viewModel);
+            }
+
+            var partialModel = new PartialModel<int>
+            {
+                Action = "Edit",
+                Controller = "Package",
+                Param = id
+            };
+
+            ViewBag.Title = "Редагувати пачку";
+            return View("Package", partialModel);
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public ActionResult EditSpecial(int id)
+        [HttpGet, Authorize(Roles = "Admin")]
+        public ActionResult EditSpecial(int id, bool partial = false)
         {
-            var package = _packageService.GetSpecialPackageEdit(id);
+            if (_packageService.GetPackage(id)?.IsSpecial == false)
+                return RedirectToAction("Edit", new { id = id });
 
-            if (package == null)
+            var editSpecDTO = _packageService.GetSpecialPackageEdit(id);
+
+            if (editSpecDTO == null)
                 return HttpNotFound();
 
-            var viewModel = MapperInstance.Map<PackageEditSpecialModel>(package);
-            viewModel.Colors = GetColorsSelectList(true);
-            viewModel.Series = GetSeriesSelectList(true);
+            if (Request.IsAjaxRequest() || partial)
+            {
+                var viewModel = MapperInstance.Map<PackageEditSpecialModel>(editSpecDTO);
+                viewModel.Colors = GetColorsSelectList(true);
+                viewModel.Series = GetSeriesSelectList(true);
 
-            if (viewModel.ColorId == null) viewModel.ColorId = 0;
-            if (viewModel.SerialId == null) viewModel.SerialId = 0;
+                if (viewModel.ColorId == null) viewModel.ColorId = 0;
+                if (viewModel.SerialId == null) viewModel.SerialId = 0;
 
-            return View(viewModel);
+                return PartialView("EditSpecialPartial", viewModel);
+            }
+
+            var partialModel = new PartialModel<int>
+            {
+                Action = "EditSpecial",
+                Controller = "Package",
+                Param = id
+            };
+
+            ViewBag.Title = $"Редагувати пачку \"{editSpecDTO.Name}\"";
+            return View("Package", partialModel);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
         public ActionResult Edit(PackageEditDefaultModel viewModel)
         {
             if (ModelState.IsValid)
@@ -184,9 +218,7 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
         public ActionResult EditSpecial(PackageEditSpecialModel viewModel)
         {
             // TODO: Validate changing Serial or Color.
@@ -216,21 +248,31 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int id)
+        [HttpGet, Authorize(Roles = "Admin")]
+        public ActionResult Delete(int id, bool partial = false)
         {
             var package = _packageService.GetPackage(id);
 
             if (package == null)
                 return HttpNotFound();
 
-            return View(MapperInstance.Map<PackageDetailsModel>(package));
+            if (Request.IsAjaxRequest() || partial)
+            {
+                return PartialView("DeletePartial", MapperInstance.Map<PackageDetailsModel>(package));
+            }
+
+            var partialModel = new PartialModel<int>
+            {
+                Action = "Delete",
+                Controller = "Package",
+                Param = id
+            };
+
+            ViewBag.Title = $"Видалити пачку \"{package.Name}\"";
+            return View("Package", partialModel);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
         public ActionResult Delete(int? id)
         {
             var package = _packageService.GetPackage((int)id);
@@ -249,6 +291,8 @@ namespace TicketManagementSystem.Web.Controllers
                 return ErrorPartial(ModelState);
             }
         }
+
+        #region SelectLists
 
         private SelectList GetColorsSelectList(bool nullElement = false)
         {
@@ -269,5 +313,7 @@ namespace TicketManagementSystem.Web.Controllers
 
             return new SelectList(series, "Id", "Name");
         }
+
+        #endregion
     }
 }

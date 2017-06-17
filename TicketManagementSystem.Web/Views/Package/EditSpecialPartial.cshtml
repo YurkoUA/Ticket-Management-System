@@ -1,15 +1,11 @@
 ﻿@model PackageEditSpecialModel
 
-@{
-    ViewBag.Title = $"Редагувати пачку \"{Model.Name}\"";
-}
-
-<h2>@ViewBag.Title</h2>
+<h2>Редагувати пачку "@Model.Name"</h2>
 
 
 @using (Ajax.BeginForm("EditSpecial", new AjaxOptions
 {
-    UpdateTargetId = "update-result"
+    UpdateTargetId = "package-result"
 }))
 {
     @Html.AntiForgeryToken()
@@ -61,18 +57,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Зберегти" class="btn btn-default" />
+                <input type="submit" value="Зберегти" class="btn btn-primary" />
             </div>
         </div>
     </div>
-}
-
-<div id="update-result"></div>
-
-<div>
-    @Html.ActionLink("Назад до списку", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 }
