@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
@@ -10,10 +8,7 @@ namespace TicketManagementSystem.Web.Controllers
 {
     public class PackageController : ApplicationController
     {
-        // TODO: Make default/special.
-        // TODO: Open/Close package.
         // TODO: In "ToolbarPartial" hide delete button if package contains tickets.
-        // TODO: Edit: validate change FirstNumber.
 
         private IPackageService _packageService;
         private IColorService _colorService;
@@ -31,7 +26,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (page < 1)
                 page = 1;
-
+            
             const int PACKAGES_IN_PAGE = 20;
 
             var pageInfo = new PageInfo(page, _packageService.TotalCount);
@@ -66,6 +61,18 @@ namespace TicketManagementSystem.Web.Controllers
 
             ViewBag.Title = $"Пачка \"{package.Name}\"";
             return View("Package", partialModel);
+        }
+
+        [HttpGet]
+        public ActionResult Tickets(int id)
+        {
+            if (!_packageService.ExistsById(id)) return HttpNotFound();
+
+            var packageName = _packageService.GetPackage(id).Name;
+            var tickets = _packageService.GetPackageTickets(id, true);
+
+            ViewBag.Title = $"Квитки з пачки \"{packageName}\"";
+            return View(MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets));
         }
 
         [HttpGet, Authorize(Roles = "Admin")]
@@ -105,8 +112,8 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (viewModel.ColorId == 0)     viewModel.ColorId = null;
-                if (viewModel.SerialId == 0)    viewModel.SerialId = null;
+                if (viewModel.ColorId == 0) viewModel.ColorId = null;
+                if (viewModel.SerialId == 0) viewModel.SerialId = null;
 
                 var createDTO = MapperInstance.Map<PackageSpecialCreateDTO>(viewModel);
                 var errors = _packageService.Validate(createDTO);
@@ -254,7 +261,7 @@ namespace TicketManagementSystem.Web.Controllers
         public ActionResult Delete(int? id)
         {
             var package = _packageService.GetPackage((int)id);
-            
+
             if (package == null)
                 return HttpNotFound();
 
@@ -268,6 +275,118 @@ namespace TicketManagementSystem.Web.Controllers
                 ModelState.AddModelError("", "Неможливо видалити цю пачку, оскільки є квитки, що до неї належать.");
                 return ErrorPartial(ModelState);
             }
+        }
+
+        [HttpPost, Authorize(Roles = "Admin")]
+        public ActionResult Open(int id)
+        {
+            var package = _packageService.GetPackage(id);
+
+            if (package == null) return HttpNotFound();
+            if (package.IsOpened) return HttpBadRequest();
+
+            _packageService.OpenPackage(id);
+            return RedirectToAction("Details", new { id = id, partial = true });
+        }
+
+        [HttpPost, Authorize(Roles = "Admin")]
+        public ActionResult Close(int id)
+        {
+            var package = _packageService.GetPackage(id);
+
+            if (package == null) return HttpNotFound();
+            if (!package.IsOpened) return HttpBadRequest();
+
+            _packageService.ClosePackage(id);
+            return RedirectToAction("Details", new { id = id, partial = true });
+        }
+
+        [HttpGet, Authorize(Roles = "Admin")]
+        public ActionResult MakeSpecial(int id, bool partial = false)
+        {
+            var package = _packageService.GetPackage(id);
+
+            if (package == null) return HttpNotFound();
+            if (package.IsSpecial) return HttpBadRequest();
+
+            if (Request.IsAjaxRequest() || partial)
+            {
+                var viewModel = MapperInstance.Map<PackageMakeSpecialDTO>(package);
+                return PartialView("MakeSpecialPartial", viewModel);
+            }
+
+            var partialModel = new PartialModel<int>
+            {
+                Action = "MakeSpecial",
+                Controller = "Package",
+                Param = id
+            };
+
+            ViewBag.Title = "Зробити пачку звичайною";
+            return View("Package", partialModel);
+        }
+
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        public ActionResult MakeSpecial(PackageMakeSpecialDTO viewModelDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var errors = _packageService.Validate(viewModelDto);
+                errors.ToModelState(ModelState);
+
+                if (ModelState.IsValid)
+                {
+                    _packageService.MakeSpecial(viewModelDto);
+                    return SuccessPartial("Пачку помічено як спеціальна.");
+                }
+            }
+            return ErrorPartial(ModelState);
+        }
+
+        [HttpGet, Authorize(Roles = "Admin")]
+        public ActionResult MakeDefault(int id, bool partial = false)
+        {
+            var package = _packageService.GetPackage(id);
+
+            if (package == null) return HttpNotFound();
+            if (!package.IsSpecial) return HttpBadRequest();
+
+            if (Request.IsAjaxRequest() || partial)
+            {
+                var viewModel = MapperInstance.Map<PackageMakeDefaultModel>(package);
+                viewModel.Colors = GetColorsSelectList();
+                viewModel.Series = GetSeriesSelectList();
+
+                return PartialView("MakeDefaultPartial", viewModel);
+            }
+
+            var partialModel = new PartialModel<int>
+            {
+                Action = "MakeDefault",
+                Controller = "Package",
+                Param = id
+            };
+
+            ViewBag.Title = "Зробити пачку звичайною";
+            return View("Package", partialModel);
+        }
+
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        public ActionResult MakeDefault(PackageMakeDefaultModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var dto = MapperInstance.Map<PackageMakeDefaultDTO>(viewModel);
+                var errors = _packageService.Validate(dto);
+                errors.ToModelState(ModelState);
+
+                if (ModelState.IsValid)
+                {
+                    _packageService.MakeDefault(dto);
+                    return SuccessPartial("Пачку помічено як звичайна.");
+                }
+            }
+            return ErrorPartial(ModelState);
         }
 
         #region SelectLists

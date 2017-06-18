@@ -1,0 +1,33 @@
+﻿@model PackageDetailsModel
+
+<dt>Доступність:</dt>
+
+<dd>
+    @{ 
+        var routeValues = new { id = Model.Id };
+        string linkText = Model.IsOpened ? "Відкрита" : "Закрита";
+        string action = Model.IsOpened ? "Close" : "Open";
+        string confirmMessage = Model.IsOpened ? "Закрити пачку?" : "Відкрити пачку?";
+
+        @Ajax.ActionLink(linkText, action, routeValues, new AjaxOptions
+        {
+            Confirm = confirmMessage,
+            UpdateTargetId = "package-grid",
+            HttpMethod = "POST"
+        });
+    }
+</dd>
+
+<dt>Статус:</dt>
+
+<dd>
+    @{ 
+        linkText = Model.IsSpecial ? "Спеціальна" : "Звичайна";
+        action = Model.IsSpecial ? "MakeDefault" : "MakeSpecial";
+
+        @Ajax.ActionLink(linkText, action, routeValues, new AjaxOptions
+        {
+            UpdateTargetId = "package-grid"
+        });
+    }
+</dd>

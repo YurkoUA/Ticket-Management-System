@@ -67,6 +67,8 @@
     <Compile Include="DTO\Package\PackageCreateDTO.cs" />
     <Compile Include="DTO\Package\PackageDTO.cs" />
     <Compile Include="DTO\Package\PackageEditDTO.cs" />
+    <Compile Include="DTO\Package\PackageMakeDefaultDTO.cs" />
+    <Compile Include="DTO\Package\PackageMakeSpecialDTO.cs" />
     <Compile Include="DTO\Package\PackageSpecialCreateDTO.cs" />
     <Compile Include="DTO\Package\PackageSpecialEditDTO.cs" />
     <Compile Include="DTO\Serial\SerialCreateDTO.cs" />

@@ -42,6 +42,10 @@ namespace TicketManagementSystem.Web
                 cfg.CreateMap<PackageDTO, PackageIndexModel>();
                 cfg.CreateMap<PackageDTO, PackageDetailsModel>();
 
+                cfg.CreateMap<PackageDTO, PackageMakeDefaultModel>();
+                cfg.CreateMap<PackageDTO, PackageMakeSpecialDTO>();
+                cfg.CreateMap<PackageMakeDefaultModel, PackageMakeDefaultDTO>();
+
                 cfg.CreateMap<PackageCreateDefaultModel, PackageCreateDTO>();
                 cfg.CreateMap<PackageCreateSpecialModel, PackageSpecialCreateDTO>();
 

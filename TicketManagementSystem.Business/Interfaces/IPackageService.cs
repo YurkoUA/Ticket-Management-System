@@ -13,6 +13,8 @@ namespace TicketManagementSystem.Business.Interfaces
         IEnumerable<PackageDTO> GetPackagesByColor(int colorId);
         IEnumerable<PackageDTO> GetPackagesBySerial(int serialId);
 
+        IEnumerable<TicketDTO> GetPackageTickets(int packageId, bool orderByNumber = false);
+
         PackageDTO GetPackage(int id);
 
         PackageDTO CreatePackage(PackageCreateDTO packageDTO);
@@ -29,8 +31,8 @@ namespace TicketManagementSystem.Business.Interfaces
         void OpenPackage(int id);
         void ClosePackage(int id);
 
-        PackageDTO MakeSpecial(int id, string name);
-        PackageDTO MakeDefault(int id, int colorId, int serialId, int? firstNumber);
+        PackageDTO MakeSpecial(PackageMakeSpecialDTO dto);
+        PackageDTO MakeDefault(PackageMakeDefaultDTO dto);
 
         bool ExistsById(int id);
         bool ExistsByName(string name);
@@ -40,5 +42,7 @@ namespace TicketManagementSystem.Business.Interfaces
         IEnumerable<string> Validate(PackageSpecialCreateDTO createDTO);
         IEnumerable<string> Validate(PackageEditDTO editDTO);
         IEnumerable<string> Validate(PackageSpecialEditDTO editDTO);
+        IEnumerable<string> Validate(PackageMakeDefaultDTO dto);
+        IEnumerable<string> Validate(PackageMakeSpecialDTO dto);
     }
 }

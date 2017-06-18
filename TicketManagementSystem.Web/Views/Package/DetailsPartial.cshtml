@@ -1,5 +1,10 @@
 ﻿@model PackageDetailsModel
 
+@{ 
+    Layout = null;
+    bool isAdmin = User.IsInRole("Admin");
+}
+
 <h2>Пачка "@Model.Name"</h2>
 
 <div>
@@ -23,8 +28,15 @@
             <dd>@Html.ActionLink(Model.SerialName, "Details", "Serial", new { id = Model.Id }, new { })</dd>
         }
 
-        <dt>@Html.DisplayNameFor(model => model.Status)</dt>
-        <dd>@Html.DisplayFor(model => model.Status)</dd>     
+        @if (isAdmin)
+        {
+            @Html.Partial("StatusActionsPartial", Model)
+        }
+        else
+        {
+            <dt>@Html.DisplayNameFor(model => model.Status)</dt>
+            <dd>@Html.DisplayFor(model => model.Status)</dd>
+        }
 
         <dt>@Html.DisplayNameFor(model => model.Nominal)</dt>
         <dd>@Html.DisplayFor(model => model.Nominal)</dd>
@@ -45,3 +57,5 @@
         }
     </dl>
 </div>
+
+@Html.ActionLink("Список квитків", "Tickets", new { id = Model.Id }, new { @class = "btn btn-default" })

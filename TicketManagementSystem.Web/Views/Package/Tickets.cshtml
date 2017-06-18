@@ -1,0 +1,40 @@
+﻿@model IEnumerable<TicketDetailsModel>
+
+@{ 
+    bool isAdmin = User.IsInRole("Admin");
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (Model.Any())
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">Квитків в пачці: @Model.Count()</div>
+
+        @if (isAdmin)
+        {
+
+        }
+
+        <table class="table">
+            <tr>
+                <th><b>Номер</b></th>
+                <th><b>Дата</b></th>
+                <th><b>Примітка</b></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(item.Number, "Details", "Ticket", new { id = item.Id }, new { })</td>
+                    <td>@item.Date</td>
+                    <td>@item.Note</td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+ else
+{
+    @Html.AlertDanger("В цій пачці поки що немає квитків.")
+}

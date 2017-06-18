@@ -44,6 +44,20 @@ namespace TicketManagementSystem.Business.Services
             return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
         }
 
+        public IEnumerable<TicketDTO> GetPackageTickets(int packageId, bool orderByNumber = false)
+        {
+            var package = Database.Packages.GetById(packageId);
+
+            if (package == null) return null;
+
+            var tickets = package.Tickets.AsEnumerable();
+
+            if (orderByNumber)
+                tickets = tickets.OrderBy(t => t.Number);
+
+            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
+        }
+
         public PackageDTO GetPackage(int id)
         {
             var package = Database.Packages.GetById(id);
@@ -182,16 +196,18 @@ namespace TicketManagementSystem.Business.Services
             }
         }
 
-        public PackageDTO MakeSpecial(int id, string name)
+        public PackageDTO MakeSpecial(PackageMakeSpecialDTO dto)
         {
-            // TODO: To issue error if package is now special.
-
-            var package = Database.Packages.GetById(id);
+            var package = Database.Packages.GetById(dto.Id);
 
             if (package != null)
             {
                 package.IsSpecial = true;
-                package.Name = name;
+                package.Name = dto.Name;
+
+                if (dto.ResetColor) package.ColorId = null;
+                if (dto.ResetSerial) package.SerialId = null;
+
                 Database.Packages.Update(package);
                 Database.SaveChanges();
 
@@ -200,19 +216,16 @@ namespace TicketManagementSystem.Business.Services
             return null;
         }
 
-        public PackageDTO MakeDefault(int id, int colorId, int serialId, int? firstNumber)
+        public PackageDTO MakeDefault(PackageMakeDefaultDTO dto)
         {
-            // TODO: To issue error if package is now default.
-            // TODO: To issue error if colorId or serialId is not exists.
-
-            var package = Database.Packages.GetById(id);
+            var package = Database.Packages.GetById(dto.Id);
 
             if (package != null)
             {
                 package.IsSpecial = false;
                 package.Name = null;
-                package.ColorId = colorId;
-                package.SerialId = serialId;
+                package.ColorId = dto.ColorId;
+                package.SerialId = dto.SerialId;
 
                 Database.Packages.Update(package);
                 Database.SaveChanges();
@@ -283,6 +296,7 @@ namespace TicketManagementSystem.Business.Services
         {
             var errors = new List<string>();
             errors.AddRange(ValidateObject(editDTO));
+            var package = GetPackage(editDTO.Id);
 
             if (!_colorService.ExistsById(editDTO.ColorId))
             {
@@ -294,6 +308,16 @@ namespace TicketManagementSystem.Business.Services
                 errors.Add($"Серії ID: {editDTO.SerialId} не існує.");
             }
 
+            if (package.TicketsCount > 0 && editDTO.FirstNumber != null)
+            {
+                var tickets = GetPackageTickets(editDTO.Id).ToList();
+
+                if (!tickets.TrueForAll(t => int.Parse(t.Number.First().ToString()) == editDTO.FirstNumber))
+                {
+                    errors.Add("Для цієї пачки неможливо встановити першу цифру.");
+                }
+            }
+
             return errors;
         }
 
@@ -301,6 +325,7 @@ namespace TicketManagementSystem.Business.Services
         {
             var errors = new List<string>();
             errors.AddRange(ValidateObject(editDTO));
+            var package = GetPackage(editDTO.Id);
 
             if (!IsNameFree(editDTO.Id, editDTO.Name))
             {
@@ -316,6 +341,86 @@ namespace TicketManagementSystem.Business.Services
             {
                 errors.Add($"Серії ID: {editDTO.SerialId} не існує.");
             }
+
+            if (package.TicketsCount > 0)
+            {
+                var tickets = GetPackageTickets(editDTO.Id).ToList();
+
+                if (!tickets.TrueForAll(t => t.ColorId == editDTO.ColorId))
+                {
+                    errors.Add("Для цієї пачки неможливо встановити єдиний колір.");
+                }
+
+                if (!tickets.TrueForAll(t => t.SerialId == editDTO.SerialId))
+                {
+                    errors.Add("Для цієї пачки неможливо встановити єдину цифру.");
+                }
+            }
+
+            return errors;
+        }
+
+        public IEnumerable<string> Validate(PackageMakeDefaultDTO dto)
+        {
+            var errors = new List<string>();
+            errors.AddRange(ValidateObject(dto));
+
+            var package = GetPackage(dto.Id);
+
+            if (!package.IsSpecial)
+            {
+                errors.Add("Пачка й так звичайна");
+                return errors;
+            }
+
+            var tickets = GetPackageTickets(dto.Id).ToList();
+
+            if (!_colorService.ExistsById(dto.ColorId))
+            {
+                errors.Add($"Кольору ID: {dto.ColorId} не існує.");
+            }
+
+            if (!_serialService.ExistsById(dto.SerialId))
+            {
+                errors.Add($"Серії ID: {dto.SerialId} не існує.");
+            }
+
+            if (tickets.Any())
+            {
+                if (dto.FirstNumber != null && !tickets.TrueForAll(t => int.Parse(t.Number.First().ToString()) == dto.FirstNumber))
+                {
+                    errors.Add("Для цієї пачки неможливо встановити першу цифру.");
+                }
+
+                if (!tickets.TrueForAll(t => t.ColorId == dto.ColorId))
+                {
+                    errors.Add("Для цієї пачки неможливо встановити серію.");
+                }
+
+                if (!tickets.TrueForAll(t => t.SerialId == dto.SerialId))
+                {
+                    errors.Add("Для цієї пачки неможливо встановити колір.");
+                }
+            }
+
+            return errors;
+        }
+
+        public IEnumerable<string> Validate(PackageMakeSpecialDTO dto)
+        {
+            var errors = new List<string>();
+            errors.AddRange(ValidateObject(dto));
+
+            var package = GetPackage(dto.Id);
+
+            if (package.IsSpecial)
+            {
+                errors.Add("Пачка й так спеціальна");
+                return errors;
+            }
+
+            if (ExistsByName(dto.Name))
+                errors.Add($"Пачка \"{dto.Name}\" вже існує.");
 
             return errors;
         }
