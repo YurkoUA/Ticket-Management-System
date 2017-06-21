@@ -27,14 +27,16 @@ namespace TicketManagementSystem.Web.Controllers
             if (page < 1)
                 page = 1;
             
-            const int PACKAGES_IN_PAGE = 20;
+            const int ITEMS_ON_PAGE = 20;
 
-            var pageInfo = new PageInfo(page, _packageService.TotalCount);
-            var packages = _packageService.GetPackages((page - 1) * PACKAGES_IN_PAGE, PACKAGES_IN_PAGE);
+            var pageInfo = new PageInfo(page, _packageService.TotalCount, ITEMS_ON_PAGE);
+            var packages = _packageService.GetPackages((page - 1) * ITEMS_ON_PAGE, ITEMS_ON_PAGE);
 
-            var viewModel = MapperInstance.Map<IEnumerable<PackageIndexModel>>(packages);
-
-            ViewBag.PageInfo = pageInfo;
+            var viewModel = new PackageIndexModel
+            {
+                Packages = MapperInstance.Map<IEnumerable<PackageDetailsModel>>(packages),
+                PageInfo = pageInfo
+            };
             return View(viewModel);
         }
 

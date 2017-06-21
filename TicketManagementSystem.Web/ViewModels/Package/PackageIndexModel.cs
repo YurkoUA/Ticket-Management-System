@@ -1,60 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace TicketManagementSystem.Web
 {
-    public class PackageIndexModel
+    public class PackageIndexModel : IEnumerable<PackageDetailsModel>
     {
-        [Display(Name = "ID")]
-        public int Id { get; set; }
+        public IEnumerable<PackageDetailsModel> Packages { get; set; }
+        public PageInfo PageInfo { get; set; }
 
-        [Display(Name = "Назва")]
-        public string Name { get; set; }
-
-        [Display(Name = "Колір")]
-        public string ColorName { get; set; }
-
-        [Display(Name = "Серія")]
-        public string SerialName { get; set; }
-
-        [Display(Name = "Квитків")]
-        public int TicketsCount { get; set; }
-
-        [Display(Name = "Номінал")]
-        public double Nominal { get; set; }
-
-        [Display(Name = "Перша цифра")]
-        public int? FirstNumber { get; set; }
-
-        [Display(Name = "Примітка")]
-        public string Note { get; set; }
-
-        [Display(Name = "Статус")]
-        public string Status
+        public IEnumerator<PackageDetailsModel> GetEnumerator()
         {
-            get
-            {
-                var openState = IsOpened ? "Відкрита" : "Закрита";
-                var specialState = IsSpecial ? "Спеціальна" : "Звичайна";
-
-                return $"{openState} / {specialState}";
-            }
+            return Packages.GetEnumerator();
         }
 
-        #region Hidden properties
-
-        [HiddenInput(DisplayValue = false)]
-        public bool IsOpened { get; set; }
-
-        [HiddenInput(DisplayValue = false)]
-        public bool IsSpecial { get; set; }
-
-        [HiddenInput(DisplayValue = false)]
-        public int ColorId { get; set; }
-
-        [HiddenInput(DisplayValue = false)]
-        public int SerialId { get; set; }
-
-        #endregion
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return Packages.GetEnumerator();
+        }
     }
 }

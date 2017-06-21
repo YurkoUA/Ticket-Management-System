@@ -33,19 +33,27 @@ namespace TicketManagementSystem.Business.Services
         {
             var tickets = Database.Tickets.GetAll()
                 .OrderBy(t => t.Number);
+
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetTickets(int skip, int take)
         {
-            var tickets = Database.Tickets.GetAll().AsEnumerable().Skip(skip).Take(take)
-                .OrderBy(t => t.Number);
+            var tickets = Database.Tickets.GetAll()
+                .OrderBy(t => t.Number)
+                .AsEnumerable()
+                .Skip(skip)
+                .Take(take);
+
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetTicketsByPackage(int packageId)
         {
-            var tickets = Database.Tickets.GetAll(t => t.PackageId == packageId);
+            var tickets = Database.Tickets.GetAll(t => t.PackageId == packageId)
+                .OrderBy(t => t.Number)
+                .AsEnumerable();
+
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
@@ -63,10 +71,10 @@ namespace TicketManagementSystem.Business.Services
             return MapperInstance.Map<IEnumerable<TicketDTO>>(
                 Database.Tickets.GetAll()
                 .Where(t => t.PackageId == null)
+                .OrderBy(t => t.Number))
                 .AsEnumerable()
                 .Skip(skip)
-                .Take(take)
-                .OrderBy(t => t.Number));
+                .Take(take);
         }
 
         public IEnumerable<TicketDTO> GetHappyTickets()
@@ -83,10 +91,10 @@ namespace TicketManagementSystem.Business.Services
             return MapperInstance.Map<IEnumerable<TicketDTO>>(
                 Database.Tickets.GetAll()
                 .Where(t => t.IsHappy())
+                .OrderBy(t => t.Number))
                 .AsEnumerable()
                 .Skip(skip)
-                .Take(take)
-                .OrderBy(t => t.Number));
+                .Take(take);
         }
 
         public TicketDTO GetById(int id)

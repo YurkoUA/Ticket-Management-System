@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace TicketManagementSystem.Web
@@ -46,9 +42,6 @@ namespace TicketManagementSystem.Web
         }
 
         #region Hidden properties
-
-        [HiddenInput(DisplayValue = false)]
-        public PageInfo PageInfo { get; set; }
 
         [HiddenInput(DisplayValue = false)]
         public bool IsOpened { get; set; }

@@ -9,7 +9,7 @@ namespace TicketManagementSystem.Web.Controllers
 {
     public class TicketController : ApplicationController
     {
-        private const int TICKETS_ON_PAGE = 30;
+        private const int ITEMS_ON_PAGE = 20;
 
         private ITicketService _ticketService;
         private IPackageService _packageService;
@@ -34,8 +34,8 @@ namespace TicketManagementSystem.Web.Controllers
             if (page < 1) page = 1;
 
             int totalPages = _ticketService.TotalCount;
-            var pageInfo = new PageInfo(page, totalPages, TICKETS_ON_PAGE);
-            var tickets = _ticketService.GetTickets((page - 1) * TICKETS_ON_PAGE, TICKETS_ON_PAGE);
+            var pageInfo = new PageInfo(page, totalPages, ITEMS_ON_PAGE);
+            var tickets = _ticketService.GetTickets((page - 1) * ITEMS_ON_PAGE, ITEMS_ON_PAGE);
 
             ViewBag.Title = $"Квитки (сторінка {page} з {pageInfo.TotalPages})";
 
@@ -54,8 +54,8 @@ namespace TicketManagementSystem.Web.Controllers
             if (page < 1) page = 1;
 
             int totalPages = _ticketService.TotalCount;
-            var pageInfo = new PageInfo(page, totalPages, TICKETS_ON_PAGE);
-            var tickets = _ticketService.GetUnallocatedTickets((page - 1) * TICKETS_ON_PAGE, TICKETS_ON_PAGE);
+            var pageInfo = new PageInfo(page, totalPages, ITEMS_ON_PAGE);
+            var tickets = _ticketService.GetUnallocatedTickets((page - 1) * ITEMS_ON_PAGE, ITEMS_ON_PAGE);
 
             ViewBag.Title = $"Нерозподілені квитки (сторінка {page} з {pageInfo.TotalPages})";
 

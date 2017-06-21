@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PackageIndexModel>
+﻿@model PackageIndexModel
 
 @{
     ViewBag.Title = "Пачки";
@@ -11,7 +11,7 @@
 @if (Model.Any())
 {
     <div class="panel panel-default">
-        <div class="panel-heading">Пачки</div>
+        <div class="panel-heading">Всього пачок: @Model.PageInfo.TotalItems</div>
 
         @if (isAdmin)
         {
@@ -23,13 +23,13 @@
 
         <table class="table">
             <tr>
-                <th>@Html.DisplayNameFor(model => model.Id)</th>
-                <th>@Html.DisplayNameFor(model => model.Name)</th>
-                <th>@Html.DisplayNameFor(model => model.TicketsCount)</th>
-                <th>@Html.DisplayNameFor(model => model.Status)</th>
-                <th>@Html.DisplayNameFor(model => model.Nominal)</th>
-                <th>@Html.DisplayNameFor(model => model.FirstNumber)</th>
-                <th>@Html.DisplayNameFor(model => model.Note)</th>
+                <th>ID</th>
+                <th>Назва</th>
+                <th>Квитків</th>
+                <th>Статус</th>
+                <th>Номінал</th>
+                <th>Перша цифра</th>
+                <th>Примітка</th>
             </tr>
 
             @foreach (var item in Model)
@@ -45,6 +45,13 @@
                 </tr>
             }
         </table>
+
+        <div class="panel-footer">
+            @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new
+            {
+                page = x
+            }))
+        </div>
     </div>
 
 
@@ -53,7 +60,3 @@ else
 {
     @Html.AlertDanger("Матеріали відсутні.")
 }
-
-@*
-    TODO: Pagination.
-*@

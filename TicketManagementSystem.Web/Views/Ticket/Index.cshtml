@@ -9,12 +9,12 @@
 @if (Model.Any())
 {
     <div class="panel panel-default">
-        <div class="panel-heading">@ViewBag.Title</div>
+        <div class="panel-heading">Всього квитків: @Model.PageInfo.TotalItems</div>
 
         @if (isAdmin)
         {
             <div class="panel-body">
-               @Html.ActionLink("Додати квиток", "Create")
+                @Html.ActionLink("Додати квиток", "Create")
             </div>
         }
 
@@ -40,6 +40,13 @@
                 </tr>
             }
         </table>
+
+        <div class="panel-footer">
+           @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new
+           {
+               page = x
+           }))
+        </div>
     </div>
 }
 else
