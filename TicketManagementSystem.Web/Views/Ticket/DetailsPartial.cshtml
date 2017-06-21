@@ -1,6 +1,13 @@
 ﻿@model TicketDetailsModel
 
-<h2>Квиток №@Model.Number</h2>
+<h2>
+    Квиток №@Model.Number
+
+    @if (Model.IsHappy)
+    {
+        <small>Щасливий</small>
+    }
+</h2>
 
 <div>
     <hr />

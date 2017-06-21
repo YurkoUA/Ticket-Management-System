@@ -32,5 +32,13 @@ namespace TicketManagementSystem.Web
         public string Date { get; set; }
         [Display(Name = "Додано:")]
         public string AddDate { get; set; }
+
+        [Display(Name = "Щасливий:")]
+        public bool IsHappy { get; set; }
+
+        public string TrClass()
+        {
+            return IsHappy ? "success" : "";
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<TicketDetailsModel>
 
-@{ 
+@{
     bool isAdmin = User.IsInRole("Admin");
 }
 
@@ -16,25 +16,27 @@
 
         }
 
-        <table class="table">
-            <tr>
-                <th><b>Номер</b></th>
-                <th><b>Дата</b></th>
-                <th><b>Примітка</b></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
                 <tr>
-                    <td>@Html.ActionLink(item.Number, "Details", "Ticket", new { id = item.Id }, new { })</td>
-                    <td>@item.Date</td>
-                    <td>@item.Note</td>
+                    <th><b>Номер</b></th>
+                    <th><b>Дата</b></th>
+                    <th><b>Примітка</b></th>
                 </tr>
-            }
-        </table>
+
+                @foreach (var item in Model)
+                {
+                    <tr class="@item.TrClass()">
+                        <td>@Html.ActionLink(item.Number, "Details", "Ticket", new { id = item.Id }, new { })</td>
+                        <td>@item.Date</td>
+                        <td>@item.Note</td>
+                    </tr>
+                }
+            </table>
+        </div>
     </div>
 }
- else
+else
 {
     @Html.AlertDanger("В цій пачці поки що немає квитків.")
 }
