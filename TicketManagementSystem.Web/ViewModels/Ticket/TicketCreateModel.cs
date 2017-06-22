@@ -5,9 +5,6 @@ namespace TicketManagementSystem.Web
 {
     public class TicketCreateModel
     {
-        [HiddenInput(DisplayValue = false)]
-        public byte[] RowVersion { get; set; }
-
         [Display(Name = "Номер")]
         [Required(ErrorMessage = "Необхідно вказати номер квитка.")]
         [RegularExpression(@"\d{6}", ErrorMessage = "Номер повинен складатися з шести цифр.")]

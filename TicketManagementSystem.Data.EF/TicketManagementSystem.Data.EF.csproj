@@ -66,13 +66,9 @@
     <Compile Include="EFRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Migrations\201706071550234_Initial.cs" />
-    <Compile Include="Migrations\201706071550234_Initial.Designer.cs">
-      <DependentUpon>201706071550234_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706141312225_Migration2.cs" />
-    <Compile Include="Migrations\201706141312225_Migration2.Designer.cs">
-      <DependentUpon>201706141312225_Migration2.cs</DependentUpon>
+    <Compile Include="Migrations\201706211938247_Initial.cs" />
+    <Compile Include="Migrations\201706211938247_Initial.Designer.cs">
+      <DependentUpon>201706211938247_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Color.cs" />
@@ -85,15 +81,11 @@
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706071550234_Initial.resx">
-      <DependentUpon>201706071550234_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706141312225_Migration2.resx">
-      <DependentUpon>201706141312225_Migration2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706211938247_Initial.resx">
+      <DependentUpon>201706211938247_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

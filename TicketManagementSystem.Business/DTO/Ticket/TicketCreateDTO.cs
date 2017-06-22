@@ -4,8 +4,6 @@ namespace TicketManagementSystem.Business.DTO
 {
     public class TicketCreateDTO
     {
-        public byte[] RowVersion { get; set; }
-
         [Required(ErrorMessage = "Необхідно вказати номер квитка.")]
         [RegularExpression(@"\d{6}", ErrorMessage = "Номер повинен складатися з шести цифр.")]
         public string Number { get; set; }

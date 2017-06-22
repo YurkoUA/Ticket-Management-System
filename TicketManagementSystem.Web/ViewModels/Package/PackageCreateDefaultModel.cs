@@ -5,10 +5,6 @@ namespace TicketManagementSystem.Web
 {
     public class PackageCreateDefaultModel
     {
-        [Timestamp]
-        [HiddenInput(DisplayValue = false)]
-        public byte[] RowVersion { get; set; }
-
         [Required(ErrorMessage = "Необхідно обрати колір.")]
         [Display(Name = "Колір")]
         public int ColorId { get; set; }

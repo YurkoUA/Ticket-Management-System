@@ -1,17 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
-using TicketManagementSystem.Business;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using TicketManagementSystem.Business.Interfaces;
-using TicketManagementSystem.Business.Services;
-using TicketManagementSystem.Data.EF.Models;
 using TicketManagementSystem.Web.Filters;
 
 namespace TicketManagementSystem.Web.Controllers
@@ -86,12 +78,5 @@ namespace TicketManagementSystem.Web.Controllers
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
-
-        //[HttpGet]
-        //public async Task<ActionResult> Register(string email, string userName, string password)
-        //{
-        //    await _userService.CreateAsync(new User { Email = email, UserName = userName }, password);
-        //    return null;
-        //}
     }
 }

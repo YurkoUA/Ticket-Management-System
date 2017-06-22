@@ -16,7 +16,5 @@ namespace TicketManagementSystem.Business.DTO
 
         [StringLength(128, ErrorMessage = "Довжина не може перевищувати 128 символів.")]
         public string Note { get; set; }
-
-        public byte[] RowVersion { get; set; }
     }
 }

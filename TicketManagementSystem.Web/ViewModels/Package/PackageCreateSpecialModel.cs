@@ -5,10 +5,6 @@ namespace TicketManagementSystem.Web
 {
     public class PackageCreateSpecialModel
     {
-        [Timestamp]
-        [HiddenInput(DisplayValue = false)]
-        public byte[] RowVersion { get; set; }
-
         [Display(Name = "Назва")]
         [Required(ErrorMessage = "Необхідно вказати назву пачки.")]
         [StringLength(64, MinimumLength = 2, ErrorMessage = "Назва може бути від 2 до 64 символів.")]

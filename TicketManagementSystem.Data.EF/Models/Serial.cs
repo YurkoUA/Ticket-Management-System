@@ -6,6 +6,7 @@ namespace TicketManagementSystem.Data.EF.Models
 {
     public class Serial
     {
+        [Timestamp]
         public byte[] RowVersion { get; set; }
 
         public int Id { get; set; }

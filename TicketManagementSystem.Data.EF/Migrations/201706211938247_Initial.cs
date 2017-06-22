@@ -12,7 +12,7 @@ namespace TicketManagementSystem.Data.EF.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        RowVersion = c.Binary(),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         Name = c.String(maxLength: 32),
                     })
                 .PrimaryKey(t => t.Id);
@@ -22,7 +22,7 @@ namespace TicketManagementSystem.Data.EF.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        RowVersion = c.Binary(),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         Name = c.String(maxLength: 64),
                         ColorId = c.Int(),
                         SerialId = c.Int(),
@@ -44,7 +44,7 @@ namespace TicketManagementSystem.Data.EF.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        RowVersion = c.Binary(),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         Name = c.String(maxLength: 4),
                         Note = c.String(maxLength: 128),
                     })
@@ -55,14 +55,14 @@ namespace TicketManagementSystem.Data.EF.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        RowVersion = c.Binary(),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         Number = c.String(maxLength: 6),
                         PackageId = c.Int(),
                         ColorId = c.Int(nullable: false),
                         SerialId = c.Int(nullable: false),
                         SerialNumber = c.String(maxLength: 2),
                         Note = c.String(maxLength: 128),
-                        Date = c.DateTime(),
+                        Date = c.String(maxLength: 32),
                         AddDate = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
@@ -79,6 +79,7 @@ namespace TicketManagementSystem.Data.EF.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(maxLength: 32),
+                        Description = c.String(maxLength: 32),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -87,7 +88,7 @@ namespace TicketManagementSystem.Data.EF.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        RowVersion = c.Binary(),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         Email = c.String(maxLength: 64),
                         UserName = c.String(maxLength: 64),
                         PasswordHash = c.Binary(),

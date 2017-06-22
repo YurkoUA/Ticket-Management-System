@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.IO;
+﻿using System.Data.Entity;
 using TicketManagementSystem.Data.EF.Models;
 
 namespace TicketManagementSystem.Data.EF
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext()
-        {
-            //AppDomain.CurrentDomain.SetData("DataDirectory", Directory.GetCurrentDirectory() + "\\TicketManagementSystem.Web\\App_Data");
-        }
+        public AppDbContext() { }
 
         public AppDbContext(string connectionString) : base(connectionString)
         {
-            //AppDomain.CurrentDomain.SetData("DataDirectory", Directory.GetCurrentDirectory() + "\\TicketManagementSystem.Web\\App_Data");
         }
 
         public DbSet<User> Users { get; set; }

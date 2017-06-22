@@ -8,6 +8,7 @@ namespace TicketManagementSystem.Data.EF.Models
 {
     public class Package
     {
+        [Timestamp]
         public byte[] RowVersion { get; set; }
 
         public int Id { get; set; }

@@ -33,7 +33,7 @@ namespace TicketManagementSystem.Web.App_Start
         
         private static IKernel CreateKernel()
         {
-            var modules = new INinjectModule[] { new ServiceModule("TicketMS") };
+            var modules = new INinjectModule[] { new ServiceModule("DefaultConnection") };
             var kernel = new StandardKernel(modules);
 
             try

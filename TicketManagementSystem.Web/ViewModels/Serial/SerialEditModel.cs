@@ -5,7 +5,6 @@ namespace TicketManagementSystem.Web
 {
     public class SerialEditModel
     {
-        [Timestamp]
         [HiddenInput(DisplayValue = false)]
         public byte[] RowVersion { get; set; }
 
