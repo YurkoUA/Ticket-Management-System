@@ -9,8 +9,6 @@ namespace TicketManagementSystem.Web.Controllers
 {
     public class TicketController : ApplicationController
     {
-        private const int ITEMS_ON_PAGE = 20;
-
         private ITicketService _ticketService;
         private IPackageService _packageService;
         private ISerialService _serialService;
@@ -28,16 +26,35 @@ namespace TicketManagementSystem.Web.Controllers
             _colorService = colorService;
         }
 
+        #region Index, Unallocated, Happy, Details
+
         [HttpGet]
         public ActionResult Index(int page = 1)
         {
+            const int ITEMS_ON_PAGE = 20;
+       
             if (page < 1) page = 1;
 
-            int totalPages = _ticketService.TotalCount;
-            var pageInfo = new PageInfo(page, totalPages, ITEMS_ON_PAGE);
+            var pageInfo = new PageInfo(page, _ticketService.TotalCount, ITEMS_ON_PAGE);
             var tickets = _ticketService.GetTickets((page - 1) * ITEMS_ON_PAGE, ITEMS_ON_PAGE);
 
-            ViewBag.Title = $"Квитки (сторінка {page} з {pageInfo.TotalPages})";
+            var viewModel = new TicketIndexModel
+            {
+                Tickets = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets),
+                PageInfo = pageInfo
+            };
+            return View(viewModel);
+        }
+
+        [HttpGet, Authorize(Roles = "Admin")]
+        public ActionResult Unallocated(int page = 1)
+        {
+            const int ITEMS_ON_PAGE = 30;
+            
+            if (page < 1) page = 1;
+
+            var tickets = _ticketService.GetUnallocatedTickets((page - 1) * ITEMS_ON_PAGE, ITEMS_ON_PAGE);
+            var pageInfo = new PageInfo(page, _ticketService.CountUnallocatedTickets(), ITEMS_ON_PAGE);
 
             var viewModel = new TicketIndexModel
             {
@@ -48,32 +65,21 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Unallocated(int page = 1)
+        public ActionResult Happy(int page = 1)
         {
-            // TODO: Unallocated.
+            const int ITEMS_ON_PAGE = 30;
+
             if (page < 1) page = 1;
-
-            int totalPages = _ticketService.TotalCount;
-            var pageInfo = new PageInfo(page, totalPages, ITEMS_ON_PAGE);
-            var tickets = _ticketService.GetUnallocatedTickets((page - 1) * ITEMS_ON_PAGE, ITEMS_ON_PAGE);
-
-            ViewBag.Title = $"Нерозподілені квитки (сторінка {page} з {pageInfo.TotalPages})";
+            
+            var tickets = _ticketService.GetHappyTickets((page - 1) * ITEMS_ON_PAGE, ITEMS_ON_PAGE);
+            var pageInfo = new PageInfo(page, _ticketService.CountHappyTickets(), ITEMS_ON_PAGE);
 
             var viewModel = new TicketIndexModel
             {
                 Tickets = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets),
                 PageInfo = pageInfo
             };
-            return View("Index", viewModel);
-        }
-
-        [HttpGet]
-        public ActionResult Happy()
-        {
-            // TODO: Happy().
-
-            var tickets = _ticketService.GetHappyTickets();
-            throw new NotImplementedException();
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -86,6 +92,12 @@ namespace TicketManagementSystem.Web.Controllers
             if (Request.IsAjaxRequest() || partial)
             {
                 var viewModel = MapperInstance.Map<TicketDetailsModel>(ticket);
+
+                var ticketsByNumber = _ticketService.CountByNumber(ticket.Number);
+
+                if (ticketsByNumber > 1)
+                    viewModel.Clones = ticketsByNumber - 1;
+
                 return PartialView("DetailsPartial", viewModel);
             }
 
@@ -99,6 +111,10 @@ namespace TicketManagementSystem.Web.Controllers
             ViewBag.Title = $"Квиток №{ticket.Number}";
             return View("Ticket", partialModel);
         }
+
+        #endregion
+
+        #region CRUD
 
         [HttpGet, Authorize(Roles = "Admin")]
         public ActionResult Create()
@@ -216,6 +232,10 @@ namespace TicketManagementSystem.Web.Controllers
             }
         }
 
+        #endregion
+
+        #region Move, ChangeNumber
+
         [HttpGet, Authorize(Roles = "Admin")]
         public ActionResult Move(int id, bool partial = false)
         {
@@ -298,6 +318,32 @@ namespace TicketManagementSystem.Web.Controllers
                 }
             }
             return ErrorPartial(ModelState);
+        }
+
+        #endregion
+
+        [HttpGet]
+        public ActionResult ClonesWith(int id)
+        {
+            var ticket = _ticketService.GetById(id);
+
+            if (ticket == null)
+                return HttpNotFound();
+
+            var tickets = _ticketService.GetByNumber(ticket.Number, ticket.Id);
+
+            if (!tickets.Any())
+                return HttpNotFound();
+
+            var viewModel = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets);
+            return PartialView(viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult Clones()
+        {
+            var viewModel = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(_ticketService.GetClones());
+            return View(viewModel);
         }
 
         [HttpGet, Authorize(Roles = "Admin")]

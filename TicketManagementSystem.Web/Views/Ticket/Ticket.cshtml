@@ -21,3 +21,7 @@
 
 <div id="ticket-result"></div>
 @Html.Partial("ToolbarPartial", Model.Param)
+
+@section scripts {
+    @Scripts.Render("~/Scripts/tickets-by-number-modal.js")    
+}

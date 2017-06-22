@@ -7,6 +7,7 @@ namespace TicketManagementSystem.Data.EF.Interfaces
     public interface IRepository<T> where T : class
     {
         int GetCount();
+        int GetCount(Func<T, bool> predicate);
         bool IsEmpty();
         bool ExistsById(int id);
         bool Contains(T item);

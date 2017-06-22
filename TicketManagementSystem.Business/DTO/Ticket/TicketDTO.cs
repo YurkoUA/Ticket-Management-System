@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace TicketManagementSystem.Business.DTO
 {
@@ -26,5 +27,10 @@ namespace TicketManagementSystem.Business.DTO
         public DateTime AddDate { get; set; }
 
         public bool IsHappy { get; set; }
+
+        public int FirstNumber
+        {
+            get => int.Parse(Number.First().ToString());
+        }
     }
 }

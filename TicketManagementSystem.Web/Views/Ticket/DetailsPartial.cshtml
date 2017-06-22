@@ -45,4 +45,10 @@
             <dd>@Html.DisplayFor(model => model.Note)</dd>
         }
     </dl>
+
+    @if (Model.Clones != null)
+    {
+        @Html.HiddenFor(Model => Model.Id)
+        <button id="tickets-with-number" class="btn btn-default">Квитків з таким же номером (@Model.Clones)</button>
+    }
 </div>

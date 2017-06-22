@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using TicketManagementSystem.Business.DTO;
@@ -15,9 +16,9 @@ namespace TicketManagementSystem.Business.Services
         private IColorService _colorService;
 
         public TicketService
-            (IUnitOfWork database, 
-            IPackageService packageService, 
-            ISerialService serialService, 
+            (IUnitOfWork database,
+            IPackageService packageService,
+            ISerialService serialService,
             IColorService colorService) : base(database)
         {
             _packageService = packageService;
@@ -25,9 +26,19 @@ namespace TicketManagementSystem.Business.Services
             _colorService = colorService;
         }
 
-        #region Get
-
         public int TotalCount => Database.Tickets.GetCount();
+
+        public IEnumerable<TicketDTO> GetClones()
+        {
+            var clones = Database.Tickets.GetAll()
+                .AsEnumerable()
+                .Where(t => CountByNumber(t.Number, t.Id) > 0)
+                .OrderBy(t => t.Number);
+
+            return MapperInstance.Map<IEnumerable<TicketDTO>>(clones);
+        }
+
+        #region Get
 
         public IEnumerable<TicketDTO> GetTickets()
         {
@@ -66,6 +77,26 @@ namespace TicketManagementSystem.Business.Services
                 .AsEnumerable());
         }
 
+        public IEnumerable<TicketDTO> GetUnallocatedTickets(int packageId)
+        {
+            var package = _packageService.GetPackage(packageId);
+
+            if (package == null) return null;
+
+            var tickets = GetUnallocatedTickets();
+
+            if (package.ColorId != null)
+                tickets = tickets.Where(t => t.ColorId == package.ColorId);
+
+            if (package.SerialId != null)
+                tickets = tickets.Where(t => t.SerialId == package.SerialId);
+
+            if (package.FirstNumber != null)
+                tickets = tickets.Where(t => t.FirstNumber == package.FirstNumber);
+
+            return tickets;
+        }
+
         public IEnumerable<TicketDTO> GetUnallocatedTickets(int skip, int take)
         {
             return MapperInstance.Map<IEnumerable<TicketDTO>>(
@@ -80,21 +111,21 @@ namespace TicketManagementSystem.Business.Services
         public IEnumerable<TicketDTO> GetHappyTickets()
         {
             return MapperInstance.Map<IEnumerable<TicketDTO>>(
-                Database.Tickets.GetAll()
-                .Where(t => t.IsHappy())
-                .AsEnumerable()
-                .OrderBy(t => t.Number));
+                Database.Tickets.GetAll())
+                .OrderBy(t => t.Number)
+                .Where(t => t.IsHappy)
+                .AsEnumerable();
         }
 
         public IEnumerable<TicketDTO> GetHappyTickets(int skip, int take)
         {
             return MapperInstance.Map<IEnumerable<TicketDTO>>(
                 Database.Tickets.GetAll()
-                .Where(t => t.IsHappy())
-                .OrderBy(t => t.Number))
-                .AsEnumerable()
+                .OrderBy(t => t.Number)
                 .Skip(skip)
-                .Take(take);
+                .Take(take)
+                .AsEnumerable())
+                .Where(t => t.IsHappy);
         }
 
         public TicketDTO GetById(int id)
@@ -195,6 +226,28 @@ namespace TicketManagementSystem.Business.Services
             return MapperInstance.Map<TicketDTO>(ticket);
         }
 
+        public int CountByNumber(string number)
+        {
+            return Database.Tickets.GetCount(t => t.Number.Equals(number));
+        }
+
+        public int CountByNumber(string number, int id)
+        {
+            return Database.Tickets.GetCount(t => t.Number.Equals(number) && t.Id != id);
+        }
+
+        public int CountUnallocatedTickets()
+        {
+            return Database.Tickets.GetCount(t => t.PackageId == null);
+        }
+
+        public int CountHappyTickets()
+        {
+            return Database.Tickets.GetCount(t => t.IsHappy());
+        }
+
+        #region Exists methods
+
         public bool ExistsById(int id)
         {
             return Database.Tickets.ExistsById(id);
@@ -204,6 +257,10 @@ namespace TicketManagementSystem.Business.Services
         {
             return Database.Tickets.Contains(t => t.Number.Equals(number));
         }
+
+        #endregion
+
+        #region Validate methods
 
         public IEnumerable<string> Validate(TicketCreateDTO createDTO)
         {
@@ -291,7 +348,7 @@ namespace TicketManagementSystem.Business.Services
         {
             if (!Regex.IsMatch(newNumber, @"\d{6}"))
             {
-                return new string[] { "Номер повинен складатися з шести цифр. "};
+                return new string[] { "Номер повинен складатися з шести цифр. " };
             }
 
             var ticketDTO = GetById(ticketId);
@@ -339,5 +396,7 @@ namespace TicketManagementSystem.Business.Services
 
             return errors;
         }
+
+        #endregion
     }
 }

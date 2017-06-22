@@ -22,6 +22,11 @@ namespace TicketManagementSystem.Data.EF
             return _dbSet.Count();
         }
 
+        public int GetCount(Func<T, bool> predicate)
+        {
+            return _dbSet.Count(predicate);
+        }
+
         public virtual bool IsEmpty()
         {
             return !_dbSet.Any();

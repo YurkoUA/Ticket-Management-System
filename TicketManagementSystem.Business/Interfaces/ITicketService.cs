@@ -7,12 +7,15 @@ namespace TicketManagementSystem.Business.Interfaces
     {
         int TotalCount { get; }
 
+        IEnumerable<TicketDTO> GetClones();
+
         IEnumerable<TicketDTO> GetTickets();
         IEnumerable<TicketDTO> GetTickets(int skip, int take);
 
         IEnumerable<TicketDTO> GetTicketsByPackage(int packageId);
 
         IEnumerable<TicketDTO> GetUnallocatedTickets();
+        IEnumerable<TicketDTO> GetUnallocatedTickets(int packageId);
         IEnumerable<TicketDTO> GetUnallocatedTickets(int skip, int take);
 
         IEnumerable<TicketDTO> GetHappyTickets();
@@ -33,6 +36,12 @@ namespace TicketManagementSystem.Business.Interfaces
 
         bool ExistsById(int id);
         bool ExistsByNumber(string number);
+
+        int CountByNumber(string number);
+        int CountByNumber(string number, int id);
+
+        int CountUnallocatedTickets();
+        int CountHappyTickets();
 
         IEnumerable<string> Validate(TicketCreateDTO createDTO);
         IEnumerable<string> Validate(TicketEditDTO editDTO);

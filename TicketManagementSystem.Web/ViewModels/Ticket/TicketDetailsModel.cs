@@ -36,6 +36,8 @@ namespace TicketManagementSystem.Web
         [Display(Name = "Щасливий:")]
         public bool IsHappy { get; set; }
 
+        public int? Clones { get; set; }
+
         public string TrClass()
         {
             return IsHappy ? "success" : "";

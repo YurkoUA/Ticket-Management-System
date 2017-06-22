@@ -1,4 +1,4 @@
-﻿@model TicketManagementSystem.Web.TicketDetailsModel
+﻿@model TicketDetailsModel
 
 <h2>Видалення квитка №@Model.Number</h2>
 
@@ -11,8 +11,11 @@
         <dt>@Html.DisplayNameFor(model => model.Number)</dt>
         <dd>@Html.DisplayFor(model => model.Number)</dd>
 
-        <dt>@Html.DisplayNameFor(model => model.PackageName)</dt>
-        <dd>@Html.DisplayFor(model => model.PackageName)</dd>
+        @if (Model.PackageId != null)
+        {
+            <dt>@Html.DisplayNameFor(model => model.PackageName)</dt>
+            <dd>@Html.DisplayFor(model => model.PackageName)</dd>
+        }
 
         <dt>@Html.DisplayNameFor(model => model.ColorName)</dt>
         <dd>@Html.DisplayFor(model => model.ColorName)</dd>

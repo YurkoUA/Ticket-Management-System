@@ -1,15 +1,23 @@
 ﻿@model TicketIndexModel
 
 @{
+    ViewBag.Title = "Квитки";
     bool isAdmin = User.IsInRole("Admin");
 }
 
-<h2>Квитки</h2>
-
 @if (Model.Any())
 {
+    <h2>
+        @ViewBag.Title
+        <small>@Model.PageInfo.TotalItems шт.</small>
+    </h2>
+
     <div class="panel panel-default">
-        <div class="panel-heading">Всього квитків: @Model.PageInfo.TotalItems</div>
+        <div class="panel-heading">
+            @Html.ActionLink("Щасливі квитки", "Happy") | 
+            @Html.ActionLink("Нерозподілені квитки", "Unallocated") |
+            @Html.ActionLink("Квитки з однаковими номерами", "Clones")
+        </div>
 
         @if (isAdmin)
         {
@@ -45,13 +53,14 @@
 
         <div class="panel-footer">
             @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new
-            {
-                page = x
-            }))
+       {
+           page = x
+       }))
         </div>
     </div>
 }
 else
 {
+    <h2>@ViewBag.Title</h2>
     @Html.AlertDanger("Матеріали відсутні.")
 }
