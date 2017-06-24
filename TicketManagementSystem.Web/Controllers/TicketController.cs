@@ -32,7 +32,7 @@ namespace TicketManagementSystem.Web.Controllers
         public ActionResult Index(int page = 1)
         {
             const int ITEMS_ON_PAGE = 20;
-       
+
             if (page < 1) page = 1;
 
             var pageInfo = new PageInfo(page, _ticketService.TotalCount, ITEMS_ON_PAGE);
@@ -50,7 +50,7 @@ namespace TicketManagementSystem.Web.Controllers
         public ActionResult Unallocated(int page = 1)
         {
             const int ITEMS_ON_PAGE = 30;
-            
+
             if (page < 1) page = 1;
 
             var tickets = _ticketService.GetUnallocatedTickets((page - 1) * ITEMS_ON_PAGE, ITEMS_ON_PAGE);
@@ -70,7 +70,7 @@ namespace TicketManagementSystem.Web.Controllers
             const int ITEMS_ON_PAGE = 30;
 
             if (page < 1) page = 1;
-            
+
             var tickets = _ticketService.GetHappyTickets((page - 1) * ITEMS_ON_PAGE, ITEMS_ON_PAGE);
             var pageInfo = new PageInfo(page, _ticketService.CountHappyTickets(), ITEMS_ON_PAGE);
 
@@ -375,8 +375,8 @@ namespace TicketManagementSystem.Web.Controllers
         private SelectList GetPackagesList(int colorId, int serialId, int? number = null, bool nullable = false)
         {
             IEnumerable<PackageDTO> packages = _packageService.GetPackages()
-                .Where(p => (p.ColorId == null || p.ColorId == colorId) 
-                    && (p.SerialId == null || p.SerialId == serialId) 
+                .Where(p => (p.ColorId == null || p.ColorId == colorId)
+                    && (p.SerialId == null || p.SerialId == serialId)
                     && p.IsOpened)
                 .OrderBy(p => p.Name);
 
@@ -389,7 +389,7 @@ namespace TicketManagementSystem.Web.Controllers
 
             if (nullable)
                 packagesList.Add(new PackageDTO { Name = "(Немає)" });
-            
+
             return new SelectList(packagesList, "Id", "SelectListOptionValue");
         }
 

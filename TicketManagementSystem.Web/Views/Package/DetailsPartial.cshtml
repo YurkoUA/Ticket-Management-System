@@ -1,6 +1,6 @@
 ﻿@model PackageDetailsModel
 
-@{ 
+@{
     Layout = null;
     bool isAdmin = User.IsInRole("Admin");
 }
@@ -44,7 +44,7 @@
         @if (Model.FirstNumber != null)
         {
             <dt>@Html.DisplayNameFor(model => model.FirstNumber)</dt>
-            <dd>@Html.DisplayFor(model => model.FirstNumber)</dd> 
+            <dd>@Html.DisplayFor(model => model.FirstNumber)</dd>
         }
 
         <dt>@Html.DisplayNameFor(model => model.TicketsCount)</dt>
@@ -58,4 +58,16 @@
     </dl>
 </div>
 
-@Html.ActionLink("Список квитків", "Tickets", new { id = Model.Id }, new { @class = "btn btn-default" })
+<div class="btn-group" role="group">
+    @if (Model.TicketsCount > 0)
+    {
+        @Html.HiddenFor(model => model.Id)
+        <button id="tickets-by-package-button" type="button" class="btn btn-default">Список квитків (@Model.TicketsCount)</button>
+    }
+
+    @if (Model.UnallocatedTicketsCount > 0 && isAdmin)
+    {
+        @Html.HiddenFor(model => model.Id)
+        <button id="unallocated-tickets" type="button" class="btn btn-default">Перемістити нерозподілені (@Model.UnallocatedTicketsCount)</button>
+    }
+</div>

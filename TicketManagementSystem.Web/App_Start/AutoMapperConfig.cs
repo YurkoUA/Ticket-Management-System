@@ -64,6 +64,8 @@ namespace TicketManagementSystem.Web
 
                 cfg.CreateMap<TicketDTO, TicketChangeNumberModel>();
                 cfg.CreateMap<TicketDTO, TicketMoveModel>();
+                cfg.CreateMap<TicketDTO, TicketUnallocatedMoveModel>()
+                    .ForMember(dest => dest.SerialFull, opt => opt.MapFrom(src => src.SerialName + src.SerialNumber));
 
                 cfg.CreateMap<TicketCreateModel, TicketCreateDTO>();
                 cfg.CreateMap<TicketEditDTO, TicketEditModel>();

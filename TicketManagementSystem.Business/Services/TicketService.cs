@@ -215,6 +215,8 @@ namespace TicketManagementSystem.Business.Services
 
         public TicketDTO MoveToPackage(int ticketId, int packageId)
         {
+            if (!_packageService.ExistsById(packageId)) return null;
+
             var ticket = Database.Tickets.GetById(ticketId);
 
             if (ticket == null) return null;
@@ -224,6 +226,22 @@ namespace TicketManagementSystem.Business.Services
             Database.SaveChanges();
 
             return MapperInstance.Map<TicketDTO>(ticket);
+        }
+
+        public void MoveFewToPackage(int packageId, params int[] ticketsIds)
+        {
+            if (!_packageService.ExistsById(packageId)) return;
+
+            foreach (var id in ticketsIds)
+            {
+                var ticket = Database.Tickets.GetById(id);
+
+                if (ticket != null)
+                {
+                    ticket.PackageId = packageId;
+                }
+            }
+            Database.SaveChanges();
         }
 
         public int CountByNumber(string number)
@@ -239,6 +257,11 @@ namespace TicketManagementSystem.Business.Services
         public int CountUnallocatedTickets()
         {
             return Database.Tickets.GetCount(t => t.PackageId == null);
+        }
+
+        public int CountUnallocatedByPackage(int packageId)
+        {
+            return GetUnallocatedTickets(packageId).Count();
         }
 
         public int CountHappyTickets()
@@ -392,6 +415,38 @@ namespace TicketManagementSystem.Business.Services
             if (packageDTO.SerialId != null && ticketDTO.SerialId != packageDTO.SerialId)
             {
                 errors.Add("Серія квитка не збігається з серією пачки.");
+            }
+
+            return errors;
+        }
+
+        public IEnumerable<string> ValidateMoveFewToPackage(int packageId, params int[] ticketsIds)
+        {
+            var errors = new List<string>();
+
+            var package = _packageService.GetPackage(packageId);
+
+            if (package == null)
+            {
+                errors.Add($"Пачки ID: {package} не існує");
+                return errors;
+            }
+
+            var tickets = Database.Tickets.GetAll(t => ticketsIds.Contains(t.Id)).ToList();
+
+            if (package.FirstNumber != null && !tickets.TrueForAll(t => int.Parse(t.Number.First().ToString()) == package.FirstNumber))
+            {
+                errors.Add("Не всі квитки відповідають першій цифрі пачки.");
+            }
+
+            if (package.ColorId != null && !tickets.TrueForAll(t => t.ColorId == package.ColorId))
+            {
+                errors.Add("Не всі квитки відповідають кольору пачки.");
+            }
+
+            if (package.SerialId != null && !tickets.TrueForAll(t => t.SerialId == package.SerialId))
+            {
+                errors.Add("Не всі квитки відповідають серії пачки.");
             }
 
             return errors;

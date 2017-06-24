@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using TicketManagementSystem.Business.DTO;
@@ -10,15 +11,20 @@ namespace TicketManagementSystem.Web.Controllers
     {
         // TODO: In "ToolbarPartial" hide delete button if package contains tickets.
 
+        private ITicketService _ticketService;
         private IPackageService _packageService;
         private IColorService _colorService;
         private ISerialService _serialService;
 
-        public PackageController(IPackageService packageService, IColorService colorService, ISerialService serialService)
+        public PackageController(IPackageService packageService, 
+            IColorService colorService, 
+            ISerialService serialService,
+            ITicketService ticketServive)
         {
             _packageService = packageService;
             _colorService = colorService;
             _serialService = serialService;
+            _ticketService = ticketServive;
         }
 
         [HttpGet]
@@ -51,6 +57,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (Request.IsAjaxRequest() || partial)
             {
                 var viewModel = MapperInstance.Map<PackageDetailsModel>(package);
+                viewModel.UnallocatedTicketsCount = _ticketService.CountUnallocatedByPackage(id);
                 return PartialView("DetailsPartial", viewModel);
             }
 
@@ -74,7 +81,7 @@ namespace TicketManagementSystem.Web.Controllers
             var tickets = _packageService.GetPackageTickets(id, true);
 
             ViewBag.Title = $"Квитки з пачки \"{packageName}\"";
-            return View(MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets));
+            return PartialView("TicketsPartial", MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets));
         }
 
         [HttpGet, Authorize(Roles = "Admin")]
@@ -389,6 +396,48 @@ namespace TicketManagementSystem.Web.Controllers
                 }
             }
             return ErrorPartial(ModelState);
+        }
+
+        [HttpGet, Authorize(Roles = "Admin")]
+        public ActionResult MoveUnallocatedTickets(int id)
+        {
+            // id - packageId.
+            var package = _packageService.GetPackage(id);
+
+            if (package == null) return HttpNotFound();
+            if (!package.IsOpened) return HttpBadRequest();
+
+            var tickets = _ticketService.GetUnallocatedTickets(id).ToArray();
+
+            return PartialView("MoveUnallocatedPartial", MapperInstance.Map<TicketUnallocatedMoveModel[]>(tickets));
+        }
+
+        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        public ActionResult MoveUnallocatedTickets(int id, TicketUnallocatedMoveModel[] tickets)
+        {
+            var ticketsMove = tickets.Where(t => t.Move);
+
+            if (!ticketsMove.Any())
+            {
+                ModelState.AddModelError("", "Ви не обрали жодного квитка.");
+            }
+
+            var toMoveIds = ticketsMove.Select(t => t.Id).ToArray();
+            var errors = _ticketService.ValidateMoveFewToPackage(id, toMoveIds);
+            errors.ToModelState(ModelState);
+
+            if (ModelState.IsValid)
+            {
+                _ticketService.MoveFewToPackage(id, toMoveIds);
+                return SuccessPartial($"Квитків переміщено {toMoveIds.Length}.");
+            }
+            return ErrorPartial(ModelState);
+        }
+
+        [HttpGet]
+        public ActionResult MoveUnallocatedModal()
+        {
+            return PartialView("MoveUnallocatedModal");
         }
 
         #region SelectLists

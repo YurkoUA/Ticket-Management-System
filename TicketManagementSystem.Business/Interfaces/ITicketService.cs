@@ -33,6 +33,7 @@ namespace TicketManagementSystem.Business.Interfaces
 
         TicketDTO ChangeNumber(int ticketId, string number);
         TicketDTO MoveToPackage(int ticketId, int packageId);
+        void MoveFewToPackage(int packageId, params int[] ticketsIds);
 
         bool ExistsById(int id);
         bool ExistsByNumber(string number);
@@ -41,11 +42,13 @@ namespace TicketManagementSystem.Business.Interfaces
         int CountByNumber(string number, int id);
 
         int CountUnallocatedTickets();
+        int CountUnallocatedByPackage(int packageId);
         int CountHappyTickets();
 
         IEnumerable<string> Validate(TicketCreateDTO createDTO);
         IEnumerable<string> Validate(TicketEditDTO editDTO);
         IEnumerable<string> ValidateChangeNumber(int ticketId, string newNumber);
         IEnumerable<string> ValidateMoveToPackage(int ticketId, int packageId);
+        IEnumerable<string> ValidateMoveFewToPackage(int packageId, params int[] ticketsIds);
     }
 }

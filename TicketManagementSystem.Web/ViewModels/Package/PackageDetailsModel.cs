@@ -55,6 +55,9 @@ namespace TicketManagementSystem.Web
         [HiddenInput(DisplayValue = false)]
         public int SerialId { get; set; }
 
+        [HiddenInput(DisplayValue = false)]
+        public int UnallocatedTicketsCount { get; set; }
+
         #endregion
     }
 }

@@ -212,6 +212,7 @@
     <Compile Include="ViewModels\Ticket\TicketEditModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketIndexModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketMoveModel.cs" />
+    <Compile Include="ViewModels\Ticket\TicketUnallocatedMoveModel.cs" />
     <Compile Include="Views\PartialModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +242,8 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\tickets-by-number-modal.js" />
+    <Content Include="Scripts\tickets-by-package.js" />
+    <Content Include="Scripts\tickets-move-few-modal.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -302,11 +305,13 @@
     <Content Include="Views\Package\MakeSpecialPartial.cshtml" />
     <Content Include="Views\Package\MakeDefaultPartial.cshtml" />
     <Content Include="Views\Package\StatusActionsPartial.cshtml" />
-    <Content Include="Views\Package\Tickets.cshtml" />
+    <Content Include="Views\Package\TicketsPartial.cshtml" />
     <Content Include="Views\Ticket\Unallocated.cshtml" />
     <Content Include="Views\Ticket\Happy.cshtml" />
     <Content Include="Views\Ticket\ClonesWith.cshtml" />
     <Content Include="Views\Ticket\Clones.cshtml" />
+    <Content Include="Views\Package\MoveUnallocatedPartial.cshtml" />
+    <Content Include="Views\Package\MoveUnallocatedModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
