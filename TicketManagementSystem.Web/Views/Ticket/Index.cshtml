@@ -16,7 +16,8 @@
         <div class="panel-heading">
             @Html.ActionLink("Щасливі квитки", "Happy") | 
             @Html.ActionLink("Нерозподілені квитки", "Unallocated") |
-            @Html.ActionLink("Квитки з однаковими номерами", "Clones")
+            @Html.ActionLink("Квитки з однаковими номерами", "Clones") | 
+            <a id="ticket-search" onclick="searchModal()">Пошук квитків</a>
         </div>
 
         @if (isAdmin)
@@ -29,12 +30,12 @@
         <div class="table-responsive">
             <table class="table table-hover table-bordered">
                 <tr>
-                    <th><b>Номер</b></th>
-                    <th><b>Пачка</b></th>
-                    <th><b>Колір</b></th>
-                    <th><b>Серія</b></th>
-                    <th><b>Дата</b></th>
-                    <th><b>Примітка</b></th>
+                    <th>Номер</th>
+                    <th>Пачка</th>
+                    <th>Колір</th>
+                    <th>Серія</th>
+                    <th>Дата</th>
+                    <th>Примітка</th>
                 </tr>
 
                 @foreach (var item in Model)
@@ -61,6 +62,10 @@
             </div>
         }
     </div>
+
+    @section scripts {
+        @Scripts.Render("~/Scripts/ticket-search-modal.js")
+    }
 }
 else
 {

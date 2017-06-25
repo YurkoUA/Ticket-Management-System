@@ -137,9 +137,16 @@ namespace TicketManagementSystem.Business.Services
             return MapperInstance.Map<TicketDTO>(ticket);
         }
 
-        public IEnumerable<TicketDTO> GetByNumber(string number)
+        public IEnumerable<TicketDTO> GetByNumber(string number, bool partialMatches = false)
         {
-            var tickets = Database.Tickets.GetAll().Where(t => t.Number.Equals(number));
+            Func<Ticket, bool> predicate = t => t.Number.Equals(number);
+
+            if (partialMatches)
+                predicate = t => t.Number.Contains(number);
+
+            var tickets = Database.Tickets.GetAll()
+                .Where(predicate)
+                .OrderBy(t => t.Number);
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 

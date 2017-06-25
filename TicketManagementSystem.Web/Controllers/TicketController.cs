@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
@@ -116,9 +117,27 @@ namespace TicketManagementSystem.Web.Controllers
         #endregion
 
         [HttpGet, AllowAnonymous]
-        public ActionResult Search()
+        public ActionResult Search(string number)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(number) && Regex.IsMatch(number, @"\d{6}"))
+                ModelState.AddModelError("", "Необхідно вказати номер.");
+
+            var tickets = _ticketService.GetByNumber(number, true);
+
+            if (!tickets.Any())
+                ModelState.AddModelError("", "Квитки не знайдено.");
+
+            if (ModelState.IsValid)
+            {
+                return PartialView("SearchPartial", MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets));
+            }
+            return ErrorPartial(ModelState);
+        }
+
+        [HttpGet, AllowAnonymous]
+        public ActionResult SearchModal()
+        {
+            return PartialView("SearchModal");
         }
 
         #region CRUD
@@ -153,6 +172,43 @@ namespace TicketManagementSystem.Web.Controllers
                 }
             }
             return ErrorPartial(ModelState);
+        }
+
+        [HttpGet]
+        public ActionResult CreateInPackage(int id)
+        {
+            var package = _packageService.GetPackage(id);
+
+            if (package == null) return HttpNotFound();
+            if (!package.IsOpened) return HttpBadRequest();
+
+            var viewModel = new TicketCreateInPackageModel
+            {
+                PackageId = package.Id,
+                PackageName = package.Name
+            };
+
+            if (package.ColorId != null)
+            {
+                viewModel.ColorId = (int)package.ColorId;
+            }
+            else
+            {
+                viewModel.CanSelectColor = true;
+                viewModel.Colors = GetColorsList();
+            }
+
+            if (package.SerialId != null)
+            {
+                viewModel.SerialId = (int)package.SerialId;
+            }
+            else
+            {
+                viewModel.CanSelectSerial = true;
+                viewModel.Series = GetSeriesList();
+            }
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -211,6 +267,7 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult CreateMany(TicketCreateManyModel viewModel)
         {
+            // TODO: Create Many.
             throw new NotImplementedException();
         }
 

@@ -207,6 +207,7 @@
     <Compile Include="ViewModels\Serial\SerialEditModel.cs" />
     <Compile Include="ViewModels\Serial\SerialIndexModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketChangeNumberModel.cs" />
+    <Compile Include="ViewModels\Ticket\TicketCreateInPackageModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketCreateManyModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketCreateModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketDetailsModel.cs" />
@@ -246,6 +247,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\ticket-create-many.js" />
+    <Content Include="Scripts\ticket-search-modal.js" />
     <Content Include="Scripts\tickets-by-number-modal.js" />
     <Content Include="Scripts\tickets-by-package.js" />
     <Content Include="Scripts\tickets-move-few-modal.js" />
@@ -320,6 +322,9 @@
     <Content Include="Views\Ticket\CreateMany.cshtml" />
     <Content Include="Views\Ticket\CreateManyPackagePartial.cshtml" />
     <Content Include="Views\Ticket\CreateManyTablePartial.cshtml" />
+    <Content Include="Views\Ticket\CreateInPackage.cshtml" />
+    <Content Include="Views\Ticket\SearchModal.cshtml" />
+    <Content Include="Views\Ticket\SearchPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

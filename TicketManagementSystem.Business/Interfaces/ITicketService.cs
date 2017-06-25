@@ -22,7 +22,7 @@ namespace TicketManagementSystem.Business.Interfaces
         IEnumerable<TicketDTO> GetHappyTickets(int skip, int take);
 
         TicketDTO GetById(int id);
-        IEnumerable<TicketDTO> GetByNumber(string number);
+        IEnumerable<TicketDTO> GetByNumber(string number, bool partialMatches = false);
         IEnumerable<TicketDTO> GetByNumber(string number, int id);
 
         TicketEditDTO GetEdit(int id);

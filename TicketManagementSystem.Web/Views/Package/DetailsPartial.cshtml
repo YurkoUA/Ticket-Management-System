@@ -70,4 +70,9 @@
         @Html.HiddenFor(model => model.Id)
         <button id="unallocated-tickets" type="button" class="btn btn-default">Перемістити нерозподілені (@Model.UnallocatedTicketsCount)</button>
     }
+
+    @if (Model.IsOpened && isAdmin)
+    {
+        @Html.ActionLink("Додати квитки", "CreateInPackage", "Ticket", new { id = Model.Id }, new { @class = "btn btn-default" })
+    }
 </div>

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<TicketDetailsModel>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Результати пошуку</div>
+    <div class="panel-body">Квитків знайдено: @Model.Count()</div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>Номер</th>
+                <th>Пачка</th>
+                <th>Колір</th>
+                <th>Серія</th>
+                <th>Дата</th>
+                <th>Примітка</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr class="@item.TrClass()">
+                    <td>@Html.ActionLink(item.Number, "Details", new { id = item.Id })</td>
+                    <td><a href="@Url.Action("Details", "Package", new { id = item.PackageId })">@item.PackageName</a></td>
+                    <td><a href="@Url.Action("Details", "Color", new { id = item.ColorId })">@item.ColorName</a></td>
+                    <td><a href="@Url.Action("Details", "Serial", new { id = item.SerialId })">@item.SerialFull</a></td>
+                    <td>@item.Date</td>
+                    <td>@item.Note</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

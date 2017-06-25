@@ -1,7 +1,7 @@
-﻿@model TicketCreateModel
+﻿@model TicketCreateInPackageModel
 
 @{
-    ViewBag.Title = "Додати квиток";
+    ViewBag.Title = $"Додати квиток до пачки \"{Model.PackageName}\"";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -11,7 +11,7 @@
         $('#create-result').html("");
     }
 
-    function OnSuccess(date) {
+    function OnSuccess(data) {
         $('#Number').val('');
         $('#SerialNumber').val('');
         $('#Note').val('');
@@ -19,7 +19,13 @@
     }
 </script>
 
-@using (Ajax.BeginForm(new AjaxOptions
+<hr />
+<dl class="dl-horizontal">
+    <dt>Пачка:</dt>
+    <dd>@Html.ActionLink(Model.PackageName, "Details", "Package", new { id = Model.PackageId }, new { })</dd>
+</dl>
+
+@using (Ajax.BeginForm("Create", new AjaxOptions
 {
     UpdateTargetId = "create-result",
     OnBegin = "OnBegin",
@@ -27,9 +33,9 @@
 }))
 {
     @Html.AntiForgeryToken()
-    
+    @Html.HiddenFor(model => model.PackageId)
+
     <div class="form-horizontal">
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
@@ -40,34 +46,41 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ColorId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ColorId, Model.Colors, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ColorId, "", new { @class = "text-danger" })
+        @if (Model.CanSelectColor)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.ColorId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.ColorId, Model.Colors, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ColorId, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.ColorId)
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SerialId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SerialId, Model.Series, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SerialId, "", new { @class = "text-danger" })
+        @if (Model.CanSelectSerial)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.SerialId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.SerialId, Model.Series, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SerialId, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.SerialId)
+        }
 
         <div class="form-group">
             @Html.LabelFor(model => model.SerialNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.SerialNumber, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.SerialNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PackageId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <select id="PackageId" name="PackageId" class="form-control"></select>
             </div>
         </div>
 
@@ -96,7 +109,3 @@
 }
 
 <div id="create-result"></div>
-
-@section scripts {
-    @Scripts.Render("~/Scripts/packages.select-list.js")
-}
