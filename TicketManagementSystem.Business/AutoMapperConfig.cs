@@ -49,6 +49,13 @@ namespace TicketManagementSystem.Business
 
                 #endregion
 
+                #region Login
+
+                cfg.CreateMap<Login, LoginDTO>();
+                cfg.CreateMap<LoginDTO, Login>();
+
+                #endregion
+
                 #region Package
 
                 cfg.CreateMap<Package, PackageDTO>()

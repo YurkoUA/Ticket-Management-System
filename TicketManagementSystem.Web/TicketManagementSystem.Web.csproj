@@ -225,6 +225,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\account-logins-modal.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -325,6 +326,7 @@
     <Content Include="Views\Ticket\CreateInPackage.cshtml" />
     <Content Include="Views\Ticket\SearchModal.cshtml" />
     <Content Include="Views\Ticket\SearchPartial.cshtml" />
+    <Content Include="Views\Account\LoginHistoryModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,6 +6,10 @@
 
 <h2>@ViewBag.Title</h2>
 
-<div id="accountGrid">
+<div id="account-grid">
     @Html.Partial("IndexPartial", Model)
 </div>
+
+@section scripts {
+    @Scripts.Render("~/Scripts/account-logins-modal.js")
+}

@@ -33,7 +33,7 @@
                         </tr>
 
                         @foreach (var item in Model)
-                {
+                        {
                             <tr class="@item.TrClass()">
                                 <td>@Html.ActionLink(item.Number, "Details", "Ticket", new { id = item.Id }, new { })</td>
                                 <td>@item.Date</td>

@@ -1,24 +1,28 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Web.Filters;
+using TicketManagementSystem.Business.DTO;
+using System.Linq;
 
 namespace TicketManagementSystem.Web.Controllers
 {
     public class AccountController : ApplicationController
     {
         private IUserService _userService;
+        private ILoginService _loginService;
 
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService, ILoginService loginService)
         {
             _userService = userService;
+            _loginService = loginService;
         }
 
-        [HttpGet]
-        [Authorize]
+        [HttpGet, Authorize]
         public async Task<ActionResult> Index()
         {
             var user = await _userService.GetUserAsync(User.Identity.GetUserId<int>());
@@ -29,16 +33,13 @@ namespace TicketManagementSystem.Web.Controllers
             return View(MapperInstance.Map<AccountIndexModel>(user));
         }
 
-        [HttpGet]
-        [OnlyAnonymous]
+        [HttpGet, OnlyAnonymous]
         public ActionResult Login()
         {
             return View();
         }
 
-        [HttpPost]
-        [OnlyAnonymous]
-        [ValidateAntiForgeryToken]
+        [HttpPost, OnlyAnonymous, ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginModel model)
         {
             if (ModelState.IsValid)
@@ -65,18 +66,38 @@ namespace TicketManagementSystem.Web.Controllers
                         IsPersistent = model.Remember
                     }, claim);
 
+                    var loginDTO = new LoginDTO
+                    {
+                        UserId = user.Id,
+                        Date = DateTime.Now,
+                        IpAddress = Request.UserHostAddress,
+                        Browser = Request.Browser.Browser,
+                        UserAgent = Request.UserAgent
+                    };
+                    _loginService.AddLogin(loginDTO);
+
                     return RedirectToAction("Index");
                 }
             }
             return View(model);
         }
 
-        [HttpGet]
-        [Authorize]
+        [HttpGet, Authorize]
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet, Authorize]
+        public ActionResult LoginHistory()
+        {
+            var logins = _loginService.GetLoginHistory(User.Identity.GetUserId<int>());
+
+            if (!logins.Any())
+                return HttpNotFound();
+
+            return PartialView("LoginHistoryModal", logins);
         }
     }
 }

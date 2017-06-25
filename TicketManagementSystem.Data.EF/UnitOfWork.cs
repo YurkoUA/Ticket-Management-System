@@ -14,6 +14,7 @@ namespace TicketManagementSystem.Data.EF
         private AppDbContext _db;
 
         private IRepository<User> _users;
+        private IRepository<Login> _logins;
         private IRepository<Role> _roles;
         private IRepository<Color> _colours;
         private IRepository<Serial> _series;
@@ -41,6 +42,11 @@ namespace TicketManagementSystem.Data.EF
         public IRepository<User> Users
         {
             get => _users ?? (_users = new EFRepository<User>(_db));
+        }
+
+        public IRepository<Login> Logins
+        {
+            get => _logins ?? (_logins = new EFRepository<Login>(_db));
         }
 
         public IRepository<Role> Roles
