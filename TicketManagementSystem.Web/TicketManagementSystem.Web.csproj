@@ -207,6 +207,7 @@
     <Compile Include="ViewModels\Serial\SerialEditModel.cs" />
     <Compile Include="ViewModels\Serial\SerialIndexModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketChangeNumberModel.cs" />
+    <Compile Include="ViewModels\Ticket\TicketCreateManyModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketCreateModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketDetailsModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketEditModel.cs" />
@@ -218,6 +219,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dataTables.bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -225,9 +227,11 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\dataTables.bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -241,6 +245,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\ticket-create-many.js" />
     <Content Include="Scripts\tickets-by-number-modal.js" />
     <Content Include="Scripts\tickets-by-package.js" />
     <Content Include="Scripts\tickets-move-few-modal.js" />
@@ -312,6 +317,9 @@
     <Content Include="Views\Ticket\Clones.cshtml" />
     <Content Include="Views\Package\MoveUnallocatedPartial.cshtml" />
     <Content Include="Views\Package\MoveUnallocatedModal.cshtml" />
+    <Content Include="Views\Ticket\CreateMany.cshtml" />
+    <Content Include="Views\Ticket\CreateManyPackagePartial.cshtml" />
+    <Content Include="Views\Ticket\CreateManyTablePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

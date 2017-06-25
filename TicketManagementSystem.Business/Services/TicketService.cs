@@ -200,6 +200,11 @@ namespace TicketManagementSystem.Business.Services
             }
         }
 
+        public void CreateMany(TicketCreateDTO[] createDTO)
+        {
+            // TODO: CreateMany.
+        }
+
         public TicketDTO ChangeNumber(int ticketId, string number)
         {
             var ticket = Database.Tickets.GetById(ticketId);

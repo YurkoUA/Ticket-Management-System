@@ -31,6 +31,8 @@ namespace TicketManagementSystem.Business.Interfaces
         TicketDTO Edit(TicketEditDTO ticketDTO);
         void Remove(int id);
 
+        void CreateMany(TicketCreateDTO[] createDTO);
+
         TicketDTO ChangeNumber(int ticketId, string number);
         TicketDTO MoveToPackage(int ticketId, int packageId);
         void MoveFewToPackage(int packageId, params int[] ticketsIds);

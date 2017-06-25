@@ -7,6 +7,7 @@ using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class TicketController : ApplicationController
     {
         private ITicketService _ticketService;
@@ -28,7 +29,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         #region Index, Unallocated, Happy, Details
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public ActionResult Index(int page = 1)
         {
             const int ITEMS_ON_PAGE = 20;
@@ -46,7 +47,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet, AllowAnonymous]
         public ActionResult Unallocated(int page = 1)
         {
             const int ITEMS_ON_PAGE = 30;
@@ -64,7 +65,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public ActionResult Happy(int page = 1)
         {
             const int ITEMS_ON_PAGE = 30;
@@ -82,7 +83,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public ActionResult Details(int id, bool partial = false)
         {
             var ticket = _ticketService.GetById(id);
@@ -114,9 +115,15 @@ namespace TicketManagementSystem.Web.Controllers
 
         #endregion
 
+        [HttpGet, AllowAnonymous]
+        public ActionResult Search()
+        {
+            throw new NotImplementedException();
+        }
+
         #region CRUD
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult Create()
         {
             var viewModel = new TicketCreateModel
@@ -127,7 +134,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create(TicketCreateModel model)
         {
             if (ModelState.IsValid)
@@ -148,7 +155,66 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet]
+        public ActionResult CreateMany()
+        {
+            var viewModel = new TicketCreateManyModel
+            {
+                CanSelectColor = true,
+                CanSelectSerial = true,
+                Colors = GetColorsList(),
+                Series = GetSeriesList()
+            };
+
+            ViewBag.Title = "Створити декілька квитків";
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult CreateManyInPackage(int id)
+        {
+            var package = _packageService.GetPackage(id);
+
+            if (package == null) return HttpNotFound();
+            if (!package.IsOpened) return HttpBadRequest();
+
+            var viewModel = new TicketCreateManyModel
+            {
+                PackageId = package.Id,
+                PackageName = package.Name
+            };
+
+            if (package.ColorId == null)
+            {
+                viewModel.CanSelectColor = true;
+                viewModel.Colors = GetColorsList();
+            }
+            else
+            {
+                viewModel.ColorId = package.ColorId;
+            }
+
+            if (package.SerialId == null)
+            {
+                viewModel.CanSelectSerial = true;
+                viewModel.Series = GetSeriesList();
+            }
+            else
+            {
+                viewModel.SerialId = package.SerialId;
+            }
+
+            ViewBag.Title = $"Створити декілька квитків у пачці \"{package.Name}\"";
+            return View("CreateMany", viewModel);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult CreateMany(TicketCreateManyModel viewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
         public ActionResult Edit(int id, bool partial = false)
         {
             var ticket = _ticketService.GetEdit(id);
@@ -175,7 +241,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Ticket", partialModel);
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Edit(TicketEditModel model)
         {
             if (ModelState.IsValid)
@@ -194,7 +260,7 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult Delete(int? id, bool partial = false)
         {
             var ticket = _ticketService.GetById((int)id);
@@ -217,7 +283,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Ticket", partialModel);
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             if (!_ticketService.ExistsById(id))
@@ -236,7 +302,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         #region Move, ChangeNumber
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult Move(int id, bool partial = false)
         {
             var ticket = _ticketService.GetById(id);
@@ -262,7 +328,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Ticket", partialModel);
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Move(TicketMoveModel viewModel)
         {
             if (ModelState.IsValid)
@@ -279,7 +345,7 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult ChangeNumber(int id, bool partial = false)
         {
             var ticket = _ticketService.GetById(id);
@@ -303,7 +369,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Ticket", partialModel);
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult ChangeNumber(TicketChangeNumberModel viewModel)
         {
             if (ModelState.IsValid)
@@ -322,7 +388,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         #endregion
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public ActionResult ClonesWith(int id)
         {
             var ticket = _ticketService.GetById(id);
@@ -339,23 +405,11 @@ namespace TicketManagementSystem.Web.Controllers
             return PartialView(viewModel);
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public ActionResult Clones()
         {
             var viewModel = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(_ticketService.GetClones());
             return View(viewModel);
-        }
-
-        [HttpGet, Authorize(Roles = "Admin")]
-        public ActionResult GetPackageSelectPartial(int colorId, int serialId, string selectId, string selectName, int? number = null)
-        {
-            var viewModel = new SelectListModel
-            {
-                Id = selectId,
-                Name = selectName,
-                Options = GetPackagesList(colorId, serialId, number, true)
-            };
-            return PartialView("SelectListPartial", viewModel);
         }
 
         #region SelectLists
@@ -391,6 +445,46 @@ namespace TicketManagementSystem.Web.Controllers
                 packagesList.Add(new PackageDTO { Name = "(Немає)" });
 
             return new SelectList(packagesList, "Id", "SelectListOptionValue");
+        }
+
+        #endregion
+
+        #region PartialViews (Select)
+
+        [HttpGet]
+        public ActionResult GetPackageSelectPartial(int colorId, int serialId, string selectId, string selectName, int? number = null)
+        {
+            var viewModel = new SelectListModel
+            {
+                Id = selectId,
+                Name = selectName,
+                Options = GetPackagesList(colorId, serialId, number, true)
+            };
+            return PartialView("SelectListPartial", viewModel);
+        }
+        
+        [HttpGet]
+        public ActionResult GetColorsPartial(string selectId, string selectName)
+        {
+            var viewModel = new SelectListModel
+            {
+                Id = selectId,
+                Name = selectName,
+                Options = GetColorsList()
+            };
+            return PartialView("SelectListPartial", viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult GetSeriesPartial(string selectId, string selectName)
+        {
+            var viewModel = new SelectListModel
+            {
+                Id = selectId,
+                Name = selectName,
+                Options = GetSeriesList()
+            };
+            return PartialView("SelectListPartial", viewModel);
         }
 
         #endregion

@@ -1,0 +1,26 @@
+﻿@model TicketCreateManyModel
+
+@{
+
+}
+@Styles.Render("~/Content/dataTables.bootstrap.min.css")
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+@if (Model.PackageId != null)
+{
+    @Html.Partial("CreateManyPackagePartial", Model)
+}
+
+<div class="table-responsive">
+    <table id="tickets-table" class="table table-hover table-bordered display" cellpadding="0">
+        @Html.Partial("CreateManyTablePartial")
+    </table>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/Scripts/jquery.dataTables.min.js",
+    "~/Scripts/dataTables.bootstrap.min.js",
+    "~/Scripts/ticket-create-many.js");
+}
