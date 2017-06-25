@@ -23,12 +23,22 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<PackageDTO> GetPackages()
         {
-            return MapperInstance.Map<IEnumerable<PackageDTO>>(Database.Packages.GetAll());
+            var packages = Database.Packages.GetAll()
+                .OrderByDescending(p => p.IsOpened)
+                .ThenBy(p => p.IsSpecial)
+                .ThenByDescending(p => p.Id);
+            return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
         }
 
         public IEnumerable<PackageDTO> GetPackages(int skip, int take)
         {
-            var packages = Database.Packages.GetAll().AsEnumerable().Skip(skip).Take(take);
+            var packages = Database.Packages.GetAll()
+                .OrderByDescending(p => p.IsOpened)
+                .ThenBy(p => p.IsSpecial)
+                .ThenByDescending(p => p.Id)
+                .AsEnumerable()
+                .Skip(skip)
+                .Take(take);
             return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
         }
 
@@ -172,7 +182,6 @@ namespace TicketManagementSystem.Business.Services
 
         public void OpenPackage(int id)
         {
-            // TODO: To issue error if package is now opened.
             var package = Database.Packages.GetById(id);
 
             if (package != null)
@@ -185,7 +194,6 @@ namespace TicketManagementSystem.Business.Services
 
         public void ClosePackage(int id)
         {
-            // TODO: To issue error if package is now closed.
             var package = Database.Packages.GetById(id);
 
             if (package != null)

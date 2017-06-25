@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
+using System.Web.UI;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 
@@ -30,7 +31,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         #region Index, Unallocated, Happy, Details
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
         public ActionResult Index(int page = 1)
         {
             const int ITEMS_ON_PAGE = 20;
@@ -48,7 +49,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
         public ActionResult Unallocated(int page = 1)
         {
             const int ITEMS_ON_PAGE = 30;
@@ -66,7 +67,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
         public ActionResult Happy(int page = 1)
         {
             const int ITEMS_ON_PAGE = 30;
@@ -134,7 +135,7 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient)]
         public ActionResult SearchModal()
         {
             return PartialView("SearchModal");
@@ -142,7 +143,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         #region CRUD
 
-        [HttpGet]
+        [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
         public ActionResult Create()
         {
             var viewModel = new TicketCreateModel
@@ -174,7 +175,7 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpGet]
+        [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
         public ActionResult CreateInPackage(int id)
         {
             var package = _packageService.GetPackage(id);
@@ -445,7 +446,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         #endregion
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
         public ActionResult ClonesWith(int id)
         {
             var ticket = _ticketService.GetById(id);
@@ -462,7 +463,7 @@ namespace TicketManagementSystem.Web.Controllers
             return PartialView(viewModel);
         }
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 30, Location = OutputCacheLocation.Client)]
         public ActionResult Clones()
         {
             var viewModel = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(_ticketService.GetClones());
@@ -520,7 +521,7 @@ namespace TicketManagementSystem.Web.Controllers
             return PartialView("SelectListPartial", viewModel);
         }
         
-        [HttpGet]
+        [HttpGet, OutputCache(Duration = 10, Location = OutputCacheLocation.ServerAndClient)]
         public ActionResult GetColorsPartial(string selectId, string selectName)
         {
             var viewModel = new SelectListModel
@@ -532,7 +533,7 @@ namespace TicketManagementSystem.Web.Controllers
             return PartialView("SelectListPartial", viewModel);
         }
 
-        [HttpGet]
+        [HttpGet, OutputCache(Duration = 10, Location = OutputCacheLocation.ServerAndClient)]
         public ActionResult GetSeriesPartial(string selectId, string selectName)
         {
             var viewModel = new SelectListModel

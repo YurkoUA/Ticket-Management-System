@@ -8,9 +8,11 @@ using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Web.Filters;
 using TicketManagementSystem.Business.DTO;
 using System.Linq;
+using System.Web.UI;
 
 namespace TicketManagementSystem.Web.Controllers
 {
+    [Authorize]
     public class AccountController : ApplicationController
     {
         private IUserService _userService;
@@ -22,7 +24,7 @@ namespace TicketManagementSystem.Web.Controllers
             _loginService = loginService;
         }
 
-        [HttpGet, Authorize]
+        [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
         public async Task<ActionResult> Index()
         {
             var user = await _userService.GetUserAsync(User.Identity.GetUserId<int>());
@@ -33,7 +35,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View(MapperInstance.Map<AccountIndexModel>(user));
         }
 
-        [HttpGet, OnlyAnonymous]
+        [HttpGet, OnlyAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Server)]
         public ActionResult Login()
         {
             return View();
@@ -82,14 +84,14 @@ namespace TicketManagementSystem.Web.Controllers
             return View(model);
         }
 
-        [HttpGet, Authorize]
+        [HttpGet]
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet, Authorize]
+        [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
         public ActionResult LoginHistory()
         {
             var logins = _loginService.GetLoginHistory(User.Identity.GetUserId<int>());

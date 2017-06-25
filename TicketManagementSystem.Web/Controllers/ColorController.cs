@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Web.UI;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ColorController : ApplicationController
     {
         private IColorService _colorService;
@@ -16,14 +18,14 @@ namespace TicketManagementSystem.Web.Controllers
             _packageService = packageService;
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 30, Location = OutputCacheLocation.Client)]
         public ActionResult Index()
         {
             var viewModel = MapperInstance.Map<IEnumerable<ColorIndexModel>>(_colorService.GetColors());
             return View(viewModel);
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Server)]
         public ActionResult Details(int id, bool partial = false)
         {
             var color = _colorService.GetColor(id);
@@ -48,7 +50,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Color", partialModel);
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 20, Location = OutputCacheLocation.ServerAndClient)]
         public ActionResult GetPackages(int id)
         {
             if (!_colorService.ExistsById(id)) return HttpNotFound();
@@ -58,13 +60,13 @@ namespace TicketManagementSystem.Web.Controllers
             return PartialView("~/Views/Package/PackagesModal.cshtml", MapperInstance.Map<IEnumerable<PackageDetailsModel>>(packages));
         }
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient)]
         public ActionResult Create()
         {
             return View();
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create(ColorCreateModel model)
         {
             if (ModelState.IsValid)
@@ -84,7 +86,7 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult Edit(int id, bool partial = false)
         {
             ColorEditDTO color = _colorService.GetColorEdit(id);
@@ -109,7 +111,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Color", partialModel);
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Edit(ColorEditModel model)
         {
             if (ModelState.IsValid)
@@ -127,7 +129,7 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult Delete(int? id, bool partial = false)
         {
             ColorDTO color = _colorService.GetColor((int)id);
@@ -152,7 +154,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Color", partialModel);
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             var color = _colorService.GetColor(id);

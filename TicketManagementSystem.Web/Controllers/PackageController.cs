@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.UI;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PackageController : ApplicationController
     {
-        // TODO: In "ToolbarPartial" hide delete button if package contains tickets.
-
         private ITicketService _ticketService;
         private IPackageService _packageService;
         private IColorService _colorService;
@@ -27,7 +27,7 @@ namespace TicketManagementSystem.Web.Controllers
             _ticketService = ticketServive;
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
         public ActionResult Index(int page = 1)
         {
             if (page < 1)
@@ -46,7 +46,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public ActionResult Details(int id, bool partial = false)
         {
             var package = _packageService.GetPackage(id);
@@ -72,7 +72,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Package", partialModel);
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.ServerAndClient)]
         public ActionResult Tickets(int id)
         {
             if (!_packageService.ExistsById(id)) return HttpNotFound();
@@ -84,7 +84,7 @@ namespace TicketManagementSystem.Web.Controllers
             return PartialView("TicketsPartial", MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets));
         }
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
         public ActionResult Create(bool special = false)
         {
             if (special)
@@ -97,7 +97,7 @@ namespace TicketManagementSystem.Web.Controllers
             }
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create(PackageCreateDefaultModel viewModel)
         {
             if (ModelState.IsValid)
@@ -116,7 +116,7 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult CreateSpecial(PackageCreateSpecialModel viewModel)
         {
             if (ModelState.IsValid)
@@ -137,7 +137,7 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult Edit(int id, bool partial = false)
         {
             if (_packageService.GetPackage(id)?.IsSpecial == true)
@@ -168,7 +168,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Package", partialModel);
         }
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult EditSpecial(int id, bool partial = false)
         {
             if (_packageService.GetPackage(id)?.IsSpecial == false)
@@ -202,7 +202,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Package", partialModel);
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Edit(PackageEditDefaultModel viewModel)
         {
             if (ModelState.IsValid)
@@ -220,10 +220,9 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult EditSpecial(PackageEditSpecialModel viewModel)
         {
-            // TODO: Validate changing Serial or Color.
             if (ModelState.IsValid)
             {
                 if (viewModel.ColorId == 0) viewModel.ColorId = null;
@@ -242,7 +241,7 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult Delete(int id, bool partial = false)
         {
             var package = _packageService.GetPackage(id);
@@ -266,7 +265,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Package", partialModel);
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Delete(int? id)
         {
             var package = _packageService.GetPackage((int)id);
@@ -286,7 +285,7 @@ namespace TicketManagementSystem.Web.Controllers
             }
         }
 
-        [HttpPost, Authorize(Roles = "Admin")]
+        [HttpPost]
         public ActionResult Open(int id)
         {
             var package = _packageService.GetPackage(id);
@@ -298,7 +297,7 @@ namespace TicketManagementSystem.Web.Controllers
             return RedirectToAction("Details", new { id = id, partial = true });
         }
 
-        [HttpPost, Authorize(Roles = "Admin")]
+        [HttpPost]
         public ActionResult Close(int id)
         {
             var package = _packageService.GetPackage(id);
@@ -310,7 +309,7 @@ namespace TicketManagementSystem.Web.Controllers
             return RedirectToAction("Details", new { id = id, partial = true });
         }
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult MakeSpecial(int id, bool partial = false)
         {
             var package = _packageService.GetPackage(id);
@@ -335,7 +334,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Package", partialModel);
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult MakeSpecial(PackageMakeSpecialDTO viewModelDto)
         {
             if (ModelState.IsValid)
@@ -352,7 +351,7 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult MakeDefault(int id, bool partial = false)
         {
             var package = _packageService.GetPackage(id);
@@ -380,7 +379,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Package", partialModel);
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult MakeDefault(PackageMakeDefaultModel viewModel)
         {
             if (ModelState.IsValid)
@@ -398,7 +397,7 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult MoveUnallocatedTickets(int id)
         {
             // id - packageId.
@@ -412,7 +411,7 @@ namespace TicketManagementSystem.Web.Controllers
             return PartialView("MoveUnallocatedPartial", MapperInstance.Map<TicketUnallocatedMoveModel[]>(tickets));
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult MoveUnallocatedTickets(int id, TicketUnallocatedMoveModel[] tickets)
         {
             var ticketsMove = tickets.Where(t => t.Move);
@@ -434,7 +433,7 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpGet]
+        [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient)]
         public ActionResult MoveUnallocatedModal()
         {
             return PartialView("MoveUnallocatedModal");

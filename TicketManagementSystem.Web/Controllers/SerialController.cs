@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Web.UI;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class SerialController : ApplicationController
     {
         private ISerialService _serialService;
@@ -16,14 +18,14 @@ namespace TicketManagementSystem.Web.Controllers
             _packageService = packageService;
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 30, Location = OutputCacheLocation.Client)]
         public ActionResult Index()
         {
             var viewModel = MapperInstance.Map<IEnumerable<SerialIndexModel>>(_serialService.GetSeries());
             return View(viewModel);
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public ActionResult Details(int id, bool partial = false)
         {
             var serial = _serialService.GetSerial(id);
@@ -48,7 +50,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Serial", partialModel);
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 20, Location = OutputCacheLocation.ServerAndClient)]
         public ActionResult GetPackages(int id)
         {
             if (!_serialService.ExistsById(id)) return HttpNotFound();
@@ -57,13 +59,13 @@ namespace TicketManagementSystem.Web.Controllers
             return PartialView("~/Views/Package/PackagesModal.cshtml", MapperInstance.Map<IEnumerable<PackageDetailsModel>>(packages));
         }
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient)]
         public ActionResult Create()
         {
             return View();
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create(SerialCreateModel model)
         {
             if (ModelState.IsValid)
@@ -81,7 +83,7 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult Edit(int id, bool partial = false)
         {
             SerialEditDTO serial = _serialService.GetSerialEdit(id);
@@ -106,7 +108,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Serial", partialModel);
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Edit(SerialEditModel model)
         {
             if (ModelState.IsValid)
@@ -124,7 +126,7 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        [HttpGet, Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult Delete(int? id, bool partial = false)
         {
             SerialDTO serial = _serialService.GetSerial((int)id);
@@ -149,7 +151,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Serial", partialModel);
         }
 
-        [HttpPost, Authorize(Roles = "Admin"), ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             var serial = _serialService.GetSerial(id);
