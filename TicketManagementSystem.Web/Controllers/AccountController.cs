@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Linq;
 using System.Web.Mvc;
+using System.Web.UI;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Web.Filters;
-using TicketManagementSystem.Business.DTO;
-using System.Linq;
-using System.Web.UI;
 
 namespace TicketManagementSystem.Web.Controllers
 {
-    [Authorize]
     public class AccountController : ApplicationController
     {
         private IUserService _userService;
@@ -24,7 +23,7 @@ namespace TicketManagementSystem.Web.Controllers
             _loginService = loginService;
         }
 
-        [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
+        [HttpGet, Authorize, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
         public async Task<ActionResult> Index()
         {
             var user = await _userService.GetUserAsync(User.Identity.GetUserId<int>());
@@ -84,14 +83,14 @@ namespace TicketManagementSystem.Web.Controllers
             return View(model);
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
+        [HttpGet, Authorize, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
         public ActionResult LoginHistory()
         {
             var logins = _loginService.GetLoginHistory(User.Identity.GetUserId<int>());

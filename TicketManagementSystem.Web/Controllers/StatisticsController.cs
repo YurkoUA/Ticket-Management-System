@@ -6,7 +6,7 @@ using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
 {
-    [OutputCache(Duration = 15, Location = OutputCacheLocation.Server)]
+    [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient)]
     public class StatisticsController : Controller
     {
         private IColorService _colorService;
@@ -30,7 +30,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             var responseArray = new JArray
             {
-                new JArray { "Chart", "Tickets by series" }
+                new JArray { "Serial", "Tickets" }
             };
 
             _serialService.GetSeries()
@@ -49,7 +49,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             var responseArray = new JArray
             {
-                new JArray { "Chart", "Tickets by colors" }
+                new JArray { "Color", "Tickets" }
             };
 
             _colorService.GetColors()
@@ -70,7 +70,7 @@ namespace TicketManagementSystem.Web.Controllers
 
             var json = new JArray
             {
-                new JArray {"Chart", "Tickets" },
+                new JArray {"Category", "Tickets" },
                 new JArray {"Звичайні", _ticketService.TotalCount - happy },
                 new JArray { "Щасливі", happy }
             };
@@ -82,7 +82,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             var json = new JArray
             {
-                new JArray {"Chart", "Tickets by number" }
+                new JArray {"Number", "Tickets" }
             };
 
             _ticketService.GetTickets()
