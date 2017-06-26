@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Статистика";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<div id="colors-chart" style="width: 500px; height: 500px;"></div>
+<div id="series-chart" style="width: 500px; height: 500px;"></div>
+<div id="tickets-chart" style="width: 500px; height: 500px;"></div>
+<div id="number-chart" style="width: 500px; height: 500px;"></div>
+
+@section scripts {
+    @Scripts.Render("https://www.gstatic.com/charts/loader.js", "~/Scripts/statistics.js")
+}

@@ -25,7 +25,7 @@ namespace TicketManagementSystem.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Server)]
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 10)]
         public ActionResult Details(int id, bool partial = false)
         {
             var color = _colorService.GetColor(id);

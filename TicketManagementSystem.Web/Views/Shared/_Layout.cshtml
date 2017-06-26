@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title – Ticket Management System</title>
@@ -26,10 +26,11 @@
                     <li>@Html.ActionLink("Серії", "Index", "Serial")</li>
                     <li>@Html.ActionLink("Пачки", "Index", "Package")</li>
                     <li>@Html.ActionLink("Квитки", "Index", "Ticket")</li>
+                    <li>@Html.ActionLink("Статистика", "Index", "Statistics")</li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    @if(User.Identity.IsAuthenticated)
+                    @if (User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink(User.Identity.Name, "Index", "Account")</li>
                         <li>@Html.ActionLink("Вийти", "Logout", "Account")</li>
@@ -44,6 +45,7 @@
     </div>
     <div class="container body-content">
         @RenderBody()
+
         <hr />
         <footer>
             <p>&copy; 2014 - @DateTime.Now.Year – Носач Юрій</p>

@@ -173,6 +173,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PackageController.cs" />
     <Compile Include="Controllers\SerialController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Data\PageInfo.cs" />
     <Compile Include="Data\Pagination.cs" />
@@ -221,6 +222,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dataTables.bootstrap.min.css" />
+    <Content Include="Content\loading_spinner.gif" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -247,6 +249,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\statistics.js" />
     <Content Include="Scripts\ticket-create-many.js" />
     <Content Include="Scripts\ticket-search-modal.js" />
     <Content Include="Scripts\tickets-by-number-modal.js" />
@@ -303,7 +306,6 @@
     <Content Include="Views\Shared\Modal.cshtml" />
     <Content Include="Views\Ticket\ChangeNumberPartial.cshtml" />
     <Content Include="Views\Ticket\MovePartial.cshtml" />
-    <Content Include="Views\Shared\ModalPartial.cshtml" />
     <Content Include="Views\Ticket\Ticket.cshtml" />
     <Content Include="Views\Package\Package.cshtml" />
     <Content Include="Views\Ticket\ToolbarPartial.cshtml" />
@@ -327,6 +329,7 @@
     <Content Include="Views\Ticket\SearchModal.cshtml" />
     <Content Include="Views\Ticket\SearchPartial.cshtml" />
     <Content Include="Views\Account\LoginHistoryModal.cshtml" />
+    <Content Include="Views\Statistics\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
