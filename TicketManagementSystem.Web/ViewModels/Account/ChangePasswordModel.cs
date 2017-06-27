@@ -12,8 +12,8 @@ namespace TicketManagementSystem.Web
         [Display(Name = "Новий пароль")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Необхідно ввести новий пароль.")]
-        [RegularExpression("[A-Za-z0-9_]", ErrorMessage = "Можна використовувати лише символи (A-Z, a-z, 0-9, _).")]
-        [StringLength(64, MinimumLength = 8, ErrorMessage = "Пароль повинен бути від 8 до 64 символів.")]
+        [RegularExpression("[A-Za-z0-9_]{8,64}", ErrorMessage = "Можна використовувати лише символи (A-Z, a-z, 0-9, _).")]
+        [StringLength(64, MinimumLength = 8, ErrorMessage = "Пароль повинен містити від 8 до 64 символів.")]
         public string NewPassword { get; set; }
 
         [Display(Name = "Повторіть пароль")]

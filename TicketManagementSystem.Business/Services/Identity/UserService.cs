@@ -74,6 +74,17 @@ namespace TicketManagementSystem.Business.Services
             await CreateAsync(user);
         }
 
+        public async Task ChangePasswordAsync(int userId, string password)
+        {
+            var user = await FindByIdAsync(userId);
+
+            if (user != null)
+            {
+                await SetPasswordHashAsync(user, password);
+                Database.SaveChanges();
+            }
+        }
+
         public Task UpdateAsync(User user)
         {
             return Task.Run(() =>

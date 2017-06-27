@@ -100,5 +100,30 @@ namespace TicketManagementSystem.Web.Controllers
 
             return PartialView("LoginHistoryModal", logins);
         }
+
+        [HttpGet, Authorize, OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient)]
+        public ActionResult ChangePassword()
+        {
+            return PartialView("ChangePasswordModal");
+        }
+
+        [HttpPost, Authorize, ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangePassword(ChangePasswordModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userService.FindByLoginDataAsync(User.Identity.GetUserName(), viewModel.CurrentPassword);
+
+                if (user == null)
+                    ModelState.AddModelError("", "Поточний пароль введено невірно.");
+
+                if (ModelState.IsValid)
+                {
+                    await _userService.ChangePasswordAsync(user.Id, viewModel.NewPassword);
+                    return SuccessPartial("Пароль успішно змінено.");
+                }
+            }
+            return ErrorPartial(ModelState);
+        }
     }
 }

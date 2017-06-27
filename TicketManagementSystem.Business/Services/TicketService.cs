@@ -121,11 +121,11 @@ namespace TicketManagementSystem.Business.Services
         {
             return MapperInstance.Map<IEnumerable<TicketDTO>>(
                 Database.Tickets.GetAll()
+                .AsEnumerable()
+                .Where(t => t.IsHappy())
                 .OrderBy(t => t.Number)
                 .Skip(skip)
-                .Take(take)
-                .AsEnumerable())
-                .Where(t => t.IsHappy);
+                .Take(take));
         }
 
         public TicketDTO GetById(int id)

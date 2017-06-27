@@ -16,6 +16,7 @@ namespace TicketManagementSystem.Business.Interfaces
     {
         /// <param name="login">Email or UserName</param>
         Task CreateAsync(User user, string password);
+        Task ChangePasswordAsync(int userId, string password);
 
         Task<UserDTO> FindByLoginDataAsync(string login, string password);
         Task<UserDTO> GetUserAsync(int id);
