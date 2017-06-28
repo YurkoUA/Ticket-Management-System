@@ -283,6 +283,18 @@ namespace TicketManagementSystem.Business.Services
 
         #region Exists methods
 
+        public bool Exists(TicketDTO ticketDTO)
+        {
+            return Database.Tickets.Contains(MapperInstance.Map<Ticket>(ticketDTO));
+        }
+
+        public bool Exists(TicketDTO ticketDTO, int id)
+        {
+            var ticket = MapperInstance.Map<Ticket>(ticketDTO);
+
+            return Database.Tickets.Contains(t => t.Equals(ticket) && t.Id != id);
+        }
+
         public bool ExistsById(int id)
         {
             return Database.Tickets.ExistsById(id);
@@ -301,6 +313,11 @@ namespace TicketManagementSystem.Business.Services
         {
             var errors = new List<string>();
             errors.AddRange(ValidateObject(createDTO));
+
+            if (Exists(MapperInstance.Map<TicketDTO>(createDTO)))
+            {
+                errors.Add("Такий квиток вже існує.");
+            }
 
             if (!_colorService.ExistsById(createDTO.ColorId))
             {
@@ -350,6 +367,14 @@ namespace TicketManagementSystem.Business.Services
             errors.AddRange(ValidateObject(editDTO));
 
             var ticketDTO = GetById(editDTO.Id);
+
+            var dtoForCheckExisting = MapperInstance.Map<TicketDTO>(editDTO);
+            dtoForCheckExisting.Number = ticketDTO.Number;
+
+            if (Exists(dtoForCheckExisting, editDTO.Id))
+            {
+                errors.Add("Такий квиток вже існує.");
+            }
 
             if (!_colorService.ExistsById(editDTO.ColorId))
             {

@@ -33,7 +33,7 @@ namespace TicketManagementSystem.Business.Services
         private void RemoveOldLogins(int userId)
         {
             var logins = Database.Logins.GetAll(l => l.UserId == userId);
-            var countToRemove = logins.Count() - MAX_LOGINS_BY_USER;
+            var countToRemove = logins.Count() - MAX_LOGINS_BY_USER + 1;
 
             if (countToRemove > 0)
             {

@@ -37,6 +37,8 @@ namespace TicketManagementSystem.Business.Interfaces
         TicketDTO MoveToPackage(int ticketId, int packageId);
         void MoveFewToPackage(int packageId, params int[] ticketsIds);
 
+        bool Exists(TicketDTO ticketDTO);
+        bool Exists(TicketDTO ticketDTO, int id);
         bool ExistsById(int id);
         bool ExistsByNumber(string number);
 

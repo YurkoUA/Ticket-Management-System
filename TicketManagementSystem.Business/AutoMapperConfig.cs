@@ -83,7 +83,10 @@ namespace TicketManagementSystem.Business
                     .ForMember(dest => dest.PackageName, opt => opt.MapFrom(src => src.Package.ToString()))
                     .ForMember(dest => dest.IsHappy, opt => opt.MapFrom(src => src.IsHappy()));
 
+                cfg.CreateMap<TicketDTO, Ticket>();
                 cfg.CreateMap<TicketCreateDTO, Ticket>();
+                cfg.CreateMap<TicketCreateDTO, TicketDTO>();
+                cfg.CreateMap<TicketEditDTO, TicketDTO>();
                 cfg.CreateMap<Ticket, TicketEditDTO>();
 
                 #endregion

@@ -41,7 +41,7 @@ namespace TicketManagementSystem.Data.EF
 
         public virtual bool Contains(T item)
         {
-            return _dbSet.Contains(item);
+            return _dbSet.AsEnumerable().Contains(item);
         }
 
         public virtual bool Contains(Func<T, bool> predicate)

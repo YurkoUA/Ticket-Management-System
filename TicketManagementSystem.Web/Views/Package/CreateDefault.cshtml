@@ -8,6 +8,10 @@
     function OnBegin() {
         $("#createResult").html("");
     }
+
+    function OnSuccess(data) {
+        $('form[id=form0]').trigger('reset');
+    }
 </script>
 
 <h2>@ViewBag.Title</h2>
@@ -16,7 +20,8 @@
 @using (Ajax.BeginForm("Create", new AjaxOptions
 {
     UpdateTargetId = "createResult",
-    OnBegin = "OnBegin"
+    OnBegin = "OnBegin",
+    OnSuccess = "OnSuccess"
 })) 
 {
     @Html.AntiForgeryToken()
