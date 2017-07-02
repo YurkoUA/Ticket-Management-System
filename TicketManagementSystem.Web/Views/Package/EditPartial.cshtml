@@ -5,7 +5,8 @@
 
 @using (Ajax.BeginForm("Edit", new AjaxOptions
 {
-    UpdateTargetId = "package-result"
+    UpdateTargetId = "package-result",
+    OnBegin = "OnBegin"
 }))
 {
     @Html.AntiForgeryToken()

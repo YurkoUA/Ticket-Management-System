@@ -30,10 +30,18 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetClones()
         {
+            //var clones = Database.Tickets.GetAll()
+            //    .AsEnumerable()
+            //    .Where(t => CountByNumber(t.Number, t.Id) > 0)
+            //    .OrderBy(t => t.Number);
+
             var clones = Database.Tickets.GetAll()
                 .AsEnumerable()
-                .Where(t => CountByNumber(t.Number, t.Id) > 0)
-                .OrderBy(t => t.Number);
+                .GroupBy(t => t.Number)
+                .Where(g => g.Skip(1).Any())
+                .SelectMany(c => c)
+                .OrderBy(t => t.Number)
+                .AsEnumerable();
 
             return MapperInstance.Map<IEnumerable<TicketDTO>>(clones);
         }

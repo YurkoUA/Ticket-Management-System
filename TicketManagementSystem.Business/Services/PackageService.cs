@@ -25,7 +25,7 @@ namespace TicketManagementSystem.Business.Services
         {
             var packages = Database.Packages.GetAll()
                 .OrderByDescending(p => p.IsOpened)
-                .ThenBy(p => p.IsSpecial)
+                .ThenByDescending(p => p.IsSpecial)
                 .ThenByDescending(p => p.Id);
             return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
         }
@@ -34,7 +34,7 @@ namespace TicketManagementSystem.Business.Services
         {
             var packages = Database.Packages.GetAll()
                 .OrderByDescending(p => p.IsOpened)
-                .ThenBy(p => p.IsSpecial)
+                .ThenByDescending(p => p.IsSpecial)
                 .ThenByDescending(p => p.Id)
                 .AsEnumerable()
                 .Skip(skip)

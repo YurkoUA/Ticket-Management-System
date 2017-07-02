@@ -4,6 +4,12 @@
             showModal(data);
         });
     });
+
+    $('#login-history-button').click(function () {
+        $.get("/Account/LoginHistory", function (data) {
+            showModal(data);
+        });
+    });
 });
 
 function OnBegin() {
