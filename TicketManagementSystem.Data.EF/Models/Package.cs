@@ -59,7 +59,8 @@ namespace TicketManagementSystem.Data.EF.Models
 
             if (Tickets.Count > 0)
             {
-                toString.Append($" ({Tickets.First().ToString()})");
+                var ticket = Tickets.First(t => t.Id == Tickets.Min(tk => tk.Id)).ToString();
+                toString.Append($" ({ticket})");
             }
 
             return toString.ToString();
