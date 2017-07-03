@@ -1,22 +1,20 @@
+using System;
+using System.Web;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using Ninject;
+using Ninject.Modules;
+using Ninject.Web.Common;
+using TicketManagementSystem.Business.Infrastructure;
+using TicketManagementSystem.Web.Util;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(TicketManagementSystem.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(TicketManagementSystem.Web.App_Start.NinjectWebCommon), "Stop")]
 
 namespace TicketManagementSystem.Web.App_Start
 {
-    using System;
-    using System.Web;
-
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
-    using Ninject;
-    using Ninject.Web.Common;
-
-    using TicketManagementSystem.Web.Util;
-    using Ninject.Modules;
-    using TicketManagementSystem.Business.Infrastructure;
-
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
+        private static IKernel kernel;
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         public static void Start() 
@@ -30,11 +28,16 @@ namespace TicketManagementSystem.Web.App_Start
         {
             bootstrapper.ShutDown();
         }
+
+        public static IKernel GetInstance()
+        {
+            return kernel;
+        }
         
         private static IKernel CreateKernel()
         {
             var modules = new INinjectModule[] { new ServiceModule("DefaultConnection") };
-            var kernel = new StandardKernel(modules);
+            kernel = new StandardKernel(modules);
 
             try
             {

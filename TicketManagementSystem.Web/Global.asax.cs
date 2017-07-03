@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using TicketManagementSystem.Web.Jobs;
 
 namespace TicketManagementSystem.Web
 {
@@ -13,6 +14,8 @@ namespace TicketManagementSystem.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            JobScheduler.RegisterJobs();
         }
     }
 }

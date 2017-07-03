@@ -83,6 +83,7 @@
     <Compile Include="Interfaces\ILoginService.cs" />
     <Compile Include="Interfaces\IPackageService.cs" />
     <Compile Include="Interfaces\IRoleService.cs" />
+    <Compile Include="Interfaces\ISummaryService.cs" />
     <Compile Include="Interfaces\ITicketService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Services\LoginService.cs" />
     <Compile Include="Services\PackageService.cs" />
     <Compile Include="Services\SerialService.cs" />
+    <Compile Include="Services\SummaryService.cs" />
     <Compile Include="Services\TicketService.cs" />
   </ItemGroup>
   <ItemGroup>
