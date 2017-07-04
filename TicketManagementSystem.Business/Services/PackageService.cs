@@ -21,6 +21,11 @@ namespace TicketManagementSystem.Business.Services
 
         public int TotalCount => Database.Packages.GetCount();
 
+        public IEnumerable<PackageDTO> FindByName(string name)
+        {
+            return MapperInstance.Map<IEnumerable<PackageDTO>>(Database.Packages.GetAll(p => p.ToString().Contains(name)));
+        }
+
         public IEnumerable<PackageDTO> GetPackages()
         {
             var packages = Database.Packages.GetAll()

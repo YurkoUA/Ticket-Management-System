@@ -7,6 +7,8 @@ namespace TicketManagementSystem.Business.Interfaces
     {
         int TotalCount { get; }
 
+        IEnumerable<PackageDTO> FindByName(string name);
+
         IEnumerable<PackageDTO> GetPackages();
         IEnumerable<PackageDTO> GetPackages(int skip, int take);
 
