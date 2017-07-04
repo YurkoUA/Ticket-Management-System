@@ -14,13 +14,16 @@
     <div class="panel panel-default">
         <div class="panel-heading">Всього пачок: @Model.PageInfo.TotalItems</div>
 
-        @if (isAdmin)
-        {
-            <div class="panel-body">
-                @Html.ActionLink("Створити пачку", "Create") |
+        <div class="panel-body">
+            <a onclick="searchModal()">Пошук пачок</a>
+            @if (isAdmin)
+            {
+                <span> | </span>
+                @Html.ActionLink("Створити пачку", "Create")
+                <span> | </span>
                 @Html.ActionLink("Створити спеціальну пачку", "Create", new { special = true })
-            </div>
-        }
+            }
+        </div>
 
         <div class="table-responsive">
             <table class="table table-hover table-bordered">
@@ -53,14 +56,16 @@
         {
             <div class="panel-footer">
                 @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new
-                {
-                    page = x
-                }))
+           {
+               page = x
+           }))
             </div>
         }
     </div>
 
-
+    @section scripts {
+        @Scripts.Render("~/Scripts/package-search-modal.js")
+    }
 }
 else
 {

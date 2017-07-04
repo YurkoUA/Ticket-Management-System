@@ -261,6 +261,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jquery.validation.double.fix.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\package-search-modal.js" />
     <Content Include="Scripts\packages-modal.js" />
     <Content Include="Scripts\packages.select-list.js" />
     <Content Include="Scripts\respond.js" />
@@ -346,6 +347,8 @@
     <Content Include="Views\Account\LoginHistoryModal.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
     <Content Include="Views\Account\ChangePasswordModal.cshtml" />
+    <Content Include="Views\Package\SearchModal.cshtml" />
+    <Content Include="Views\Package\SearchPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

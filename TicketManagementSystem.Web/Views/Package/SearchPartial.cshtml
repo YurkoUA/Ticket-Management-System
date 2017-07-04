@@ -1,0 +1,25 @@
+﻿@model IEnumerable<PackageDetailsModel>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Результати пошуку</div>
+    <div class="panel-body">Пачок знайдено: @Model.Count()</div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Назва</th>
+                <th>Квитків</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@Html.ActionLink(item.Name, "Details", "Package", new { id = item.Id }, new { })</td>
+                    <td>@item.TicketsCount</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

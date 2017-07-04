@@ -72,6 +72,30 @@ namespace TicketManagementSystem.Web.Controllers
             return View("Package", partialModel);
         }
 
+        [HttpGet, AllowAnonymous]
+        public ActionResult Search(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                ModelState.AddModelError("", "Необхідно ввести назву.");
+
+            var packages = _packageService.FindByName(name);
+
+            if (!packages.Any())
+                ModelState.AddModelError("", "Пачки не знайдено");
+
+            if (ModelState.IsValid)
+            {
+                return PartialView("SearchPartial", MapperInstance.Map<IEnumerable<PackageDetailsModel>>(packages));
+            }
+            return ErrorPartial(ModelState);
+        }
+
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient)]
+        public ActionResult SearchModal()
+        {
+            return PartialView("SearchModal");
+        }
+
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.ServerAndClient)]
         public ActionResult Tickets(int id)
         {
