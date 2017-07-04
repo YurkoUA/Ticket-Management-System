@@ -26,7 +26,7 @@ namespace TicketManagementSystem.Data.EF.Models
 
         [StringLength(32)]
         public string Date { get; set; }
-        public DateTime AddDate { get; set; } = DateTime.Now;
+        public DateTime AddDate { get; set; } = DateTime.Now.ToUniversalTime();
 
         #region Navigation properties
 

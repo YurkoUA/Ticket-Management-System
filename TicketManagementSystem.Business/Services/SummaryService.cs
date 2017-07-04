@@ -20,7 +20,7 @@ namespace TicketManagementSystem.Business.Services
         {
             var summary = new Summary
             {
-                Date = DateTime.Now,
+                Date = DateTime.Now.ToUniversalTime(),
                 Packages = _packageService.TotalCount,
                 Tickets = _ticketService.TotalCount,
                 HappyTickets = _ticketService.CountHappyTickets()
@@ -36,8 +36,10 @@ namespace TicketManagementSystem.Business.Services
 
             bool isThisMonth(DateTime date)
             {
-                return date.Month == DateTime.Now.Month
-                    && date.Year == DateTime.Now.Year;
+                var now = DateTime.Now.ToUniversalTime();
+
+                return date.Month == now.Month
+                    && date.Year == now.Year;
             }
         }
     }

@@ -59,8 +59,7 @@ namespace TicketManagementSystem.Web
 
                 #region Ticket
 
-                cfg.CreateMap<TicketDTO, TicketDetailsModel>()
-                    .ForMember(dest => dest.AddDate, opt => opt.MapFrom(src => src.AddDate.ToShortDateString()));
+                cfg.CreateMap<TicketDTO, TicketDetailsModel>();
 
                 cfg.CreateMap<TicketDTO, TicketChangeNumberModel>();
                 cfg.CreateMap<TicketDTO, TicketMoveModel>();

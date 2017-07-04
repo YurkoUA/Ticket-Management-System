@@ -70,7 +70,7 @@ namespace TicketManagementSystem.Web.Controllers
                     var loginDTO = new LoginDTO
                     {
                         UserId = user.Id,
-                        Date = DateTime.Now,
+                        Date = DateTime.Now.ToUniversalTime(),
                         IpAddress = Request.UserHostAddress,
                         Browser = Request.Browser.Browser,
                         UserAgent = Request.UserAgent

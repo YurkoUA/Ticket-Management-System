@@ -24,7 +24,7 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@item.Date.ToString()</td>
+                            <td>@Html.DisplayLocalDate(item.Date, "G")</td>
                             <td>@item.IpAddress</td>
                             <td>@item.Browser</td>
                         </tr>

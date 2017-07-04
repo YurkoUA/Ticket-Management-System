@@ -193,6 +193,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AlertHelper.cs" />
+    <Compile Include="Helpers\LocalDateHelper.cs" />
     <Compile Include="Helpers\PagingHelper.cs" />
     <Compile Include="Jobs\SummaryJob.cs" />
     <Compile Include="Jobs\JobScheduler.cs" />

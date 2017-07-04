@@ -22,7 +22,7 @@ namespace TicketManagementSystem.Data.EF.Models
         public double Nominal { get; set; }
         public bool IsSpecial { get; set; } = false;
         public bool IsOpened { get; set; } = true;
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Now.ToUniversalTime();
         
         [StringLength(128)]
         public string Note { get; set; }

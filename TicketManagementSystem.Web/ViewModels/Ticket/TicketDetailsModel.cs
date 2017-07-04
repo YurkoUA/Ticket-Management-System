@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace TicketManagementSystem.Web
 {
@@ -30,8 +31,9 @@ namespace TicketManagementSystem.Web
 
         [Display(Name = "Дата:")]
         public string Date { get; set; }
+
         [Display(Name = "Додано:")]
-        public string AddDate { get; set; }
+        public DateTime AddDate { get; set; }
 
         [Display(Name = "Щасливий:")]
         public bool IsHappy { get; set; }
