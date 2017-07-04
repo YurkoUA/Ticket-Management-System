@@ -11,7 +11,7 @@
     <div class="col-md-4">
         <h2>Квитки</h2>
         <p>
-            Станом на @DateTime.Now.ToString() в колекції налічується @ViewBag.TotalCount квитків,
+            Станом на @Html.DisplayDateTime(DateTime.Now.ToUniversalTime(), "g") в колекції налічується @ViewBag.TotalCount квитків,
             з них @ViewBag.TotalOfHappy щасливих.
         </p>
         <p><a class="btn btn-default" href="@Url.Action("Index", "Ticket")">Перейти до квитків &raquo;</a></p>

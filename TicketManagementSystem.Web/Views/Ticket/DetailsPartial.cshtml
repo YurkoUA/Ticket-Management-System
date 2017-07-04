@@ -37,7 +37,7 @@
         }
 
         <dt>@Html.DisplayNameFor(model => model.AddDate)</dt>
-        <dd>@Html.DisplayLocalDate(Model.AddDate, "d")</dd>
+        <dd>@Html.DisplayDateTime(Model.AddDate, "d")</dd>
 
         @if (!string.IsNullOrEmpty(Model.Note))
         {

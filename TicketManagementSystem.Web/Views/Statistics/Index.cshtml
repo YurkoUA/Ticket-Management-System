@@ -6,7 +6,7 @@
 <hr />
 
 <p>
-    Статистика станом на @DateTime.Now.ToString()
+    Статистика станом на @Html.DisplayDateTime(DateTime.Now.ToUniversalTime(), "G")
 </p>
 
 <div id="colors-chart" style="width: 500px; height: 500px;"></div>
