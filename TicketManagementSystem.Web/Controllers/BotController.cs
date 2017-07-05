@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.UI;
 using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
 {
-    public class BotController : Controller
+    public class BotController : ApplicationController
     {
         private ITicketService _ticketService;
         private IPackageService _packageService;
@@ -18,7 +19,7 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet, OutputCache(Duration = 20, Location = OutputCacheLocation.Server)]
-        public JsonResult Total()
+        public ActionResult Total()
         {
             var response = new
             {
@@ -31,51 +32,46 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet, OutputCache(Duration = 20, Location = OutputCacheLocation.Server)]
-        public JsonResult Number(string number)
+        public ActionResult Number(string number)
         {
-            var tickets = _ticketService.GetByNumber(number, true)
-                .Select(t => new
-                {
-                    Number = t.Number,
-                    Color = t.ColorName,
-                    Serial = t.SerialName + t.SerialNumber,
-                    Package = t.PackageName
-                });
-            return Json(tickets, JsonRequestBehavior.AllowGet);
-        }
+            if (!Regex.IsMatch(number, @"\d{6}") || number == null)
+                return HttpBadRequest();
 
-        [HttpGet, OutputCache(Duration = 20, Location = OutputCacheLocation.Server)]
-        public JsonResult Last()
-        {
-            var tickets = _ticketService.GetTickets()
-                .OrderByDescending(t => t.Id)
-                .Take(10)
-                .Select(t => new
-                {
-                    Number = t.Number,
-                    Color = t.ColorName,
-                    Serial = t.SerialName + t.SerialNumber,
-                    Package = t.PackageName
-                });
-            return Json(tickets, JsonRequestBehavior.AllowGet);
+            var tickets = _ticketService.GetByNumber(number, true);
+
+            if (!tickets.Any())
+                return HttpNotFound();
+
+            var response = tickets.Select(t => new
+            {
+                Id = t.Id,
+                Number = t.Number,
+                Color = t.ColorName,
+                Serial = t.SerialName + t.SerialNumber,
+                Package = t.PackageName,
+                Url = Url.Action("Details", "Ticket", new { id = t.Id })
+            });
+            return Json(response, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public JsonResult Random()
+        public ActionResult Random()
         {
             var index = new Random().Next(0, _ticketService.TotalCount);
             var ticket = _ticketService.GetTickets(index, 1)
                 .FirstOrDefault();
 
             if (ticket == null)
-                return null;
+                return HttpNotFound();
 
             var response = new
             {
+                Id = ticket.Id,
                 Number = ticket.Number,
                 Color = ticket.ColorName,
                 Serial = ticket.SerialName + ticket.SerialNumber,
-                Package = ticket.PackageName
+                Package = ticket.PackageName,
+                Url = Url.Action("Details", "Ticket", new { id = ticket.Id })
             };
 
             return Json(response, JsonRequestBehavior.AllowGet);
