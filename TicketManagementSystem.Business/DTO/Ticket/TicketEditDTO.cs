@@ -9,6 +9,9 @@ namespace TicketManagementSystem.Business.DTO
         public int ColorId { get; set; }        
         public int SerialId { get; set; }
 
+        public bool CanSelectColor { get; set; } = true;
+        public bool CanSelectSerial { get; set; } = true;
+
         [Required(ErrorMessage = "Необхідно вказати номер серії.")]
         [RegularExpression(@"\d{2}", ErrorMessage = "Номер серії повинен складатися з двох цифр.")]
         public string SerialNumber { get; set; }

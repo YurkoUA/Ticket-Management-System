@@ -13,26 +13,40 @@
         @Html.HiddenFor(model => model.RowVersion)
         @Html.HiddenFor(model => model.Id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ColorId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ColorId, Model.Colors, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ColorId, "", new { @class = "text-danger" })
+        @if (Model.CanSelectColor)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.ColorId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.ColorId, Model.Colors, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ColorId, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.ColorId)
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SerialId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SerialId, Model.Series, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SerialId, "", new { @class = "text-danger" })
+        @if (Model.CanSelectSerial)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.SerialId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.SerialId, Model.Series, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SerialId, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.SerialId)
+        }
 
         <div class="form-group">
             @Html.LabelFor(model => model.SerialNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SerialNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.SerialNumber, new { htmlAttributes = new { @class = "form-control", type = "number" } })
                 @Html.ValidationMessageFor(model => model.SerialNumber, "", new { @class = "text-danger" })
             </div>
         </div>

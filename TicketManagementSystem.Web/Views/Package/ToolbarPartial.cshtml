@@ -1,19 +1,20 @@
 ﻿@model int
 
-@{ 
+@{
     Layout = null;
-    bool isAdmin = User.IsInRole("Admin");
     var ajaxOptions = new AjaxOptions { UpdateTargetId = "package-grid", OnBegin = "OnBegin" };
     var routeValues = new { id = Model };
 }
 
-<div id="package-toolbar" class="btn-group" role="group">
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Керувати
+        <span class="caret"></span>
+    </button>
 
-    @Ajax.ActionLink("Деталі", "Details", routeValues, ajaxOptions, new { @class = "btn btn-default"})
-
-    @if (isAdmin)
-    {
-        @Ajax.ActionLink("Редагувати", "Edit", routeValues, ajaxOptions, new { @class = "btn btn-default" })
-        @Ajax.ActionLink("Видалити", "Delete", routeValues, ajaxOptions, new { @class = "btn btn-default" })
-    }
+    <ul class="dropdown-menu">
+        <li>@Ajax.ActionLink("Деталі", "Details", routeValues, ajaxOptions, new { })</li>
+        <li>@Ajax.ActionLink("Редагувати", "Edit", routeValues, ajaxOptions, new { })</li>
+        <li>@Ajax.ActionLink("Видалити", "Delete", routeValues, ajaxOptions, new { })</li>
+    </ul>
 </div>

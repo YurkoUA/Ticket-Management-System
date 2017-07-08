@@ -1,7 +1,7 @@
 ﻿@model PartialModel<int>
 
 @{
-    
+    bool isAdmin = User.IsInRole("Admin");
 }
 
 <script>
@@ -19,8 +19,11 @@
     @Html.Action(Model.Action, Model.Controller, new { id = Model.Param, partial = true })
 </div>
 
-<div id="ticket-result"></div>
-@Html.Partial("ToolbarPartial", Model.Param)
+@if (isAdmin)
+{
+    <div id="ticket-result"></div>
+    @Html.Partial("ToolbarPartial", Model.Param)
+}
 
 @section scripts {
     @Scripts.Render("~/Scripts/tickets-by-number-modal.js")    

@@ -1,18 +1,20 @@
 ﻿@model int
 
-@{ 
+@{
     Layout = null;
-    var isAdmin = User.IsInRole("Admin");
     var ajaxOptions = new AjaxOptions { UpdateTargetId = "serial-grid", OnBegin = "OnBegin" };
     var routeValues = new { id = Model };
 }
 
-<div id="serial-toolbar" class="btn-group">
-    @Ajax.ActionLink("Деталі", "Details", "Serial", routeValues, ajaxOptions, new { @class = "btn btn-default" })
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Керувати
+        <span class="caret"></span>
+    </button>
 
-    @if (isAdmin)
-    {
-        @Ajax.ActionLink("Редагувати", "Edit", "Serial", routeValues, ajaxOptions, new { @class = "btn btn-default" })
-        @Ajax.ActionLink("Видалити", "Delete", "Serial", routeValues, ajaxOptions, new { @class = "btn btn-default" })
-    }
+    <ul class="dropdown-menu">
+        <li>@Ajax.ActionLink("Деталі", "Details", routeValues, ajaxOptions, new { })</li>
+        <li>@Ajax.ActionLink("Редагувати", "Edit", routeValues, ajaxOptions, new { })</li>
+        <li>@Ajax.ActionLink("Видалити", "Delete", routeValues, ajaxOptions, new { })</li>
+    </ul>
 </div>

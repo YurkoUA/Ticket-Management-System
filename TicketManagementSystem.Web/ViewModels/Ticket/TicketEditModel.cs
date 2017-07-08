@@ -9,6 +9,12 @@ namespace TicketManagementSystem.Web
         public byte[] RowVersion { get; set; }
 
         [HiddenInput(DisplayValue = false)]
+        public bool CanSelectColor { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public bool CanSelectSerial { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
         [HiddenInput(DisplayValue = false)]

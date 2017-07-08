@@ -277,13 +277,18 @@ namespace TicketManagementSystem.Web.Controllers
         {
             var ticket = _ticketService.GetEdit(id);
 
+
             if (ticket == null) return HttpNotFound();
 
             if (Request.IsAjaxRequest() || partial)
             {
                 var viewModel = MapperInstance.Map<TicketEditModel>(ticket);
-                viewModel.Colors = GetColorsList();
-                viewModel.Series = GetSeriesList();
+                
+                if (viewModel.CanSelectColor)
+                    viewModel.Colors = GetColorsList();
+
+                if (viewModel.CanSelectSerial)
+                    viewModel.Series = GetSeriesList();
 
                 return PartialView("EditPartial", viewModel);
             }
@@ -500,7 +505,7 @@ namespace TicketManagementSystem.Web.Controllers
             var packagesList = packages.ToList();
 
             if (nullable)
-                packagesList.Add(new PackageDTO { Name = "(Немає)" });
+                packagesList.Insert(0, new PackageDTO { Name = "(Немає)" });
 
             return new SelectList(packagesList, "Id", "SelectListOptionValue");
         }

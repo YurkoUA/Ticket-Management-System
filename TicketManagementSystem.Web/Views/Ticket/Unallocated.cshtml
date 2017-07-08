@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Нерозподілені квитки";
+    bool isAdmin = User.IsInRole("Admin");
 }
 
 
@@ -24,7 +25,11 @@
                     <th>Серія</th>
                     <th>Дата</th>
                     <th>Примітка</th>
-                    <th></th>
+
+                    @if (isAdmin)
+                    {
+                        <th></th>
+                    }
                 </tr>
 
                 @foreach (var item in Model)
@@ -35,7 +40,11 @@
                         <td><a href="@Url.Action("Details", "Serial", new { id = item.SerialId })">@item.SerialFull</a></td>
                         <td>@item.Date</td>
                         <td>@item.Note</td>
-                        <td>@Html.ActionLink("Перемістити до пачки", "Move", new { id = item.Id })</td>
+
+                        @if (isAdmin)
+                        {
+                            <td>@Html.ActionLink("Перемістити до пачки", "Move", new { id = item.Id })</td>
+                        }
                     </tr>
                 }
             </table>

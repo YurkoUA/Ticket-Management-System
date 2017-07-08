@@ -1,7 +1,7 @@
 ﻿@model PartialModel<int>
 
 @{
-
+    bool isAdmin = User.IsInRole("Admin");
 }
 
 <script>
@@ -19,8 +19,11 @@
     @Html.Action(Model.Action, Model.Controller, new { id = Model.Param, partial = true })
 </div>
 
-<div id="serial-result"></div>
-@Html.Partial("ToolbarPartial", Model.Param)
+@if (isAdmin)
+{
+    <div id="serial-result"></div>
+    @Html.Partial("ToolbarPartial", Model.Param)
+}
 
 <div>
     @Html.ActionLink("На до списку", "Index")

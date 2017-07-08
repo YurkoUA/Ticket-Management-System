@@ -173,7 +173,14 @@ namespace TicketManagementSystem.Business.Services
             if (ticket == null)
                 return null;
 
-            return MapperInstance.Map<TicketEditDTO>(ticket);
+            var dto = MapperInstance.Map<TicketEditDTO>(ticket);
+
+            if (ticket.PackageId != null)
+            {
+                dto.CanSelectColor = ticket.Package.ColorId == null;
+                dto.CanSelectSerial = ticket.Package.SerialId == null;
+            }
+            return dto;
         }
 
         public TicketDTO Create(TicketCreateDTO ticketDTO)
