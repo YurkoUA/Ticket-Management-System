@@ -78,10 +78,15 @@
     <Compile Include="Migrations\201707031332019_AddSummary.Designer.cs">
       <DependentUpon>201707031332019_AddSummary.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707141710186_AddedReports.cs" />
+    <Compile Include="Migrations\201707141710186_AddedReports.Designer.cs">
+      <DependentUpon>201707141710186_AddedReports.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Color.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Package.cs" />
+    <Compile Include="Models\Report.cs" />
     <Compile Include="Models\Serial.cs" />
     <Compile Include="Models\Summary.cs" />
     <Compile Include="Models\Ticket.cs" />
@@ -102,6 +107,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707031332019_AddSummary.resx">
       <DependentUpon>201707031332019_AddSummary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707141710186_AddedReports.resx">
+      <DependentUpon>201707141710186_AddedReports.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,7 +1,6 @@
 ﻿@model AccountIndexModel
 
 <div>
-    <h4>@Model.UserName</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>@Html.DisplayNameFor(model => model.Id)</dt>
@@ -17,12 +16,11 @@
         <dd>@Html.DisplayFor(model => model.RoleDescription)</dd>
     </dl>
 
-    <div class="btn-group">
-        <button type="button" id="login-history-button" class="btn btn-default">Показати історію входів</button>
-        <button type="button" id="change-password-button" class="btn btn-default">Змінити пароль</button>
-    </div>
-</div>
+    <p><a id="login-history-button">Історія входів</a></p>
+    <p><a id="change-password-button">Змінити пароль</a></p>
 
-<p>
-    @Html.ActionLink("На головну", "Index", "Home")
-</p>
+    @if (User.IsInRole("Admin"))
+    {
+        <p>@Html.ActionLink("Звіти", "Index", "Report")</p>
+    }
+</div>

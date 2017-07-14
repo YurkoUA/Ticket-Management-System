@@ -56,6 +56,13 @@ namespace TicketManagementSystem.Business
 
                 #endregion
 
+                #region Report
+
+                cfg.CreateMap<Report, DTO.Report.ReportDTO>();
+                cfg.CreateMap<DTO.Report.ReportDTO, Report>();
+
+                #endregion
+
                 #region Package
 
                 cfg.CreateMap<Package, PackageDTO>()

@@ -1,4 +1,6 @@
-﻿namespace TicketManagementSystem.Business.DTO
+﻿using System;
+
+namespace TicketManagementSystem.Business.DTO
 {
     public class PackageDTO
     {
@@ -19,6 +21,7 @@
         public bool IsOpened { get; set; }
 
         public string Note { get; set; }
+        public DateTime Date { get; set; }
 
         public string SelectListOptionValue
         {

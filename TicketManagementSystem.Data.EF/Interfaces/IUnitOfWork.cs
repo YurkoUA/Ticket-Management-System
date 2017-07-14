@@ -9,6 +9,7 @@ namespace TicketManagementSystem.Data.EF.Interfaces
         IRepository<Role> Roles { get; }
 
         IRepository<Summary> Summary { get; }
+        IRepository<Report> Reports { get; }
 
         IRepository<Color> Colours { get; }
         IRepository<Serial> Series { get; }

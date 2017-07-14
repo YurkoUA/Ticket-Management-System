@@ -39,6 +39,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="evohtmltopdf, Version=7.4.0.0, Culture=neutral, PublicKeyToken=e1fcbb86597de299, processorArchitecture=MSIL">
+      <HintPath>..\packages\evopdf.7.4\lib\net40\evohtmltopdf.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -51,6 +54,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -71,6 +75,10 @@
     <Compile Include="DTO\Package\PackageMakeSpecialDTO.cs" />
     <Compile Include="DTO\Package\PackageSpecialCreateDTO.cs" />
     <Compile Include="DTO\Package\PackageSpecialEditDTO.cs" />
+    <Compile Include="DTO\Report\DefaultReportDTO.cs" />
+    <Compile Include="DTO\Report\PackageDTO.cs" />
+    <Compile Include="DTO\Report\PackageReportDTO.cs" />
+    <Compile Include="DTO\Report\ReportDTO.cs" />
     <Compile Include="DTO\Serial\SerialCreateDTO.cs" />
     <Compile Include="DTO\Serial\SerialDTO.cs" />
     <Compile Include="DTO\Serial\SerialEditDTO.cs" />
@@ -82,12 +90,14 @@
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Interfaces\ILoginService.cs" />
     <Compile Include="Interfaces\IPackageService.cs" />
+    <Compile Include="Interfaces\IPdfService.cs" />
+    <Compile Include="Interfaces\IReportService.cs" />
     <Compile Include="Interfaces\IRoleService.cs" />
     <Compile Include="Interfaces\ISummaryService.cs" />
     <Compile Include="Interfaces\ITicketService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="PdfService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Email.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Services\ColorService.cs" />
     <Compile Include="Interfaces\IColorService.cs" />
@@ -96,6 +106,7 @@
     <Compile Include="Services\Identity\UserService.cs" />
     <Compile Include="Services\LoginService.cs" />
     <Compile Include="Services\PackageService.cs" />
+    <Compile Include="Services\ReportService.cs" />
     <Compile Include="Services\SerialService.cs" />
     <Compile Include="Services\SummaryService.cs" />
     <Compile Include="Services\TicketService.cs" />

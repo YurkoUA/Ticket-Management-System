@@ -182,6 +182,7 @@
     <Compile Include="Controllers\ColorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PackageController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SerialController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="ViewModels\Package\PackageIndexModel.cs" />
     <Compile Include="ViewModels\Package\PackageDetailsModel.cs" />
     <Compile Include="ViewModels\Package\PackageMakeDefaultModel.cs" />
+    <Compile Include="ViewModels\Report\ReportIndexModel.cs" />
     <Compile Include="ViewModels\SelectListModel.cs" />
     <Compile Include="ViewModels\Serial\SerialCreateModel.cs" />
     <Compile Include="ViewModels\Serial\SerialDetailsModel.cs" />
@@ -265,6 +267,7 @@
     <Content Include="Scripts\package-search-modal.js" />
     <Content Include="Scripts\packages-modal.js" />
     <Content Include="Scripts\packages.select-list.js" />
+    <Content Include="Scripts\report-archive-modal.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\site.js" />
@@ -350,6 +353,10 @@
     <Content Include="Views\Account\ChangePasswordModal.cshtml" />
     <Content Include="Views\Package\SearchModal.cshtml" />
     <Content Include="Views\Package\SearchPartial.cshtml" />
+    <Content Include="Views\Report\DefaultReportPrint.cshtml" />
+    <Content Include="Views\Report\PackagesReportPrint.cshtml" />
+    <Content Include="Views\Report\ArchiveModal.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

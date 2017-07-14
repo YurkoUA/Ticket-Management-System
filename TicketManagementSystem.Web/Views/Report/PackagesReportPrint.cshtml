@@ -1,0 +1,116 @@
+﻿@model TicketManagementSystem.Business.DTO.Report.PackageReportDTO
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    @Styles.Render("~/Content/bootstrap.min.css")
+
+    <style>
+        body {
+            height: 842px;
+            width: 595px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div align="center">
+        <h2>ЗВІТ ПО ПАЧКАМ</h2>
+    </div>
+
+    <div>
+        <span>Дата: @Model.Date.ToString("g") (UTC)</span>
+
+        @if (Model.LastReportDate != null)
+        {
+            <br />
+            <span>Минулий звіт: @Model.LastReportDate.Value.ToString("g") (UTC)</span>
+        }
+    </div>
+
+    <div>
+        <h3>Квитки</h3>
+        <span>Всього: @Model.TotalTickets</span>
+        <br />
+        <span>Нових: @Model.NewTickets</span>
+        <br />
+        <span>Щасливих: @Model.HappyTickets</span>
+    </div>
+
+    <div>
+        <h3>Пачки</h3>
+
+        <span>Всього: @Model.TotalPackages</span>
+        <br />
+        <span>Нових: @Model.NewPackagesCount</span>
+        <br />
+        <span>Звичайних: @Model.DefaultPackages.Count</span>
+        <br />
+        <span>Спеціальних: @Model.SpecialPackages.Count</span>
+    </div>
+
+    <div>
+        <h3>Звичайні пачки</h3>
+        <span>Всього: @Model.DefaultPackages.Count</span>
+
+        <table class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Назва</th>
+                    <th>Квитків</th>
+                    <th>Нових</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model.DefaultPackages)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.PackageName</td>
+                        <td>@item.TotalTickets</td>
+                        <td>@item.NewTickets</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <h3>Спеціальні пачки</h3>
+        <span>Всього: @Model.SpecialPackages.Count</span>
+
+        <table class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Назва</th>
+                    <th>Квитків</th>
+                    <th>Нових</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model.SpecialPackages)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.PackageName</td>
+                        <td>@item.TotalTickets</td>
+                        <td>@item.NewTickets</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

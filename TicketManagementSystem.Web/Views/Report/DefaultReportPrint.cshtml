@@ -1,0 +1,100 @@
+﻿@model TicketManagementSystem.Business.DTO.Report.DefaultReportDTO
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    @Styles.Render("~/Content/bootstrap.min.css")
+
+    <style>
+        body {
+            height: 842px;
+            width: 595px;
+            
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div align="center">
+        <h2>ЗВІТ ЗАГАЛЬНИЙ</h2>
+    </div>
+
+    <div>
+        <span>Дата: @Model.Date.ToString("g") (UTC)</span>
+
+        @if (Model.LastReportDate != null)
+        {
+            <br />
+            <span>Минулий звіт: @Model.LastReportDate.Value.ToString("g") (UTC)</span>
+        }
+    </div>
+
+    <div>
+        <h3>Квитки</h3>
+        <span>Всього: @Model.TicketsCount</span>
+        <br />
+        <span>Нових: @Model.NewTicketsCount</span>
+        <br />
+        <span>Щасливих: @Model.HappyTicketsCount</span>
+    </div>
+
+    <div>
+        <h3>Пачки</h3>
+        <span>Всього: @Model.PackagesCount</span>
+        <br />
+        <span>Нових: @Model.NewPackagesCount</span>
+        <br />
+        <span>Звичайних: @Model.DefaultPackagesCount</span>
+        <br />
+        <span>Спеціальних: @Model.SpecialPackagesCount</span>
+    </div>
+
+    <br />
+
+    <div>
+        <table class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Назва</th>
+                    <th>Квитків</th>
+                    <th>Нових</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr class="active">
+                    <td>-</td>
+                    <td><u>Квитки зі звичайних пачок</u></td>
+                    <td>@Model.DefaultPackagesTickets</td>
+                    <td>@Model.DefaultPackagesTicketsNew</td>
+                </tr>
+
+                <tr class="active">
+                    <td>-</td>
+                    <td><u>Нерозподілені квитки</u></td>
+                    <td>@Model.UnallocatedTicketsCount</td>
+                    <td>@Model.NewUnallocatedTicketsCount</td>
+                </tr>
+
+                @foreach (var item in Model.Packages)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.PackageName</td>
+                        <td>@item.TotalTickets</td>
+                        <td>@item.NewTickets</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
