@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using Ninject;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Business.Services;
-using TicketManagementSystem.Web.Data;
 
 namespace TicketManagementSystem.Web.Util
 {
@@ -37,6 +36,7 @@ namespace TicketManagementSystem.Web.Util
             _kernel.Bind<ISummaryService>().To<SummaryService>();
             _kernel.Bind<IReportService>().To<ReportService>();
             _kernel.Bind<IPdfService>().To<PdfService>();
+            _kernel.Bind<ITodoService>().To<TodoService>();
 
             _kernel.Bind<IColorService>().To<ColorService>();
             _kernel.Bind<ISerialService>().To<SerialService>();

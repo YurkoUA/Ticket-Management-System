@@ -85,6 +85,7 @@
     <Compile Include="DTO\Ticket\TicketCreateDTO.cs" />
     <Compile Include="DTO\Ticket\TicketDTO.cs" />
     <Compile Include="DTO\Ticket\TicketEditDTO.cs" />
+    <Compile Include="DTO\Todo\TodoTaskDTO.cs" />
     <Compile Include="DTO\User\LoginDTO.cs" />
     <Compile Include="DTO\User\UserDTO.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Interfaces\IRoleService.cs" />
     <Compile Include="Interfaces\ISummaryService.cs" />
     <Compile Include="Interfaces\ITicketService.cs" />
+    <Compile Include="Interfaces\ITodoService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="PdfService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="Services\SerialService.cs" />
     <Compile Include="Services\SummaryService.cs" />
     <Compile Include="Services\TicketService.cs" />
+    <Compile Include="Services\TodoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TicketManagementSystem.Data.EF\TicketManagementSystem.Data.EF.csproj">

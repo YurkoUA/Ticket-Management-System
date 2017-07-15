@@ -17,6 +17,7 @@ namespace TicketManagementSystem.Data.EF
 
         public DbSet<Report> Reports { get; set; }
         public DbSet<Summary> Summary { get; set; }
+        public DbSet<TodoTask> Tasks { get; set; }
 
         public DbSet<Color> Colors { get; set; }
         public DbSet<Serial> Series { get; set; }
