@@ -8,6 +8,8 @@ namespace TicketManagementSystem.Business.Interfaces
     {
         IEnumerable<TodoTaskDTO> GetTasks();
         IEnumerable<TodoTaskDTO> GetTasks(TaskStatus status);
+        Dictionary<TaskStatus, IEnumerable<TodoTaskDTO>> GetTasksGroupByStatus();
+        Dictionary<TaskStatus, IEnumerable<TodoTaskDTO>> GetTasksGroupByStatus(int take);
 
         TodoTaskDTO GetById(int id);
 

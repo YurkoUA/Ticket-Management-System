@@ -188,6 +188,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Areas\Todo\Controllers\TodoApiController.cs" />
     <Compile Include="Areas\Todo\Controllers\TodoController.cs" />
     <Compile Include="Areas\Todo\Models\Extensions.cs" />
     <Compile Include="Areas\Todo\TodoAreaRegistration.cs" />
@@ -250,7 +251,26 @@
     <Compile Include="Views\PartialModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Todo\index.html" />
+    <Content Include="Areas\Todo\app\css\ie10-viewport-bug-workaround.css" />
+    <Content Include="Areas\Todo\app\css\jumbotron-narrow.css" />
+    <Content Include="Areas\Todo\app\css\navbar-fixed-top.css" />
+    <Content Include="Areas\Todo\app\js\app.js" />
+    <Content Include="Areas\Todo\app\js\controllers\todoController.js" />
+    <Content Include="Areas\Todo\app\js\controllers\todoEditController.js" />
+    <Content Include="Areas\Todo\app\js\ie10-viewport-bug-workaround.js" />
+    <Content Include="Areas\Todo\app\js\services\todoService.js" />
+    <Content Include="Areas\Todo\app\views\create.html" />
+    <Content Include="Areas\Todo\app\views\details.html" />
+    <Content Include="Areas\Todo\app\views\edit.html" />
+    <Content Include="Areas\Todo\app\views\taskList.html" />
+    <Content Include="Areas\Todo\app\views\start.html" />
+    <Content Include="bower_components\angular-route\angular-route.js" />
+    <Content Include="bower_components\angular-route\angular-route.min.js" />
+    <Content Include="bower_components\angular-route\index.js" />
+    <Content Include="bower_components\angular\angular-csp.css" />
+    <Content Include="bower_components\angular\angular.js" />
+    <Content Include="bower_components\angular\angular.min.js" />
+    <Content Include="bower_components\angular\index.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dataTables.bootstrap.min.css" />
@@ -262,6 +282,21 @@
     <Content Include="Scripts\account-index.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="bower_components\angular\.bower.json" />
+    <Content Include="bower_components\angular\angular.min.js.gzip" />
+    <Content Include="bower_components\angular\angular.min.js.map" />
+    <Content Include="bower_components\angular\bower.json" />
+    <Content Include="bower_components\angular\LICENSE.md" />
+    <Content Include="bower_components\angular\package.json" />
+    <Content Include="bower_components\angular\README.md" />
+    <Content Include="Areas\Todo\Views\Todo\Index.cshtml" />
+    <Content Include="Areas\Todo\Views\web.config" />
+    <Content Include="bower_components\angular-route\.bower.json" />
+    <Content Include="bower_components\angular-route\angular-route.min.js.map" />
+    <Content Include="bower_components\angular-route\bower.json" />
+    <Content Include="bower_components\angular-route\LICENSE.md" />
+    <Content Include="bower_components\angular-route\package.json" />
+    <Content Include="bower_components\angular-route\README.md" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -376,11 +411,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Todo\app\css\" />
-    <Folder Include="Areas\Todo\app\js\controllers\" />
-    <Folder Include="Areas\Todo\app\js\lib\" />
-    <Folder Include="Areas\Todo\app\js\services\" />
-    <Folder Include="Areas\Todo\app\views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

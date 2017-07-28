@@ -16,7 +16,7 @@ namespace TicketManagementSystem.Data.EF.Enums
         [Display(Name = "Високий")]
         High,
 
-        [Display(Name = "Дуже високийю")]
+        [Display(Name = "Дуже високий")]
         VeryHigh
     }
 }

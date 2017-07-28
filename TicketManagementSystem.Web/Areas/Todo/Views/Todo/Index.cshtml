@@ -1,0 +1,81 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html ng-app="todoApp">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{title}} - TODO Explorer</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Areas/Todo/app/css/ie10-viewport-bug-workaround.css" rel="stylesheet" />
+    <link href="~/Areas/Todo/app/css/navbar-fixed-top.css" rel="stylesheet" />
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+    <link href="~/favicon.ico" rel="icon" />
+</head>
+<body ng-controller="todoController">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">TODO Explorer</a>
+            </div>
+
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Головна", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Кольори", "Index", "Color")</li>
+                    <li>@Html.ActionLink("Серії", "Index", "Serial")</li>
+                    <li>@Html.ActionLink("Пачки", "Index", "Package")</li>
+                    <li>@Html.ActionLink("Квитки", "Index", "Ticket")</li>
+                    <li>@Html.ActionLink("Статистика", "Index", "Statistics")</li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink(User.Identity.Name, "Index", "Account")</li>
+                    <li>@Html.ActionLink("Вийти", "Logout", "Account")</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        <ng-view></ng-view>
+
+        <hr />
+        <footer class="footer">
+            <p>&copy; 2017 - Юрій Носач</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Areas/Todo/app/js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- AngularJS library -->
+    <script src="~/bower_components/angular/angular.min.js"></script>
+    <script src="~/bower_components/angular-route/angular-route.min.js"></script>
+
+    <!-- AngularJS todoApp module -->
+    <script src="~/Areas/Todo/app/js/app.js"></script>
+
+    <!-- todoApp services -->
+    <script src="~/Areas/Todo/app/js/services/todoService.js"></script>
+
+    <!-- todoApp controllers -->
+    <script src="~/Areas/Todo/app/js/controllers/todoController.js"></script>
+    <script src="~/Areas/Todo/app/js/controllers/todoEditController.js"></script>
+</body>
+</html>

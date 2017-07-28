@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Reflection;
 using TicketManagementSystem.Data.EF.Enums;
 
 namespace TicketManagementSystem.Business.DTO
@@ -18,5 +20,17 @@ namespace TicketManagementSystem.Business.DTO
 
         public TaskPriority Priority { get; set; }
         public TaskStatus Status { get; set; } = TaskStatus.None;
+
+        public string PriorityString => (int)Priority != 0 ? GetEnumDisplayName(Priority) : "";
+        public string StatusString => GetEnumDisplayName(Status);
+
+        private string GetEnumDisplayName(Enum member)
+        {
+            return member.GetType()
+                .GetMember(member.ToString())
+                .FirstOrDefault()
+                .GetCustomAttribute<DisplayAttribute>()
+                .Name;
+        }
     }
 }

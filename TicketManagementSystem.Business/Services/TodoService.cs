@@ -19,6 +19,7 @@ namespace TicketManagementSystem.Business.Services
         {
             var tasks = Database.Tasks.GetAll()
                 .OrderByDescending(t => t.Priority)
+                .ThenByDescending(t => t.Date)
                 .AsEnumerable();
 
             return MapperInstance.Map<IEnumerable<TodoTaskDTO>>(tasks);
@@ -28,9 +29,37 @@ namespace TicketManagementSystem.Business.Services
         {
             var tasks = Database.Tasks.GetAll(t => t.Status == status)
                 .OrderByDescending(t => t.Priority)
+                .ThenByDescending(t => t.Date)
                 .AsEnumerable();
 
             return MapperInstance.Map<IEnumerable<TodoTaskDTO>>(tasks);
+        }
+
+        public Dictionary<TaskStatus, IEnumerable<TodoTaskDTO>> GetTasksGroupByStatus()
+        {
+            var tasks = Database.Tasks.GetAll()
+                .AsEnumerable()
+                .OrderByDescending(t => t.Priority)
+                .GroupBy(t => t.Status)
+                .ToDictionary(g => g.Key, g => MapperInstance.Map<IEnumerable<TodoTaskDTO>>(
+                    g.AsEnumerable()));
+
+            return tasks;
+        }
+
+        public Dictionary<TaskStatus, IEnumerable<TodoTaskDTO>> GetTasksGroupByStatus(int take)
+        {
+            if (take < 1)
+                throw new ArgumentException("take");
+
+            var tasks = Database.Tasks.GetAll()
+                .AsEnumerable()
+                .OrderByDescending(t => t.Priority)
+                .GroupBy(t => t.Status)
+                .ToDictionary(g => g.Key, g => MapperInstance.Map<IEnumerable<TodoTaskDTO>>(
+                    g.Take(take).AsEnumerable()));
+
+            return tasks;
         }
 
         public TodoTaskDTO GetById(int id)

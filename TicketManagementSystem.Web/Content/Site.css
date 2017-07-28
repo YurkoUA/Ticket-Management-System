@@ -22,3 +22,7 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.trash {
+    color: rgb(209, 91, 71);
+}
