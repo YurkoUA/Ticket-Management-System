@@ -9,10 +9,10 @@ namespace TicketManagementSystem.Data.EF.Models
         public int Id { get; set; }
         public DateTime Date { get; set; }
 
-        [Required, StringLength(16, MinimumLength = 3)]
+        [Required, StringLength(64, MinimumLength = 3)]
         public string Title { get; set; }
 
-        [StringLength(128)]
+        [StringLength(256)]
         public string Description { get; set; }
 
         public TaskPriority Priority { get; set; }

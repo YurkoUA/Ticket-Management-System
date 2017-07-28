@@ -8,8 +8,8 @@
                 <label class="control-label col-md-2" for="Title">Назва</label>
 
                 <div class="col-md-10">
-                    <input ng-model="Title" type="text" class="form-control text-box single-line" id="Title" name="Title" ng-required="true" ng-minlength="3" ng-maxlength="16" placeholder="Введіть назву задачі" />
-                    <span ng-show="!createForm.Title.$valid && createForm.Title.$touched" class="field-validation-valid text-danger">Назва задачі має бути від 3 до 16 символів.</span>
+                    <input ng-model="Title" type="text" class="form-control text-box single-line" id="Title" name="Title" ng-required="true" ng-minlength="3" ng-maxlength="64" placeholder="Введіть назву задачі" />
+                    <span ng-show="!createForm.Title.$valid && createForm.Title.$touched" class="field-validation-valid text-danger">Назва задачі має бути від 3 до 64 символів.</span>
                 </div>
             </div>
 
@@ -17,8 +17,8 @@
                 <label class="control-label col-md-2" for="Description">Опис</label>
 
                 <div class="col-md-10">
-                    <textarea ng-model="Description" class="form-control text-box multy-line" id="Description" name="Description" ng-maxlength="128" placeholder="Введіть опис задачі"></textarea>
-                    <span ng-show="!createForm.Description.$valid && createForm.Description.$touched" class="field-validation-valid text-danger">Опис не може бути більшим за 128 символів.</span>
+                    <textarea ng-model="Description" class="form-control text-box multy-line" id="Description" name="Description" ng-maxlength="256" placeholder="Введіть опис задачі"></textarea>
+                    <span ng-show="!createForm.Description.$valid && createForm.Description.$touched" class="field-validation-valid text-danger">Опис не може бути більшим за 256 символів.</span>
                 </div>
             </div>
 
