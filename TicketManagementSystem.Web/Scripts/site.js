@@ -12,3 +12,7 @@ function convertDate() {
         $(this).html(localDate.toLocaleString());
     });
 }
+
+function putCurrentDate(inputName) {
+    $('#' + inputName).val(new Date().toLocaleDateString());
+}
