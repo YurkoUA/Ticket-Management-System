@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TicketManagementSystem.Business.Attributes;
 
 namespace TicketManagementSystem.Business.DTO
 {
     public class TicketCreateDTO
     {
         [Required(ErrorMessage = "Необхідно вказати номер квитка.")]
-        [RegularExpression(@"\d{6}", ErrorMessage = "Номер повинен складатися з шести цифр.")]
+        [TicketNumber(ErrorMessage = "Номер повинен складатися з шести цифр.")]
         public string Number { get; set; }
 
         public int? PackageId { get; set; }
@@ -13,7 +14,7 @@ namespace TicketManagementSystem.Business.DTO
         public int SerialId { get; set; }
 
         [Required(ErrorMessage = "Необхідно вказати номер серії.")]
-        [RegularExpression(@"\d{2}", ErrorMessage = "Номер серії повинен складатися з двох цифр.")]
+        [SerialNumber(ErrorMessage = "Номер серії повинен бути від 01 до 50.")]
         public string SerialNumber { get; set; }
 
         [StringLength(128, ErrorMessage = "Примітка не може бути більшою за 128 символів.")]

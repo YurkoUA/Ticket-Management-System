@@ -64,6 +64,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\SerialNumberAttribute.cs" />
+    <Compile Include="Attributes\TicketNumberAttribute.cs" />
     <Compile Include="AutoMapperConfig.cs" />
     <Compile Include="DTO\Color\ColorCreateDTO.cs" />
     <Compile Include="DTO\Color\ColorDTO.cs" />

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using TicketManagementSystem.Business.Attributes;
 
 namespace TicketManagementSystem.Web
 {
@@ -10,7 +11,7 @@ namespace TicketManagementSystem.Web
 
         [Display(Name = "Новий номер")]
         [Required(ErrorMessage = "Необхідно вказати номер квитка")]
-        [RegularExpression(@"\d{6}", ErrorMessage = "Номер повинен складатися з шести цифр.")]
+        [TicketNumber(ErrorMessage = "Номер повинен складатися з шести цифр.")]
         public string Number { get; set; }
     }
 }

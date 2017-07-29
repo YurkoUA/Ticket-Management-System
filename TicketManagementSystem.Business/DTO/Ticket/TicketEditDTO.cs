@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TicketManagementSystem.Business.Attributes;
 
 namespace TicketManagementSystem.Business.DTO
 {
@@ -13,7 +14,7 @@ namespace TicketManagementSystem.Business.DTO
         public bool CanSelectSerial { get; set; } = true;
 
         [Required(ErrorMessage = "Необхідно вказати номер серії.")]
-        [RegularExpression(@"\d{2}", ErrorMessage = "Номер серії повинен складатися з двох цифр.")]
+        [SerialNumber(ErrorMessage = "Номер серії повинен бути від 01 до 50.")]
         public string SerialNumber { get; set; }
 
         [StringLength(128, ErrorMessage = "Примітка не може бути більшою за 128 символів.")]

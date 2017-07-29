@@ -45,6 +45,7 @@
       <HintPath>..\..\packages\MSTest.TestFramework.1.1.11\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
@@ -52,12 +53,18 @@
     <Compile Include="PaginationTests_2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TicketTests.cs" />
+    <Compile Include="ValidationAttributes\TicketNumberAttribute_Tests.cs" />
+    <Compile Include="ValidationAttributes\SerialNumberAttribute_Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\TicketManagementSystem.Business\TicketManagementSystem.Business.csproj">
+      <Project>{55b12f31-41fc-4fc6-9ec8-2ff9faac7c62}</Project>
+      <Name>TicketManagementSystem.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\TicketManagementSystem.Data.EF\TicketManagementSystem.Data.EF.csproj">
       <Project>{eb767e15-10c8-4471-8101-ae735c6e9a91}</Project>
       <Name>TicketManagementSystem.Data.EF</Name>
