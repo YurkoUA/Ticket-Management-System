@@ -7,6 +7,7 @@
         public string ColorName { get; set; }
         public string SerialFull { get; set; }
         public bool Move { get; set; }
+        public bool IsHappy { get; set; }
 
         public override string ToString()
         {

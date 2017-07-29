@@ -13,7 +13,17 @@
                 <div class="form-group">
                     <div class="col-md-10">
                         @Html.CheckBoxFor(model => Model[i].Move, new { id = $"tickets[{i}].Move" })
-                        @Model[i].ToString()
+                        
+                        @if (Model[i].IsHappy)
+                        {
+                            <span class="text-success">@Model[i].ToString()</span>
+                            <small>Щасливий</small>
+                        }
+                        else
+                        {
+                            <span>@Model[i].ToString()</span>
+                        }
+
                         @Html.HiddenFor(model => Model[i].Id, new { id = $"tickets[{i}].Id" })
                     </div>
                 </div>
