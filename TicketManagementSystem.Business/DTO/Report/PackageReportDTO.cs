@@ -11,10 +11,13 @@ namespace TicketManagementSystem.Business.DTO.Report
         public int TotalTickets { get; set; }
         public int NewTickets { get; set; }
         public int HappyTickets { get; set; }
-        public List<PackageDTO> DefaultPackages { get; set; }
+        public int NewHappyTickets { get; set; }
+        
+        public Dictionary<string, List<PackageDTO>> DefaultPackages { get; set; }
         public List<PackageDTO> SpecialPackages { get; set; }
 
         public int TotalPackages { get; set; }
+        public int TotalDefaultPackages { get; set; }
         public int NewPackagesCount { get; set; }
     }
 }

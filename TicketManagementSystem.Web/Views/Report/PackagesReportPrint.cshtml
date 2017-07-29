@@ -43,6 +43,8 @@
         <span>Нових: @Model.NewTickets</span>
         <br />
         <span>Щасливих: @Model.HappyTickets</span>
+        <br />
+        <span>Нових щасливих: @Model.NewHappyTickets</span>
     </div>
 
     <div>
@@ -52,65 +54,77 @@
         <br />
         <span>Нових: @Model.NewPackagesCount</span>
         <br />
-        <span>Звичайних: @Model.DefaultPackages.Count</span>
+        <span>Звичайних: @Model.TotalDefaultPackages</span>
         <br />
         <span>Спеціальних: @Model.SpecialPackages.Count</span>
     </div>
 
-    <div>
-        <h3>Звичайні пачки</h3>
-        <span>Всього: @Model.DefaultPackages.Count</span>
+    @if (Model.TotalDefaultPackages > 0)
+    {
+        <div>
+            <h3>Звичайні пачки</h3>
 
-        <table class="table table-bordered table-condensed">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Назва</th>
-                    <th>Квитків</th>
-                    <th>Нових</th>
-                </tr>
-            </thead>
+            @foreach (var item in Model.DefaultPackages)
+            {
+                <h4>Пачки серії "@item.Key"</h4>
 
-            <tbody>
-                @foreach (var item in Model.DefaultPackages)
-                {
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Назва</th>
+                            <th>Квитків</th>
+                            <th>Нових</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var package in item.Value)
+                    {
+                            <tr>
+                                <td>@package.Id</td>
+                                <td>@package.PackageName</td>
+                                <td>@package.TotalTickets</td>
+                                <td>@package.NewTickets</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    }
+
+    @if (Model.SpecialPackages.Any())
+    {
+        <hr />
+
+        <div>
+            <h3>Спеціальні пачки</h3>
+            <span>Всього: @Model.SpecialPackages.Count</span>
+
+            <table class="table table-bordered table-condensed">
+                <thead>
                     <tr>
-                        <td>@item.Id</td>
-                        <td>@item.PackageName</td>
-                        <td>@item.TotalTickets</td>
-                        <td>@item.NewTickets</td>
+                        <th>ID</th>
+                        <th>Назва</th>
+                        <th>Квитків</th>
+                        <th>Нових</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                </thead>
 
-    <div>
-        <h3>Спеціальні пачки</h3>
-        <span>Всього: @Model.SpecialPackages.Count</span>
-
-        <table class="table table-bordered table-condensed">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Назва</th>
-                    <th>Квитків</th>
-                    <th>Нових</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @foreach (var item in Model.SpecialPackages)
-                {
-                    <tr>
-                        <td>@item.Id</td>
-                        <td>@item.PackageName</td>
-                        <td>@item.TotalTickets</td>
-                        <td>@item.NewTickets</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                <tbody>
+                    @foreach (var item in Model.SpecialPackages)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.PackageName</td>
+                            <td>@item.TotalTickets</td>
+                            <td>@item.NewTickets</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
 </body>
 </html>

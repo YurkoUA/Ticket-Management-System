@@ -88,6 +88,8 @@ namespace TicketManagementSystem.Business.Services
                 dto.LastReportDate = lastReportDate;
 
                 dto.NewTicketsCount = Database.Tickets.GetCount(t => t.AddDate > lastReportDate);
+                dto.NewHappyTicketsCount = Database.Tickets.GetCount(t => t.IsHappy() && t.AddDate > lastReportDate);
+
                 dto.NewPackagesCount = Database.Packages.GetCount(t => t.Date > lastReportDate);
                 dto.DefaultPackagesTicketsNew = Database.Tickets.GetCount(t => t.AddDate > lastReportDate && t.Package?.IsSpecial == false);
                 dto.NewUnallocatedTicketsCount = Database.Tickets.GetCount(t => t.PackageId == null && t.AddDate > lastReportDate);
@@ -113,16 +115,19 @@ namespace TicketManagementSystem.Business.Services
             {
                 TotalTickets = _ticketService.TotalCount,
                 TotalPackages = _packageService.TotalCount,
+                TotalDefaultPackages = packages.Count(p => !p.IsSpecial),
                 HappyTickets = _ticketService.CountHappyTickets(),
 
                 DefaultPackages = packages.Where(p => !p.IsSpecial)
-                    .Select(p => new PackageDTO
-                    {
-                        Id = p.Id,
-                        PackageName = p.ToString(),
-                        TotalTickets = p.Tickets.Count()
-                    })
-                    .ToList(),
+                    .GroupBy(p => p.Serial.ToString())
+                    .OrderByDescending(g => g.AsEnumerable().Count())
+                    .ToDictionary(g => g.Key, g => g.AsEnumerable()
+                        .Select(p => new PackageDTO
+                        {
+                            Id = p.Id,
+                            PackageName = p.ToString(),
+                            TotalTickets = p.Tickets.Count()
+                        }).ToList()),
 
                 SpecialPackages = packages.Where(p => p.IsSpecial)
                     .Select(p => new PackageDTO
@@ -146,9 +151,15 @@ namespace TicketManagementSystem.Business.Services
                 };
 
                 dto.NewTickets = Database.Tickets.GetCount(t => t.AddDate > lastReportDate);
+                dto.NewHappyTickets = Database.Tickets.GetCount(t => t.IsHappy() && t.AddDate > lastReportDate);
+
                 dto.NewPackagesCount = Database.Packages.GetCount(p => p.Date > lastReportDate);
-                dto.DefaultPackages.ForEach(action);
                 dto.SpecialPackages.ForEach(action);
+
+                dto.DefaultPackages.Values.ToList().ForEach(v =>
+                {
+                    v.ForEach(action);
+                });
             }
 
             return dto;
