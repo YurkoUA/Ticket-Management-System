@@ -27,18 +27,25 @@
     </div>
 }
 
-<div class="jumbotron">
-    <h1>Створити новий звіт</h1>
+@if (User.IsInRole("Admin"))
+{
+    <div class="jumbotron">
+        <h1>Створити новий звіт</h1>
 
-    <p>
-        <a class="btn btn-info btn-lg" target="_blank" href="@Url.Action("DefaultReportPrint")" role="button">Переглянути загальний звіт &raquo;</a>
-        <a class="btn btn-info btn-lg" target="_blank" href="@Url.Action("PackagesReportPrint")" role="button">Переглянути звіт по пачкам &raquo;</a>
-    </p>
+        <p>
+            <a class="btn btn-info btn-lg" target="_blank" href="@Url.Action("DefaultReportPrint")" role="button">Переглянути загальний звіт &raquo;</a>
+            <a class="btn btn-info btn-lg" target="_blank" href="@Url.Action("PackagesReportPrint")" role="button">Переглянути звіт по пачкам &raquo;</a>
+        </p>
 
-    <p>
-        <a class="btn btn-primary btn-lg" href="@Url.Action("CreateReport")" role="button">Зберегти звіт</a>
-    </p>
-</div>
+        @using (@Html.BeginForm("CreateReport", "Report", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <p>
+                <button type="submit" class="btn btn-primary btn-lg" role="button">Зберегти звіт</button>
+            </p>
+        }
+    </div>
+}
 
 @if (!Model.ArchiveIsEmpty)
 {

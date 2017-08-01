@@ -212,6 +212,7 @@
     <Compile Include="Helpers\AlertHelper.cs" />
     <Compile Include="Helpers\LocalDateHelper.cs" />
     <Compile Include="Helpers\PagingHelper.cs" />
+    <Compile Include="Jobs\ReportJob.cs" />
     <Compile Include="Jobs\SummaryJob.cs" />
     <Compile Include="Jobs\JobScheduler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

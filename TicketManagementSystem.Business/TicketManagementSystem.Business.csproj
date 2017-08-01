@@ -93,14 +93,14 @@
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Interfaces\ILoginService.cs" />
     <Compile Include="Interfaces\IPackageService.cs" />
-    <Compile Include="Interfaces\IPdfService.cs" />
+    <Compile Include="Pdf\IPdfService.cs" />
     <Compile Include="Interfaces\IReportService.cs" />
     <Compile Include="Interfaces\IRoleService.cs" />
     <Compile Include="Interfaces\ISummaryService.cs" />
     <Compile Include="Interfaces\ITicketService.cs" />
     <Compile Include="Interfaces\ITodoService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
-    <Compile Include="PdfService.cs" />
+    <Compile Include="Pdf\PdfService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Services\ColorService.cs" />

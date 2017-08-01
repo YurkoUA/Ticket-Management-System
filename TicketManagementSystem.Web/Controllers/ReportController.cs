@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using TicketManagementSystem.Business;
 using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class ReportController : ApplicationController
     {
         private IReportService _reportService;
@@ -30,7 +28,7 @@ namespace TicketManagementSystem.Web.Controllers
             });
         }
 
-        [HttpGet]
+        [HttpGet, OutputCache(Duration = 30, Location = OutputCacheLocation.Client)]
         public ActionResult Archive()
         {
             var reports = _reportService.GetReports()
@@ -42,10 +40,10 @@ namespace TicketManagementSystem.Web.Controllers
             return PartialView("ArchiveModal", reports);
         }
 
-        [HttpGet]
-        public ActionResult CreateReport(bool isAutomatic = false)
+        [HttpPost, ValidateAntiForgeryToken, Authorize(Roles = "Admin")]
+        public ActionResult CreateReport()
         {
-            var report = _reportService.CreateReport(isAutomatic);
+            var report = _reportService.CreateReport(false);
             var folderPath = Request.RequestContext.HttpContext.Server.MapPath("~/Files/Reports/");
 
             try
@@ -65,13 +63,13 @@ namespace TicketManagementSystem.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet]
         public ActionResult DefaultReportPrint()
         {
             return View(_reportService.GetDefaultReportDTO());
         }
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet]
         public ActionResult PackagesReportPrint()
         {
             return View(_reportService.GetPackagesReportDTO());

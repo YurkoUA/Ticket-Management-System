@@ -1,7 +1,7 @@
 ﻿using EvoPdf;
 using TicketManagementSystem.Business.Interfaces;
 
-namespace TicketManagementSystem.Business.Services
+namespace TicketManagementSystem.Business
 {
     public class PdfService : IPdfService
     {
