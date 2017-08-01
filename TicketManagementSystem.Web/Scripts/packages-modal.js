@@ -1,21 +1,17 @@
-﻿$(function () {
-    $('#packages-by-serial').click(function () {
-        var id = $('#Id').val();
-        var url = "/Serial/GetPackages";
+﻿function packagesByColorModal(colorId) {
+    var url = "/Color/GetPackages";
 
-        loadPackages(url, id);
+    loadPackages(url, colorId);
+}
+
+function packagesBySerialModal(serialId) {
+    var url = "/Serial/GetPackages";
+
+    loadPackages(url, serialId);
+}
+
+function loadPackages(url, id) {
+    $.get(url, { id: id }, function (data) {
+        showModal(data);
     });
-
-    $('#packages-by-color').click(function () {
-        var id = $('#Id').val();
-        var url = "/Color/GetPackages";
-
-        loadPackages(url, id);
-    });
-
-    var loadPackages = function (url, id) {
-        $.get(url, { id: id }, function (data) {
-            showModal(data);
-        });
-    }
-})
+}

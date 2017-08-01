@@ -1,5 +1,10 @@
 ﻿@model TicketDetailsModel
 
+@{ 
+    Layout = null;
+    var htmlAttr = new { target = "_blank" };
+}
+
 <h2>
     Квиток №@Model.Number
 
@@ -25,10 +30,10 @@
         }
 
         <dt>@Html.DisplayNameFor(model => model.ColorName)</dt>
-        <dd>@Html.ActionLink(Model.ColorName, "Details", "Color", new { id = Model.ColorId }, new { })</dd>
+        <dd>@Html.ActionLink(Model.ColorName, "Details", "Color", new { id = Model.ColorId }, htmlAttr)</dd>
 
         <dt>@Html.DisplayNameFor(model => model.SerialFull)</dt>
-        <dd>@Html.ActionLink(Model.SerialFull, "Details", "Serial", new { id = Model.SerialId }, new { })</dd>
+        <dd>@Html.ActionLink(Model.SerialFull, "Details", "Serial", new { id = Model.SerialId }, htmlAttr)</dd>
 
         @if (!string.IsNullOrEmpty(Model.Date))
         {
@@ -49,6 +54,6 @@
     @if (Model.Clones != null)
     {
         @Html.HiddenFor(Model => Model.Id)
-        <button id="tickets-with-number" class="btn btn-default">Квитків з таким же номером (@Model.Clones)</button>
+        <button id="tickets-with-number" class="btn btn-link">Квитків з таким же номером (@Model.Clones)</button>
     }
 </div>

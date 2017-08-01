@@ -3,9 +3,9 @@
 
     angular
         .module('todoApp')
-        .controller('todoController', ['$scope', '$rootScope', '$route', '$location', '$templateCache', '$routeParams', 'todoService', taskController]);
+        .controller('todoController', ['$scope', '$rootScope', '$window', '$route', '$location', '$templateCache', '$routeParams', 'todoService', taskController]);
 
-    function taskController($scope, $rootScope, $route, $location, $templateCache, $routeParams, todoService) {
+    function taskController($scope, $rootScope, $window, $route, $location, $templateCache, $routeParams, todoService) {
         $rootScope.title = "Головна";
 
         todoService.getGrouped()
@@ -33,6 +33,8 @@
         $scope.$on('$routeChangeSuccess', function () {
             var id = $routeParams["id"];
             console.log("Route change success. ID: " + id);
+
+            $window.scrollTo(0, 0);
 
             if (id !== undefined) {
                 console.log(id);

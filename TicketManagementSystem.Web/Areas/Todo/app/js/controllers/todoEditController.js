@@ -3,9 +3,9 @@
 
     angular
         .module('todoApp')
-        .controller('todoEditController', ['$scope', '$rootScope', '$timeout', '$route', '$location', '$templateCache', '$routeParams', 'todoService', todoEditController]);
+        .controller('todoEditController', ['$scope', '$rootScope', '$window', '$timeout', '$route', '$location', '$templateCache', '$routeParams', 'todoService', todoEditController]);
 
-    function todoEditController($scope, $rootScope, $timeout, $route, $location, $templateCache, $routeParams, todoService) {
+    function todoEditController($scope, $rootScope, $window, $timeout, $route, $location, $templateCache, $routeParams, todoService) {
         $scope.selectedTask;
         $scope.formSuccessMessage;
         $scope.formErrors;
@@ -20,6 +20,8 @@
         $scope.$on('$routeChangeSuccess', function () {
             var id = $routeParams["id"];
             console.log("Route change success");
+
+            $window.scrollTo(0, 0);
 
             if (id !== undefined) {
                 todoService.getById(id).then(function (response) {

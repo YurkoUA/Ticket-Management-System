@@ -3,6 +3,7 @@
 @{
     Layout = null;
     bool isAdmin = User.IsInRole("Admin");
+    var htmlAttr = new { target = "_blank" };
 }
 
 <h2>Пачка "@Model.Name"</h2>
@@ -19,13 +20,13 @@
         @if (!string.IsNullOrEmpty(Model.ColorName))
         {
             <dt>@Html.DisplayNameFor(model => model.ColorName)</dt>
-            <dd>@Html.ActionLink(Model.ColorName, "Details", "Color", new { id = Model.Id }, new { })</dd>
+            <dd>@Html.ActionLink(Model.ColorName, "Details", "Color", new { id = Model.ColorId }, htmlAttr)</dd>
         }
 
         @if (!string.IsNullOrEmpty(Model.SerialName))
         {
             <dt>@Html.DisplayNameFor(model => model.SerialName)</dt>
-            <dd>@Html.ActionLink(Model.SerialName, "Details", "Serial", new { id = Model.Id }, new { })</dd>
+            <dd>@Html.ActionLink(Model.SerialName, "Details", "Serial", new { id = Model.SerialId }, htmlAttr)</dd>
         }
 
         @if (isAdmin)
@@ -47,8 +48,14 @@
             <dd>@Html.DisplayFor(model => model.FirstNumber)</dd>
         }
 
-        <dt>@Html.DisplayNameFor(model => model.TicketsCount)</dt>
-        <dd>@Html.DisplayFor(model => model.TicketsCount)</dd>
+        @if (Model.TicketsCount > 0)
+        {
+            <dt>@Html.DisplayNameFor(model => model.TicketsCount)</dt>
+            <dd>
+                <span>@Model.TicketsCount шт.</span>
+                @Html.ActionLink("  (Переглянути)", "Tickets", new { id = Model.Id }, htmlAttr)
+            </dd>
+        }
 
         @if (!string.IsNullOrEmpty(Model.Note))
         {
@@ -59,20 +66,14 @@
 </div>
 
 <div class="btn-group" role="group">
-    @if (Model.TicketsCount > 0)
-    {
-        @Html.HiddenFor(model => model.Id)
-        <button id="tickets-by-package-button" type="button" class="btn btn-default">Список квитків (@Model.TicketsCount)</button>
-    }
-
     @if (Model.UnallocatedTicketsCount > 0 && isAdmin)
     {
         @Html.HiddenFor(model => model.Id)
-        <button id="unallocated-tickets" type="button" class="btn btn-default">Перемістити нерозподілені (@Model.UnallocatedTicketsCount)</button>
+        <button id="unallocated-tickets" type="button" class="btn btn-link">Перемістити нерозподілені (@Model.UnallocatedTicketsCount)</button>
     }
 
     @if (Model.IsOpened && isAdmin)
     {
-        @Html.ActionLink("Додати квитки", "CreateInPackage", "Ticket", new { id = Model.Id }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Додати квитки", "CreateInPackage", "Ticket", new { id = Model.Id }, new { @class = "btn btn-link" })
     }
 </div>

@@ -101,11 +101,14 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (!_packageService.ExistsById(id)) return HttpNotFound();
 
-            var packageName = _packageService.GetPackage(id).Name;
+            var package = _packageService.GetPackage(id);
             var tickets = _packageService.GetPackageTickets(id, true);
 
-            ViewBag.Title = $"Квитки з пачки \"{packageName}\"";
-            return PartialView("TicketsPartial", MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets));
+            ViewBag.Title = $"Квитки з пачки \"{package.Name}\"";
+            ViewBag.PackageId = id;
+            ViewBag.IsOpened = package.IsOpened;
+
+            return View(MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets));
         }
 
         [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]

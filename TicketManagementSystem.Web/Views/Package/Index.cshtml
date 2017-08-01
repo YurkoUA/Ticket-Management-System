@@ -41,7 +41,7 @@
                 {
                     <tr>
                         <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                        <td>@Html.ActionLink(item.Name, "Details", new { id = item.Id })</td>
+                        <td>@Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { })</td>
                         <td>@Html.DisplayFor(modelItem => item.TicketsCount)</td>
                         <td>@Html.DisplayFor(modelItem => item.Status)</td>
                         <td>@Html.DisplayFor(modelItem => item.Nominal)</td>

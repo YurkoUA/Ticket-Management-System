@@ -16,11 +16,20 @@
         <dt>@Html.DisplayNameFor(model => model.Name)</dt>
         <dd>@Html.DisplayFor(model => model.Name)</dd>
 
-        <dt>@Html.DisplayNameFor(model => model.PackagesCount)</dt>
-        <dd>@Html.DisplayFor(model => model.PackagesCount)</dd>
+        @if (Model.PackagesCount > 0)
+        {
+            <dt>@Html.DisplayNameFor(model => model.PackagesCount)</dt>
+            <dd>
+                @Html.DisplayFor(model => model.PackagesCount)
+                <a onclick="packagesBySerialModal(@Model.Id)">   (Переглянути)</a>
+            </dd>
+        }
 
-        <dt>@Html.DisplayNameFor(model => model.TicketsCount)</dt>
-        <dd>@Html.DisplayFor(model => model.TicketsCount)</dd>
+        @if (Model.TicketsCount > 0)
+        {
+            <dt>@Html.DisplayNameFor(model => model.TicketsCount)</dt>
+            <dd>@Html.DisplayFor(model => model.TicketsCount)</dd>
+        }
 
         @if (!string.IsNullOrEmpty(Model.Note))
         {
@@ -30,8 +39,8 @@
     </dl>
 </div>
 
-@if (Model.PackagesCount > 0)
-{
-    @Html.HiddenFor(model => model.Id)
-    <button id="packages-by-serial" class="btn btn-default">Список пачок</button>
-}
+@*@if (Model.PackagesCount > 0)
+    {
+        @Html.HiddenFor(model => model.Id)
+        <button id="packages-by-serial" class="btn btn-link">Список пачок</button>
+    }*@

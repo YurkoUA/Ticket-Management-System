@@ -1,0 +1,65 @@
+﻿@model IEnumerable<TicketDetailsModel>
+
+@{
+    bool isAdmin = User.IsInRole("Admin");
+    var htmlAttr = new { target = "_blank" };
+}
+
+@if (Model.Any())
+{
+    <h2>
+        @ViewBag.Title
+        <small>@Model.Count() шт.</small>
+    </h2>
+    <hr />
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Квитків у пачці: @Model.Count() шт.
+        </div>
+
+        @if (isAdmin && (bool)ViewBag.IsOpened == true)
+        {
+            <div class="panel-body">
+                @Html.ActionLink("Додати квитки", "CreateInPackage", "Ticket", new { id = ViewBag.PackageId }, new { })
+            </div>
+        }
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Номер</th>
+                        <th>Колір</th>
+                        <th>Серія</th>
+                        <th>Дата</th>
+                        <th>Примітка</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="@item.TrClass()">
+                            <td>@Html.ActionLink(item.Number, "Details", new { id = item.Id })</td>
+                            <td>@Html.ActionLink(item.ColorName, "Details", "Color", new { id = item.ColorId }, htmlAttr)</td>
+                            <td>@Html.ActionLink(item.SerialName, "Details", "Serial", new { id = item.SerialId }, htmlAttr)</td>
+                            <td>@item.Date</td>
+                            <td>@item.Note</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <h2>@ViewBag.Title</h2>
+    <hr />
+
+    @Html.ActionLink("Додати квитки", "CreateInPackage", "Ticket", new { id = ViewBag.PackageId }, new { })
+    @Html.AlertDanger("Пачка порожня")
+}
+
+@Html.ActionLink("Назад до пачки", "Details", new { id = ViewBag.PackageId })

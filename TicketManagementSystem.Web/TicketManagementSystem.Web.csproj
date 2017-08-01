@@ -409,6 +409,7 @@
     <Content Include="Views\Report\PackagesReportPrint.cshtml" />
     <Content Include="Views\Report\ArchiveModal.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Package\Tickets.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

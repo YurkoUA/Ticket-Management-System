@@ -18,10 +18,10 @@
             @foreach (var item in Model)
             {
                 <tr class="@item.TrClass()">
-                    <td>@Html.ActionLink(item.Number, "Details", new { id = item.Id })</td>
-                    <td><a href="@Url.Action("Details", "Package", new { id = item.PackageId })">@item.PackageName</a></td>
-                    <td><a href="@Url.Action("Details", "Color", new { id = item.ColorId })">@item.ColorName</a></td>
-                    <td><a href="@Url.Action("Details", "Serial", new { id = item.SerialId })">@item.SerialFull</a></td>
+                    <td>@Html.ActionLink(item.Number, "Details", new { id = item.Id }, new { target = "_blank" })</td>
+                    <td><a target="_blank" href="@Url.Action("Details", "Package", new { id = item.PackageId })">@item.PackageName</a></td>
+                    <td><a target="_blank" href="@Url.Action("Details", "Color", new { id = item.ColorId })">@item.ColorName</a></td>
+                    <td><a target="_blank" href="@Url.Action("Details", "Serial", new { id = item.SerialId })">@item.SerialFull</a></td>
                     <td>@item.Date</td>
                     <td>@item.Note</td>
                 </tr>
