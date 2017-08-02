@@ -12,7 +12,7 @@ using TicketManagementSystem.Web.Filters;
 
 namespace TicketManagementSystem.Web.Controllers
 {
-    public class AccountController : ApplicationController
+    public class AccountController : BaseController
     {
         private IUserService _userService;
         private ILoginService _loginService;

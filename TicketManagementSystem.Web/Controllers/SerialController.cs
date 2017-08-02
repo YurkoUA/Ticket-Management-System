@@ -1,21 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.UI;
+using TicketManagementSystem.Business;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class SerialController : ApplicationController
+    public class SerialController : BaseController
     {
+        private ICacheService _cacheService;
         private ISerialService _serialService;
         private IPackageService _packageService;
 
-        public SerialController(ISerialService serialService, IPackageService packageService)
+        public SerialController(ISerialService serialService, IPackageService packageService, ICacheService cacheServ)
         {
             _serialService = serialService;
             _packageService = packageService;
+            _cacheService = cacheServ;
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 30, Location = OutputCacheLocation.Client)]
@@ -77,6 +80,8 @@ namespace TicketManagementSystem.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     var id = _serialService.Create(createDTO).Id;
+                    _cacheService.DeleteItem("SeriesSelectList");
+
                     return SuccessPartial($"Серію \"{model.Name}\" успішно додано!", Url.Action("Details", new { id = id }), "Переглянути");
                 }
             }
@@ -120,6 +125,8 @@ namespace TicketManagementSystem.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     _serialService.Edit(editDTO);
+                    _cacheService.DeleteItem("SeriesSelectList");
+
                     return SuccessPartial("Зміни збережено!");
                 }
             }
@@ -162,6 +169,8 @@ namespace TicketManagementSystem.Web.Controllers
             if (serial.PackagesCount == 0 && serial.TicketsCount == 0)
             {
                 _serialService.Remove(serial.Id);
+                _cacheService.DeleteItem("SeriesSelectList");
+
                 return SuccessPartial("Серію видалено.");
             }
             ModelState.AddModelError("", "Неможливо видалити цей колір, бо є квитки та пачки, що до неї належать!");

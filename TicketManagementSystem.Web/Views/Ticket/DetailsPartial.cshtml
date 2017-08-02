@@ -2,7 +2,6 @@
 
 @{ 
     Layout = null;
-    var htmlAttr = new { target = "_blank" };
 }
 
 <h2>
@@ -30,10 +29,10 @@
         }
 
         <dt>@Html.DisplayNameFor(model => model.ColorName)</dt>
-        <dd>@Html.ActionLink(Model.ColorName, "Details", "Color", new { id = Model.ColorId }, htmlAttr)</dd>
+        <dd>@Html.ActionLink(Model.ColorName, "Details", "Color", new { id = Model.ColorId }, new { })</dd>
 
         <dt>@Html.DisplayNameFor(model => model.SerialFull)</dt>
-        <dd>@Html.ActionLink(Model.SerialFull, "Details", "Serial", new { id = Model.SerialId }, htmlAttr)</dd>
+        <dd>@Html.ActionLink(Model.SerialFull, "Details", "Serial", new { id = Model.SerialId }, new { })</dd>
 
         @if (!string.IsNullOrEmpty(Model.Date))
         {

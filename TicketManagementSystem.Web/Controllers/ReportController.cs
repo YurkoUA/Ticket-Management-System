@@ -7,7 +7,7 @@ using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
 {
-    public class ReportController : ApplicationController
+    public class ReportController : BaseController
     {
         private IReportService _reportService;
         private IPdfService _pdfService;

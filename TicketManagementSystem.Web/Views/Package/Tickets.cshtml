@@ -2,7 +2,6 @@
 
 @{
     bool isAdmin = User.IsInRole("Admin");
-    var htmlAttr = new { target = "_blank" };
 }
 
 @if (Model.Any())
@@ -41,9 +40,9 @@
                     @foreach (var item in Model)
                     {
                         <tr class="@item.TrClass()">
-                            <td>@Html.ActionLink(item.Number, "Details", new { id = item.Id })</td>
-                            <td>@Html.ActionLink(item.ColorName, "Details", "Color", new { id = item.ColorId }, htmlAttr)</td>
-                            <td>@Html.ActionLink(item.SerialName, "Details", "Serial", new { id = item.SerialId }, htmlAttr)</td>
+                            <td>@Html.ActionLink(item.Number, "Details", "Ticket", new { id = item.Id }, new { })</td>
+                            <td>@Html.ActionLink(item.ColorName, "Details", "Color", new { id = item.ColorId }, new { })</td>
+                            <td>@Html.ActionLink(item.SerialFull, "Details", "Serial", new { id = item.SerialId }, new { })</td>
                             <td>@item.Date</td>
                             <td>@item.Note</td>
                         </tr>

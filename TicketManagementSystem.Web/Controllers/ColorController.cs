@@ -1,21 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.UI;
+using TicketManagementSystem.Business;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class ColorController : ApplicationController
+    public class ColorController : BaseController
     {
+        private ICacheService _cacheService;
         private IColorService _colorService;
         private IPackageService _packageService;
 
-        public ColorController(IColorService colorService, IPackageService packageService)
+        public ColorController(IColorService colorService, IPackageService packageService, ICacheService cacheServ)
         {
             _colorService = colorService;
             _packageService = packageService;
+            _cacheService = cacheServ;
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 30, Location = OutputCacheLocation.Client)]
@@ -78,6 +81,8 @@ namespace TicketManagementSystem.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     var id = _colorService.Create(createDTO).Id;
+                    _cacheService.DeleteItem("ColorSelectList");
+
                     return SuccessPartial($"Колір \"{model.Name}\" успішно додано!",
                         Url.Action("Details", "Color", new { id = id }),
                         "Переглянути");
@@ -123,6 +128,8 @@ namespace TicketManagementSystem.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     _colorService.Edit(editDTO);
+                    _cacheService.DeleteItem("ColorSelectList");
+
                     return SuccessPartial("Зміни збережено!");
                 }
             }
@@ -165,6 +172,8 @@ namespace TicketManagementSystem.Web.Controllers
             if (color.PackagesCount == 0 && color.TicketsCount == 0)
             {
                 _colorService.Remove(id);
+                _cacheService.DeleteItem("ColorSelectList");
+
                 return SuccessPartial("Колір видалено.");
             }
             ModelState.AddModelError("", "Неможливо видалити цей колір, бо є квитки та пачки, що до нього належать!");

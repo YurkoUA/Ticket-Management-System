@@ -4,29 +4,33 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.UI;
+using TicketManagementSystem.Business;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class TicketController : ApplicationController
+    public class TicketController : BaseController
     {
         private ITicketService _ticketService;
         private IPackageService _packageService;
         private ISerialService _serialService;
         private IColorService _colorService;
+        private ICacheService _cacheService;
 
         public TicketController(
             ITicketService ticketService,
             IPackageService packageService,
             ISerialService serialService,
-            IColorService colorService)
+            IColorService colorService,
+            ICacheService cacheService)
         {
             _ticketService = ticketService;
             _packageService = packageService;
             _serialService = serialService;
             _colorService = colorService;
+            _cacheService = cacheService;
         }
 
         #region Index, Unallocated, Happy, Details
@@ -116,6 +120,38 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         #endregion
+
+        /*
+        [HttpGet, AllowAnonymous]
+        public ActionResult Filter(TicketFilterModel viewModel)
+        {
+            const int ITEMS_ON_PAGE = 30;
+
+            IEnumerable<TicketDTO> tickets = _ticketService.GetTickets();
+
+            #region Filtration
+
+            if (viewModel.FirstNumber != null)
+                tickets = tickets.Where(t => t.FirstNumber == viewModel.FirstNumber);
+
+            if (viewModel.ColorId != null)
+                tickets = tickets.Where(t => t.ColorId == viewModel.ColorId);
+
+            if (viewModel.SerialId != null)
+                tickets = tickets.Where(t => t.SerialId == viewModel.SerialId);
+
+            #endregion
+
+            tickets = tickets.Skip((viewModel.Page - 1) * ITEMS_ON_PAGE).Take(ITEMS_ON_PAGE);
+
+            viewModel.PageInfo = new PageInfo(viewModel.Page, tickets.Count(), ITEMS_ON_PAGE);
+            viewModel.Tickets = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets);
+            viewModel.Colors = GetColorsList();
+            viewModel.Series = GetSeriesList();
+
+            return View("", viewModel);
+        }
+        */
 
         [HttpGet, AllowAnonymous]
         public ActionResult Search(string number)
@@ -283,7 +319,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (Request.IsAjaxRequest() || partial)
             {
                 var viewModel = MapperInstance.Map<TicketEditModel>(ticket);
-                
+
                 if (viewModel.CanSelectColor)
                     viewModel.Colors = GetColorsList();
 
@@ -479,13 +515,35 @@ namespace TicketManagementSystem.Web.Controllers
 
         private SelectList GetColorsList()
         {
-            var colors = _colorService.GetColors().OrderBy(c => c.Name);
+            IEnumerable<ColorDTO> colors;
+
+            if (_cacheService.Contains("ColorSelectList"))
+            {
+                colors = _cacheService.GetItem<IEnumerable<ColorDTO>>("ColorSelectList");
+            }
+            else
+            {
+                colors = _colorService.GetColors().OrderBy(c => c.Name);
+                _cacheService.AddOrReplaceItem("ColorSelectList", colors);
+            }
+
             return new SelectList(colors, "Id", "Name");
         }
 
         private SelectList GetSeriesList()
         {
-            var series = _serialService.GetSeries().OrderBy(s => s.Name);
+            IEnumerable<SerialDTO> series;
+
+            if (_cacheService.Contains("SeriesSelectList"))
+            {
+                series = _cacheService.GetItem<IEnumerable<SerialDTO>>("SeriesSelectList");
+            }
+            else
+            {
+                series = _serialService.GetSeries().OrderBy(s => s.Name);
+                _cacheService.AddOrReplaceItem("SeriesSelectList", series);
+            }
+            
             return new SelectList(series, "Id", "Name");
         }
 
@@ -525,7 +583,7 @@ namespace TicketManagementSystem.Web.Controllers
             };
             return PartialView("SelectListPartial", viewModel);
         }
-        
+
         [HttpGet, OutputCache(Duration = 10, Location = OutputCacheLocation.ServerAndClient)]
         public ActionResult GetColorsPartial(string selectId, string selectName)
         {

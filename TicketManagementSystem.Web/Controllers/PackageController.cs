@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.UI;
+using TicketManagementSystem.Business;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class PackageController : ApplicationController
+    public class PackageController : BaseController
     {
+        private ICacheService _cacheService;
         private ITicketService _ticketService;
         private IPackageService _packageService;
         private IColorService _colorService;
@@ -19,12 +21,14 @@ namespace TicketManagementSystem.Web.Controllers
         public PackageController(IPackageService packageService, 
             IColorService colorService, 
             ISerialService serialService,
-            ITicketService ticketServive)
+            ITicketService ticketServive,
+            ICacheService cacheService)
         {
             _packageService = packageService;
             _colorService = colorService;
             _serialService = serialService;
             _ticketService = ticketServive;
+            _cacheService = cacheService;
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
@@ -470,7 +474,17 @@ namespace TicketManagementSystem.Web.Controllers
 
         private SelectList GetColorsSelectList(bool nullElement = false)
         {
-            var colors = _colorService.GetColors().OrderBy(c => c.Name).ToList();
+            List<ColorDTO> colors;
+
+            if (_cacheService.Contains("ColorSelectList"))
+            {
+                colors = _cacheService.GetItem<IEnumerable<ColorDTO>>("ColorSelectList").ToList();
+            }
+            else
+            {
+                colors = _colorService.GetColors().OrderBy(c => c.Name).ToList();
+                _cacheService.AddOrReplaceItem("ColorSelectList", colors.AsEnumerable());
+            }
 
             if (nullElement)
                 colors.Add(new ColorDTO { Name = "(Немає)" });
@@ -480,7 +494,17 @@ namespace TicketManagementSystem.Web.Controllers
 
         private SelectList GetSeriesSelectList(bool nullElement = false)
         {
-            var series = _serialService.GetSeries().OrderBy(s => s.Name).ToList();
+            List<SerialDTO> series;
+
+            if (_cacheService.Contains("SerialSelectList"))
+            {
+                series = _cacheService.GetItem<IEnumerable<SerialDTO>>("SerialSelectList").ToList();
+            }
+            else
+            {
+                series = _serialService.GetSeries().OrderBy(s => s.Name).ToList();
+                _cacheService.AddOrReplaceItem("SerialSelectList", series.AsEnumerable());
+            }
 
             if (nullElement)
                 series.Add(new SerialDTO { Name = "(Немає)" });

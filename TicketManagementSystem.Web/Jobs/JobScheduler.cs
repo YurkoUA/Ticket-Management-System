@@ -1,4 +1,5 @@
-﻿using Quartz;
+﻿using System;
+using Quartz;
 using Quartz.Impl;
 
 namespace TicketManagementSystem.Web.Jobs

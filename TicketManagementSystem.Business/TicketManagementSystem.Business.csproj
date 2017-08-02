@@ -55,6 +55,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -67,6 +68,8 @@
     <Compile Include="Attributes\SerialNumberAttribute.cs" />
     <Compile Include="Attributes\TicketNumberAttribute.cs" />
     <Compile Include="AutoMapperConfig.cs" />
+    <Compile Include="Cache\CacheService.cs" />
+    <Compile Include="Cache\ICacheService.cs" />
     <Compile Include="DTO\Color\ColorCreateDTO.cs" />
     <Compile Include="DTO\Color\ColorDTO.cs" />
     <Compile Include="DTO\Color\ColorEditDTO.cs" />

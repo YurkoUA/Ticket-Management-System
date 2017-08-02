@@ -7,7 +7,7 @@ using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
 {
-    public class BotController : ApplicationController
+    public class BotController : BaseController
     {
         private ITicketService _ticketService;
         private IPackageService _packageService;

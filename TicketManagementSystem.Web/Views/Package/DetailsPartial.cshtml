@@ -3,7 +3,6 @@
 @{
     Layout = null;
     bool isAdmin = User.IsInRole("Admin");
-    var htmlAttr = new { target = "_blank" };
 }
 
 <h2>Пачка "@Model.Name"</h2>
@@ -20,13 +19,13 @@
         @if (!string.IsNullOrEmpty(Model.ColorName))
         {
             <dt>@Html.DisplayNameFor(model => model.ColorName)</dt>
-            <dd>@Html.ActionLink(Model.ColorName, "Details", "Color", new { id = Model.ColorId }, htmlAttr)</dd>
+            <dd>@Html.ActionLink(Model.ColorName, "Details", "Color", new { id = Model.ColorId }, new { })</dd>
         }
 
         @if (!string.IsNullOrEmpty(Model.SerialName))
         {
             <dt>@Html.DisplayNameFor(model => model.SerialName)</dt>
-            <dd>@Html.ActionLink(Model.SerialName, "Details", "Serial", new { id = Model.SerialId }, htmlAttr)</dd>
+            <dd>@Html.ActionLink(Model.SerialName, "Details", "Serial", new { id = Model.SerialId }, new { })</dd>
         }
 
         @if (isAdmin)
@@ -53,7 +52,7 @@
             <dt>@Html.DisplayNameFor(model => model.TicketsCount)</dt>
             <dd>
                 <span>@Model.TicketsCount шт.</span>
-                @Html.ActionLink("  (Переглянути)", "Tickets", new { id = Model.Id }, htmlAttr)
+                @Html.ActionLink("  (Переглянути)", "Tickets", new { id = Model.Id }, new { })
             </dd>
         }
 

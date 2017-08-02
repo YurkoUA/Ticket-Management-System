@@ -193,7 +193,7 @@
     <Compile Include="Areas\Todo\Models\Extensions.cs" />
     <Compile Include="Areas\Todo\TodoAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ApplicationController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BotController.cs" />
     <Compile Include="Controllers\ColorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -246,6 +246,7 @@
     <Compile Include="ViewModels\Ticket\TicketCreateModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketDetailsModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketEditModel.cs" />
+    <Compile Include="ViewModels\Ticket\TicketFilterModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketIndexModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketMoveModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketUnallocatedMoveModel.cs" />
@@ -410,6 +411,7 @@
     <Content Include="Views\Report\ArchiveModal.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\Package\Tickets.cshtml" />
+    <Content Include="Views\Ticket\Filter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
