@@ -121,37 +121,42 @@ namespace TicketManagementSystem.Web.Controllers
 
         #endregion
 
-        /*
         [HttpGet, AllowAnonymous]
         public ActionResult Filter(TicketFilterModel viewModel)
         {
             const int ITEMS_ON_PAGE = 30;
 
-            IEnumerable<TicketDTO> tickets = _ticketService.GetTickets();
+            IEnumerable<TicketDTO> tickets;
 
-            #region Filtration
+            if (!viewModel.IsNull())
+            {
+                tickets = _ticketService.Filter(viewModel.FirstNumber, viewModel.ColorId, viewModel.SerialId);
 
-            if (viewModel.FirstNumber != null)
-                tickets = tickets.Where(t => t.FirstNumber == viewModel.FirstNumber);
+                viewModel.Tickets = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(
+                    tickets.Skip((viewModel.Page - 1) * ITEMS_ON_PAGE).Take(ITEMS_ON_PAGE));
 
-            if (viewModel.ColorId != null)
-                tickets = tickets.Where(t => t.ColorId == viewModel.ColorId);
+                viewModel.PageInfo = new PageInfo(viewModel.Page, tickets.Count(), ITEMS_ON_PAGE);
+            }
 
-            if (viewModel.SerialId != null)
-                tickets = tickets.Where(t => t.SerialId == viewModel.SerialId);
-
-            #endregion
-
-            tickets = tickets.Skip((viewModel.Page - 1) * ITEMS_ON_PAGE).Take(ITEMS_ON_PAGE);
-
-            viewModel.PageInfo = new PageInfo(viewModel.Page, tickets.Count(), ITEMS_ON_PAGE);
-            viewModel.Tickets = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets);
             viewModel.Colors = GetColorsList();
             viewModel.Series = GetSeriesList();
 
-            return View("", viewModel);
+            if (viewModel.ColorId != null)
+            {
+                viewModel.ColorName = viewModel.Colors
+                    .FirstOrDefault(i => i.Value.Equals(viewModel.ColorId.ToString()))
+                    .Text;
+            }
+
+            if (viewModel.SerialId != null)
+            {
+                viewModel.SerialName = viewModel.Series
+                    .FirstOrDefault(i => i.Value.Equals(viewModel.SerialId.ToString()))
+                    .Text;
+            }
+            
+            return View(viewModel);
         }
-        */
 
         [HttpGet, AllowAnonymous]
         public ActionResult Search(string number)

@@ -164,6 +164,25 @@ namespace TicketManagementSystem.Business.Services
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
+        public IEnumerable<TicketDTO> Filter(int? firstNumber, int? colorId, int? serialId)
+        {
+            IQueryable<Ticket> tickets = Database.Tickets.GetAll();
+
+            if (firstNumber != null)
+                tickets = tickets.ToList().Where(t => int.Parse(t.Number.First().ToString()) == firstNumber).AsQueryable();
+
+            if (colorId != null)
+                tickets = tickets.Where(t => t.ColorId == colorId);
+
+            if (serialId != null)
+                tickets = tickets.Where(t => t.SerialId == serialId);
+
+            return MapperInstance.Map<IEnumerable<TicketDTO>>(
+                tickets
+                .OrderBy(t => t.Number)
+                .AsEnumerable());
+        }
+
         #endregion
 
         public TicketEditDTO GetEdit(int id)
@@ -225,6 +244,7 @@ namespace TicketManagementSystem.Business.Services
         public void CreateMany(TicketCreateDTO[] createDTO)
         {
             // TODO: CreateMany.
+            throw new NotImplementedException();
         }
 
         public TicketDTO ChangeNumber(int ticketId, string number)
@@ -271,6 +291,8 @@ namespace TicketManagementSystem.Business.Services
             Database.SaveChanges();
         }
 
+        #region Count
+
         public int CountByNumber(string number)
         {
             return Database.Tickets.GetCount(t => t.Number.Equals(number));
@@ -295,6 +317,8 @@ namespace TicketManagementSystem.Business.Services
         {
             return Database.Tickets.GetCount(t => t.IsHappy());
         }
+
+        #endregion
 
         #region Exists methods
 

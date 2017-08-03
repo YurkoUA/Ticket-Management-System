@@ -1,0 +1,91 @@
+﻿@model TicketFilterModel
+
+@{
+    ViewBag.Title = "Пошук квитків за фільтром";
+
+    if (Model.PageInfo?.TotalPages > 1)
+    {
+        ViewBag.Title += $" - сторінка {Model.PageInfo.PageNumber} з {Model.PageInfo.TotalPages}";
+    }
+}
+
+<h2>Пошук квитків за фільтром</h2>
+<hr />
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span>Пошук за фільтром</span>
+
+        @if (Model.PageInfo?.TotalItems > 0)
+        {
+            <span> (квитків знайдено: @Model.PageInfo.TotalItems)</span>
+        }
+    </div>
+
+    @if (!Model.IsNull())
+    {
+        <div class="panel-body">
+            <span>Фільтр:</span>
+            <a href="#filter-form" class="btn btn-link" role="button" data-toggle="collapse">@Model.ToString()</a>
+
+            <div id="filter-form" class="collapse">
+                @Html.Partial("FilterFormPartial", Model)
+            </div>
+        </div>
+    }
+
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Номер</th>
+                        <th>Колір</th>
+                        <th>Серія</th>
+                        <th>Пачка</th>
+                        <th>Дата</th>
+                        <th>Примітка</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="@item.TrClass()">
+                            <td>@Html.ActionLink(item.Number, "Details", new { id = item.Id })</td>
+                            <td>@Html.ActionLink(item.ColorName, "Details", "Color", new { id = item.ColorId }, new { })</td>
+                            <td>@Html.ActionLink(item.SerialFull, "Details", "Serial", new { id = item.SerialId }, new { })</td>
+                            <td><a href="@Url.Action("Details", "Package", new { id = item.PackageId })">@item.PackageName</a></td>
+                            <td>@item.Date</td>
+                            <td>@item.Note</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        if (Model.PageInfo.TotalPages > 1)
+        {
+            <div class="panel-footer">
+                @Html.PageLinks(Model.PageInfo, x => Url.Action("Filter", new
+                {
+                    Page = x,
+                    FirstNumber = Model.FirstNumber,
+                    ColorId = Model.ColorId,
+                    SerialId = Model.SerialId
+                }))
+            </div>
+        }
+    }
+    else if (!Model.IsNull())
+    {
+        @Html.AlertDanger("Квитки, що відповідають вказаним критеріям, не знайдено.")
+    }
+    else
+    {
+        @Html.Partial("FilterFormPartial", Model)
+    }
+</div>
+
+@Html.ActionLink("Назад до списку", "Index")

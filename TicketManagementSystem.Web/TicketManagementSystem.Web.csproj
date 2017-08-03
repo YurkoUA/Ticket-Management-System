@@ -412,6 +412,7 @@
     <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\Package\Tickets.cshtml" />
     <Content Include="Views\Ticket\Filter.cshtml" />
+    <Content Include="Views\Ticket\FilterFormPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

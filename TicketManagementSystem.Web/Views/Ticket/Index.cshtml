@@ -18,7 +18,8 @@
             @Html.ActionLink("Щасливі квитки", "Happy") | 
             @Html.ActionLink("Нерозподілені квитки", "Unallocated") |
             @Html.ActionLink("Квитки з однаковими номерами", "Clones") | 
-            <a id="ticket-search" onclick="searchModal()">Пошук квитків</a>
+            <a id="ticket-search" onclick="searchModal()">Пошук квитків</a> | 
+            @Html.ActionLink("Фільтр", "Filter")
         </div>
 
         @if (isAdmin)
