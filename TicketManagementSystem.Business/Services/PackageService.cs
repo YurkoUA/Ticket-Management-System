@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TicketManagementSystem.Business.DTO;
+using TicketManagementSystem.Business.Enums;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Data.EF.Interfaces;
 using TicketManagementSystem.Data.EF.Models;
@@ -32,6 +33,7 @@ namespace TicketManagementSystem.Business.Services
                 .OrderByDescending(p => p.IsOpened)
                 .ThenByDescending(p => p.IsSpecial)
                 .ThenByDescending(p => p.Id);
+
             return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
         }
 
@@ -44,6 +46,18 @@ namespace TicketManagementSystem.Business.Services
                 .AsEnumerable()
                 .Skip(skip)
                 .Take(take);
+            return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
+        }
+
+        public IEnumerable<PackageDTO> GetPackages(PackagesFilter filter)
+        {
+            var packages = Database.Packages.GetAll(GetExpressionByFilter(filter))
+                .AsEnumerable()
+                .OrderByDescending(p => p.IsOpened)
+                .ThenByDescending(p => p.IsSpecial)
+                .ThenByDescending(p => p.Id)
+                .AsEnumerable();
+
             return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
         }
 
@@ -82,6 +96,8 @@ namespace TicketManagementSystem.Business.Services
 
             return MapperInstance.Map<PackageDTO>(package);
         }
+
+        #region CRUD
 
         public PackageDTO CreatePackage(PackageCreateDTO packageDTO)
         {
@@ -185,6 +201,10 @@ namespace TicketManagementSystem.Business.Services
             Database.SaveChanges();
         }
 
+        #endregion
+
+        #region Open/Close, Make default/special.
+
         public void OpenPackage(int id)
         {
             var package = Database.Packages.GetById(id);
@@ -248,6 +268,10 @@ namespace TicketManagementSystem.Business.Services
             return null;
         }
 
+        #endregion
+
+        #region Exists
+
         public bool ExistsById(int id)
         {
             return Database.Packages.ExistsById(id);
@@ -263,6 +287,24 @@ namespace TicketManagementSystem.Business.Services
             return !Database.Packages
                 .Contains(p => p.Name?.Equals(name, StringComparison.CurrentCultureIgnoreCase) == true && p.Id != id);
         }
+
+        #endregion
+
+        #region Count
+
+        public int OpenedCount()
+        {
+            return Database.Packages.GetCount(p => p.IsOpened);
+        }
+
+        public int SpecialCount()
+        {
+            return Database.Packages.GetCount(p => p.IsSpecial);
+        }
+
+        #endregion
+
+        #region Validation
 
         public IEnumerable<string> Validate(PackageCreateDTO createDTO)
         {
@@ -436,6 +478,23 @@ namespace TicketManagementSystem.Business.Services
                 errors.Add($"Пачка \"{dto.Name}\" вже існує.");
 
             return errors;
+        }
+
+        #endregion
+
+        private Func<Package, bool> GetExpressionByFilter(PackagesFilter filter)
+        {
+            switch(filter)
+            {
+                case PackagesFilter.Opened:
+                    return p => p.IsOpened;
+
+                case PackagesFilter.Special:
+                    return p => p.IsSpecial;
+
+                default:
+                    return p => true;
+            }
         }
     }
 }

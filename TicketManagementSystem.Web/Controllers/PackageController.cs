@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.UI;
 using TicketManagementSystem.Business;
 using TicketManagementSystem.Business.DTO;
+using TicketManagementSystem.Business.Enums;
 using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Controllers
@@ -32,20 +33,26 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
-        public ActionResult Index(int page = 1)
+        public ActionResult Index(int page = 1, PackagesFilter tab = PackagesFilter.All)
         {
             if (page < 1)
                 page = 1;
             
             const int ITEMS_ON_PAGE = 20;
 
-            var pageInfo = new PageInfo(page, _packageService.TotalCount, ITEMS_ON_PAGE);
-            var packages = _packageService.GetPackages((page - 1) * ITEMS_ON_PAGE, ITEMS_ON_PAGE);
+            var packagesDtos = _packageService.GetPackages(tab);
+
+            var pageInfo = new PageInfo(page, packagesDtos.Count(), ITEMS_ON_PAGE);
+            var packages = packagesDtos.Skip((page - 1) * ITEMS_ON_PAGE).Take(ITEMS_ON_PAGE);
 
             var viewModel = new PackageIndexModel
             {
                 Packages = MapperInstance.Map<IEnumerable<PackageDetailsModel>>(packages),
-                PageInfo = pageInfo
+                PageInfo = pageInfo,
+                Filter = tab,
+                TotalPackages = _packageService.TotalCount,
+                OpenedPackages = _packageService.OpenedCount(),
+                SpecialPackages = _packageService.SpecialCount()
             };
             return View(viewModel);
         }

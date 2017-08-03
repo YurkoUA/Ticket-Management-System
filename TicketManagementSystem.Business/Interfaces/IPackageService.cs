@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TicketManagementSystem.Business.DTO;
+using TicketManagementSystem.Business.Enums;
 
 namespace TicketManagementSystem.Business.Interfaces
 {
@@ -11,6 +12,7 @@ namespace TicketManagementSystem.Business.Interfaces
 
         IEnumerable<PackageDTO> GetPackages();
         IEnumerable<PackageDTO> GetPackages(int skip, int take);
+        IEnumerable<PackageDTO> GetPackages(PackagesFilter filter);
 
         IEnumerable<PackageDTO> GetPackagesByColor(int colorId);
         IEnumerable<PackageDTO> GetPackagesBySerial(int serialId);
@@ -39,6 +41,9 @@ namespace TicketManagementSystem.Business.Interfaces
         bool ExistsById(int id);
         bool ExistsByName(string name);
         bool IsNameFree(int id, string name);
+
+        int OpenedCount();
+        int SpecialCount();
 
         IEnumerable<string> Validate(PackageCreateDTO createDTO);
         IEnumerable<string> Validate(PackageSpecialCreateDTO createDTO);

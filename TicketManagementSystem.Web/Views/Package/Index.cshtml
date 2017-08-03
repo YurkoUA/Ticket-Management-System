@@ -9,12 +9,24 @@
 <h2>@ViewBag.Title</h2>
 <hr />
 
+<ul class="nav nav-tabs nav-justified" role="tablist">
+    <li role="presentation" class="@Model.ClassAll">
+        <a href="@Url.Action("Index")" role="tab">Всі <span class="badge">@Model.TotalPackages</span></a>
+    </li>
+
+    <li role="presentation" class="@Model.ClassOpened">
+        <a href="@Url.Action("Index", new { tab = "Opened" })" role="tab">Відкриті <span class="badge">@Model.OpenedPackages</span></a>
+    </li>
+
+    <li role="presentation" class="@Model.ClassSpecial">
+        <a href="@Url.Action("Index", new { tab = "Special" })" role="tab">Спеціальні <span class="badge">@Model.SpecialPackages</span></a>
+    </li>
+</ul>
+
 @if (Model.Any())
 {
-    <div class="panel panel-default">
-        <div class="panel-heading">Всього пачок: @Model.PageInfo.TotalItems</div>
-
-        <div class="panel-body">
+    <div class="panel panel-default tab-pane">
+        <div class="panel-heading">
             <a onclick="searchModal()">Пошук пачок</a>
             @if (isAdmin)
             {
@@ -56,9 +68,10 @@
         {
             <div class="panel-footer">
                 @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new
-           {
-               page = x
-           }))
+                {
+                    page = x,
+                    tab = Model.Filter.ToString()
+                }))
             </div>
         }
     </div>

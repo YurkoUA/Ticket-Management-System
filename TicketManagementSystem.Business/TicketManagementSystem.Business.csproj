@@ -93,6 +93,7 @@
     <Compile Include="DTO\Todo\TodoTaskDTO.cs" />
     <Compile Include="DTO\User\LoginDTO.cs" />
     <Compile Include="DTO\User\UserDTO.cs" />
+    <Compile Include="Enums\PackagesFilter.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Interfaces\ILoginService.cs" />
     <Compile Include="Interfaces\IPackageService.cs" />
