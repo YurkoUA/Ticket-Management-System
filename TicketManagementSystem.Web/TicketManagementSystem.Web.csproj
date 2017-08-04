@@ -188,6 +188,8 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
+    <Compile Include="Areas\Api\Controllers\TestController.cs" />
     <Compile Include="Areas\Todo\Controllers\TodoApiController.cs" />
     <Compile Include="Areas\Todo\Controllers\TodoController.cs" />
     <Compile Include="Areas\Todo\Models\Extensions.cs" />
@@ -299,6 +301,7 @@
     <Content Include="bower_components\angular-route\LICENSE.md" />
     <Content Include="bower_components\angular-route\package.json" />
     <Content Include="bower_components\angular-route\README.md" />
+    <Content Include="Areas\Api\Views\web.config" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -420,6 +423,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Api\Models\" />
+    <Folder Include="Areas\Api\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

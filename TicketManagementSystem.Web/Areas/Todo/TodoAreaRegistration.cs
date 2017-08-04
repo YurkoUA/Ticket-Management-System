@@ -11,7 +11,8 @@ namespace TicketManagementSystem.Web.Areas.Todo
             //context.MapRoute(
             //    $"{AreaName}_default",
             //    AreaName + "/{controller}/{action}/{id}",
-            //    new { id = UrlParameter.Optional }
+            //    new { id = UrlParameter.Optional },
+            //    namespaces: new[] { "TicketManagementSystem.Web.Areas.Todo.Controllers" }
             //);
         }
     }
