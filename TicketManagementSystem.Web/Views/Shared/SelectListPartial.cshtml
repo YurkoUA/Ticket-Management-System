@@ -1,6 +1,11 @@
 ﻿@model SelectListModel
 
 <select id="@Model.Id" name="@Model.Name" class="form-control">
+    @if (!string.IsNullOrEmpty(Model.DefaultOption))
+    {
+        <option value>@Model.DefaultOption</option>
+    }
+
     @foreach (var opt in Model.Options)
     {
         <option value="@opt.Value">@opt.Text</option>

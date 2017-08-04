@@ -124,6 +124,9 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet, AllowAnonymous]
         public ActionResult Filter(TicketFilterModel viewModel)
         {
+            if (viewModel.Page < 1)
+                viewModel.Page = 1;
+
             const int ITEMS_ON_PAGE = 30;
 
             IEnumerable<TicketDTO> tickets;
@@ -200,8 +203,6 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (model.PackageId == 0) model.PackageId = null;
-
                 var createDTO = MapperInstance.Map<TicketCreateDTO>(model);
                 var errors = _ticketService.Validate(createDTO);
 
@@ -552,7 +553,7 @@ namespace TicketManagementSystem.Web.Controllers
             return new SelectList(series, "Id", "Name");
         }
 
-        private SelectList GetPackagesList(int colorId, int serialId, int? number = null, bool nullable = false)
+        private SelectList GetPackagesList(int colorId, int serialId, int? number = null)
         {
             IEnumerable<PackageDTO> packages = _packageService.GetPackages()
                 .Where(p => (p.ColorId == null || p.ColorId == colorId)
@@ -565,12 +566,7 @@ namespace TicketManagementSystem.Web.Controllers
                 packages = packages.Where(p => p.FirstNumber == number || p.FirstNumber == null);
             }
 
-            var packagesList = packages.ToList();
-
-            if (nullable)
-                packagesList.Insert(0, new PackageDTO { Name = "(Немає)" });
-
-            return new SelectList(packagesList, "Id", "SelectListOptionValue");
+            return new SelectList(packages.ToList(), "Id", "SelectListOptionValue");
         }
 
         #endregion
@@ -584,7 +580,8 @@ namespace TicketManagementSystem.Web.Controllers
             {
                 Id = selectId,
                 Name = selectName,
-                Options = GetPackagesList(colorId, serialId, number, true)
+                Options = GetPackagesList(colorId, serialId, number),
+                DefaultOption = "(Немає)"
             };
             return PartialView("SelectListPartial", viewModel);
         }

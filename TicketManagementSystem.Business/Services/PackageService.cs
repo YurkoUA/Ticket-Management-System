@@ -154,7 +154,7 @@ namespace TicketManagementSystem.Business.Services
                 Database.Packages.Update(package);
                 Database.SaveChanges();
 
-                return MapperInstance.Map<PackageDTO>(Database.Packages.Create(package));
+                return MapperInstance.Map<PackageDTO>(package);
             }
             return null;
         }
@@ -176,7 +176,7 @@ namespace TicketManagementSystem.Business.Services
                 Database.Packages.Update(package);
                 Database.SaveChanges();
 
-                return MapperInstance.Map<PackageDTO>(Database.Packages.Create(package));
+                return MapperInstance.Map<PackageDTO>(package);
             }
             return null;
         }
@@ -401,14 +401,14 @@ namespace TicketManagementSystem.Business.Services
             {
                 var tickets = GetPackageTickets(editDTO.Id).ToList();
 
-                if (!tickets.TrueForAll(t => t.ColorId == editDTO.ColorId))
+                if (!tickets.TrueForAll(t => t.ColorId == editDTO.ColorId) && editDTO.ColorId != null)
                 {
                     errors.Add("Для цієї пачки неможливо встановити єдиний колір.");
                 }
 
-                if (!tickets.TrueForAll(t => t.SerialId == editDTO.SerialId))
+                if (!tickets.TrueForAll(t => t.SerialId == editDTO.SerialId) && editDTO.SerialId != null)
                 {
-                    errors.Add("Для цієї пачки неможливо встановити єдину цифру.");
+                    errors.Add("Для цієї пачки неможливо встановити єдину серію.");
                 }
             }
 

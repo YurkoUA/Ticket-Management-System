@@ -125,13 +125,16 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
         public ActionResult Create(bool special = false)
         {
-            if (special)
+            var colors = GetColorsSelectList();
+            var series = GetSeriesSelectList();
+
+            if (!special)
             {
-                return View("CreateSpecial", new PackageCreateSpecialModel { Colors = GetColorsSelectList(true), Series = GetSeriesSelectList(true) });
+                return View("CreateDefault", new PackageCreateDefaultModel { Colors = colors, Series = series });
             }
             else
             {
-                return View("CreateDefault", new PackageCreateDefaultModel { Colors = GetColorsSelectList(), Series = GetSeriesSelectList() });
+                return View("CreateSpecial", new PackageCreateSpecialModel { Colors = colors, Series = series });
             }
         }
 
@@ -159,9 +162,6 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (viewModel.ColorId == 0) viewModel.ColorId = null;
-                if (viewModel.SerialId == 0) viewModel.SerialId = null;
-
                 var createDTO = MapperInstance.Map<PackageSpecialCreateDTO>(viewModel);
                 var errors = _packageService.Validate(createDTO);
                 errors.ToModelState(ModelState);
@@ -220,8 +220,8 @@ namespace TicketManagementSystem.Web.Controllers
             if (Request.IsAjaxRequest() || partial)
             {
                 var viewModel = MapperInstance.Map<PackageEditSpecialModel>(editSpecDTO);
-                viewModel.Colors = GetColorsSelectList(true);
-                viewModel.Series = GetSeriesSelectList(true);
+                viewModel.Colors = GetColorsSelectList();
+                viewModel.Series = GetSeriesSelectList();
 
                 if (viewModel.ColorId == null) viewModel.ColorId = 0;
                 if (viewModel.SerialId == null) viewModel.SerialId = 0;
@@ -263,9 +263,6 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (viewModel.ColorId == 0) viewModel.ColorId = null;
-                if (viewModel.SerialId == 0) viewModel.SerialId = null;
-
                 var editDTO = MapperInstance.Map<PackageSpecialEditDTO>(viewModel);
                 var errors = _packageService.Validate(editDTO);
                 errors.ToModelState(ModelState);
@@ -479,7 +476,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         #region SelectLists
 
-        private SelectList GetColorsSelectList(bool nullElement = false)
+        private SelectList GetColorsSelectList()
         {
             List<ColorDTO> colors;
 
@@ -493,13 +490,10 @@ namespace TicketManagementSystem.Web.Controllers
                 _cacheService.AddOrReplaceItem("ColorSelectList", colors.AsEnumerable());
             }
 
-            if (nullElement)
-                colors.Add(new ColorDTO { Name = "(Немає)" });
-
             return new SelectList(colors, "Id", "Name");
         }
 
-        private SelectList GetSeriesSelectList(bool nullElement = false)
+        private SelectList GetSeriesSelectList()
         {
             List<SerialDTO> series;
 
@@ -512,9 +506,6 @@ namespace TicketManagementSystem.Web.Controllers
                 series = _serialService.GetSeries().OrderBy(s => s.Name).ToList();
                 _cacheService.AddOrReplaceItem("SerialSelectList", series.AsEnumerable());
             }
-
-            if (nullElement)
-                series.Add(new SerialDTO { Name = "(Немає)" });
 
             return new SelectList(series, "Id", "Name");
         }

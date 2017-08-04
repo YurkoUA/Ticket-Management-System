@@ -4,7 +4,7 @@
 
 <div class="jumbotron">
     <h1>Ticket Management System</h1>
-    <p class="lead">Система управління та обліку авторською колекцією трамвайних та тролейбусних квитків з міста Дніпро.</p>
+    <p class="lead">Система управління та обліку приватною колекцією трамвайних та тролейбусних квитків з міста Дніпро.</p>
 </div>
 
 <div class="row">
@@ -16,11 +16,13 @@
         </p>
         <p><a class="btn btn-default" href="@Url.Action("Index", "Ticket")">Перейти до квитків &raquo;</a></p>
     </div>
+
     <div class="col-md-4">
         <h2>Пачки</h2>
-        <p>Квитки розділені на пачки. Їх зараз @ViewBag.TotalPackages.</p>
+        <p>Квитки розділені по пачкам. Їх зараз @ViewBag.TotalPackages.</p>
         <p><a class="btn btn-default" href="@Url.Action("Index", "Package")">Перейти до пачок &raquo;</a></p>
     </div>
+
     <div class="col-md-4">
         <h2>Статистика</h2>
         <p>Можна переглянути статистику квитків за кольорами, серіями та першою цифрою.</p>
