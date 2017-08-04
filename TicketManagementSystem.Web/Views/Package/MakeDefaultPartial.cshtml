@@ -5,7 +5,8 @@
 @using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "package-result" }))
 {
     @Html.AntiForgeryToken()
-    
+    @Html.HiddenFor(model => model.Id)
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })

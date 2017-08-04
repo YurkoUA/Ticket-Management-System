@@ -4,17 +4,6 @@
     bool isAdmin = User.IsInRole("Admin");
 }
 
-<script>
-    function OnBegin() {
-        $('#package-result').html('');
-    }
-
-    // For delete action.
-    function OnSuccess(data) {
-        $('#package-toolbar').html('');
-    }
-</script>
-
 <div id="package-grid">
     @Html.Action(Model.Action, Model.Controller, new { id = Model.Param, partial = true })
 </div>
@@ -31,5 +20,5 @@
 </div>
 
 @section scripts {
-    @Scripts.Render("~/Scripts/tickets-move-few-modal.js")
+    @Scripts.Render("~/Scripts/tickets-move-few-modal.js", "~/Scripts/package.js")
 }

@@ -30,21 +30,21 @@ namespace TicketManagementSystem.Web.Util
 
         private void AddBindings()
         {
-            _kernel.Bind<IPdfService>().To<PdfService>().InSingletonScope();
-            _kernel.Bind<ICacheService>().To<CacheService>().InSingletonScope();
+            _kernel.Bind<IPdfService>().To<PdfService>();
+            _kernel.Bind<ICacheService>().To<CacheService>();
 
-            _kernel.Bind<IUserService>().To<UserService>().InSingletonScope();
-            _kernel.Bind<ILoginService>().To<LoginService>().InSingletonScope();
-            _kernel.Bind<IRoleService>().To<RoleService>().InSingletonScope();
+            _kernel.Bind<IUserService>().To<UserService>();
+            _kernel.Bind<ILoginService>().To<LoginService>();
+            _kernel.Bind<IRoleService>().To<RoleService>();
 
-            _kernel.Bind<ISummaryService>().To<SummaryService>().InSingletonScope();
-            _kernel.Bind<IReportService>().To<ReportService>().InSingletonScope();
-            _kernel.Bind<ITodoService>().To<TodoService>().InSingletonScope();
+            _kernel.Bind<ISummaryService>().To<SummaryService>();
+            _kernel.Bind<IReportService>().To<ReportService>();
+            _kernel.Bind<ITodoService>().To<TodoService>();
 
-            _kernel.Bind<IColorService>().To<ColorService>().InSingletonScope();
-            _kernel.Bind<ISerialService>().To<SerialService>().InSingletonScope();
-            _kernel.Bind<IPackageService>().To<PackageService>().InSingletonScope();
-            _kernel.Bind<ITicketService>().To<TicketService>().InSingletonScope();
+            _kernel.Bind<IColorService>().To<ColorService>();
+            _kernel.Bind<ISerialService>().To<SerialService>();
+            _kernel.Bind<IPackageService>().To<PackageService>();
+            _kernel.Bind<ITicketService>().To<TicketService>();
         }
     }
 }

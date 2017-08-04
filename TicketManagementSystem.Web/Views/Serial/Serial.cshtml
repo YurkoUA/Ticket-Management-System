@@ -4,17 +4,6 @@
     bool isAdmin = User.IsInRole("Admin");
 }
 
-<script>
-    function OnBegin() {
-        $('#serial-result').html('');
-    }
-
-    // For delete action.
-    function OnSuccess(data) {
-        $('#serial-toolbar').html('');
-    }
-</script>
-
 <div id="serial-grid">
     @Html.Action(Model.Action, Model.Controller, new { id = Model.Param, partial = true })
 </div>
@@ -30,5 +19,5 @@
 </div>
 
 @section scripts {
-    @Scripts.Render("~/Scripts/packages-modal.js")
+    @Scripts.Render("~/Scripts/packages-modal.js", "~/Scripts/serial.js")
 }

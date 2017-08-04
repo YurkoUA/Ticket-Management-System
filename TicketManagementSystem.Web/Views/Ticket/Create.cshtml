@@ -6,21 +6,6 @@
 
 <h2>@ViewBag.Title</h2>
 
-<script>
-    function OnBegin() {
-        $('#create-result').html("");
-    }
-
-    function OnSuccess(date) {
-        $('#Number').val('');
-        $('#SerialNumber').val('');
-        $('#Note').val('');
-        $('#Date').val('');
-
-        $('#Number').focus();
-    }
-</script>
-
 @using (Ajax.BeginForm(new AjaxOptions
 {
     UpdateTargetId = "create-result",
@@ -102,5 +87,5 @@
 <div id="create-result"></div>
 
 @section scripts {
-    @Scripts.Render("~/Scripts/packages.select-list.js")
+    @Scripts.Render("~/Scripts/packages.select-list.js", "~/Scripts/ticket-create.js")
 }

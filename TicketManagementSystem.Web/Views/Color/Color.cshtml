@@ -4,17 +4,6 @@
     bool isAdmin = User.IsInRole("Admin");
 }
 
-<script>
-    function OnBegin() {
-        $('#color-result').html('');
-    }
-
-    // For delete action.
-    function OnSuccess(data) {
-        $('#color-toolbar').html('');
-    }
-</script>
-
 <div id="color-grid">
     @Html.Action(Model.Action, Model.Controller, new { id = Model.Param, partial = true })
 </div>
@@ -31,5 +20,6 @@
 </div>
 
 @section scripts {
-    @Scripts.Render("~/Scripts/packages-modal.js")
+    @Scripts.Render("~/Scripts/packages-modal.js",
+                    "~/Scripts/color.js")
 }

@@ -4,17 +4,6 @@
     bool isAdmin = User.IsInRole("Admin");
 }
 
-<script>
-    function OnBegin() {
-        $('#ticket-result').html('');
-    }
-
-    // For delete action.
-    function OnSuccess(data) {
-        $('#ticket-toolbar').html('');
-    }
-</script>
-
 <div id="ticket-grid">
     @Html.Action(Model.Action, Model.Controller, new { id = Model.Param, partial = true })
 </div>
@@ -26,5 +15,5 @@
 }
 
 @section scripts {
-    @Scripts.Render("~/Scripts/tickets-by-number-modal.js")    
+    @Scripts.Render("~/Scripts/tickets-by-number-modal.js", "~/Scripts/ticket.js")    
 }

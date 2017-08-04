@@ -5,23 +5,8 @@
 }
 
 <h2>@ViewBag.Title</h2>
-
-<script>
-    function OnBegin() {
-        $('#create-result').html("");
-    }
-
-    function OnSuccess(data) {
-        $('#Number').val('');
-        $('#SerialNumber').val('');
-        $('#Note').val('');
-        $('#Date').val('');
-
-        $('#Number').focus();
-    }
-</script>
-
 <hr />
+
 <dl class="dl-horizontal">
     <dt>Пачка:</dt>
     <dd>@Html.ActionLink(Model.PackageName, "Details", "Package", new { id = Model.PackageId }, new { })</dd>
@@ -113,3 +98,7 @@
 }
 
 <div id="create-result"></div>
+
+@section scripts {
+    @Scripts.Render("~/Scripts/ticket-create.js")
+}

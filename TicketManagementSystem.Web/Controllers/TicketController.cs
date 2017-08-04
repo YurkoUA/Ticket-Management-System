@@ -255,66 +255,6 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult CreateMany()
-        {
-            var viewModel = new TicketCreateManyModel
-            {
-                CanSelectColor = true,
-                CanSelectSerial = true,
-                Colors = GetColorsList(),
-                Series = GetSeriesList()
-            };
-
-            ViewBag.Title = "Створити декілька квитків";
-            return View(viewModel);
-        }
-
-        [HttpGet]
-        public ActionResult CreateManyInPackage(int id)
-        {
-            var package = _packageService.GetPackage(id);
-
-            if (package == null) return HttpNotFound();
-            if (!package.IsOpened) return HttpBadRequest();
-
-            var viewModel = new TicketCreateManyModel
-            {
-                PackageId = package.Id,
-                PackageName = package.Name
-            };
-
-            if (package.ColorId == null)
-            {
-                viewModel.CanSelectColor = true;
-                viewModel.Colors = GetColorsList();
-            }
-            else
-            {
-                viewModel.ColorId = package.ColorId;
-            }
-
-            if (package.SerialId == null)
-            {
-                viewModel.CanSelectSerial = true;
-                viewModel.Series = GetSeriesList();
-            }
-            else
-            {
-                viewModel.SerialId = package.SerialId;
-            }
-
-            ViewBag.Title = $"Створити декілька квитків у пачці \"{package.Name}\"";
-            return View("CreateMany", viewModel);
-        }
-
-        [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult CreateMany(TicketCreateManyModel viewModel)
-        {
-            // TODO: Create Many.
-            throw new NotImplementedException();
-        }
-
-        [HttpGet]
         public ActionResult Edit(int id, bool partial = false)
         {
             var ticket = _ticketService.GetEdit(id);

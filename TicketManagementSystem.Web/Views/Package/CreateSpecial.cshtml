@@ -4,22 +4,11 @@
     ViewBag.Title = "Створити спеціальну пачку";
 }
 
-<script type="text/javascript">
-    function OnBegin() {
-        $("#createResult").html("");
-    }
-
-    function OnSuccess(data) {
-        $('form[id = form0]').trigger('reset');
-    }
-</script>
-
 <h2>@ViewBag.Title</h2>
-
 
 @using (Ajax.BeginForm("CreateSpecial", new AjaxOptions
 {
-    UpdateTargetId = "createResult",
+    UpdateTargetId = "create-result",
     OnComplete = "OnComplete",
     OnBegin = "OnBegin"
 }))
@@ -77,8 +66,12 @@
     </div>
 }
 
-<div id="createResult"></div>
+<div id="create-result"></div>
 
 <div>
     @Html.ActionLink("Назад до списку", "Index")
 </div>
+
+@section scripts {
+    @Scripts.Render("~/Scripts/package-create.js")    
+}
