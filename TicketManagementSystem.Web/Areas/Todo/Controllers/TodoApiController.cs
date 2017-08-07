@@ -12,7 +12,7 @@ using static TicketManagementSystem.Web.Areas.Todo.Models.Extensions;
 
 namespace TicketManagementSystem.Web.Areas.Todo.Controllers
 {
-    [RoutePrefix("Todo")]
+    [RoutePrefix("api/Todo")]
     [Authorize(Roles = "Admin")]
     public class TodoApiController : ApiController
     {

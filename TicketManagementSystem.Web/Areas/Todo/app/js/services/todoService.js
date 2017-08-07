@@ -24,7 +24,7 @@
             getPriorityByValue: getPriorityByValue
         };
 
-        var baseUrl = "/Todo/";
+        var baseUrl = "/api/Todo/";
 
         return service;
 
