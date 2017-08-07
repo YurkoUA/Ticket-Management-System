@@ -19,6 +19,7 @@
                         <th>Дата</th>
                         <th>IP-адреса</th>
                         <th>Браузер</th>
+                        <th>Тип</th>
                     </tr>
 
                     @foreach (var item in Model)
@@ -26,7 +27,30 @@
                         <tr>
                             <td>@Html.DisplayDateTime(item.Date, "G")</td>
                             <td>@item.IpAddress</td>
-                            <td>@item.Browser</td>
+
+                            @{
+                                string browserText;
+
+                                if (!string.IsNullOrEmpty(item.Browser))
+                                {
+                                    browserText = item.Browser;
+                                }
+                                else
+                                {
+                                    var length = 10;
+
+                                    if (item.UserAgent.Length < length)
+                                    {
+                                        length = item.UserAgent.Length;
+                                    }
+
+                                    browserText = "User-Agent: " + item.UserAgent.Substring(0, length) + "...";
+                                }
+                            }
+                            <td>
+                                <span data-toggle="tooltip" data-placement="bottom" title="@item.UserAgent">@browserText</span>
+                            </td>
+                            <td>@item.Type</td>
                         </tr>
                     }
                 </table>

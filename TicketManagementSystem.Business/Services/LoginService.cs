@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
@@ -19,14 +20,30 @@ namespace TicketManagementSystem.Business.Services
         {
             var logins = Database.Logins.GetAll(l => l.UserId == userId)
                 .OrderByDescending(l => l.Id);
+
             return MapperInstance.Map<IEnumerable<LoginDTO>>(logins);
         }
 
-        public void AddLogin(LoginDTO loginDTO)
+        public IEnumerable<LoginDTO> GetLoginHistory(int userId, int take)
+        {
+            if (take < 1)
+                throw new ArgumentOutOfRangeException();
+
+            var logins = Database.Logins.GetAll(l => l.UserId == userId)
+                .OrderByDescending(l => l.Id)
+                .Take(take);
+
+            return MapperInstance.Map<IEnumerable<LoginDTO>>(logins);
+        }
+
+        public void AddLogin(LoginDTO loginDTO, bool remvoveOldLogins)
         {
             var login = MapperInstance.Map<Login>(loginDTO);
             Database.Logins.Create(login);
-            RemoveOldLogins(loginDTO.UserId);
+
+            if (remvoveOldLogins)
+                RemoveOldLogins(loginDTO.UserId);
+
             Database.SaveChanges();
         }
 

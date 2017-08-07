@@ -6,6 +6,7 @@ namespace TicketManagementSystem.Business.Interfaces
     public interface ILoginService
     {
         IEnumerable<LoginDTO> GetLoginHistory(int userId);
-        void AddLogin(LoginDTO loginDTO);
+        IEnumerable<LoginDTO> GetLoginHistory(int userId, int take);
+        void AddLogin(LoginDTO loginDTO, bool removeOldLogins);
     }
 }
