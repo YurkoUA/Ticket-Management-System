@@ -5,7 +5,6 @@ using Microsoft.Owin.Security.OAuth;
 using Ninject;
 using Owin;
 using TicketManagementSystem.Business.Interfaces;
-using TicketManagementSystem.Web.Data;
 
 namespace TicketManagementSystem.Web.App_Start
 {
@@ -16,7 +15,7 @@ namespace TicketManagementSystem.Web.App_Start
             var oauthOptions = new OAuthAuthorizationServerOptions
             {
                 AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/token"),
+                TokenEndpointPath = new PathString("/api/token"),
                 
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(GetTokenLifeTime()),
                 Provider = new CustomOAuthProvider(NinjectWebCommon.GetInstance().Get<IUserService>(),

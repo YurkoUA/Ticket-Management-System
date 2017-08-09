@@ -7,7 +7,7 @@ using Microsoft.Owin.Security.OAuth;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 
-namespace TicketManagementSystem.Web.Data
+namespace TicketManagementSystem.Web
 {
     public class CustomOAuthProvider : OAuthAuthorizationServerProvider
     {
@@ -30,6 +30,7 @@ namespace TicketManagementSystem.Web.Data
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect");
                 context.Rejected();
+                return;
             }
 
             var authTicket = new AuthenticationTicket(SetClaimsIdentity(context, user), new AuthenticationProperties());
