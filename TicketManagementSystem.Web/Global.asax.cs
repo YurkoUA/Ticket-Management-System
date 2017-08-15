@@ -4,6 +4,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Newtonsoft.Json;
 using TicketManagementSystem.Web.Jobs;
 
 namespace TicketManagementSystem.Web
@@ -23,6 +24,12 @@ namespace TicketManagementSystem.Web
                     routeTemplate: "api/{controller}/{action}/{id}",
                     defaults: new { id = RouteParameter.Optional }
                 );
+
+                config.Formatters.JsonFormatter.SerializerSettings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Formatting = Formatting.Indented
+                };
 
                 config.Formatters.Remove(config.Formatters.XmlFormatter);
             });
