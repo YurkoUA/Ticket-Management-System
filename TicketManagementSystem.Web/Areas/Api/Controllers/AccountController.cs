@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using TicketManagementSystem.Business.Extensions;
@@ -24,11 +22,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         public async Task<IHttpActionResult> Get()
         {
             var user = (await _userService.FindByIdAsync(User.Identity.GetUserId<int>())).ToDto();
-
-            if (user == null)
-                return NotFound();
-
-            return Ok(user);
+            return OkOrNotFound(user);
         }
 
         [HttpGet]
@@ -37,12 +31,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
             if (take < 1)
                 take = 10;
 
-            var logins = _loginService.GetLoginHistory(User.Identity.GetUserId<int>(), take);
-
-            if (!logins.Any())
-                return StatusCode(HttpStatusCode.NoContent);
-
-            return Ok(logins);
+            return OkOrNoContent(_loginService.GetLoginHistory(User.Identity.GetUserId<int>(), take));
         }
     }
 }

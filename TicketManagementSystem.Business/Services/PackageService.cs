@@ -283,6 +283,7 @@ namespace TicketManagementSystem.Business.Services
                 package.Name = null;
                 package.ColorId = dto.ColorId;
                 package.SerialId = dto.SerialId;
+                package.FirstNumber = dto.FirstNumber;
 
                 Database.Packages.Update(package);
                 Database.SaveChanges();

@@ -28,7 +28,10 @@ namespace TicketManagementSystem.Web
                 config.Formatters.JsonFormatter.SerializerSettings = new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore,
+
+#if DEBUG
                     Formatting = Formatting.Indented
+#endif
                 };
 
                 config.Formatters.Remove(config.Formatters.XmlFormatter);
