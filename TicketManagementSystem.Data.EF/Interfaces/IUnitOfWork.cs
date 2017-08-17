@@ -1,4 +1,5 @@
-﻿using TicketManagementSystem.Data.EF.Models;
+﻿using System;
+using TicketManagementSystem.Data.EF.Models;
 
 namespace TicketManagementSystem.Data.EF.Interfaces
 {
@@ -17,6 +18,8 @@ namespace TicketManagementSystem.Data.EF.Interfaces
         IRepository<Package> Packages { get; }
         IRepository<Ticket> Tickets { get; }
 
+        void ExecuteSql(string request, params object[] parameters);
         void SaveChanges();
+        void SaveChanges(Action action);
     }
 }

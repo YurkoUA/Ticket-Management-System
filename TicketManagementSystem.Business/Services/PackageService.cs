@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Enums;
@@ -57,6 +58,19 @@ namespace TicketManagementSystem.Business.Services
                 .ThenByDescending(p => p.IsSpecial)
                 .ThenByDescending(p => p.Id)
                 .AsEnumerable();
+
+            return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
+        }
+
+        public IEnumerable<PackageDTO> GetPackages(int skip, int take, PackagesFilter filter)
+        {
+            var packages = Database.Packages.GetAll(GetExpressionByFilter(filter))
+                .AsEnumerable()
+                .OrderByDescending(p => p.IsOpened)
+                .ThenByDescending(p => p.IsSpecial)
+                .ThenByDescending(p => p.Id)
+                .Skip(skip)
+                .Take(take);
 
             return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
         }
@@ -141,7 +155,7 @@ namespace TicketManagementSystem.Business.Services
         {
             var package = Database.Packages.GetById(packageDTO.Id);
 
-            if (package != null && package?.IsSpecial == false)
+            if (package?.IsSpecial == false)
             {
                 package.ColorId = packageDTO.ColorId;
                 package.SerialId = packageDTO.SerialId;
@@ -149,10 +163,19 @@ namespace TicketManagementSystem.Business.Services
                 package.Nominal = packageDTO.Nominal;
                 package.Note = packageDTO.Note;
 
-                package.RowVersion = packageDTO.RowVersion;
+                if (packageDTO.RowVersion != null)
+                    package.RowVersion = packageDTO.RowVersion;
 
                 Database.Packages.Update(package);
-                Database.SaveChanges();
+                Database.SaveChanges(() => {
+                    //Database.ExecuteSql("UPDATE [Packages] SET [SerialId] = @serial, [ColorId] = @color WHERE [Id] = @id", 
+                    //    new SqlParameter("@color", packageDTO.ColorId),
+                    //    new SqlParameter("@serial", packageDTO.SerialId),
+                    //    new SqlParameter("@id", packageDTO.Id));
+
+                    Database.ExecuteSql("UPDATE Packages SET SerialId = {0}, ColorId = {1} WHERE Id = {2}",
+                        packageDTO.SerialId, packageDTO.ColorId, packageDTO.Id);
+                });
 
                 return MapperInstance.Map<PackageDTO>(package);
             }
@@ -163,7 +186,7 @@ namespace TicketManagementSystem.Business.Services
         {
             var package = Database.Packages.GetById(packageDTO.Id);
 
-            if (package != null && package?.IsSpecial == true)
+            if (package?.IsSpecial == true)
             {
                 package.Name = packageDTO.Name;
                 package.ColorId = packageDTO.ColorId;
@@ -171,7 +194,8 @@ namespace TicketManagementSystem.Business.Services
                 package.Nominal = packageDTO.Nominal;
                 package.Note = packageDTO.Note;
 
-                package.RowVersion = packageDTO.RowVersion;
+                if (packageDTO.RowVersion != null)
+                    package.RowVersion = packageDTO.RowVersion;
 
                 Database.Packages.Update(package);
                 Database.SaveChanges();

@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Data.EF.Enums;
-using static TicketManagementSystem.Web.Areas.Todo.Models.Extensions;
+using TicketManagementSystem.Web.Areas.Api.Controllers;
+using static TicketManagementSystem.Web.Areas.Api.Models.Extensions;
 
 namespace TicketManagementSystem.Web.Areas.Todo.Controllers
 {
     [RoutePrefix("api/Todo")]
     [Authorize(Roles = "Admin")]
-    public class TodoApiController : ApiController
+    public class TodoApiController : BaseApiController
     {
         private ITodoService _todoService;
 
@@ -156,11 +155,6 @@ namespace TicketManagementSystem.Web.Areas.Todo.Controllers
 
             _todoService.Delete(id);
             return Ok();
-        }        
-
-        private HttpResponseMessage BadRequestWithErrors(ModelStateDictionary modelState)
-        {
-            return Request.CreateResponse(HttpStatusCode.BadRequest, modelState.ToEnumerableString());
         }
     }
 }

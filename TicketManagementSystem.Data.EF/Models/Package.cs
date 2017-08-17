@@ -68,8 +68,8 @@ namespace TicketManagementSystem.Data.EF.Models
 
         public override int GetHashCode()
         {
-            if (IsSpecial)
-                return Name.GetHashCode();
+            //if (IsSpecial)
+            //    return Name.GetHashCode();
 
             return Id.GetHashCode();
         }

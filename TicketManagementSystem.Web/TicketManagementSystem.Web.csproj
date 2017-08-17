@@ -198,6 +198,7 @@
     <Compile Include="App_Start\OAuthConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Api\Controllers\ColorController.cs" />
+    <Compile Include="Areas\Api\Controllers\PackageController.cs" />
     <Compile Include="Areas\Api\Controllers\SerialController.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
@@ -205,7 +206,7 @@
     <Compile Include="Areas\Api\Controllers\BaseApiController.cs" />
     <Compile Include="Areas\Todo\Controllers\TodoApiController.cs" />
     <Compile Include="Areas\Todo\Controllers\TodoController.cs" />
-    <Compile Include="Areas\Todo\Models\Extensions.cs" />
+    <Compile Include="Areas\Api\Models\Extensions.cs" />
     <Compile Include="Areas\Todo\TodoAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -439,8 +440,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Api\Models\" />
     <Folder Include="Areas\Api\Views\Shared\" />
+    <Folder Include="Areas\Todo\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

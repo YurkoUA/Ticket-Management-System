@@ -26,6 +26,11 @@ namespace TicketManagementSystem.Data.EF
         private IRepository<Package> _packages;
         private IRepository<Ticket> _tickets;
 
+        public void ExecuteSql(string request, params object[] parameters)
+        {
+            _db.Database.ExecuteSqlCommand(request, parameters);
+        }
+
         public void SaveChanges()
         {
             using (var transaction = _db.Database.BeginTransaction())
@@ -33,6 +38,23 @@ namespace TicketManagementSystem.Data.EF
                 try
                 {
                     _db.SaveChanges();
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                }
+            }
+        }
+
+        public void SaveChanges(Action action)
+        {
+            using (var transaction = _db.Database.BeginTransaction())
+            {
+                try
+                {
+                    _db.SaveChanges();
+                    action.Invoke();
                     transaction.Commit();
                 }
                 catch

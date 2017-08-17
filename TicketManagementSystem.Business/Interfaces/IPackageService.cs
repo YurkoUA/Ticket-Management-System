@@ -13,6 +13,7 @@ namespace TicketManagementSystem.Business.Interfaces
         IEnumerable<PackageDTO> GetPackages();
         IEnumerable<PackageDTO> GetPackages(int skip, int take);
         IEnumerable<PackageDTO> GetPackages(PackagesFilter filter);
+        IEnumerable<PackageDTO> GetPackages(int skip, int take, PackagesFilter filter);
 
         IEnumerable<PackageDTO> GetPackagesByColor(int colorId);
         IEnumerable<PackageDTO> GetPackagesBySerial(int serialId);
