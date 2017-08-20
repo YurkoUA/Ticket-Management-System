@@ -44,6 +44,8 @@ namespace TicketManagementSystem.Business.Interfaces
         bool ExistsById(int id);
         bool ExistsByNumber(string number);
 
+        bool CanMove(int ticketId, int packageId);
+
         int CountByNumber(string number);
         int CountByNumber(string number, int id);
 

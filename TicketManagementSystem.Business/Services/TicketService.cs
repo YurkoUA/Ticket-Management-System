@@ -215,12 +215,14 @@ namespace TicketManagementSystem.Business.Services
 
             if (ticket != null)
             {
-                ticket.RowVersion = ticketDTO.RowVersion;
                 ticket.ColorId = ticketDTO.ColorId;
                 ticket.SerialId = ticketDTO.SerialId;
                 ticket.SerialNumber = ticketDTO.SerialNumber;
                 ticket.Note = ticketDTO.Note;
                 ticket.Date = ticketDTO.Date;
+
+                if (ticketDTO.RowVersion != null)
+                    ticket.RowVersion = ticketDTO.RowVersion;
 
                 Database.Tickets.Update(ticket);
                 Database.SaveChanges();
@@ -345,6 +347,19 @@ namespace TicketManagementSystem.Business.Services
         }
 
         #endregion
+
+        public bool CanMove(int ticketId, int packageId)
+        {
+            var package = _packageService.GetPackage(packageId);
+            var ticket = GetById(ticketId);
+
+            if (package != null && ticket != null)
+            {
+                // TODO: CanMove.
+                throw new NotImplementedException();
+            }
+            return false;
+        }
 
         #region Validate methods
 

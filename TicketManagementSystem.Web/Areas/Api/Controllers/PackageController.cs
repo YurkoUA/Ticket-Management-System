@@ -45,6 +45,12 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         }
 
         [HttpGet, AllowAnonymous]
+        public IHttpActionResult GetUnallocatedTickets(int id)
+        {
+            return OkOrNoContent(_ticketService.GetUnallocatedTickets(id));
+        }
+
+        [HttpGet, AllowAnonymous]
         public IHttpActionResult Search(string name)
         {
             return OkOrNoContent(_packageService.FindByName(name));
@@ -202,6 +208,12 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
                 }
             }
             return BadRequestWithErrors(ModelState);
+        }
+
+        [HttpPut]
+        public dynamic MoveTickets(int id, [FromBody]IEnumerable<int> ticketsIds)
+        {
+            throw new NotImplementedException();
         }
     }
 }

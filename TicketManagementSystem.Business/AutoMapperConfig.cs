@@ -97,7 +97,11 @@ namespace TicketManagementSystem.Business
                     .ForMember(dest => dest.PackageName, opt => opt.MapFrom(src => src.Package.ToString()))
                     .ForMember(dest => dest.IsHappy, opt => opt.MapFrom(src => src.IsHappy()));
 
-                cfg.CreateMap<TicketDTO, Ticket>();
+                cfg.CreateMap<TicketDTO, Ticket>()
+                    .ForMember(dest => dest.Package, opt => opt.Ignore())
+                    .ForMember(dest => dest.Color, opt => opt.Ignore())
+                    .ForMember(dest => dest.Serial, opt => opt.Ignore());
+
                 cfg.CreateMap<TicketCreateDTO, Ticket>();
                 cfg.CreateMap<TicketCreateDTO, TicketDTO>();
                 cfg.CreateMap<TicketEditDTO, TicketDTO>();

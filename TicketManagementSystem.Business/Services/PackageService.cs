@@ -261,9 +261,12 @@ namespace TicketManagementSystem.Business.Services
             {
                 package.IsSpecial = true;
                 package.Name = dto.Name;
+                package.FirstNumber = null;
 
-                if (dto.ResetColor) package.ColorId = null;
-                if (dto.ResetSerial) package.SerialId = null;
+                if (dto.ResetColor)
+                    package.ColorId = null;
+                if (dto.ResetSerial)
+                    package.SerialId = null;
 
                 Database.Packages.Update(package);
                 Database.SaveChanges();
