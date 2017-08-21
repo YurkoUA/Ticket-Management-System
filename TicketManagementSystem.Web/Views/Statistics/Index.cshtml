@@ -9,10 +9,12 @@
     Статистика станом на @Html.DisplayDateTime(DateTime.Now.ToUniversalTime(), "G")
 </p>
 
-<div id="colors-chart" style="width: 500px; height: 500px;"></div>
-<div id="series-chart" style="width: 500px; height: 500px;"></div>
+<div id="by-serial-chart" style="width: 500px; height: 500px;"></div>
+<div id="by-color-chart" style="width: 500px; height: 500px;"></div>
 <div id="tickets-chart" style="width: 500px; height: 500px;"></div>
-<div id="number-chart" style="width: 500px; height: 500px;"></div>
+<div id="by-number-chart" style="width: 500px; height: 500px;"></div>
+<div id="happy-by-serial-chart" style="width: 500px; height: 500px;"></div>
+<div id="happy-by-number-chart" style="width: 500px; height: 500px;"></div>
 
 @section scripts {
     @Scripts.Render("https://www.gstatic.com/charts/loader.js", "~/Scripts/statistics.js")

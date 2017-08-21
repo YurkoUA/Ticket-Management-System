@@ -4,43 +4,61 @@
 });
 
 function startLoad() {
-    var statistics = [
-        {
-            url: "/Statistics/Colors",
-            elementId: "colors-chart",
-            title: "Квитки за кольорами"
-        },
-        {
-            url: "/Statistics/Series",
-            elementId: "series-chart",
-            title: "Квитки за серіями"
-        },
-        {
-            url: "/Statistics/HappyTickets",
-            elementId: "tickets-chart",
-            title: "Щасливі квитки"
-        },
-        {
-            url: "/Statistics/TicketsByFirstNumber",
-            elementId: "number-chart",
-            title: "Квитки за першою цифрою"
-        }
+    var charts = [
+        new Chart("by-serial-chart", "BySerial", "Serial", "Tickets", "Квитки за серіями", "Серія", "Квитків"),
+        new Chart("by-color-chart", "ByColor", "Color", "Tickets", "Квитки за кольорами", "Колір", "Квитків"),
+        new Chart("tickets-chart", "Tickets", "Type", "Count", "Звичайні/щасливі квитки", "Тип", "Квитків"),
+        new Chart("by-number-chart", "ByFirstNumber", "Number", "Count", "Квитки за першою цифрою", "Цифра", "Квитків"),
+        new Chart("happy-by-serial-chart", "HappyBySerial", "Serial", "Tickets", "Щасливі квитки за серіями", "Серія", "Квитків"),
+        new Chart("happy-by-number-chart", "HappyByFirstNumber", "Number", "Count", "Щасливі квитки за першою цифрою", "Цифра", "Квитків"),
     ];
 
-    statistics.forEach(function (item, index) {
-        drawChart(item);
-    });
+    for (var i in charts) {
+        charts[i].Draw();
+    }
 }
 
-function drawChart(stat) {
-    $.get(stat.url, function (data) {
-        var chartOptions = {
-            title: stat.title,
-            is3D: true
-        };
-        data = google.visualization.arrayToDataTable(JSON.parse(data));
-        
-        var chart = new google.visualization.PieChart(document.getElementById(stat.elementId));
-        chart.draw(data, chartOptions);
-    });
+function Chart(elementId, methodName, key, value, chartTitle, keyTitle, valueTitle) {
+    this.ElementId = elementId;
+    this.Url = "/api/Statistics/" + methodName;
+    this.ChartTitle = chartTitle;
+    this.Key = key;
+    this.Value = value;
+    this.KeyTitle = keyTitle;
+    this.ValueTitle = valueTitle;
+
+    this.ChartOptions = {
+        title: this.ChartTitle,
+        is3D: true
+    };
+
+    this.Draw = function () {
+        var element = document.getElementById(this.ElementId);
+        var opts = this.ChartOptions;
+
+        this.GetDataArray(function (dataArray) {
+            var dataTable = google.visualization.arrayToDataTable(dataArray);
+            var chart = new google.visualization.PieChart(element);
+
+            chart.draw(dataTable, opts);
+        });
+    };
+
+    this.GetDataArray = function (callback) {
+        var array = this.InitializeArray();
+        var key = this.Key;
+        var value = this.Value;
+
+        $.get(this.Url, function (data) {
+            for (var i in data) {
+                array.push([data[i][key], data[i][value]]);
+            }
+
+            callback(array);
+        });
+    };
+
+    this.InitializeArray = function () {
+        return [[this.KeyTitle, this.ValueTitle]];
+    };
 }

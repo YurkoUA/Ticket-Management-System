@@ -200,6 +200,7 @@
     <Compile Include="Areas\Api\Controllers\ColorController.cs" />
     <Compile Include="Areas\Api\Controllers\PackageController.cs" />
     <Compile Include="Areas\Api\Controllers\SerialController.cs" />
+    <Compile Include="Areas\Api\Controllers\StatisticsController.cs" />
     <Compile Include="Areas\Api\Controllers\TicketController.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
