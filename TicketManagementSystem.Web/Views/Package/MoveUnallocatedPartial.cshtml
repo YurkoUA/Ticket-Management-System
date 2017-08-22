@@ -5,36 +5,40 @@
 {
     using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "move-result", OnSuccess = "OnSuccess" }))
     {
-        @Html.AntiForgeryToken()
+        <p>
+            <a id="check-all-button" class="btn btn-link" role="button" onclick="checkAll()">Відмітити всі</a>
+        </p>
 
-        <div class="form-horizontal">
-            @for (var i = 0; i < Model.Count(); i++)
-            {
+            @Html.AntiForgeryToken()
+
+            <div id="move-unallocated-grid" class="form-horizontal">
+                @for (var i = 0; i < Model.Count(); i++)
+                {
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(model => Model[i].Move, new { id = $"tickets[{i}].Move" })
+
+                            @if (Model[i].IsHappy)
+                        {
+                                <span class="text-success">@Model[i].ToString()</span>
+                                <small>Щасливий</small>
+                            }
+                            else
+                            {
+                                <span>@Model[i].ToString()</span>
+                            }
+
+                            @Html.HiddenFor(model => Model[i].Id, new { id = $"tickets[{i}].Id" })
+                        </div>
+                    </div>
+                }
+
                 <div class="form-group">
-                    <div class="col-md-10">
-                        @Html.CheckBoxFor(model => Model[i].Move, new { id = $"tickets[{i}].Move" })
-                        
-                        @if (Model[i].IsHappy)
-                        {
-                            <span class="text-success">@Model[i].ToString()</span>
-                            <small>Щасливий</small>
-                        }
-                        else
-                        {
-                            <span>@Model[i].ToString()</span>
-                        }
-
-                        @Html.HiddenFor(model => Model[i].Id, new { id = $"tickets[{i}].Id" })
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-primary" value="Перемістити" />
                     </div>
                 </div>
-            }
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" class="btn btn-primary" value="Перемістити" />
-                </div>
             </div>
-        </div>
     }
 }
 else
