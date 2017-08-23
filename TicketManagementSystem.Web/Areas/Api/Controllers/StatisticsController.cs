@@ -11,14 +11,17 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         private IColorService _colorService;
         private ISerialService _serialService;
         private ITicketService _ticketService;
+        private ISummaryService _summaryService;
 
         public StatisticsController(IColorService colorServ,
                                     ISerialService serialServ,
-                                    ITicketService ticketServ)
+                                    ITicketService ticketServ,
+                                    ISummaryService summaryServ)
         {
             _colorService = colorServ;
             _serialService = serialServ;
             _ticketService = ticketServ;
+            _summaryService = summaryServ;
         }
 
         [HttpGet]
@@ -94,6 +97,18 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
                     Serial = g.Key,
                     Tickets = g.Count()
                 }));
+        }
+
+        [HttpGet]
+        public IHttpActionResult Summaries()
+        {
+            return OkOrNoContent(_summaryService.GetSummaries());
+        }
+
+        [HttpGet]
+        public IHttpActionResult SummariesPeriods()
+        {
+            return OkOrNoContent(_summaryService.GetSummariesPeriods());
         }
     }
 }

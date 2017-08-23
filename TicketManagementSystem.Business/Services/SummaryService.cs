@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Data.EF.Interfaces;
 using TicketManagementSystem.Data.EF.Models;
@@ -14,6 +17,26 @@ namespace TicketManagementSystem.Business.Services
         {
             _packageService = packServ;
             _ticketService = ticketServ;
+        }
+
+        public IEnumerable<SummaryDTO> GetSummaries()
+        {
+            return MapperInstance.Map<IEnumerable<SummaryDTO>>(
+                Database.Summary.GetAll()
+                .AsEnumerable());
+        }
+
+        public IEnumerable<SummaryPeriodDTO> GetSummariesPeriods()
+        {
+            var periods = new List<SummaryPeriodDTO>();
+            var summaries = Database.Summary.GetAll().OrderBy(s => s.Date).ToList();
+
+            for (int i = 1; i < summaries.Count(); i++)
+            {
+                periods.Add(new SummaryPeriodDTO(summaries[i - 1], summaries[i]));
+            }
+
+            return periods;
         }
 
         public void WriteSummary()

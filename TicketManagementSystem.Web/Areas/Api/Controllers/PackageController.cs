@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Enums;
@@ -12,11 +9,9 @@ using static TicketManagementSystem.Web.Areas.Api.Models.Extensions;
 namespace TicketManagementSystem.Web.Areas.Api.Controllers
 {
     [RoutePrefix("api/Package")]
-    //[Authorize(Roles = "Admin")]
+    ////[Authorize(Roles = "Admin")]
     public class PackageController : BaseApiController
     {
-        // TODO: List of compatible unallocated tickets for package.
-
         private IPackageService _packageService;
         private ITicketService _ticketService;
 
@@ -66,10 +61,9 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    //var package = _packageService.CreatePackage(createDto);
-                    //return Created(Url.Link("PackageById", new { id = package.Id }), package);
-                    _packageService.CreatePackage(createDto);
-                    return Ok();
+                    var package = _packageService.CreatePackage(createDto);
+                    //return Ok();
+                    return Created(Url.Link("PackageById", new { id = package.Id }), new { Id = package.Id });
                 }
             }
             return BadRequestWithErrors(ModelState);
@@ -85,10 +79,9 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    //var package = _packageService.CreateSpecialPackage(createDto);
-                    //return Created(Url.Link("PackageById", new { id = package.Id }), package);
-                    _packageService.CreateSpecialPackage(createDto);
-                    return Ok();
+                    var package = _packageService.CreateSpecialPackage(createDto);
+                    //return Ok();
+                    return Created(Url.Link("PackageById", new { id = package.Id }), new { Id = package.Id });
                 }
             }
             return BadRequestWithErrors(ModelState);
@@ -213,6 +206,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         [HttpPut]
         public dynamic MoveTickets(int id, [FromBody]IEnumerable<int> ticketsIds)
         {
+            // TODO: MoveTickets.
             throw new NotImplementedException();
         }
     }

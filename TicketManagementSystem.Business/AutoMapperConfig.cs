@@ -108,6 +108,12 @@ namespace TicketManagementSystem.Business
                 cfg.CreateMap<Ticket, TicketEditDTO>();
 
                 #endregion
+
+                #region Summary
+
+                cfg.CreateMap<Summary, SummaryDTO>();
+
+                #endregion
             });
 
             return config.CreateMapper();

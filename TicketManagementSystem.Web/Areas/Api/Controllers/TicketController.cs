@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
@@ -11,7 +8,7 @@ using static TicketManagementSystem.Web.Areas.Api.Models.Extensions;
 namespace TicketManagementSystem.Web.Areas.Api.Controllers
 {
     [RoutePrefix("api/Ticket")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class TicketController : BaseApiController
     {
         private IPackageService _packageService;
@@ -61,6 +58,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         [HttpGet, AllowAnonymous]
         public IHttpActionResult Filter(TicketFilterModel filter)
         {
+            // TODO: Filter.
             throw new NotImplementedException();
         }
 
@@ -85,6 +83,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         [HttpGet, AllowAnonymous]
         public IHttpActionResult CompatiblePackages(int id)
         {
+            // TODO: CompatiblePackages.
             throw new NotImplementedException();
         }
 
@@ -104,8 +103,9 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    _ticketService.Create(createDto);
-                    return Ok();
+                    var ticket = _ticketService.Create(createDto);
+                    //return Ok();
+                    return Created(Url.Link("TicketById", new { id = ticket.Id }), new { Id = ticket.Id });
                 }
             }
             return BadRequestWithErrors(ModelState);
@@ -114,6 +114,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         [HttpPost]
         public dynamic CreateMany([FromBody]IEnumerable<TicketCreateDTO> tickets)
         {
+            // TODO: CreateMany.
             throw new NotImplementedException();
         }
 
