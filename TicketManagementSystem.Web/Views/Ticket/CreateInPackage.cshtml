@@ -4,6 +4,8 @@
     ViewBag.Title = $"Додати квиток до пачки \"{Model.PackageName}\"";
 }
 
+@Styles.Render("~/Content/max-width-override.css")
+
 <h2>@ViewBag.Title</h2>
 <hr />
 
@@ -27,7 +29,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-3">
                 @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control", type = "number" } })
                 @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
             </div>
@@ -37,7 +39,7 @@
         {
             <div class="form-group">
                 @Html.LabelFor(model => model.ColorId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-3">
                     @Html.DropDownListFor(model => model.ColorId, Model.Colors, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.ColorId, "", new { @class = "text-danger" })
                 </div>
@@ -52,7 +54,7 @@
         {
             <div class="form-group">
                 @Html.LabelFor(model => model.SerialId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-3">
                     @Html.DropDownListFor(model => model.SerialId, Model.Series, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.SerialId, "", new { @class = "text-danger" })
                 </div>
@@ -65,7 +67,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.SerialNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-3">
                 @Html.EditorFor(model => model.SerialNumber, new { htmlAttributes = new { @class = "form-control", type = "number" } })
                 @Html.ValidationMessageFor(model => model.SerialNumber, "", new { @class = "text-danger" })
             </div>
@@ -73,15 +75,27 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-3">
+                <div class="input-group">
+                    <input type="text" id="Note" name="Note" class="form-control" />
+
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toogle Dropdown</span>
+                        </button>
+
+                        <ul id="note-dropdown" class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+                    </div>
+                </div>
+
                 @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-3">
                 @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
                 <a class="btn btn-link btn-sm" onclick="putCurrentDate('Date')">Сьогодні</a>
                 <br />
@@ -90,7 +104,7 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-2 col-md-3">
                 <input type="submit" value="Створити" class="btn btn-primary" />
             </div>
         </div>
