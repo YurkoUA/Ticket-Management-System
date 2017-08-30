@@ -9,7 +9,7 @@ using static TicketManagementSystem.Web.Areas.Api.Models.Extensions;
 namespace TicketManagementSystem.Web.Areas.Api.Controllers
 {
     [RoutePrefix("api/Package")]
-    ////[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class PackageController : BaseApiController
     {
         private IPackageService _packageService;

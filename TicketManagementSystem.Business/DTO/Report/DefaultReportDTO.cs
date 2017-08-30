@@ -25,5 +25,6 @@ namespace TicketManagementSystem.Business.DTO.Report
         public int DefaultPackagesTicketsNew { get; set; }
 
         public List<PackageDTO> Packages { get; set; }
+        public List<TicketsGroup> NewTicketsGroups { get; set; }
     }
 }

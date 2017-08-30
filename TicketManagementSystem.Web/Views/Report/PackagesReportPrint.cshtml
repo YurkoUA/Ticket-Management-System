@@ -27,12 +27,14 @@
     </div>
 
     <div>
-        <span>Дата: @Model.Date.ToString("g") (UTC)</span>
-
+        <br />
         @if (Model.LastReportDate != null)
         {
-            <br />
-            <span>Минулий звіт: @Model.LastReportDate.Value.ToString("g") (UTC)</span>
+            <span><b>Період: </b>@Model.LastReportDate.Value.ToString("d") - @Model.Date.ToString("d")</span>
+        }
+        else
+        {
+            <span><b>Дата :</b>@Model.Date.ToString("d") (UTC)</span>
         }
     </div>
 
@@ -80,8 +82,8 @@
 
                     <tbody>
                         @foreach (var package in item.Value)
-                    {
-                            <tr>
+                        {
+                            <tr class="@package.TrClass()">
                                 <td>@package.Id</td>
                                 <td>@package.PackageName</td>
                                 <td>@package.TotalTickets</td>
@@ -115,7 +117,7 @@
                 <tbody>
                     @foreach (var item in Model.SpecialPackages)
                     {
-                        <tr>
+                        <tr class="@item.TrClass()">
                             <td>@item.Id</td>
                             <td>@item.PackageName</td>
                             <td>@item.TotalTickets</td>

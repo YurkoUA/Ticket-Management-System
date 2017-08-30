@@ -14,7 +14,6 @@
         body {
             height: 842px;
             width: 595px;
-            
             margin-left: auto;
             margin-right: auto;
         }
@@ -27,12 +26,14 @@
     </div>
 
     <div>
-        <span>Дата: @Model.Date.ToString("g") (UTC)</span>
-
+        <br />
         @if (Model.LastReportDate != null)
         {
-            <br />
-            <span>Минулий звіт: @Model.LastReportDate.Value.ToString("g") (UTC)</span>
+            <span><b>Період: </b>@Model.LastReportDate.Value.ToString("d") - @Model.Date.ToString("d")</span>
+        }
+        else
+        {
+            <span><b>Дата :</b>@Model.Date.ToString("d") (UTC)</span>
         }
     </div>
 
@@ -58,6 +59,36 @@
         <span>Спеціальних: @Model.SpecialPackagesCount</span>
     </div>
 
+    <br />
+    <h3>Квитки, зібрані за останній період</h3>
+
+    @if (Model.LastReportDate != null && Model.NewTicketsGroups.Any())
+    {
+        <div>
+            <table class="table table-bordered table-condensed">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Квитків</th>
+                        <th>З них щасливих</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.NewTicketsGroups)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Count</td>
+                            <td>@item.HappyCount</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <h3>Підсумок</h3>
     <br />
 
     <div>

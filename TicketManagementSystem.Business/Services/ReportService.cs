@@ -62,22 +62,25 @@ namespace TicketManagementSystem.Business.Services
             // TODO: Need to clean from shit.
 
             var reports = Database.Reports.GetAll().AsEnumerable();
+            var packages = _packageService.GetPackages();
+            var tickets = _ticketService.GetTickets();
 
             var dto = new DefaultReportDTO
             {
-                TicketsCount = _ticketService.TotalCount,
-                HappyTicketsCount = _ticketService.CountHappyTickets(),
-                SpecialPackagesCount = Database.Packages.GetCount(p => p.IsSpecial),
-                DefaultPackagesCount = Database.Packages.GetCount(p => !p.IsSpecial),
-                DefaultPackagesTickets = Database.Tickets.GetCount(t => t.Package?.IsSpecial == false),
-                UnallocatedTicketsCount = Database.Tickets.GetCount(t => t.PackageId == null),
+                TicketsCount = tickets.Count(),
+                HappyTicketsCount = tickets.Count(t => t.IsHappy),
+                SpecialPackagesCount = packages.Count(p => p.IsSpecial),
+                DefaultPackagesCount = packages.Count(p => !p.IsSpecial),
+                UnallocatedTicketsCount = tickets.Count(t => t.PackageId == null),
 
-                Packages = Database.Packages.GetAll(p => p.IsSpecial)
+                DefaultPackagesTickets = Database.Tickets.GetCount(t => t.Package?.IsSpecial == false),
+
+                Packages = packages.Where(p => p.IsSpecial)
                     .Select(p => new PackageDTO
                     {
                         Id = p.Id,
-                        PackageName = p.ToString(),
-                        TotalTickets = p.Tickets.Count()
+                        PackageName = p.Name,
+                        TotalTickets = p.TicketsCount
                     })
                     .ToList()
             };
@@ -87,18 +90,29 @@ namespace TicketManagementSystem.Business.Services
                 var lastReportDate = reports.Last().Date;
                 dto.LastReportDate = lastReportDate;
 
-                dto.NewTicketsCount = Database.Tickets.GetCount(t => t.AddDate > lastReportDate);
-                dto.NewHappyTicketsCount = Database.Tickets.GetCount(t => t.IsHappy() && t.AddDate > lastReportDate);
+                dto.NewTicketsCount = tickets.Count(t => t.AddDate > lastReportDate);
+                dto.NewHappyTicketsCount = tickets.Count(t => t.IsHappy && t.AddDate > lastReportDate);
 
-                dto.NewPackagesCount = Database.Packages.GetCount(t => t.Date > lastReportDate);
+                dto.NewPackagesCount = packages.Count(t => t.Date > lastReportDate);
+
+                dto.NewUnallocatedTicketsCount = tickets.Count(t => t.PackageId == null && t.AddDate > lastReportDate);
+
                 dto.DefaultPackagesTicketsNew = Database.Tickets.GetCount(t => t.AddDate > lastReportDate && t.Package?.IsSpecial == false);
-                dto.NewUnallocatedTicketsCount = Database.Tickets.GetCount(t => t.PackageId == null && t.AddDate > lastReportDate);
 
                 dto.Packages.ForEach(p =>
                 {
-                    var package = Database.Packages.GetById(p.Id);
-                    p.NewTickets = package.Tickets.Count(t => t.AddDate > lastReportDate);
+                    p.NewTickets = tickets.Count(t => t.AddDate > lastReportDate && t.PackageId == p.Id);
                 });
+
+                dto.NewTicketsGroups = tickets.Where(t => t.AddDate > lastReportDate)
+                    .GroupBy(t => $"{t.SerialName}-{t.ColorName} ({t.FirstNumber})")
+                    .Select(g => new TicketsGroup
+                    {
+                        Name = g.Key,
+                        Count = g.Count(),
+                        HappyCount = g.Count(t => t.IsHappy)
+                    }).OrderByDescending(t => t.Count)
+                       .ToList();
             }
 
             return dto;
@@ -109,32 +123,33 @@ namespace TicketManagementSystem.Business.Services
             // TODO: Need to clean from shit.
 
             var reports = Database.Reports.GetAll().AsEnumerable();
-            var packages = Database.Packages.GetAll().AsEnumerable();
+            var packages = _packageService.GetPackages();
+            var tickets = _ticketService.GetTickets();
 
             var dto = new PackageReportDTO
             {
-                TotalTickets = _ticketService.TotalCount,
-                TotalPackages = _packageService.TotalCount,
+                TotalTickets = tickets.Count(),
+                TotalPackages = packages.Count(),
                 TotalDefaultPackages = packages.Count(p => !p.IsSpecial),
-                HappyTickets = _ticketService.CountHappyTickets(),
+                HappyTickets = tickets.Count(t => t.IsHappy),
 
                 DefaultPackages = packages.Where(p => !p.IsSpecial)
-                    .GroupBy(p => p.Serial.ToString())
+                    .GroupBy(p => p.SerialName)
                     .OrderByDescending(g => g.AsEnumerable().Count())
                     .ToDictionary(g => g.Key, g => g.AsEnumerable()
                         .Select(p => new PackageDTO
                         {
                             Id = p.Id,
-                            PackageName = p.ToString(),
-                            TotalTickets = p.Tickets.Count()
+                            PackageName = p.Name,
+                            TotalTickets = p.TicketsCount
                         }).ToList()),
 
                 SpecialPackages = packages.Where(p => p.IsSpecial)
                     .Select(p => new PackageDTO
                     {
                         Id = p.Id,
-                        PackageName = p.ToString(),
-                        TotalTickets = p.Tickets.Count()
+                        PackageName = p.Name,
+                        TotalTickets = p.TicketsCount
                     })
                     .ToList()
             };
@@ -146,14 +161,13 @@ namespace TicketManagementSystem.Business.Services
 
                 Action<PackageDTO> action = pack =>
                 {
-                    var package = Database.Packages.GetById(pack.Id);
-                    pack.NewTickets = package.Tickets.Count(t => t.AddDate > lastReportDate);
+                    pack.NewTickets = tickets.Count(t => t.AddDate > lastReportDate && t.PackageId == pack.Id);
                 };
 
-                dto.NewTickets = Database.Tickets.GetCount(t => t.AddDate > lastReportDate);
-                dto.NewHappyTickets = Database.Tickets.GetCount(t => t.IsHappy() && t.AddDate > lastReportDate);
+                dto.NewTickets = tickets.Count(t => t.AddDate > lastReportDate);
+                dto.NewHappyTickets = tickets.Count(t => t.IsHappy && t.AddDate > lastReportDate);
 
-                dto.NewPackagesCount = Database.Packages.GetCount(p => p.Date > lastReportDate);
+                dto.NewPackagesCount = packages.Count(p => p.Date > lastReportDate);
                 dto.SpecialPackages.ForEach(action);
 
                 dto.DefaultPackages.Values.ToList().ForEach(v =>

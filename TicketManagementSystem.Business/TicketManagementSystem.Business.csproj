@@ -97,6 +97,7 @@
     <Compile Include="DTO\Report\PackageDTO.cs" />
     <Compile Include="DTO\Report\PackageReportDTO.cs" />
     <Compile Include="DTO\Report\ReportDTO.cs" />
+    <Compile Include="DTO\Report\TicketsGroup.cs" />
     <Compile Include="DTO\Serial\SerialCreateDTO.cs" />
     <Compile Include="DTO\Serial\SerialDTO.cs" />
     <Compile Include="DTO\Serial\SerialEditDTO.cs" />
