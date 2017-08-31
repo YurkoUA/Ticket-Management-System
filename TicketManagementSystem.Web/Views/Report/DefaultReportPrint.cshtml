@@ -33,7 +33,7 @@
         }
         else
         {
-            <span><b>Дата :</b>@Model.Date.ToString("d") (UTC)</span>
+            <span><b>Дата: </b>@Model.Date.ToString("d") (UTC)</span>
         }
     </div>
 
@@ -60,10 +60,11 @@
     </div>
 
     <br />
-    <h3>Квитки, зібрані за останній період</h3>
 
     @if (Model.LastReportDate != null && Model.NewTicketsGroups.Any())
     {
+        <h3>Квитки, зібрані за період</h3>
+
         <div>
             <table class="table table-bordered table-condensed">
                 <thead>

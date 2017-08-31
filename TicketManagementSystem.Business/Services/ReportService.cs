@@ -135,14 +135,15 @@ namespace TicketManagementSystem.Business.Services
 
                 DefaultPackages = packages.Where(p => !p.IsSpecial)
                     .GroupBy(p => p.SerialName)
-                    .OrderByDescending(g => g.AsEnumerable().Count())
+                    .OrderByDescending(g => g.Count())
                     .ToDictionary(g => g.Key, g => g.AsEnumerable()
                         .Select(p => new PackageDTO
                         {
                             Id = p.Id,
                             PackageName = p.Name,
                             TotalTickets = p.TicketsCount
-                        }).ToList()),
+                        }).OrderBy(p => p.Id)
+                        .ToList()),
 
                 SpecialPackages = packages.Where(p => p.IsSpecial)
                     .Select(p => new PackageDTO
@@ -150,7 +151,7 @@ namespace TicketManagementSystem.Business.Services
                         Id = p.Id,
                         PackageName = p.Name,
                         TotalTickets = p.TicketsCount
-                    })
+                    }).OrderBy(p => p.Id)
                     .ToList()
             };
 
