@@ -115,6 +115,7 @@
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Interfaces\ILoginService.cs" />
     <Compile Include="Interfaces\IPackageService.cs" />
+    <Compile Include="Interfaces\ITicketService2.cs" />
     <Compile Include="Pdf\IPdfService.cs" />
     <Compile Include="Interfaces\IReportService.cs" />
     <Compile Include="Interfaces\IRoleService.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Services\SerialService.cs" />
     <Compile Include="Services\SummaryService.cs" />
     <Compile Include="Services\TicketService.cs" />
+    <Compile Include="Services\TicketService2.cs" />
     <Compile Include="Services\TodoService.cs" />
   </ItemGroup>
   <ItemGroup>

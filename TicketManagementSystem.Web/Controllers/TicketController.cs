@@ -14,6 +14,7 @@ namespace TicketManagementSystem.Web.Controllers
     public class TicketController : BaseController
     {
         private ITicketService _ticketService;
+        private ITicketService2 _ticketService2;
         private IPackageService _packageService;
         private ISerialService _serialService;
         private IColorService _colorService;
@@ -21,12 +22,14 @@ namespace TicketManagementSystem.Web.Controllers
 
         public TicketController(
             ITicketService ticketService,
+            ITicketService2 ticketService2,
             IPackageService packageService,
             ISerialService serialService,
             IColorService colorService,
             ICacheService cacheService)
         {
             _ticketService = ticketService;
+            _ticketService2 = ticketService2;
             _packageService = packageService;
             _serialService = serialService;
             _colorService = colorService;
@@ -69,6 +72,17 @@ namespace TicketManagementSystem.Web.Controllers
                 PageInfo = pageInfo
             };
             return View(viewModel);
+        }
+
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
+        public ActionResult Latest()
+        {
+            var latestTickets = _ticketService2.GetLatestTickets();
+
+            if (latestTickets == null || !latestTickets.Any())
+                return RedirectToAction("Index");
+
+            return View(MapperInstance.Map<IEnumerable<TicketDetailsModel>>(latestTickets));
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]

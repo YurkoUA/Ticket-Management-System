@@ -13,11 +13,13 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
     {
         private IPackageService _packageService;
         private ITicketService _ticketService;
+        private ITicketService2 _ticketService2;
 
-        public TicketController(ITicketService ticketService, IPackageService packageService)
+        public TicketController(ITicketService ticketService, IPackageService packageService, ITicketService2 ticketService2)
         {
             _ticketService = ticketService;
             _packageService = packageService;
+            _ticketService2 = ticketService2;
         }
 
         [HttpGet, AllowAnonymous]
@@ -53,6 +55,12 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         public IHttpActionResult Clones()
         {
             return OkOrNoContent(_ticketService.GetClones());
+        }
+
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult Latest()
+        {
+            return OkOrNoContent(_ticketService2.GetLatestTickets());
         }
 
         [HttpGet, AllowAnonymous]
