@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Статистика за місяцями";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<p>
+    Статистика станом на @Html.DisplayDateTime(DateTime.Now.ToUniversalTime(), "G")
+</p>
+
+<div id="tickets-periods" style="width: 900px; height: 500px;"></div>
+<div id="tickets-monthly" style="width: 900px; height: 500px;"></div>
+<div id="happy-tickets-monthly" style="width: 900px; height: 500px;"></div>
+
+@section scripts {
+    @Scripts.Render("https://www.gstatic.com/charts/loader.js", "~/Scripts/statistics-monthly.js")
+}

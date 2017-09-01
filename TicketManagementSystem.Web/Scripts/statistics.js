@@ -48,13 +48,18 @@ function Chart(elementId, methodName, key, value, chartTitle, keyTitle, valueTit
         var array = this.InitializeArray();
         var key = this.Key;
         var value = this.Value;
+        var elem = this.ElementId
 
-        $.get(this.Url, function (data) {
-            for (var i in data) {
-                array.push([data[i][key], data[i][value]]);
+        $.ajax({
+            url: this.Url, success: function (data) {
+                for (var i in data) {
+                    array.push([data[i][key], data[i][value]]);
+                }
+
+                callback(array);
+            }, error: function () {
+                $('#' + elem).hide();
             }
-
-            callback(array);
         });
     };
 
