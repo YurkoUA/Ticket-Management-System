@@ -36,20 +36,14 @@ namespace TicketManagementSystem.Business.Services
                 periods.Add(new SummaryPeriodDTO(summaries[i - 1], summaries[i]));
             }
 
+            AddCurrentPeriod(periods, summaries.Last());
+
             return periods;
         }
 
         public void WriteSummary()
         {
-            var summary = new Summary
-            {
-                Date = DateTime.Now.ToUniversalTime(),
-                Packages = _packageService.TotalCount,
-                Tickets = _ticketService.TotalCount,
-                HappyTickets = _ticketService.CountHappyTickets()
-            };
-
-            Database.Summary.Create(summary);
+            Database.Summary.Create(GetSummary());
             Database.SaveChanges();
         }
 
@@ -63,6 +57,27 @@ namespace TicketManagementSystem.Business.Services
 
                 return date.Month == now.Month
                     && date.Year == now.Year;
+            }
+        }
+
+        private Summary GetSummary()
+        {
+            return new Summary
+            {
+                Date = DateTime.Now.ToUniversalTime(),
+                Packages = _packageService.TotalCount,
+                Tickets = _ticketService.TotalCount,
+                HappyTickets = _ticketService.CountHappyTickets()
+            };
+        }
+
+        private void AddCurrentPeriod(List<SummaryPeriodDTO> periods, Summary lastSummary)
+        {
+            var current = GetSummary();
+
+            if (current.Tickets - lastSummary.Tickets > 0)
+            {
+                periods.Add(new SummaryPeriodDTO(lastSummary, current));
             }
         }
     }
