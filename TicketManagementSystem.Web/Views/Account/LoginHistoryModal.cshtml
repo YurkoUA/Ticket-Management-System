@@ -19,6 +19,7 @@
                         <th>Дата</th>
                         <th>IP-адреса</th>
                         <th>Браузер</th>
+                        <th>Хост</th>
                         <th>Тип</th>
                     </tr>
 
@@ -37,19 +38,13 @@
                                 }
                                 else
                                 {
-                                    var length = 10;
-
-                                    if (item.UserAgent.Length < length)
-                                    {
-                                        length = item.UserAgent.Length;
-                                    }
-
-                                    browserText = "User-Agent: " + item.UserAgent.Substring(0, length) + "...";
+                                    browserText = item.CutUserAgent();
                                 }
                             }
                             <td>
                                 <span data-toggle="tooltip" data-placement="bottom" title="@item.UserAgent">@browserText</span>
                             </td>
+                            <td>@(item.Host?.ToString())</td>
                             <td>@item.Type</td>
                         </tr>
                     }

@@ -139,7 +139,8 @@ namespace TicketManagementSystem.Web.Controllers
                 IpAddress = Request.UserHostAddress,
                 Browser = Request.Browser.Browser,
                 UserAgent = Request.UserAgent,
-                Type = "ApplicationCookie"
+                Type = "ApplicationCookie",
+                Host = $"{request.Url.Scheme}://{request.Url.Authority}"
             };
         }
 

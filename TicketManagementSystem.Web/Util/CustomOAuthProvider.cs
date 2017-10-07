@@ -67,7 +67,8 @@ namespace TicketManagementSystem.Web
                 Date = DateTime.UtcNow,
                 Type = "JWT",
                 IpAddress = context.Request.RemoteIpAddress,
-                UserAgent = context.Request.Headers["User-Agent"]
+                UserAgent = context.Request.Headers["User-Agent"],
+                Host = $"{context.Request.Uri.Scheme}://{context.Request.Uri.Authority}"
             };
         }
 
