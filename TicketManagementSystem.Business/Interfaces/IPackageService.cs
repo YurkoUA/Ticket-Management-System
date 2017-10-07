@@ -19,6 +19,7 @@ namespace TicketManagementSystem.Business.Interfaces
         IEnumerable<PackageDTO> GetPackagesBySerial(int serialId);
 
         IEnumerable<TicketDTO> GetPackageTickets(int packageId, bool orderByNumber = false);
+        IEnumerable<PackageDTO> GetCompatiblePackages(int colorId, int serialId, int? number = null);
 
         PackageDTO GetPackage(int id);
 

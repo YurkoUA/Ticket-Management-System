@@ -22,6 +22,7 @@ namespace TicketManagementSystem.Business.Interfaces
         IEnumerable<TicketDTO> GetHappyTickets(int skip, int take);
 
         TicketDTO GetById(int id);
+        TicketDTO GetRandomTicket();
         IEnumerable<TicketDTO> GetByNumber(string number, bool partialMatches = false);
         IEnumerable<TicketDTO> GetByNumber(string number, int id);
 

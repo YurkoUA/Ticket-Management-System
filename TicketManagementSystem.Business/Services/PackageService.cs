@@ -101,6 +101,23 @@ namespace TicketManagementSystem.Business.Services
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
+        public IEnumerable<PackageDTO> GetCompatiblePackages(int colorId, int serialId, int? number = null)
+        {
+            var packages = Database.Packages.GetAll(p => (p.ColorId == null || p.ColorId == colorId)
+                    && (p.SerialId == null || p.SerialId == serialId)
+                    && p.IsOpened);
+
+            if (number != null)
+            {
+                packages = packages.Where(p => p.FirstNumber == number || p.FirstNumber == null);
+            }
+
+            if (!packages.Any())
+                return null;
+
+            return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
+        }
+
         public PackageDTO GetPackage(int id)
         {
             var package = Database.Packages.GetById(id);

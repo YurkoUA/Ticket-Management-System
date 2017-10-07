@@ -509,16 +509,8 @@ namespace TicketManagementSystem.Web.Controllers
 
         private SelectList GetPackagesList(int colorId, int serialId, int? number = null)
         {
-            IEnumerable<PackageDTO> packages = _packageService.GetPackages()
-                .Where(p => (p.ColorId == null || p.ColorId == colorId)
-                    && (p.SerialId == null || p.SerialId == serialId)
-                    && p.IsOpened)
+            IEnumerable<PackageDTO> packages = _packageService.GetCompatiblePackages(colorId, serialId)
                 .OrderBy(p => p.Name);
-
-            if (number != null)
-            {
-                packages = packages.Where(p => p.FirstNumber == number || p.FirstNumber == null);
-            }
 
             return new SelectList(packages.ToList(), "Id", "SelectListOptionValue");
         }

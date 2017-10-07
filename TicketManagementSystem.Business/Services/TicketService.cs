@@ -145,6 +145,14 @@ namespace TicketManagementSystem.Business.Services
             return MapperInstance.Map<TicketDTO>(ticket);
         }
 
+        public TicketDTO GetRandomTicket()
+        {
+            var index = new Random().Next(0, TotalCount);
+
+            // TODO: GetRandomTicket.
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<TicketDTO> GetByNumber(string number, bool partialMatches = false)
         {
             Func<Ticket, bool> predicate = t => t.Number.Equals(number);

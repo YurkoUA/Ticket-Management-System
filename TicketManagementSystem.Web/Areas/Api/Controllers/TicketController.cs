@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
@@ -64,10 +65,15 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult Filter(TicketFilterModel filter)
+        public IHttpActionResult Filter([FromUri]TicketFilterModel filter)
         {
-            // TODO: Filter.
-            throw new NotImplementedException();
+            const int ITEMS_ON_PAGE = 30;
+
+            if (filter == null || filter?.IsNull() == true)
+                return BadRequest();
+
+            var tickets = _ticketService.Filter(filter.FirstNumber, filter.ColorId, filter.SerialId);
+            return OkOrNoContent(tickets.Skip((filter.Page - 1) * ITEMS_ON_PAGE).Take(ITEMS_ON_PAGE));
         }
 
         [HttpGet, AllowAnonymous, Route("Search/{number}")]
@@ -91,8 +97,12 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         [HttpGet, AllowAnonymous]
         public IHttpActionResult CompatiblePackages(int id)
         {
-            // TODO: CompatiblePackages.
-            throw new NotImplementedException();
+            var ticket = _ticketService.GetById(id);
+
+            if (ticket == null)
+                return NotFound();
+
+            return OkOrNoContent(_packageService.GetCompatiblePackages(ticket.ColorId, ticket.SerialId, ticket.FirstNumber));
         }
 
         [HttpGet, AllowAnonymous, Route("Get/{id?}", Name = "TicketById")]
