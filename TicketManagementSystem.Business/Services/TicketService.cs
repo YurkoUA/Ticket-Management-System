@@ -30,18 +30,12 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetClones()
         {
-            //var clones = Database.Tickets.GetAll()
-            //    .AsEnumerable()
-            //    .Where(t => CountByNumber(t.Number, t.Id) > 0)
-            //    .OrderBy(t => t.Number);
-
             var clones = Database.Tickets.GetAll()
                 .AsEnumerable()
                 .GroupBy(t => t.Number)
                 .Where(g => g.Skip(1).Any())
                 .SelectMany(c => c)
-                .OrderBy(t => t.Number)
-                .AsEnumerable();
+                .OrderBy(t => t.Number);
 
             return MapperInstance.Map<IEnumerable<TicketDTO>>(clones);
         }
@@ -60,7 +54,7 @@ namespace TicketManagementSystem.Business.Services
         {
             var tickets = Database.Tickets.GetAll()
                 .OrderBy(t => t.Number)
-                .AsEnumerable()
+                //.AsEnumerable()
                 .Skip(skip)
                 .Take(take);
 
@@ -70,26 +64,25 @@ namespace TicketManagementSystem.Business.Services
         public IEnumerable<TicketDTO> GetTicketsByPackage(int packageId)
         {
             var tickets = Database.Tickets.GetAll(t => t.PackageId == packageId)
-                .OrderBy(t => t.Number)
-                .AsEnumerable();
+                .OrderBy(t => t.Number);
 
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetUnallocatedTickets()
         {
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(
-                Database.Tickets.GetAll()
-                .Where(t => t.PackageId == null)
-                .OrderBy(t => t.Number)
-                .AsEnumerable());
+            var tickets = Database.Tickets.GetAll(t => t.PackageId == null)
+                .OrderBy(t => t.Number);
+
+            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetUnallocatedTickets(int packageId)
         {
-            var package = _packageService.GetPackage(packageId);
+            var package = Database.Packages.GetById(packageId);
 
-            if (package == null) return null;
+            if (package == null)
+                return null;
 
             var tickets = GetUnallocatedTickets();
 
@@ -107,40 +100,43 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetUnallocatedTickets(int skip, int take)
         {
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(
-                Database.Tickets.GetAll()
-                .Where(t => t.PackageId == null)
-                .OrderBy(t => t.Number))
-                .AsEnumerable()
+            var tickets = Database.Tickets.GetAll(t => t.PackageId == null)
+                .OrderBy(t => t.Number)
+                //.AsEnumerable()
                 .Skip(skip)
                 .Take(take);
+
+            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetHappyTickets()
         {
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(
-                Database.Tickets.GetAll())
+            var tickets = Database.Tickets.GetAll()
                 .OrderBy(t => t.Number)
-                .Where(t => t.IsHappy)
-                .AsEnumerable();
+                .AsEnumerable()
+                .Where(t => t.IsHappy());
+
+            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetHappyTickets(int skip, int take)
         {
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(
-                Database.Tickets.GetAll()
+            var tickets = Database.Tickets.GetAll()
+                .OrderBy(t => t.Number)
                 .AsEnumerable()
                 .Where(t => t.IsHappy())
-                .OrderBy(t => t.Number)
                 .Skip(skip)
-                .Take(take));
+                .Take(take);
+
+            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public TicketDTO GetById(int id)
         {
             var ticket = Database.Tickets.GetById(id);
 
-            if (ticket == null) return null;
+            if (ticket == null)
+                return null;
 
             return MapperInstance.Map<TicketDTO>(ticket);
         }
@@ -155,40 +151,44 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetByNumber(string number, bool partialMatches = false)
         {
-            Func<Ticket, bool> predicate = t => t.Number.Equals(number);
+            IEnumerable<Ticket> tickets;
 
             if (partialMatches)
-                predicate = t => t.Number.Contains(number);
+            {
+                tickets = Database.Tickets.GetAll(t => t.Number.Contains(number));
+            }
+            else
+            {
+                tickets = Database.Tickets.GetAll(t => t.Number.Equals(number));
+            }
 
-            var tickets = Database.Tickets.GetAll()
-                .Where(predicate)
-                .OrderBy(t => t.Number);
+            tickets = tickets.OrderBy(t => t.Number);
+
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetByNumber(string number, int id)
         {
-            var tickets = Database.Tickets.GetAll().Where(t => t.Number.Equals(number) && t.Id != id);
+            var tickets = Database.Tickets.GetAll(t => t.Number.Equals(number) && t.Id != id);
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> Filter(int? firstNumber, int? colorId, int? serialId)
         {
             IQueryable<Ticket> tickets = Database.Tickets.GetAll();
-
-            if (firstNumber != null)
-                tickets = tickets.ToList().Where(t => int.Parse(t.Number.First().ToString()) == firstNumber).AsQueryable();
-
+            
             if (colorId != null)
                 tickets = tickets.Where(t => t.ColorId == colorId);
 
             if (serialId != null)
                 tickets = tickets.Where(t => t.SerialId == serialId);
 
+            if (firstNumber != null)
+                tickets = tickets.ToList().Where(t => int.Parse(t.Number.First().ToString()) == firstNumber).AsQueryable();
+
             return MapperInstance.Map<IEnumerable<TicketDTO>>(
-                tickets
-                .OrderBy(t => t.Number)
-                .AsEnumerable());
+                tickets.OrderBy(t => t.Number)
+            );
         }
 
         #endregion
@@ -261,7 +261,8 @@ namespace TicketManagementSystem.Business.Services
         {
             var ticket = Database.Tickets.GetById(ticketId);
 
-            if (ticket == null) return null;
+            if (ticket == null)
+                return null;
 
             ticket.Number = number;
             Database.Tickets.Update(ticket);
@@ -272,11 +273,13 @@ namespace TicketManagementSystem.Business.Services
 
         public TicketDTO MoveToPackage(int ticketId, int packageId)
         {
-            if (!_packageService.ExistsById(packageId)) return null;
+            if (!_packageService.ExistsById(packageId))
+                return null;
 
             var ticket = Database.Tickets.GetById(ticketId);
 
-            if (ticket == null) return null;
+            if (ticket == null)
+                return null;
 
             ticket.PackageId = packageId;
             Database.Tickets.Update(ticket);
@@ -287,7 +290,8 @@ namespace TicketManagementSystem.Business.Services
 
         public void MoveFewToPackage(int packageId, params int[] ticketsIds)
         {
-            if (!_packageService.ExistsById(packageId)) return;
+            if (!_packageService.ExistsById(packageId))
+                return;
 
             foreach (var id in ticketsIds)
             {
@@ -393,7 +397,7 @@ namespace TicketManagementSystem.Business.Services
 
             if (createDTO.PackageId != null)
             {
-                var package = _packageService.GetPackage((int)createDTO.PackageId);
+                var package = Database.Packages.GetById((int)createDTO.PackageId);
 
                 if (package == null)
                 {
@@ -401,11 +405,11 @@ namespace TicketManagementSystem.Business.Services
                 }
                 else if (!package.IsOpened)
                 {
-                    errors.Add($"Пачка \"{package.Name}\" закрита.");
+                    errors.Add($"Пачка \"{package.ToString()}\" закрита.");
                 }
                 else if (package.FirstNumber != null && package.FirstNumber != int.Parse(createDTO.Number.First().ToString()))
                 {
-                    errors.Add($"До пачки \"{package.Name}\" можна додавати лише квитки на цифру {package.FirstNumber}.");
+                    errors.Add($"До пачки \"{package.ToString()}\" можна додавати лише квитки на цифру {package.FirstNumber}.");
                 }
                 else
                 {
@@ -428,10 +432,10 @@ namespace TicketManagementSystem.Business.Services
             var errors = new List<string>();
             errors.AddRange(ValidateObject(editDTO));
 
-            var ticketDTO = GetById(editDTO.Id);
+            var ticket = Database.Tickets.GetById(editDTO.Id);
 
             var dtoForCheckExisting = MapperInstance.Map<TicketDTO>(editDTO);
-            dtoForCheckExisting.Number = ticketDTO.Number;
+            dtoForCheckExisting.Number = ticket.Number;
 
             if (Exists(dtoForCheckExisting, editDTO.Id))
             {
@@ -448,16 +452,16 @@ namespace TicketManagementSystem.Business.Services
                 errors.Add($"Серії ID: {editDTO.SerialId} не існує.");
             }
 
-            if (ticketDTO.PackageId != null)
+            if (ticket.PackageId != null)
             {
-                var packageDTO = _packageService.GetPackage((int)ticketDTO.PackageId);
+                var package = Database.Packages.GetById((int)ticket.PackageId);
 
-                if (packageDTO.ColorId != null && packageDTO.ColorId != editDTO.ColorId)
+                if (package.ColorId != null && package.ColorId != editDTO.ColorId)
                 {
                     errors.Add("Колір квитка не збігається з кольором пачки.");
                 }
 
-                if (packageDTO.SerialId != null && packageDTO.SerialId != editDTO.SerialId)
+                if (package.SerialId != null && package.SerialId != editDTO.SerialId)
                 {
                     errors.Add("Серія квитка не збігається з серією пачки.");
                 }
@@ -473,17 +477,17 @@ namespace TicketManagementSystem.Business.Services
                 return new string[] { "Номер повинен складатися з шести цифр. " };
             }
 
-            var ticketDTO = GetById(ticketId);
+            var ticket = Database.Tickets.GetById(ticketId);
             var errors = new List<string>();
 
-            if (ticketDTO.PackageId != null)
+            if (ticket.PackageId != null)
             {
                 var firstNumber = int.Parse(newNumber.First().ToString());
-                var packageDTO = _packageService.GetPackage((int)ticketDTO.PackageId);
+                var package = Database.Packages.GetById((int)ticket.PackageId);
 
-                if (packageDTO.FirstNumber != null && packageDTO.FirstNumber != firstNumber)
+                if (package.FirstNumber != null && package.FirstNumber != firstNumber)
                 {
-                    errors.Add($"Квиток повинен починатися на цифру {packageDTO.FirstNumber}.");
+                    errors.Add($"Квиток повинен починатися на цифру {package.FirstNumber}.");
                 }
             }
 
@@ -493,25 +497,26 @@ namespace TicketManagementSystem.Business.Services
         public IEnumerable<string> ValidateMoveToPackage(int ticketId, int packageId)
         {
             var errors = new List<string>();
-            var ticketDTO = GetById(ticketId);
-            var packageDTO = _packageService.GetPackage(packageId);
 
-            if (!packageDTO.IsOpened)
+            var ticket = Database.Tickets.GetById(ticketId);
+            var package = Database.Packages.GetById(packageId);
+
+            if (!package.IsOpened)
             {
-                errors.Add($"Пачка \"{packageDTO.Name}\" закрита.");
+                errors.Add($"Пачка \"{package.ToString()}\" закрита.");
             }
 
-            if (packageDTO.FirstNumber != null && packageDTO.FirstNumber != int.Parse(ticketDTO.Number.First().ToString()))
+            if (package.FirstNumber != null && package.FirstNumber != int.Parse(ticket.Number.First().ToString()))
             {
-                errors.Add($"До пачки \"{packageDTO.Name}\" можна додавати лише квитки на цифру {packageDTO.FirstNumber}.");
+                errors.Add($"До пачки \"{package.ToString()}\" можна додавати лише квитки на цифру {package.FirstNumber}.");
             }
 
-            if (packageDTO.ColorId != null && ticketDTO.ColorId != packageDTO.ColorId)
+            if (package.ColorId != null && ticket.ColorId != package.ColorId)
             {
                 errors.Add("Колір квитка не збігається з кольором пачки.");
             }
 
-            if (packageDTO.SerialId != null && ticketDTO.SerialId != packageDTO.SerialId)
+            if (package.SerialId != null && ticket.SerialId != package.SerialId)
             {
                 errors.Add("Серія квитка не збігається з серією пачки.");
             }
@@ -523,11 +528,11 @@ namespace TicketManagementSystem.Business.Services
         {
             var errors = new List<string>();
 
-            var package = _packageService.GetPackage(packageId);
+            var package = Database.Packages.GetById(packageId);
 
             if (package == null)
             {
-                errors.Add($"Пачки ID: {package} не існує");
+                errors.Add($"Пачки ID: {packageId} не існує");
                 return errors;
             }
 

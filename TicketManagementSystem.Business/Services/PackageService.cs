@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Enums;
@@ -25,7 +24,8 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<PackageDTO> FindByName(string name)
         {
-            return MapperInstance.Map<IEnumerable<PackageDTO>>(Database.Packages.GetAll(p => p.ToString().Contains(name)));
+            var packages = Database.Packages.GetAll(p => p.ToString().Contains(name));
+            return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
         }
 
         public IEnumerable<PackageDTO> GetPackages()
@@ -44,16 +44,17 @@ namespace TicketManagementSystem.Business.Services
                 .OrderByDescending(p => p.IsOpened)
                 .ThenByDescending(p => p.IsSpecial)
                 .ThenByDescending(p => p.Id)
-                .AsEnumerable()
+                //.AsEnumerable()
                 .Skip(skip)
                 .Take(take);
+
             return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
         }
 
         public IEnumerable<PackageDTO> GetPackages(PackagesFilter filter)
         {
             var packages = Database.Packages.GetAll(GetExpressionByFilter(filter))
-                .AsEnumerable()
+                //.AsEnumerable()
                 .OrderByDescending(p => p.IsOpened)
                 .ThenByDescending(p => p.IsSpecial)
                 .ThenByDescending(p => p.Id)
@@ -65,7 +66,7 @@ namespace TicketManagementSystem.Business.Services
         public IEnumerable<PackageDTO> GetPackages(int skip, int take, PackagesFilter filter)
         {
             var packages = Database.Packages.GetAll(GetExpressionByFilter(filter))
-                .AsEnumerable()
+                //.AsEnumerable()
                 .OrderByDescending(p => p.IsOpened)
                 .ThenByDescending(p => p.IsSpecial)
                 .ThenByDescending(p => p.Id)
@@ -89,11 +90,10 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetPackageTickets(int packageId, bool orderByNumber = false)
         {
-            var package = Database.Packages.GetById(packageId);
+            var tickets = Database.Tickets.GetAll(t => t.PackageId == packageId);
 
-            if (package == null) return null;
-
-            var tickets = package.Tickets.AsEnumerable();
+            if (!tickets.Any())
+                return null;
 
             if (orderByNumber)
                 tickets = tickets.OrderBy(t => t.Number);
@@ -185,11 +185,7 @@ namespace TicketManagementSystem.Business.Services
 
                 Database.Packages.Update(package);
                 Database.SaveChanges(() => {
-                    //Database.ExecuteSql("UPDATE [Packages] SET [SerialId] = @serial, [ColorId] = @color WHERE [Id] = @id", 
-                    //    new SqlParameter("@color", packageDTO.ColorId),
-                    //    new SqlParameter("@serial", packageDTO.SerialId),
-                    //    new SqlParameter("@id", packageDTO.Id));
-
+                    
                     Database.ExecuteSql("UPDATE Packages SET SerialId = {0}, ColorId = {1} WHERE Id = {2}",
                         packageDTO.SerialId, packageDTO.ColorId, packageDTO.Id);
                 });
@@ -282,6 +278,7 @@ namespace TicketManagementSystem.Business.Services
 
                 if (dto.ResetColor)
                     package.ColorId = null;
+
                 if (dto.ResetSerial)
                     package.SerialId = null;
 
@@ -396,7 +393,6 @@ namespace TicketManagementSystem.Business.Services
         {
             var errors = new List<string>();
             errors.AddRange(ValidateObject(editDTO));
-            var package = GetPackage(editDTO.Id);
 
             if (!_colorService.ExistsById(editDTO.ColorId))
             {
@@ -408,11 +404,11 @@ namespace TicketManagementSystem.Business.Services
                 errors.Add($"Серії ID: {editDTO.SerialId} не існує.");
             }
 
-            if (package.TicketsCount > 0 && editDTO.FirstNumber != null)
-            {
-                var tickets = GetPackageTickets(editDTO.Id).ToList();
+            var packageTickets = GetPackageTickets(editDTO.Id).ToList();
 
-                if (!tickets.TrueForAll(t => int.Parse(t.Number.First().ToString()) == editDTO.FirstNumber))
+            if (packageTickets?.Any() == true && editDTO.FirstNumber != null)
+            {
+                if (!packageTickets.TrueForAll(t => int.Parse(t.Number.First().ToString()) == editDTO.FirstNumber))
                 {
                     errors.Add("Для цієї пачки неможливо встановити першу цифру.");
                 }
@@ -425,7 +421,6 @@ namespace TicketManagementSystem.Business.Services
         {
             var errors = new List<string>();
             errors.AddRange(ValidateObject(editDTO));
-            var package = GetPackage(editDTO.Id);
 
             if (!IsNameFree(editDTO.Id, editDTO.Name))
             {
@@ -442,16 +437,16 @@ namespace TicketManagementSystem.Business.Services
                 errors.Add($"Серії ID: {editDTO.SerialId} не існує.");
             }
 
-            if (package.TicketsCount > 0)
-            {
-                var tickets = GetPackageTickets(editDTO.Id).ToList();
+            var packageTickets = GetPackageTickets(editDTO.Id).ToList();
 
-                if (!tickets.TrueForAll(t => t.ColorId == editDTO.ColorId) && editDTO.ColorId != null)
+            if (packageTickets?.Any() == true)
+            {
+                if (!packageTickets.TrueForAll(t => t.ColorId == editDTO.ColorId) && editDTO.ColorId != null)
                 {
                     errors.Add("Для цієї пачки неможливо встановити єдиний колір.");
                 }
 
-                if (!tickets.TrueForAll(t => t.SerialId == editDTO.SerialId) && editDTO.SerialId != null)
+                if (!packageTickets.TrueForAll(t => t.SerialId == editDTO.SerialId) && editDTO.SerialId != null)
                 {
                     errors.Add("Для цієї пачки неможливо встановити єдину серію.");
                 }
@@ -465,7 +460,7 @@ namespace TicketManagementSystem.Business.Services
             var errors = new List<string>();
             errors.AddRange(ValidateObject(dto));
 
-            var package = GetPackage(dto.Id);
+            var package = Database.Packages.GetById(dto.Id);
 
             if (!package.IsSpecial)
             {
@@ -485,7 +480,7 @@ namespace TicketManagementSystem.Business.Services
                 errors.Add($"Серії ID: {dto.SerialId} не існує.");
             }
 
-            if (tickets.Any())
+            if (tickets?.Any() == true)
             {
                 if (dto.FirstNumber != null && !tickets.TrueForAll(t => int.Parse(t.Number.First().ToString()) == dto.FirstNumber))
                 {
@@ -511,7 +506,7 @@ namespace TicketManagementSystem.Business.Services
             var errors = new List<string>();
             errors.AddRange(ValidateObject(dto));
 
-            var package = GetPackage(dto.Id);
+            var package = Database.Packages.GetById(dto.Id);
 
             if (package.IsSpecial)
             {

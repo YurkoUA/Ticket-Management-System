@@ -22,7 +22,7 @@ namespace TicketManagementSystem.Data.EF
             return _dbSet.Count();
         }
 
-        public int GetCount(Func<T, bool> predicate)
+        public virtual int GetCount(Func<T, bool> predicate)
         {
             return _dbSet.Count(predicate);
         }
@@ -72,27 +72,27 @@ namespace TicketManagementSystem.Data.EF
 
         #region CUD operations (withot Read)
 
-        public T Create(T item)
+        public virtual T Create(T item)
         {
             return _dbSet.Add(item);
         }
 
-        public void Update(T item)
+        public virtual void Update(T item)
         {
             _dbContext.Entry(item).State = EntityState.Modified;
         }
 
-        public void Remove(T item)
+        public virtual void Remove(T item)
         {
             _dbSet.Remove(item);
         }
 
-        public void Remove(int id, string table)
+        public virtual void Remove(int id, string table)
         {
             _dbContext.Database.ExecuteSqlCommand($"DELETE FROM {table} WHERE Id = {id}");
         }
 
-        public void RemoveRange(IEnumerable<T> entities)
+        public virtual void RemoveRange(IEnumerable<T> entities)
         {
             _dbSet.RemoveRange(entities);
         }
