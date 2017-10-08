@@ -62,6 +62,12 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
             return OkOrNoContent(_packageService.FindByName(name));
         }
 
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult GetCompatiblePackages(int colorId, int serialId, int? firstNumber)
+        {
+            return OkOrNoContent(_packageService.GetCompatiblePackages(colorId, serialId, firstNumber));
+        }
+
         [HttpPost]
         public dynamic Create([FromBody]PackageCreateDTO createDto)
         {

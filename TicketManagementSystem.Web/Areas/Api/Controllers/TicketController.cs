@@ -111,6 +111,12 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
             return OkOrNotFound(_ticketService.GetById(id));
         }
 
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult GetRandom()
+        {
+            return OkOrNoContent(_ticketService.GetRandomTicket());
+        }
+
         [HttpPost]
         public dynamic Create([FromBody]TicketCreateDTO createDto)
         {

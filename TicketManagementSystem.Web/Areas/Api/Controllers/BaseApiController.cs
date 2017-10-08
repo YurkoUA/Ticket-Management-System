@@ -23,6 +23,14 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
             return NoContent();
         }
 
+        protected IHttpActionResult OkOrNoContent<T>(T obj)
+        {
+            if (obj == null)
+                return NoContent();
+
+            return Ok(obj);
+        }
+
         protected IHttpActionResult OkOrNotFound<T>(T obj)
         {
             if (obj == null)

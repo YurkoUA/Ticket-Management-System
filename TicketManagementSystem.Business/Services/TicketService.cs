@@ -143,10 +143,20 @@ namespace TicketManagementSystem.Business.Services
 
         public TicketDTO GetRandomTicket()
         {
-            var index = new Random().Next(0, TotalCount);
+            if (TotalCount == 0)
+                return null;
 
-            // TODO: GetRandomTicket.
-            throw new NotImplementedException();
+            var index = new Random().Next(0, TotalCount + 1);
+            var ticket = Database.Tickets.GetAll()
+                .OrderBy(t => t.Id)
+                .Skip(index)
+                .Take(1)
+                .SingleOrDefault();
+
+            if (ticket == null)
+                return null;
+
+            return MapperInstance.Map<TicketDTO>(ticket);
         }
 
         public IEnumerable<TicketDTO> GetByNumber(string number, bool partialMatches = false)

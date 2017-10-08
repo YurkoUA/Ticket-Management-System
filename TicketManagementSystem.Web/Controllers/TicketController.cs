@@ -509,7 +509,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         private SelectList GetPackagesList(int colorId, int serialId, int? number = null)
         {
-            IEnumerable<PackageDTO> packages = _packageService.GetCompatiblePackages(colorId, serialId)
+            IEnumerable<PackageDTO> packages = _packageService.GetCompatiblePackages(colorId, serialId, number)
                 .OrderBy(p => p.Name);
 
             return new SelectList(packages.ToList(), "Id", "SelectListOptionValue");
