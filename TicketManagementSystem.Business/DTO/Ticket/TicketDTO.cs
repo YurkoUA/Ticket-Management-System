@@ -46,6 +46,7 @@ namespace TicketManagementSystem.Business.DTO
         public DateTime AddDate { get; set; }
 
         public bool IsHappy { get; set; }
+        public int? Clones { get; set; }
 
         [JsonIgnore]
         public int FirstNumber

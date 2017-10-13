@@ -15,7 +15,7 @@ namespace TicketManagementSystem.Web.Controllers
             _packageService = packageService;
         }
 
-        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient)]
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
         public ActionResult Index()
         {
             ViewBag.TotalCount = _ticketService.TotalCount;

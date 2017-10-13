@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Enums;
@@ -65,7 +66,10 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         [HttpGet, AllowAnonymous]
         public IHttpActionResult GetCompatiblePackages(int colorId, int serialId, int? firstNumber)
         {
-            return OkOrNoContent(_packageService.GetCompatiblePackages(colorId, serialId, firstNumber));
+            var packages = _packageService.GetCompatiblePackages(colorId, serialId, firstNumber)?
+                .OrderBy(p => p.IsSpecial);
+
+            return OkOrNoContent(packages);
         }
 
         [HttpPost]

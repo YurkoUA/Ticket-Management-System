@@ -65,7 +65,7 @@
 </div>
 
 <div class="btn-group" role="group">
-    @if (Model.UnallocatedTicketsCount > 0 && isAdmin)
+    @if (Model.UnallocatedTicketsCount > 0 && Model.IsOpened && isAdmin)
     {
         @Html.HiddenFor(model => model.Id)
         <button id="unallocated-tickets" type="button" class="btn btn-link">Перемістити нерозподілені (@Model.UnallocatedTicketsCount)</button>

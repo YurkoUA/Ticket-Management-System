@@ -108,13 +108,18 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         [HttpGet, AllowAnonymous, Route("Get/{id?}", Name = "TicketById")]
         public IHttpActionResult Get(int id)
         {
-            return OkOrNotFound(_ticketService.GetById(id));
+            var ticket = _ticketService.GetById(id);
+
+            if (ticket == null)
+                return NotFound();
+            
+            return Ok(LoadClonesCount(ticket));
         }
 
         [HttpGet, AllowAnonymous]
         public IHttpActionResult GetRandom()
         {
-            return OkOrNoContent(_ticketService.GetRandomTicket());
+            return OkOrNoContent(LoadClonesCount(_ticketService.GetRandomTicket()));
         }
 
         [HttpPost]
@@ -196,5 +201,19 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
             }
             return BadRequestWithErrors(ModelState);
         }
+
+        #region private methods
+
+        private TicketDTO LoadClonesCount(TicketDTO ticket)
+        {
+            var ticketsByNumber = _ticketService.CountByNumber(ticket.Number);
+
+            if (ticketsByNumber > 1)
+                ticket.Clones = ticketsByNumber - 1;
+
+            return ticket;
+        }
+
+        #endregion
     }
 }

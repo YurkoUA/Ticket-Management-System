@@ -19,8 +19,8 @@
                             @Html.CheckBoxFor(model => Model[i].Move, new { id = $"tickets[{i}].Move" })
 
                             @if (Model[i].IsHappy)
-                        {
-                                <span class="text-success">@Model[i].ToString()</span>
+                            {
+                                <span class="text-success"><b>@Model[i].ToString()</b></span>
                                 <small>Щасливий</small>
                             }
                             else

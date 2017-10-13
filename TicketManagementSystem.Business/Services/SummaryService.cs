@@ -29,7 +29,9 @@ namespace TicketManagementSystem.Business.Services
         public IEnumerable<SummaryPeriodDTO> GetSummariesPeriods()
         {
             var periods = new List<SummaryPeriodDTO>();
-            var summaries = Database.Summary.GetAll().OrderBy(s => s.Date).ToList();
+            var summaries = Database.Summary.GetAll()
+                .OrderBy(s => s.Date)
+                .ToList();
 
             for (int i = 1; i < summaries.Count(); i++)
             {

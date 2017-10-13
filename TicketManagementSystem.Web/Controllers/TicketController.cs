@@ -78,10 +78,6 @@ namespace TicketManagementSystem.Web.Controllers
         public ActionResult Latest()
         {
             var latestTickets = _ticketService2.GetLatestTickets();
-
-            if (latestTickets == null || !latestTickets.Any())
-                return RedirectToAction("Index");
-
             return View(MapperInstance.Map<IEnumerable<TicketDetailsModel>>(latestTickets));
         }
 

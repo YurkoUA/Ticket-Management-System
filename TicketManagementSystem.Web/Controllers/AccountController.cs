@@ -25,7 +25,7 @@ namespace TicketManagementSystem.Web.Controllers
             _loginService = loginService;
         }
 
-        [HttpGet, Authorize, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
+        [HttpGet, Authorize, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
         public async Task<ActionResult> Index()
         {
             var user = await _userService.GetUserAsync(User.Identity.GetUserId<int>());
@@ -36,11 +36,8 @@ namespace TicketManagementSystem.Web.Controllers
             return View(MapperInstance.Map<AccountIndexModel>(user));
         }
 
-        [HttpGet, OnlyAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Server)]
-        public ActionResult Login()
-        {
-            return View();
-        }
+        [HttpGet, OnlyAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
+        public ActionResult Login() => View();
 
         [HttpPost, OnlyAnonymous, ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginModel model)
@@ -74,7 +71,7 @@ namespace TicketManagementSystem.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet, Authorize, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
+        [HttpGet, Authorize, OutputCache(Duration = 20, Location = OutputCacheLocation.Client)]
         public ActionResult LoginHistory()
         {
             var logins = _loginService.GetLoginHistory(User.Identity.GetUserId<int>(), LoginsToShowCount());
@@ -86,10 +83,7 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet, Authorize, OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient)]
-        public ActionResult ChangePassword()
-        {
-            return PartialView("ChangePasswordModal");
-        }
+        public ActionResult ChangePassword() => PartialView("ChangePasswordModal");
 
         [HttpPost, Authorize, ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordModel viewModel)
