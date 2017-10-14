@@ -2,11 +2,11 @@
 
 @{
     Layout = null;
-    var ajaxOptions = new AjaxOptions { UpdateTargetId = "ticket-grid", OnBegin = "OnBegin" };
+    var ajaxOptions = new AjaxOptions { UpdateTargetId = "ticket-grid", OnBegin = "onToolbarSelectionChanged" };
     var routeValues = new { id = Model };
 }
 
-<div class="dropdown">
+<div class="dropdown" id="ticket-toolbar">
     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
         Керувати
         <span class="caret"></span>

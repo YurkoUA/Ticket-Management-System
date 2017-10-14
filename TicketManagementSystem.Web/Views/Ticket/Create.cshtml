@@ -12,7 +12,8 @@
 {
     UpdateTargetId = "create-result",
     OnBegin = "OnBegin",
-    OnSuccess = "OnSuccess"
+    OnSuccess = "OnSuccess",
+    OnComplete = "OnComplete"
 }))
 {
     @Html.AntiForgeryToken()
@@ -92,7 +93,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Створити" class="btn btn-primary" />
+                <input data-loading-text="Триває додання..." type="submit" value="Створити" class="btn btn-primary btn-loading" />
             </div>
         </div>
     </div>

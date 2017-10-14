@@ -3,3 +3,12 @@
         showModal(data);
     });
 }
+
+function OnBegin() {
+    $("#search-result").html("");
+    setButtonLoadingState();
+}
+
+function OnComplete(request, status) {
+    resetButtonLoadingState();
+}

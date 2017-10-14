@@ -6,7 +6,8 @@
 @using (Ajax.BeginForm("EditSpecial", new AjaxOptions
 {
     UpdateTargetId = "package-result",
-    OnBegin = "OnBegin"
+    OnBegin = "OnBegin",
+    OnComplete = "OnComplete"
 }))
 {
     @Html.AntiForgeryToken()
@@ -59,7 +60,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Зберегти" class="btn btn-primary" />
+                <input type="submit" value="Зберегти" class="btn btn-primary btn-loading" data-loading-text="Збереження..." />
             </div>
         </div>
     </div>

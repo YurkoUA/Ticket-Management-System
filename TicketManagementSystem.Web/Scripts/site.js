@@ -16,3 +16,11 @@ function convertDate() {
 function putCurrentDate(inputName) {
     $('#' + inputName).val(new Date().toLocaleDateString());
 }
+
+function setButtonLoadingState() {
+    $(".btn-loading").button('loading');
+}
+
+function resetButtonLoadingState() {
+    $(".btn-loading").button('reset');
+}

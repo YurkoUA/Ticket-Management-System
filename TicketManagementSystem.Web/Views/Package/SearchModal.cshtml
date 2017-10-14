@@ -9,7 +9,13 @@
 
     <div class="modal-body">
         <div>
-            @using (Ajax.BeginForm("Search", new AjaxOptions { UpdateTargetId = "search-result", HttpMethod = "GET" }))
+            @using (Ajax.BeginForm("Search", new AjaxOptions
+            {
+                UpdateTargetId = "search-result",
+                HttpMethod = "GET",
+                OnBegin = "OnBegin",
+                OnComplete = "OnComplete"
+            }))
             {
                 <div class="form-horizontal">
                     <div class="form-group">
@@ -20,7 +26,7 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" class="btn btn-primary" value="Шукати" />
+                            <input type="submit" class="btn btn-primary btn-loading" data-loading-text="Пошук..." value="Шукати" />
                         </div>
                     </div>
                 </div>

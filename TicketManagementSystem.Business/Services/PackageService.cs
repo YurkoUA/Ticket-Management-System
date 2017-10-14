@@ -404,7 +404,7 @@ namespace TicketManagementSystem.Business.Services
                 errors.Add($"Серії ID: {editDTO.SerialId} не існує.");
             }
 
-            var packageTickets = GetPackageTickets(editDTO.Id).ToList();
+            var packageTickets = GetPackageTickets(editDTO.Id)?.ToList();
 
             if (packageTickets?.Any() == true && editDTO.FirstNumber != null)
             {
@@ -437,7 +437,7 @@ namespace TicketManagementSystem.Business.Services
                 errors.Add($"Серії ID: {editDTO.SerialId} не існує.");
             }
 
-            var packageTickets = GetPackageTickets(editDTO.Id).ToList();
+            var packageTickets = GetPackageTickets(editDTO.Id)?.ToList();
 
             if (packageTickets?.Any() == true)
             {
@@ -468,7 +468,7 @@ namespace TicketManagementSystem.Business.Services
                 return errors;
             }
 
-            var tickets = GetPackageTickets(dto.Id).ToList();
+            var tickets = GetPackageTickets(dto.Id)?.ToList();
 
             if (!_colorService.ExistsById(dto.ColorId))
             {

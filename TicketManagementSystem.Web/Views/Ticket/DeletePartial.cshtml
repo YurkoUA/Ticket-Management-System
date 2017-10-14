@@ -29,14 +29,16 @@
         UpdateTargetId = "delete-result-grid",
         InsertionMode = InsertionMode.Replace,
         Confirm = $"Видалити квиток №{Model.Number}?",
-        OnSuccess = "OnSuccess"
+        OnSuccess = "onDeletingSuccess",
+        OnBegin = "OnBegin",
+        OnComplete = "OnComplete"
     })) {
         @Html.AntiForgeryToken()
 
         <h4>Ви дійсно бажаєте видалити цей квиток?</h4>
 
         <div class="form-actions no-color">
-            <input type="submit" value="Видалити" class="btn btn-danger" />
+            <input type="submit" value="Видалити" data-loading-text="Видалення..." class="btn btn-danger btn-loading" />
         </div>
         <br />
     }

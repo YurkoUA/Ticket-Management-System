@@ -9,16 +9,27 @@
 
 function loadPartial() {
     var id = $("#Id").val();
+
+    $('#move-result').html('');
+
+    $("#ticket-list").hide();
+    $("#loading-message").show();
+
     $.get("/Package/MoveUnallocatedTickets", { id: id }, function (data) {
         $('#ticket-list').html(data);
-        $('#move-result').html('');
+
+        $("#ticket-list").show();
+        $("#loading-message").hide();
     });
 }
 
-function OnSuccess(data) {
-    loadPartial();
+function onMoveUnallocatedStarted() {
+    setButtonLoadingState();
 }
 
-function OnBegin() {
-    $('#move-result').html('');
+function onMoveUnallocatedComplete(request, status) {
+    resetButtonLoadingState();
+
+    $("#loading-message").show();
+    setTimeout(loadPartial, 3000);
 }

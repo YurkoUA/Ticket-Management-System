@@ -2,7 +2,12 @@
 
 <h2>Редагувати квиток</h2>
 
-@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "ticket-result" }))
+@using (Ajax.BeginForm(new AjaxOptions
+{
+    UpdateTargetId = "ticket-result",
+    OnBegin = "OnBegin",
+    OnComplete = "OnComplete"
+}))
 {
     @Html.AntiForgeryToken()
     
@@ -69,7 +74,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Зберегти" class="btn btn-primary" />
+                <input type="submit" value="Зберегти" data-loading-text="Збереження..." class="btn btn-primary btn-loading" />
             </div>
         </div>
     </div>

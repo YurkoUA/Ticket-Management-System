@@ -3,7 +3,12 @@
 
 @if (Model.Any())
 {
-    using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "move-result", OnSuccess = "OnSuccess" }))
+    using (Ajax.BeginForm(new AjaxOptions
+    {
+        UpdateTargetId = "move-result",
+        OnBegin = "onMoveUnallocatedStarted",
+        OnComplete = "onMoveUnallocatedComplete"
+    }))
     {
         <p>
             <a id="check-all-button" class="btn btn-link" role="button" onclick="checkAll()">Відмітити всі</a>
@@ -35,7 +40,7 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" class="btn btn-primary" value="Перемістити" />
+                        <input type="submit" class="btn btn-primary btn-loading" value="Перемістити" data-loading-text="Виконується переміщення..." />
                     </div>
                 </div>
             </div>

@@ -16,7 +16,9 @@
             using (Ajax.BeginForm(new AjaxOptions
             {
                 UpdateTargetId = "serial-delete-grid",
-                OnSuccess = "OnSuccess",
+                OnSuccess = "onDeletingSuccess",
+                OnBegin = "OnBegin",
+                OnComplete = "OnComplete",
                 Confirm = $"Дійсно видалити серію \"{Model.Name}\""
             }))
             {
@@ -24,7 +26,7 @@
                 @Html.HiddenFor(model => model.Id)
 
                 <div class="form-actions no-color">
-                    <input type="submit" value="Видалити" class="btn btn-danger" />
+                    <input type="submit" value="Видалити" class="btn btn-danger btn-loading" data-loading-text="Видалення..." />
                 </div>
                 <br />
             }

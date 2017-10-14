@@ -16,7 +16,9 @@
 
             using (Ajax.BeginForm(new AjaxOptions
             {
-                OnSuccess = "OnSuccess",
+                OnSuccess = "onDeletingSuccess",
+                OnBegin = "OnBegin",
+                OnComplete = "OnComplete",
                 UpdateTargetId = "color-delete-grid",
                 Confirm = $"Видалити колір \"{Model.Name}\""
             }))
@@ -25,7 +27,7 @@
                 @Html.HiddenFor(model => model.Id)
 
                 <div class="form-actions no-color">
-                    <input type="submit" value="Видалити" class="btn btn-danger" />
+                    <input type="submit" value="Видалити" class="btn btn-danger btn-loading" data-loading-text="Видалення..." />
                 </div>
                 <br />
             }

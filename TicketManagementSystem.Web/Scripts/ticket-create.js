@@ -12,6 +12,11 @@ $("#note-dropdown").on('click', 'li', function () {
 
 function OnBegin() {
     $('#create-result').html("");
+    setButtonLoadingState();
+}
+
+function OnComplete(request, status) {
+    resetButtonLoadingState();
 }
 
 function OnSuccess(data) {

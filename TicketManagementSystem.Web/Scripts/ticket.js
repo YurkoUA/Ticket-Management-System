@@ -1,8 +1,17 @@
 ﻿function OnBegin() {
-    $('#ticket-result').html('');
+    onToolbarSelectionChanged();
+    setButtonLoadingState();
 }
 
 // For delete action.
-function OnSuccess(data) {
+function onDeletingSuccess(data) {
     $('#ticket-toolbar').html('');
+}
+
+function OnComplete(request, status) {
+    resetButtonLoadingState();
+}
+
+function onToolbarSelectionChanged() {
+    $('#ticket-result').html('');
 }

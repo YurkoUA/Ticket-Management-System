@@ -1,8 +1,17 @@
 ﻿function OnBegin() {
-    $('#serial-result').html('');
+    onToolbarSelectionChanged();
+    setButtonLoadingState();
+}
+
+function OnComplete(request, status) {
+    resetButtonLoadingState();
 }
 
 // For delete action.
-function OnSuccess(data) {
+function onDeletingSuccess(data) {
     $('#serial-toolbar').html('');
+}
+
+function onToolbarSelectionChanged() {
+    $('#serial-result').html('');
 }

@@ -39,7 +39,11 @@
         {
             UpdateTargetId = "package-delete-grid",
             InsertionMode = InsertionMode.Replace,
-            OnSuccess = "OnSuccess"
+            OnSuccess = "OnSuccess",
+            OnBegin = "OnBegin",
+            OnComplete = "OnComplete",
+
+            Confirm = $"Дійсно видалити пачку \"{Model.Name}\"?"
         }))
         {
             @Html.AntiForgeryToken()
@@ -47,7 +51,7 @@
             <h5>Ви дійсно хочете повністю видалити пачку "@Model.Name"?</h5>
 
             <div class="form-actions no-color">
-                <input type="submit" value="Видалити" class="btn btn-danger" />
+                <input type="submit" value="Видалити" class="btn btn-danger btn-loading" data-loading-text="Видалення..." />
             </div>
             <br />
         }
