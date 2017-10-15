@@ -8,7 +8,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
     [RoutePrefix("api/Report")]
     public class ReportController : BaseApiController
     {
-        private IReportService _reportService;
+        private readonly IReportService _reportService;
 
         public ReportController(IReportService reportService)
         {

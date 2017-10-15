@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Yurko\.Rider2017.2\system\resharper-host\local\Transient\ReSharperHost\v10\SolutionCaches\_TicketManagementSystem.-163339248.00" t="ExcludeRecursive" />
+    <e p="D:\Dropbox\TicketManagementSystem" t="IncludeFlat">
+      <e p="packages" t="ExcludeRecursive">
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\csc.exe" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\Microsoft.Build.Tasks.CodeAnalysis.dll" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\Microsoft.CodeAnalysis.CSharp.dll" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\Microsoft.CodeAnalysis.dll" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\Microsoft.CodeAnalysis.VisualBasic.dll" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\Microsoft.CSharp.Core.targets" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\Microsoft.VisualBasic.Core.targets" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\System.Collections.Immutable.dll" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\System.Reflection.Metadata.dll" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\vbc.exe" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\VBCSCompiler.exe" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\VBCSCompiler.exe.config" t="Include" />
+        <e p="MSTest.TestAdapter.1.1.11\build\_common\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll" t="Include" />
+        <e p="MSTest.TestAdapter.1.1.11\build\_common\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll" t="Include" />
+        <e p="MSTest.TestAdapter.1.1.11\build\_common\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll" t="Include" />
+      </e>
+      <e p="test" t="Include">
+        <e p="TicketManagementSystem.Tests" t="IncludeRecursive">
+          <e p="App.config" t="Include" />
+          <e p="bin" t="ExcludeRecursive" />
+          <e p="obj" t="ExcludeRecursive" />
+          <e p="packages.config" t="Include" />
+          <e p="PaginationTests.cs" t="Include" />
+          <e p="PaginationTests_2.cs" t="Include" />
+          <e p="Properties" t="Include">
+            <e p="AssemblyInfo.cs" t="Include" />
+          </e>
+          <e p="TicketManagementSystem.Tests.csproj" t="IncludeRecursive" />
+          <e p="TicketTests.cs" t="Include" />
+          <e p="ValidationAttributes" t="Include">
+            <e p="SerialNumberAttribute_Tests.cs" t="Include" />
+            <e p="TicketNumberAttribute_Tests.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="TicketManagementSystem.Business" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="Attributes" t="Include">
+          <e p="SerialNumberAttribute.cs" t="Include" />
+          <e p="TicketNumberAttribute.cs" t="Include" />
+        </e>
+        <e p="AutoMapperConfig.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Cache" t="Include">
+          <e p="CacheService.cs" t="Include" />
+          <e p="ICacheService.cs" t="Include" />
+        </e>
+        <e p="DTO" t="Include">
+          <e p="Color" t="Include">
+            <e p="ColorCreateDTO.cs" t="Include" />
+            <e p="ColorDTO.cs" t="Include" />
+            <e p="ColorEditDTO.cs" t="Include" />
+          </e>
+          <e p="Package" t="Include">
+            <e p="PackageCreateDTO.cs" t="Include" />
+            <e p="PackageDTO.cs" t="Include" />
+            <e p="PackageEditDTO.cs" t="Include" />
+            <e p="PackageMakeDefaultDTO.cs" t="Include" />
+            <e p="PackageMakeSpecialDTO.cs" t="Include" />
+            <e p="PackageSpecialCreateDTO.cs" t="Include" />
+            <e p="PackageSpecialEditDTO.cs" t="Include" />
+          </e>
+          <e p="Report" t="Include">
+            <e p="DefaultReportDTO.cs" t="Include" />
+            <e p="PackageDTO.cs" t="Include" />
+            <e p="PackageReportDTO.cs" t="Include" />
+            <e p="ReportDTO.cs" t="Include" />
+            <e p="TicketsGroup.cs" t="Include" />
+          </e>
+          <e p="Serial" t="Include">
+            <e p="SerialCreateDTO.cs" t="Include" />
+            <e p="SerialDTO.cs" t="Include" />
+            <e p="SerialEditDTO.cs" t="Include" />
+          </e>
+          <e p="Summary" t="Include">
+            <e p="SummaryDTO.cs" t="Include" />
+            <e p="SummaryPeriodDTO.cs" t="Include" />
+          </e>
+          <e p="Ticket" t="Include">
+            <e p="TicketCreateDTO.cs" t="Include" />
+            <e p="TicketDTO.cs" t="Include" />
+            <e p="TicketEditDTO.cs" t="Include" />
+          </e>
+          <e p="Todo" t="Include">
+            <e p="TodoTaskDTO.cs" t="Include" />
+          </e>
+          <e p="User" t="Include">
+            <e p="LoginDTO.cs" t="Include" />
+            <e p="UserDTO.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Enums" t="Include">
+          <e p="PackagesFilter.cs" t="Include" />
+        </e>
+        <e p="Extensions" t="Include">
+          <e p="StringExtensions.cs" t="Include" />
+          <e p="UserExtensions.cs" t="Include" />
+        </e>
+        <e p="Infrastructure" t="Include">
+          <e p="ServiceModule.cs" t="Include" />
+        </e>
+        <e p="Interfaces" t="Include">
+          <e p="IColorService.cs" t="Include" />
+          <e p="ILoginService.cs" t="Include" />
+          <e p="IPackageService.cs" t="Include" />
+          <e p="IReportService.cs" t="Include" />
+          <e p="IRoleService.cs" t="Include" />
+          <e p="ISerialService.cs" t="Include" />
+          <e p="ISummaryService.cs" t="Include" />
+          <e p="ITicketService.cs" t="Include" />
+          <e p="ITicketService2.cs" t="Include" />
+          <e p="ITodoService.cs" t="Include" />
+          <e p="IUserService.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Pdf" t="Include">
+          <e p="IPdfService.cs" t="Include" />
+          <e p="PdfService.cs" t="Include" />
+        </e>
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Service.cs" t="Include" />
+        <e p="services" t="Include">
+          <e p="ColorService.cs" t="Include" />
+          <e p="Identity" t="Include">
+            <e p="RoleService.cs" t="Include" />
+            <e p="UserService.cs" t="Include" />
+          </e>
+          <e p="LoginService.cs" t="Include" />
+          <e p="PackageService.cs" t="Include" />
+          <e p="ReportService.cs" t="Include" />
+          <e p="SerialService.cs" t="Include" />
+          <e p="SummaryService.cs" t="Include" />
+          <e p="TicketService.cs" t="Include" />
+          <e p="TicketService2.cs" t="Include" />
+          <e p="TodoService.cs" t="Include" />
+        </e>
+        <e p="TicketManagementSystem.Business.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="TicketManagementSystem.Data.EF" t="IncludeRecursive">
+        <e p="AppDbContext.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="EFRepository.cs" t="Include" />
+        <e p="Enums" t="Include">
+          <e p="TaskPriority.cs" t="Include" />
+          <e p="TaskStatus.cs" t="Include" />
+        </e>
+        <e p="Interfaces" t="Include">
+          <e p="IRepository.cs" t="Include" />
+          <e p="IUnitOfWork.cs" t="Include" />
+        </e>
+        <e p="Migrations" t="Include">
+          <e p="201706211938247_Initial.cs" t="Include" />
+          <e p="201706211938247_Initial.Designer.cs" t="Include" />
+          <e p="201706211938247_Initial.resx" t="Include" />
+          <e p="201706251245296_LoginHistory.cs" t="Include" />
+          <e p="201706251245296_LoginHistory.Designer.cs" t="Include" />
+          <e p="201706251245296_LoginHistory.resx" t="Include" />
+          <e p="201707031332019_AddSummary.cs" t="Include" />
+          <e p="201707031332019_AddSummary.Designer.cs" t="Include" />
+          <e p="201707031332019_AddSummary.resx" t="Include" />
+          <e p="201707141710186_AddedReports.cs" t="Include" />
+          <e p="201707141710186_AddedReports.Designer.cs" t="Include" />
+          <e p="201707141710186_AddedReports.resx" t="Include" />
+          <e p="201707150607422_AddedTodoExplorer.cs" t="Include" />
+          <e p="201707150607422_AddedTodoExplorer.Designer.cs" t="Include" />
+          <e p="201707150607422_AddedTodoExplorer.resx" t="Include" />
+          <e p="201707290817277_TodoTask_IncreasedFields.cs" t="Include" />
+          <e p="201707290817277_TodoTask_IncreasedFields.Designer.cs" t="Include" />
+          <e p="201707290817277_TodoTask_IncreasedFields.resx" t="Include" />
+          <e p="201710071950216_Added_Login_Host.cs" t="Include" />
+          <e p="201710071950216_Added_Login_Host.Designer.cs" t="Include" />
+          <e p="201710071950216_Added_Login_Host.resx" t="Include" />
+          <e p="Configuration.cs" t="Include" />
+        </e>
+        <e p="Models" t="Include">
+          <e p="Color.cs" t="Include" />
+          <e p="Login.cs" t="Include" />
+          <e p="Package.cs" t="Include" />
+          <e p="Report.cs" t="Include" />
+          <e p="Role.cs" t="Include" />
+          <e p="Serial.cs" t="Include" />
+          <e p="Summary.cs" t="Include" />
+          <e p="Ticket.cs" t="Include" />
+          <e p="TodoTask.cs" t="Include" />
+          <e p="User.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="TicketManagementSystem.Data.EF.csproj" t="IncludeRecursive" />
+        <e p="UnitOfWork.cs" t="Include" />
+      </e>
+      <e p="TicketManagementSystem.sln" t="IncludeFlat" />
+      <e p="TicketManagementSystem.Web" t="IncludeRecursive">
+        <e p="App_Data" t="Include" />
+        <e p="App_Start" t="Include">
+          <e p="AutoMapperConfig.cs" t="Include" />
+          <e p="BundleConfig.cs" t="Include" />
+          <e p="FilterConfig.cs" t="Include" />
+          <e p="NinjectWebCommon.cs" t="Include" />
+          <e p="OAuthConfig.cs" t="Include" />
+          <e p="RouteConfig.cs" t="Include" />
+        </e>
+        <e p="Areas" t="Include">
+          <e p="Api" t="Include">
+            <e p="ApiAreaRegistration.cs" t="Include" />
+            <e p="Controllers" t="Include">
+              <e p="AccountController.cs" t="Include" />
+              <e p="BaseApiController.cs" t="Include" />
+              <e p="ColorController.cs" t="Include" />
+              <e p="PackageController.cs" t="Include" />
+              <e p="ReportController.cs" t="Include" />
+              <e p="SerialController.cs" t="Include" />
+              <e p="StatisticsController.cs" t="Include" />
+              <e p="TicketController.cs" t="Include" />
+            </e>
+            <e p="Models" t="Include">
+              <e p="Extensions.cs" t="Include" />
+            </e>
+            <e p="Views" t="Include">
+              <e p="Shared" t="Include" />
+              <e p="web.config" t="Include" />
+            </e>
+          </e>
+          <e p="Todo" t="Include">
+            <e p="app" t="Include">
+              <e p="css" t="Include">
+                <e p="ie10-viewport-bug-workaround.css" t="Include" />
+                <e p="jumbotron-narrow.css" t="Include" />
+                <e p="navbar-fixed-top.css" t="Include" />
+              </e>
+              <e p="js" t="Include">
+                <e p="app.js" t="Include" />
+                <e p="Controllers" t="Include">
+                  <e p="todoController.js" t="Include" />
+                  <e p="todoEditController.js" t="Include" />
+                </e>
+                <e p="ie10-viewport-bug-workaround.js" t="Include" />
+                <e p="services" t="Include">
+                  <e p="todoService.js" t="Include" />
+                </e>
+              </e>
+              <e p="Views" t="Include">
+                <e p="create.html" t="Include" />
+                <e p="details.html" t="Include" />
+                <e p="edit.html" t="Include" />
+                <e p="start.html" t="Include" />
+                <e p="taskList.html" t="Include" />
+              </e>
+            </e>
+            <e p="Controllers" t="Include">
+              <e p="TodoApiController.cs" t="Include" />
+              <e p="TodoController.cs" t="Include" />
+            </e>
+            <e p="Models" t="Include" />
+            <e p="TodoAreaRegistration.cs" t="Include" />
+            <e p="Views" t="Include">
+              <e p="Todo" t="Include">
+                <e p="Index.cshtml" t="Include" />
+              </e>
+              <e p="web.config" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="bower_components" t="Include">
+          <e p="angular" t="Include">
+            <e p=".bower.json" t="Include" />
+            <e p="angular-csp.css" t="Include" />
+            <e p="angular.js" t="Include" />
+            <e p="angular.min.js" t="Include" />
+            <e p="angular.min.js.gzip" t="Include" />
+            <e p="angular.min.js.map" t="Include" />
+            <e p="bower.json" t="Include" />
+            <e p="index.js" t="Include" />
+            <e p="LICENSE.md" t="Include" />
+            <e p="package.json" t="Include" />
+            <e p="README.md" t="Include" />
+          </e>
+          <e p="angular-route" t="Include">
+            <e p=".bower.json" t="Include" />
+            <e p="angular-route.js" t="Include" />
+            <e p="angular-route.min.js" t="Include" />
+            <e p="angular-route.min.js.map" t="Include" />
+            <e p="bower.json" t="Include" />
+            <e p="index.js" t="Include" />
+            <e p="LICENSE.md" t="Include" />
+            <e p="package.json" t="Include" />
+            <e p="README.md" t="Include" />
+          </e>
+        </e>
+        <e p="Content" t="Include">
+          <e p="bootstrap.css" t="Include" />
+          <e p="bootstrap.min.css" t="Include" />
+          <e p="dataTables.bootstrap.min.css" t="Include" />
+          <e p="loading_spinner.gif" t="Include" />
+          <e p="max-width-override.css" t="Include" />
+          <e p="Site.css" t="Include" />
+        </e>
+        <e p="Controllers" t="Include">
+          <e p="AccountController.cs" t="Include" />
+          <e p="BaseController.cs" t="Include" />
+          <e p="ColorController.cs" t="Include" />
+          <e p="HomeController.cs" t="Include" />
+          <e p="PackageController.cs" t="Include" />
+          <e p="ReportController.cs" t="Include" />
+          <e p="SerialController.cs" t="Include" />
+          <e p="StatisticsController.cs" t="Include" />
+          <e p="TicketController.cs" t="Include" />
+        </e>
+        <e p="Data" t="Include">
+          <e p="PageInfo.cs" t="Include" />
+          <e p="Pagination.cs" t="Include" />
+        </e>
+        <e p="Extensions" t="Include">
+          <e p="Extensions.cs" t="Include" />
+        </e>
+        <e p="favicon.ico" t="Include" />
+        <e p="Filters" t="Include">
+          <e p="OnlyAnonymous.cs" t="Include" />
+        </e>
+        <e p="fonts" t="Include">
+          <e p="glyphicons-halflings-regular.eot" t="Include" />
+          <e p="glyphicons-halflings-regular.svg" t="Include" />
+          <e p="glyphicons-halflings-regular.ttf" t="Include" />
+          <e p="glyphicons-halflings-regular.woff" t="Include" />
+        </e>
+        <e p="Global.asax" t="Include" />
+        <e p="Global.asax.cs" t="Include" />
+        <e p="Helpers" t="Include">
+          <e p="AlertHelper.cs" t="Include" />
+          <e p="LocalDateHelper.cs" t="Include" />
+          <e p="PagingHelper.cs" t="Include" />
+        </e>
+        <e p="job_scheduling_data_2_0.xsd" t="Include" />
+        <e p="Jobs" t="Include">
+          <e p="JobScheduler.cs" t="Include" />
+          <e p="ReportJob.cs" t="Include" />
+          <e p="SummaryJob.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+          <e p="PublishProfiles" t="Include">
+            <e p="FolderProfile.pubxml" t="Include" />
+            <e p="FolderProfile1.pubxml" t="Include" />
+          </e>
+        </e>
+        <e p="roslyn" t="Include" />
+        <e p="Scripts" t="Include">
+          <e p="_references.js" t="Include" />
+          <e p="account-index.js" t="Include" />
+          <e p="bootstrap.js" t="Include" />
+          <e p="bootstrap.min.js" t="Include" />
+          <e p="color-create.js" t="Include" />
+          <e p="color.js" t="Include" />
+          <e p="dataTables.bootstrap.min.js" t="Include" />
+          <e p="jquery-1.10.2.intellisense.js" t="Include" />
+          <e p="jquery-1.10.2.js" t="Include" />
+          <e p="jquery-1.10.2.min.js" t="Include" />
+          <e p="jquery-1.10.2.min.map" t="Include" />
+          <e p="jquery.dataTables.min.js" t="Include" />
+          <e p="jquery.unobtrusive-ajax.js" t="Include" />
+          <e p="jquery.unobtrusive-ajax.min.js" t="Include" />
+          <e p="jquery.validate-vsdoc.js" t="Include" />
+          <e p="jquery.validate.js" t="Include" />
+          <e p="jquery.validate.min.js" t="Include" />
+          <e p="jquery.validate.unobtrusive.js" t="Include" />
+          <e p="jquery.validate.unobtrusive.min.js" t="Include" />
+          <e p="jquery.validation.double.fix.js" t="Include" />
+          <e p="modernizr-2.6.2.js" t="Include" />
+          <e p="package-create.js" t="Include" />
+          <e p="package-search-modal.js" t="Include" />
+          <e p="package.js" t="Include" />
+          <e p="packages-modal.js" t="Include" />
+          <e p="packages.select-list.js" t="Include" />
+          <e p="report-archive-modal.js" t="Include" />
+          <e p="respond.js" t="Include" />
+          <e p="respond.min.js" t="Include" />
+          <e p="serial-create.js" t="Include" />
+          <e p="serial.js" t="Include" />
+          <e p="site.js" t="Include" />
+          <e p="statistics-monthly.js" t="Include" />
+          <e p="statistics.js" t="Include" />
+          <e p="ticket-create-many.js" t="Include" />
+          <e p="ticket-create.js" t="Include" />
+          <e p="ticket-search-modal.js" t="Include" />
+          <e p="ticket.js" t="Include" />
+          <e p="tickets-by-number-modal.js" t="Include" />
+          <e p="tickets-by-package.js" t="Include" />
+          <e p="tickets-move-few-modal.js" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="TicketManagementSystem.Web.csproj" t="IncludeRecursive" />
+        <e p="Util" t="Include">
+          <e p="CustomOAuthProvider.cs" t="Include" />
+          <e p="NinjectDependencyResolver.cs" t="Include" />
+          <e p="NinjectJobFactory.cs" t="Include" />
+        </e>
+        <e p="ViewModels" t="Include">
+          <e p="Account" t="Include">
+            <e p="AccountIndexModel.cs" t="Include" />
+            <e p="ChangePasswordModel.cs" t="Include" />
+            <e p="EntryConfirmationModel.cs" t="Include" />
+            <e p="LoginModel.cs" t="Include" />
+            <e p="MainSettingsModel.cs" t="Include" />
+          </e>
+          <e p="Color" t="Include">
+            <e p="ColorCreateModel.cs" t="Include" />
+            <e p="ColorDetailsModel.cs" t="Include" />
+            <e p="ColorEditModel.cs" t="Include" />
+            <e p="ColorIndexModel.cs" t="Include" />
+          </e>
+          <e p="Package" t="Include">
+            <e p="PackageCreateDefaultModel.cs" t="Include" />
+            <e p="PackageCreateSpecialModel.cs" t="Include" />
+            <e p="PackageDetailsModel.cs" t="Include" />
+            <e p="PackageEditDefaultModel.cs" t="Include" />
+            <e p="PackageEditSpecialModel.cs" t="Include" />
+            <e p="PackageIndexModel.cs" t="Include" />
+            <e p="PackageMakeDefaultModel.cs" t="Include" />
+          </e>
+          <e p="Report" t="Include">
+            <e p="ReportIndexModel.cs" t="Include" />
+          </e>
+          <e p="SelectListModel.cs" t="Include" />
+          <e p="Serial" t="Include">
+            <e p="SerialCreateModel.cs" t="Include" />
+            <e p="SerialDetailsModel.cs" t="Include" />
+            <e p="SerialEditModel.cs" t="Include" />
+            <e p="SerialIndexModel.cs" t="Include" />
+          </e>
+          <e p="Ticket" t="Include">
+            <e p="TicketChangeNumberModel.cs" t="Include" />
+            <e p="TicketCreateInPackageModel.cs" t="Include" />
+            <e p="TicketCreateManyModel.cs" t="Include" />
+            <e p="TicketCreateModel.cs" t="Include" />
+            <e p="TicketDetailsModel.cs" t="Include" />
+            <e p="TicketEditModel.cs" t="Include" />
+            <e p="TicketFilterModel.cs" t="Include" />
+            <e p="TicketIndexModel.cs" t="Include" />
+            <e p="TicketMoveModel.cs" t="Include" />
+            <e p="TicketUnallocatedMoveModel.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Views" t="Include">
+          <e p="_ViewStart.cshtml" t="Include" />
+          <e p="Account" t="Include">
+            <e p="ChangePasswordModal.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="IndexPartial.cshtml" t="Include" />
+            <e p="Login.cshtml" t="Include" />
+            <e p="LoginHistoryModal.cshtml" t="Include" />
+            <e p="LoginPartial.cshtml" t="Include" />
+          </e>
+          <e p="Color" t="Include">
+            <e p="Color.cshtml" t="Include" />
+            <e p="Create.cshtml" t="Include" />
+            <e p="DeletePartial.cshtml" t="Include" />
+            <e p="DetailsPartial.cshtml" t="Include" />
+            <e p="EditPartial.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="ToolbarPartial.cshtml" t="Include" />
+          </e>
+          <e p="Home" t="Include">
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Package" t="Include">
+            <e p="CreateDefault.cshtml" t="Include" />
+            <e p="CreateSpecial.cshtml" t="Include" />
+            <e p="DeletePartial.cshtml" t="Include" />
+            <e p="DetailsPartial.cshtml" t="Include" />
+            <e p="EditPartial.cshtml" t="Include" />
+            <e p="EditSpecialPartial.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="MakeDefaultPartial.cshtml" t="Include" />
+            <e p="MakeSpecialPartial.cshtml" t="Include" />
+            <e p="MoveUnallocatedModal.cshtml" t="Include" />
+            <e p="MoveUnallocatedPartial.cshtml" t="Include" />
+            <e p="Package.cshtml" t="Include" />
+            <e p="PackagesModal.cshtml" t="Include" />
+            <e p="SearchModal.cshtml" t="Include" />
+            <e p="SearchPartial.cshtml" t="Include" />
+            <e p="StatusActionsPartial.cshtml" t="Include" />
+            <e p="Tickets.cshtml" t="Include" />
+            <e p="ToolbarPartial.cshtml" t="Include" />
+          </e>
+          <e p="PartialModel.cs" t="Include" />
+          <e p="Report" t="Include">
+            <e p="ArchiveModal.cshtml" t="Include" />
+            <e p="DefaultReportPrint.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="PackagesReportPrint.cshtml" t="Include" />
+          </e>
+          <e p="Serial" t="Include">
+            <e p="Create.cshtml" t="Include" />
+            <e p="DeletePartial.cshtml" t="Include" />
+            <e p="DetailsPartial.cshtml" t="Include" />
+            <e p="EditPartial.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="Serial.cshtml" t="Include" />
+            <e p="ToolbarPartial.cshtml" t="Include" />
+          </e>
+          <e p="Shared" t="Include">
+            <e p="_Layout.cshtml" t="Include" />
+            <e p="Error.cshtml" t="Include" />
+            <e p="ErrorListPartial.cshtml" t="Include" />
+            <e p="Modal.cshtml" t="Include" />
+            <e p="SelectListPartial.cshtml" t="Include" />
+            <e p="SuccessAlertLinkPartial.cshtml" t="Include" />
+            <e p="SuccessAlertPartial.cshtml" t="Include" />
+          </e>
+          <e p="Statistics" t="Include">
+            <e p="Index.cshtml" t="Include" />
+            <e p="Monthly.cshtml" t="Include" />
+          </e>
+          <e p="Ticket" t="Include">
+            <e p="ChangeNumberPartial.cshtml" t="Include" />
+            <e p="Clones.cshtml" t="Include" />
+            <e p="ClonesWith.cshtml" t="Include" />
+            <e p="Create.cshtml" t="Include" />
+            <e p="CreateInPackage.cshtml" t="Include" />
+            <e p="DeletePartial.cshtml" t="Include" />
+            <e p="DetailsPartial.cshtml" t="Include" />
+            <e p="EditPartial.cshtml" t="Include" />
+            <e p="Filter.cshtml" t="Include" />
+            <e p="FilterFormPartial.cshtml" t="Include" />
+            <e p="Happy.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+            <e p="Latest.cshtml" t="Include" />
+            <e p="MovePartial.cshtml" t="Include" />
+            <e p="SearchModal.cshtml" t="Include" />
+            <e p="SearchPartial.cshtml" t="Include" />
+            <e p="Ticket.cshtml" t="Include" />
+            <e p="ToolbarPartial.cshtml" t="Include" />
+            <e p="Unallocated.cshtml" t="Include" />
+          </e>
+          <e p="web.config" t="Include" />
+        </e>
+        <e p="web.config" t="Include" />
+        <e p="Web.Debug.config" t="Include" />
+        <e p="Web.Release.config" t="Include" />
+      </e>
+    </e>
+  </component>
+</project>

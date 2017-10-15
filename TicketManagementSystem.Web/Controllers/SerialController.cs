@@ -10,9 +10,9 @@ namespace TicketManagementSystem.Web.Controllers
     [Authorize(Roles = "Admin")]
     public class SerialController : BaseController
     {
-        private ICacheService _cacheService;
-        private ISerialService _serialService;
-        private IPackageService _packageService;
+        private readonly ICacheService _cacheService;
+        private readonly ISerialService _serialService;
+        private readonly IPackageService _packageService;
 
         public SerialController(ISerialService serialService, IPackageService packageService, ICacheService cacheServ)
         {
@@ -91,7 +91,7 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet]
         public ActionResult Edit(int id, bool partial = false)
         {
-            SerialEditDTO serial = _serialService.GetSerialEdit(id);
+            var serial = _serialService.GetSerialEdit(id);
 
             if (serial == null)
                 return HttpNotFound();
@@ -136,7 +136,7 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet]
         public ActionResult Delete(int? id, bool partial = false)
         {
-            SerialDTO serial = _serialService.GetSerial((int)id);
+            var serial = _serialService.GetSerial((int)id);
 
             if (serial == null)
                 return HttpNotFound();

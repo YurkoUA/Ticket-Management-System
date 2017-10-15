@@ -10,8 +10,8 @@ namespace TicketManagementSystem.Business.Services
 {
     public class SummaryService : Service, ISummaryService
     {
-        private IPackageService _packageService;
-        private ITicketService _ticketService;
+        private readonly IPackageService _packageService;
+        private readonly ITicketService _ticketService;
 
         public SummaryService(IUnitOfWork database, IPackageService packServ, ITicketService ticketServ) : base(database)
         {
@@ -73,7 +73,7 @@ namespace TicketManagementSystem.Business.Services
             };
         }
 
-        private void AddCurrentPeriod(List<SummaryPeriodDTO> periods, Summary lastSummary)
+        private void AddCurrentPeriod(ICollection<SummaryPeriodDTO> periods, Summary lastSummary)
         {
             var current = GetSummary();
 

@@ -11,8 +11,8 @@ namespace TicketManagementSystem.Web
 {
     public class CustomOAuthProvider : OAuthAuthorizationServerProvider
     {
-        private IUserService _userService;
-        private ILoginService _loginService;
+        private readonly IUserService _userService;
+        private readonly ILoginService _loginService;
 
         public CustomOAuthProvider(IUserService userService, ILoginService loginService)
         {
@@ -20,7 +20,7 @@ namespace TicketManagementSystem.Web
             _loginService = loginService;
         }
 
-        public async override Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
+        public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
@@ -45,7 +45,7 @@ namespace TicketManagementSystem.Web
             return Task.FromResult<object>(null);
         }
 
-        private ClaimsIdentity SetClaimsIdentity(OAuthGrantResourceOwnerCredentialsContext context, UserDTO user)
+        private static ClaimsIdentity SetClaimsIdentity(OAuthGrantResourceOwnerCredentialsContext context, UserDTO user)
         {
             var claims = new ClaimsIdentity("JWT", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 
@@ -59,7 +59,7 @@ namespace TicketManagementSystem.Web
             return claims;
         }
 
-        private LoginDTO GetLoginData(OAuthGrantResourceOwnerCredentialsContext context, UserDTO user)
+        private static LoginDTO GetLoginData(OAuthGrantResourceOwnerCredentialsContext context, UserDTO user)
         {
             return new LoginDTO
             {
@@ -72,7 +72,7 @@ namespace TicketManagementSystem.Web
             };
         }
 
-        private bool RemoveOldLogins()
+        private static bool RemoveOldLogins()
         {
             return Convert.ToBoolean(ConfigurationManager.AppSettings["RemoveOldLogins"]);
         }

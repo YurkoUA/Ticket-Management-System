@@ -6,8 +6,8 @@ namespace TicketManagementSystem.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IPackageService _packageService;
-        private ITicketService _ticketService;
+        private readonly IPackageService _packageService;
+        private readonly ITicketService _ticketService;
 
         public HomeController(ITicketService ticketService, IPackageService packageService)
         {

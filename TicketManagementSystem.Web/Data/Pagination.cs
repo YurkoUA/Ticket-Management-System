@@ -16,9 +16,9 @@ namespace TicketManagementSystem.Web.Data
 
         private readonly int _buttonsOnPage;
 
-        private int _currentPage;
-        private int _totalPages;
-        private Func<int, string> _pageUrl;
+        private readonly int _currentPage;
+        private readonly int _totalPages;
+        private readonly Func<int, string> _pageUrl;
 
         public MvcHtmlString CreatePagination()
         {
@@ -102,8 +102,10 @@ namespace TicketManagementSystem.Web.Data
             a.MergeAttribute("href", _pageUrl(page));
             a.SetInnerText(page.ToString());
 
-            var li = new TagBuilder("li");
-            li.InnerHtml = a.ToString();
+            var li = new TagBuilder("li")
+            {
+                InnerHtml = a.ToString()
+            };
 
             if (isActive)
                 li.AddCssClass("active");
@@ -121,8 +123,10 @@ namespace TicketManagementSystem.Web.Data
             a.MergeAttribute("href", _pageUrl(1));
             a.InnerHtml = span.ToString();
 
-            var li = new TagBuilder("li");
-            li.InnerHtml = a.ToString();
+            var li = new TagBuilder("li")
+            {
+                InnerHtml = a.ToString()
+            };
 
             return li.ToString();
         }
@@ -137,8 +141,10 @@ namespace TicketManagementSystem.Web.Data
             a.MergeAttribute("href", _pageUrl(_totalPages));
             a.InnerHtml = span.ToString();
 
-            var li = new TagBuilder("li");
-            li.InnerHtml = a.ToString();
+            var li = new TagBuilder("li")
+            {
+                InnerHtml = a.ToString()
+            };
 
             return li.ToString();
         }

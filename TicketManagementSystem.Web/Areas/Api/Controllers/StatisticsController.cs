@@ -8,10 +8,10 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
     [RoutePrefix("api/Statistics")]
     public class StatisticsController : BaseApiController
     {
-        private IColorService _colorService;
-        private ISerialService _serialService;
-        private ITicketService _ticketService;
-        private ISummaryService _summaryService;
+        private readonly IColorService _colorService;
+        private readonly ISerialService _serialService;
+        private readonly ITicketService _ticketService;
+        private readonly ISummaryService _summaryService;
 
         public StatisticsController(IColorService colorServ,
                                     ISerialService serialServ,

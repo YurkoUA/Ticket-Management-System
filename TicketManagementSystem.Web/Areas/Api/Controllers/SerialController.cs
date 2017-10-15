@@ -6,8 +6,8 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
     [RoutePrefix("api/Serial")]
     public class SerialController : BaseApiController
     {
-        private ISerialService _serialService;
-        private IPackageService _packageService;
+        private readonly ISerialService _serialService;
+        private readonly IPackageService _packageService;
 
         public SerialController(ISerialService serialService, IPackageService packageService)
         {

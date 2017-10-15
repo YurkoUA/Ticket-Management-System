@@ -13,12 +13,12 @@ namespace TicketManagementSystem.Web.Controllers
     [Authorize(Roles = "Admin")]
     public class TicketController : BaseController
     {
-        private ITicketService _ticketService;
-        private ITicketService2 _ticketService2;
-        private IPackageService _packageService;
-        private ISerialService _serialService;
-        private IColorService _colorService;
-        private ICacheService _cacheService;
+        private readonly ITicketService _ticketService;
+        private readonly ITicketService2 _ticketService2;
+        private readonly IPackageService _packageService;
+        private readonly ISerialService _serialService;
+        private readonly IColorService _colorService;
+        private readonly ICacheService _cacheService;
 
         public TicketController(
             ITicketService ticketService,
@@ -41,12 +41,12 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
         public ActionResult Index(int page = 1)
         {
-            const int ITEMS_ON_PAGE = 20;
+            const int itemsOnPage = 20;
 
             if (page < 1) page = 1;
 
-            var pageInfo = new PageInfo(page, _ticketService.TotalCount, ITEMS_ON_PAGE);
-            var tickets = _ticketService.GetTickets((page - 1) * ITEMS_ON_PAGE, ITEMS_ON_PAGE);
+            var pageInfo = new PageInfo(page, _ticketService.TotalCount, itemsOnPage);
+            var tickets = _ticketService.GetTickets((page - 1) * itemsOnPage, itemsOnPage);
 
             var viewModel = new TicketIndexModel
             {
@@ -59,12 +59,12 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
         public ActionResult Unallocated(int page = 1)
         {
-            const int ITEMS_ON_PAGE = 30;
+            const int itemsOnPage = 30;
 
             if (page < 1) page = 1;
 
-            var tickets = _ticketService.GetUnallocatedTickets((page - 1) * ITEMS_ON_PAGE, ITEMS_ON_PAGE);
-            var pageInfo = new PageInfo(page, _ticketService.CountUnallocatedTickets(), ITEMS_ON_PAGE);
+            var tickets = _ticketService.GetUnallocatedTickets((page - 1) * itemsOnPage, itemsOnPage);
+            var pageInfo = new PageInfo(page, _ticketService.CountUnallocatedTickets(), itemsOnPage);
 
             var viewModel = new TicketIndexModel
             {
@@ -84,12 +84,12 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
         public ActionResult Happy(int page = 1)
         {
-            const int ITEMS_ON_PAGE = 30;
+            const int itemsOnPage = 30;
 
             if (page < 1) page = 1;
 
-            var tickets = _ticketService.GetHappyTickets((page - 1) * ITEMS_ON_PAGE, ITEMS_ON_PAGE);
-            var pageInfo = new PageInfo(page, _ticketService.CountHappyTickets(), ITEMS_ON_PAGE);
+            var tickets = _ticketService.GetHappyTickets((page - 1) * itemsOnPage, itemsOnPage);
+            var pageInfo = new PageInfo(page, _ticketService.CountHappyTickets(), itemsOnPage);
 
             var viewModel = new TicketIndexModel
             {
@@ -137,7 +137,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (viewModel.Page < 1)
                 viewModel.Page = 1;
 
-            const int ITEMS_ON_PAGE = 30;
+            const int itemsOnPage = 30;
 
             IEnumerable<TicketDTO> tickets;
 
@@ -146,9 +146,9 @@ namespace TicketManagementSystem.Web.Controllers
                 tickets = _ticketService.Filter(viewModel.FirstNumber, viewModel.ColorId, viewModel.SerialId);
 
                 viewModel.Tickets = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(
-                    tickets.Skip((viewModel.Page - 1) * ITEMS_ON_PAGE).Take(ITEMS_ON_PAGE));
+                    tickets.Skip((viewModel.Page - 1) * itemsOnPage).Take(itemsOnPage));
 
-                viewModel.PageInfo = new PageInfo(viewModel.Page, tickets.Count(), ITEMS_ON_PAGE);
+                viewModel.PageInfo = new PageInfo(viewModel.Page, tickets.Count(), itemsOnPage);
             }
 
             viewModel.Colors = GetColorsList();
@@ -158,14 +158,14 @@ namespace TicketManagementSystem.Web.Controllers
             {
                 viewModel.ColorName = viewModel.Colors
                     .FirstOrDefault(i => i.Value.Equals(viewModel.ColorId.ToString()))
-                    .Text;
+                    ?.Text;
             }
 
             if (viewModel.SerialId != null)
             {
                 viewModel.SerialName = viewModel.Series
                     .FirstOrDefault(i => i.Value.Equals(viewModel.SerialId.ToString()))
-                    .Text;
+                    ?.Text;
             }
             
             return View(viewModel);

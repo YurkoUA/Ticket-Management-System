@@ -16,8 +16,8 @@ namespace TicketManagementSystem.Web.Controllers
 {
     public class AccountController : BaseController
     {
-        private IUserService _userService;
-        private ILoginService _loginService;
+        private readonly IUserService _userService;
+        private readonly ILoginService _loginService;
 
         public AccountController(IUserService userService, ILoginService loginService)
         {
@@ -104,26 +104,6 @@ namespace TicketManagementSystem.Web.Controllers
             return ErrorPartial(ModelState);
         }
 
-        private bool RemoveOldLogins()
-        {
-            return Convert.ToBoolean(ConfigurationManager.AppSettings["RemoveOldLogins"]);
-        }
-
-        private int LoginsToShowCount()
-        {
-            int count;
-
-            if(!int.TryParse(ConfigurationManager.AppSettings["LatestLoginsToShow"], out count))
-            {
-                count = 10;
-            }
-
-            if (count < 1)
-                count = 10;
-
-            return count;
-        }
-
         private LoginDTO GetLoginDto(HttpRequestBase request, UserDTO user)
         {
             return new LoginDTO
@@ -138,7 +118,7 @@ namespace TicketManagementSystem.Web.Controllers
             };
         }
 
-        private ClaimsIdentity GetClaimsIdentity(UserDTO user)
+        private static ClaimsIdentity GetClaimsIdentity(UserDTO user)
         {
             var claim = new ClaimsIdentity("ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 
@@ -150,6 +130,26 @@ namespace TicketManagementSystem.Web.Controllers
                 "OWIN Provider", ClaimValueTypes.String));
 
             return claim;
+        }
+
+        private static bool RemoveOldLogins()
+        {
+            return Convert.ToBoolean(ConfigurationManager.AppSettings["RemoveOldLogins"]);
+        }
+
+        private static int LoginsToShowCount()
+        {
+            int count;
+
+            if(!int.TryParse(ConfigurationManager.AppSettings["LatestLoginsToShow"], out count))
+            {
+                count = 10;
+            }
+
+            if (count < 1)
+                count = 10;
+
+            return count;
         }
     }
 }

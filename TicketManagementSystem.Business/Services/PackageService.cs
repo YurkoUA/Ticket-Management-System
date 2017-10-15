@@ -11,8 +11,8 @@ namespace TicketManagementSystem.Business.Services
 {
     public class PackageService : Service, IPackageService
     {
-        private IColorService _colorService;
-        private ISerialService _serialService;
+        private readonly IColorService _colorService;
+        private readonly ISerialService _serialService;
 
         public PackageService(IUnitOfWork database, IColorService colorService, ISerialService serialService) : base(database)
         {

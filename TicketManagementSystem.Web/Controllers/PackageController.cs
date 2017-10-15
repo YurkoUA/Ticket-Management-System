@@ -13,11 +13,11 @@ namespace TicketManagementSystem.Web.Controllers
     [Authorize(Roles = "Admin")]
     public class PackageController : BaseController
     {
-        private ICacheService _cacheService;
-        private ITicketService _ticketService;
-        private IPackageService _packageService;
-        private IColorService _colorService;
-        private ISerialService _serialService;
+        private readonly ICacheService _cacheService;
+        private readonly ITicketService _ticketService;
+        private readonly IPackageService _packageService;
+        private readonly IColorService _colorService;
+        private readonly ISerialService _serialService;
 
         public PackageController(IPackageService packageService, 
             IColorService colorService, 
@@ -38,12 +38,12 @@ namespace TicketManagementSystem.Web.Controllers
             if (page < 1)
                 page = 1;
             
-            const int ITEMS_ON_PAGE = 20;
+            const int itemsOnPage = 20;
 
             var packagesDtos = _packageService.GetPackages(tab);
 
-            var pageInfo = new PageInfo(page, packagesDtos.Count(), ITEMS_ON_PAGE);
-            var packages = packagesDtos.Skip((page - 1) * ITEMS_ON_PAGE).Take(ITEMS_ON_PAGE);
+            var pageInfo = new PageInfo(page, packagesDtos.Count(), itemsOnPage);
+            var packages = packagesDtos.Skip((page - 1) * itemsOnPage).Take(itemsOnPage);
 
             var viewModel = new PackageIndexModel
             {

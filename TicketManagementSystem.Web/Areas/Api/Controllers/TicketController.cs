@@ -12,9 +12,9 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
     [Authorize(Roles = "Admin")]
     public class TicketController : BaseApiController
     {
-        private IPackageService _packageService;
-        private ITicketService _ticketService;
-        private ITicketService2 _ticketService2;
+        private readonly IPackageService _packageService;
+        private readonly ITicketService _ticketService;
+        private readonly ITicketService2 _ticketService2;
 
         public TicketController(ITicketService ticketService, IPackageService packageService, ITicketService2 ticketService2)
         {
@@ -67,13 +67,13 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         [HttpGet, AllowAnonymous]
         public IHttpActionResult Filter([FromUri]TicketFilterModel filter)
         {
-            const int ITEMS_ON_PAGE = 30;
+            const int itemsOnPage = 30;
 
             if (filter == null || filter?.IsNull() == true)
                 return BadRequest();
 
             var tickets = _ticketService.Filter(filter.FirstNumber, filter.ColorId, filter.SerialId);
-            return OkOrNoContent(tickets.Skip((filter.Page - 1) * ITEMS_ON_PAGE).Take(ITEMS_ON_PAGE));
+            return OkOrNoContent(tickets.Skip((filter.Page - 1) * itemsOnPage).Take(itemsOnPage));
         }
 
         [HttpGet, AllowAnonymous, Route("Search/{number}")]

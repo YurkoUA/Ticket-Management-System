@@ -13,8 +13,8 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
     [Authorize(Roles = "Admin")]
     public class PackageController : BaseApiController
     {
-        private IPackageService _packageService;
-        private ITicketService _ticketService;
+        private readonly IPackageService _packageService;
+        private readonly ITicketService _ticketService;
 
         public PackageController(IPackageService packageService, ITicketService ticketService)
         {

@@ -6,8 +6,8 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
     [RoutePrefix("api/Color")]
     public class ColorController : BaseApiController
     {
-        private IColorService _colorService;
-        private IPackageService _packageService;
+        private readonly IColorService _colorService;
+        private readonly IPackageService _packageService;
 
         public ColorController(IColorService colorService, IPackageService packageService)
         {

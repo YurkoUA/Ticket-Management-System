@@ -9,8 +9,8 @@ namespace TicketManagementSystem.Web.Controllers
 {
     public class ReportController : BaseController
     {
-        private IReportService _reportService;
-        private IPdfService _pdfService;
+        private readonly IReportService _reportService;
+        private readonly IPdfService _pdfService;
 
         public ReportController(IReportService reportService, IPdfService pdfService)
         {

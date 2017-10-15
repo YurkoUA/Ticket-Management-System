@@ -9,8 +9,8 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
     [Authorize]
     public class AccountController : BaseApiController
     {
-        private IUserService _userService;
-        private ILoginService _loginService;
+        private readonly IUserService _userService;
+        private readonly ILoginService _loginService;
 
         public AccountController(IUserService userService, ILoginService loginService)
         {

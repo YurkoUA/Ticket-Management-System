@@ -29,15 +29,8 @@ namespace TicketManagementSystem.Web.Jobs
 
             var report = _reportService.CreateReport(true);
 
-            Func<string, string> mapActionUrl = action =>
-            {
-                return $"{baseUrl}Report/{action}";
-            };
-
-            Func<string, string> mapPdfPath = fileName =>
-            {
-                return reportsDirectory + fileName + ".pdf";
-            };
+            Func<string, string> mapActionUrl = action => $"{baseUrl}Report/{action}";
+            Func<string, string> mapPdfPath = fileName => $"{reportsDirectory}{fileName}.pdf";
 
             try
             {

@@ -8,7 +8,7 @@ namespace TicketManagementSystem.Business.Services
 {
     public class TicketService2 : Service, ITicketService2
     {
-        private IReportService _reportService;
+        private readonly IReportService _reportService;
 
         public TicketService2(IUnitOfWork database, IReportService reportService) : base(database)
         {

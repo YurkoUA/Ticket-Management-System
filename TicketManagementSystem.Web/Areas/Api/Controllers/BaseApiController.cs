@@ -17,18 +17,12 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
 
         protected IHttpActionResult OkOrNoContent<T>(IEnumerable<T> enumerable)
         {
-            if (enumerable.Any())
-                return Ok(enumerable);
-
-            return NoContent();
+            return enumerable.Any() ? Ok(enumerable) : NoContent();
         }
 
         protected IHttpActionResult OkOrNoContent<T>(T obj)
         {
-            if (obj == null)
-                return NoContent();
-
-            return Ok(obj);
+            return obj == null ? NoContent() : Ok(obj);
         }
 
         protected IHttpActionResult OkOrNotFound<T>(T obj)

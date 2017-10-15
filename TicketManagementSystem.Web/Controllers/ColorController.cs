@@ -10,9 +10,9 @@ namespace TicketManagementSystem.Web.Controllers
     [Authorize(Roles = "Admin")]
     public class ColorController : BaseController
     {
-        private ICacheService _cacheService;
-        private IColorService _colorService;
-        private IPackageService _packageService;
+        private readonly ICacheService _cacheService;
+        private readonly IColorService _colorService;
+        private readonly IPackageService _packageService;
 
         public ColorController(IColorService colorService, IPackageService packageService, ICacheService cacheServ)
         {
@@ -56,7 +56,8 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet, AllowAnonymous, OutputCache(Duration = 20, Location = OutputCacheLocation.ServerAndClient)]
         public ActionResult GetPackages(int id)
         {
-            if (!_colorService.ExistsById(id)) return HttpNotFound();
+            if (!_colorService.ExistsById(id)) 
+                return HttpNotFound();
 
             var packages = _packageService.GetPackagesByColor(id);
             
@@ -94,7 +95,7 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet]
         public ActionResult Edit(int id, bool partial = false)
         {
-            ColorEditDTO color = _colorService.GetColorEdit(id);
+            var color = _colorService.GetColorEdit(id);
 
             if (color == null)
                 return HttpNotFound();
@@ -139,7 +140,7 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet]
         public ActionResult Delete(int? id, bool partial = false)
         {
-            ColorDTO color = _colorService.GetColor((int)id);
+            var color = _colorService.GetColor((int)id);
 
             if (color == null)
                 return HttpNotFound();

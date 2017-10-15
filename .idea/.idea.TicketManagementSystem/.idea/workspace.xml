@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1c8265cd-58d7-4e74-b8b7-6a917dd189ee" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Business/Services/PackageService.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Business/Services/PackageService.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Business/Services/ReportService.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Business/Services/ReportService.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Business/Services/SummaryService.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Business/Services/SummaryService.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Business/Services/TicketService.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Business/Services/TicketService.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Business/Services/TicketService2.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Business/Services/TicketService2.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/AccountController.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/AccountController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/BaseApiController.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/BaseApiController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/ColorController.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/ColorController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/PackageController.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/PackageController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/ReportController.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/ReportController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/SerialController.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/SerialController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/StatisticsController.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/StatisticsController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/TicketController.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/TicketController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/AccountController.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/AccountController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/ColorController.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/ColorController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/HomeController.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/HomeController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/PackageController.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/PackageController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/ReportController.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/ReportController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/SerialController.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/SerialController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/TicketController.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/TicketController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Data/Pagination.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Data/Pagination.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Jobs/ReportJob.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Jobs/ReportJob.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Util/CustomOAuthProvider.cs" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Util/CustomOAuthProvider.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TicketManagementSystem.Web/Views/Package/Index.cshtml" afterPath="$PROJECT_DIR$/TicketManagementSystem.Web/Views/Package/Index.cshtml" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/TicketService2.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/ColorService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/SerialService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Startup.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/LoginService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/TodoService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/SummaryService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/PackageService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/TicketService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/ReportService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Extensions/UserExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Extensions/StringExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Web.config" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Views/Ticket/Index.cshtml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/ViewModels/Ticket/TicketUnallocatedMoveModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/ViewModels/Ticket/TicketIndexModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/ViewModels/Package/PackageIndexModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Data/PageInfo.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Data/Pagination.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Jobs/SummaryJob.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/ColorController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Jobs/JobScheduler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/AccountController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Jobs/ReportJob.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/TicketController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/HomeController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/BaseController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Util/CustomOAuthProvider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Views/Package/Tickets.cshtml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/SerialController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/StatisticsController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Views/Package/Index.cshtml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/ReportController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/PackageController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/ColorController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/AccountController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/TicketController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/BaseApiController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/SerialController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/StatisticsController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/ReportController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/PackageController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Filters/OnlyAnonymous.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Helpers/AlertHelper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Helpers/LocalDateHelper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Helpers/PagingHelper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Data.EF/Enums/TaskPriority.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Data.EF/EFRepository.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Data.EF/Enums/TaskStatus.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Data.EF/Models/Ticket.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Data.EF/UnitOfWork.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Todo/Controllers/TodoApiController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Service.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Pdf/PdfService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Cache/CacheService.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/HomeController.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/SerialController.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/PackageController.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/ColorController.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Todo/Controllers/TodoApiController.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/BaseApiController.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/AccountController.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/ReportController.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/StatisticsController.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/ColorController.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/SerialController.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/PackageController.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/TicketController.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Util/CustomOAuthProvider.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Helpers/LocalDateHelper.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Data/Pagination.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Business/Services/SummaryService.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Business/Services/TicketService2.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Business/Services/ReportService.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Business/Services/PackageService.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Business/Services/TicketService.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/TicketController.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Web.config" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/ReportController.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Jobs/ReportJob.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Startup.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Todo/app/views/create.html" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Todo/app/js/services/todoService.js" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Todo/app/js/controllers/todoController.js" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/AccountController.cs" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Views/Package/Tickets.cshtml" />
+        <option value="$PROJECT_DIR$/TicketManagementSystem.Web/Views/Package/Index.cshtml" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="260" />
+    <option name="y" value="20" />
+    <option name="width" value="1400" />
+    <option name="height" value="990" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="SolutionExplorer" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="SolutionExplorer">
+        <subPane>
+          <expand>
+            <path>
+              <item name="" type="13324e5d:SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="TicketManagementSystem (4 projects)" type="977d5f41:SolutionExplorerNodeRider" />
+            </path>
+            <path>
+              <item name="" type="13324e5d:SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="TicketManagementSystem (4 projects)" type="977d5f41:SolutionExplorerNodeRider" />
+              <item name="TicketManagementSystem.Web" type="977d5f41:SolutionExplorerNodeRider" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <option name="show-file-system" value="false" />
+        <option name="show-all-items" value="false" />
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="480" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="479" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="480" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="480" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="211" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="215" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="318" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1175" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
+    <property name="ToolWindowVersion Control.ShowToolbar" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected=".NET Project.Default">
+    <configuration name="Default" type="DotNetProject" factoryName=".NET Project">
+      <option name="PROJECT_PATH" value="$PROJECT_DIR$/TicketManagementSystem.Web/TicketManagementSystem.Web.csproj" />
+      <option name="PROJECT_KIND" value="Web" />
+      <option name="PROJECT_TFM" value=".NETFramework,Version=v4.5" />
+      <option name="EXE_PATH" value="C:/Program Files/IIS Express/iisexpress.exe" />
+      <option name="PROGRAM_PARAMETERS" value="/config:$PROJECT_DIR$/.idea/config/applicationhost.config /site:TicketManagementSystem.Web /apppool:Clr4IntegratedAppPool" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="USE_MONO" value="0" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <envs />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1c8265cd-58d7-4e74-b8b7-6a917dd189ee" name="Default" comment="" />
+      <created>1508008972707</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1508008972707</updated>
+      <workItem from="1508008976251" duration="3958000" />
+      <workItem from="1508016094981" duration="554000" />
+      <workItem from="1508016696996" duration="676000" />
+      <workItem from="1508056500628" duration="797000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="5985000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Errors In Solution" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Unit Tests" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="NuGet" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1796875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39955848" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Errors In Solution" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Unit Tests" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="NuGet" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1796875" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/ColorController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="9" column="55" lean-forward="false" selection-start-line="9" selection-start-column="55" selection-end-line="9" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/SerialController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="9" column="53" lean-forward="false" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/PackageController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1558">
+          <caret line="210" column="35" lean-forward="false" selection-start-line="210" selection-start-column="35" selection-end-line="210" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Api/Controllers/TicketController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2088">
+          <caret line="69" column="33" lean-forward="true" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Util/CustomOAuthProvider.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="988">
+          <caret line="59" column="9" lean-forward="true" selection-start-line="59" selection-start-column="9" selection-end-line="59" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Helpers/PagingHelper.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="8" column="34" lean-forward="false" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Helpers/LocalDateHelper.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="10" column="113" lean-forward="false" selection-start-line="10" selection-start-column="113" selection-end-line="10" selection-end-column="113" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Helpers/AlertHelper.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-435">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Data/Pagination.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2717">
+          <caret line="145" column="16" lean-forward="false" selection-start-line="145" selection-start-column="16" selection-end-line="145" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Data/PageInfo.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/SummaryService.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="47" column="50" lean-forward="true" selection-start-line="47" selection-start-column="50" selection-end-line="47" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/TodoService.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1480">
+          <caret line="54" column="47" lean-forward="true" selection-start-line="54" selection-start-column="47" selection-end-line="54" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/TicketService2.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="10" column="49" lean-forward="false" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/LoginService.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-114">
+          <caret line="12" column="42" lean-forward="true" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/ReportService.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1841">
+          <caret line="46" column="35" lean-forward="true" selection-start-line="46" selection-start-column="35" selection-end-line="46" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/ColorService.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1195">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/SerialService.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-359">
+          <caret line="48" column="45" lean-forward="false" selection-start-line="48" selection-start-column="45" selection-end-line="48" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/PackageService.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-8911">
+          <caret line="14" column="54" lean-forward="false" selection-start-line="14" selection-start-column="54" selection-end-line="14" selection-end-column="54" />
+          <folding>
+            <marker date="1508011960175" expanded="false" signature="6:298" ph="..." />
+            <marker date="1508011960175" expanded="true" signature="350:17384" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="411:17382" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="655:761" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="889:1070" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="1124:1423" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="1495:1884" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="1959:2353" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="2448:2866" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="2938:3112" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="3186:3362" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="3462:3789" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="3898:4422" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="4148:4274" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="4468:4669" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="4679:8380" ph="CRUD" />
+            <marker date="1508011960175" expanded="true" signature="4761:4971" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="5055:5334" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="5388:5593" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="5661:5873" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="5939:6908" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="6063:6873" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="6563:6792" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="6988:7707" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="7111:7672" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="7743:8360" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="7766:8259" ph="/* var package = Database.Packages.GetById(id); ... */" />
+            <marker date="1508011960175" expanded="true" signature="8390:10381" ph="Open/Close, Make default/special." />
+            <marker date="1508011960175" expanded="true" signature="8472:8743" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="8573:8733" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="8785:9057" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="8886:9047" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="9123:9739" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="9228:9704" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="9805:10361" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="9910:10326" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="10391:10960" ph="Exists" />
+            <marker date="1508011960175" expanded="true" signature="10445:10518" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="10565:10710" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="10763:10940" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="10970:11241" ph="Count" />
+            <marker date="1508011960175" expanded="true" signature="11017:11101" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="11136:11221" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="11251:16976" ph="Validation" />
+            <marker date="1508011960175" expanded="true" signature="11342:11822" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="11516:11618" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="11683:11784" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="11902:12596" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="12060:12158" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="12255:12357" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="12457:12558" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="12665:13553" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="12835:12935" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="12998:13097" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="13251:13515" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="13381:13501" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="13629:14932" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="13794:13890" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="13983:14083" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="14179:14278" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="14401:14894" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="14525:14646" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="14760:14880" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="15004:16425" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="15208:15319" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="15440:15536" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="15595:15690" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="15731:16387" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="15877:15997" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="16070:16184" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="16259:16373" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="16497:16956" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="16700:16813" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="17058:17376" ph="{...}" />
+            <marker date="1508011960175" expanded="true" signature="17095:17366" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Services/TicketService.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1672">
+          <caret line="13" column="56" lean-forward="false" selection-start-line="13" selection-start-column="56" selection-end-line="13" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Jobs/SummaryJob.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="9" column="34" lean-forward="true" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Jobs/JobScheduler.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-93">
+          <caret line="25" column="27" lean-forward="true" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Filters/OnlyAnonymous.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Views/Ticket/Index.cshtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="37" lean-forward="true" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Scripts/tickets-by-number-modal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="6" lean-forward="true" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Web.config">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="67" column="300" lean-forward="true" selection-start-line="67" selection-start-column="300" selection-end-line="67" selection-end-column="300" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/ReportController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="711">
+          <caret line="51" column="70" lean-forward="false" selection-start-line="51" selection-start-column="70" selection-end-line="51" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Jobs/ReportJob.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="21" column="23" lean-forward="true" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Scripts/ticket.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Startup.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Todo/app/js/services/todoService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="924">
+          <caret line="106" column="36" lean-forward="true" selection-start-line="106" selection-start-column="36" selection-end-line="106" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Todo/app/js/controllers/todoController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="51" column="11" lean-forward="true" selection-start-line="51" selection-start-column="11" selection-end-line="51" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Areas/Todo/app/views/create.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-25">
+          <caret line="5" column="25" lean-forward="false" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/TicketController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2337">
+          <caret line="11" column="1" lean-forward="false" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Data.EF/UnitOfWork.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="63" column="13" lean-forward="true" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Data.EF/EFRepository.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="16" column="13" lean-forward="true" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Data.EF/Enums/TaskPriority.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Data.EF/Enums/TaskStatus.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="27" lean-forward="false" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Data.EF/Models/Ticket.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="874">
+          <caret line="48" column="9" lean-forward="true" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Extensions/UserExtensions.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="6" column="5" lean-forward="true" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Extensions/StringExtensions.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="30" lean-forward="true" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Service.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="9" column="23" lean-forward="true" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Cache/CacheService.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="5" column="28" lean-forward="true" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Business/Pdf/PdfService.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="41" lean-forward="true" selection-start-line="3" selection-start-column="41" selection-end-line="3" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/StatisticsController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="5" column="13" lean-forward="true" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding>
+            <marker date="1504263304644" expanded="false" signature="6:42" ph="..." />
+            <marker date="1504263304644" expanded="true" signature="92:337" ph="{...}" />
+            <marker date="1504263304644" expanded="true" signature="226:335" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/BaseController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1501577189866" expanded="false" signature="6:88" ph="..." />
+            <marker date="1501577189866" expanded="true" signature="138:1136" ph="{...}" />
+            <marker date="1501577189866" expanded="true" signature="194:1134" ph="{...}" />
+            <marker date="1501577189866" expanded="true" signature="557:662" ph="{...}" />
+            <marker date="1501577189866" expanded="true" signature="725:839" ph="{...}" />
+            <marker date="1501577189866" expanded="true" signature="933:1128" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Controllers/AccountController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding>
+            <marker date="1508056752482" expanded="false" signature="6:380" ph="..." />
+            <marker date="1508056752482" expanded="true" signature="430:5528" ph="{...}" />
+            <marker date="1508056752482" expanded="true" signature="484:5526" ph="{...}" />
+            <marker date="1508056752482" expanded="true" signature="684:786" ph="{...}" />
+            <marker date="1508056752482" expanded="false" signature="931:1180" ph="{...}" />
+            <marker date="1508056752482" expanded="false" signature="1453:2223" ph="{...}" />
+            <marker date="1508056752482" expanded="true" signature="1499:2181" ph="{...}" />
+            <marker date="1508056752482" expanded="true" signature="1645:1761" ph="{...}" />
+            <marker date="1508056752482" expanded="true" signature="1782:2167" ph="{...}" />
+            <marker date="1508056752482" expanded="true" signature="1899:1976" ph="{...}" />
+            <marker date="1508056752482" expanded="false" signature="2290:2409" ph="{...}" />
+            <marker date="1508056752482" expanded="false" signature="2549:2811" ph="{...}" />
+            <marker date="1508056752482" expanded="false" signature="3144:3757" ph="{...}" />
+            <marker date="1508056752482" expanded="true" signature="3190:3702" ph="{...}" />
+            <marker date="1508056752482" expanded="true" signature="3490:3688" ph="{...}" />
+            <marker date="1508056752482" expanded="false" signature="3834:4257" ph="{...}" />
+            <marker date="1508056752482" expanded="true" signature="3889:4246" ph="{...}" />
+            <marker date="1508056752482" expanded="false" signature="4328:5034" ph="{...}" />
+            <marker date="1508056752482" expanded="false" signature="5081:5192" ph="{...}" />
+            <marker date="1508056752482" expanded="false" signature="5240:5520" ph="{...}" />
+            <marker date="1508056752482" expanded="true" signature="5371:5427" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/ViewModels/Ticket/TicketUnallocatedMoveModel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding>
+            <marker date="1501317415530" expanded="true" signature="36:472" ph="{...}" />
+            <marker date="1501317415530" expanded="true" signature="82:470" ph="{...}" />
+            <marker date="1501317415530" expanded="true" signature="384:464" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/ViewModels/Ticket/TicketIndexModel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="10" column="28" lean-forward="false" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+          <folding>
+            <marker date="1497100380626" expanded="false" signature="6:59" ph="..." />
+            <marker date="1497100380626" expanded="true" signature="97:538" ph="{...}" />
+            <marker date="1497100380626" expanded="true" signature="167:536" ph="{...}" />
+            <marker date="1497100380626" expanded="true" signature="353:417" ph="{...}" />
+            <marker date="1497100380626" expanded="true" signature="466:530" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Views/Package/Tickets.cshtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="35" lean-forward="true" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+          <folding>
+            <marker date="1508056998990" expanded="true" signature="40:87" ph="@..." />
+            <marker date="1508056998990" expanded="true" signature="89:1933" ph="@..." />
+            <marker date="1508056998990" expanded="true" signature="106:1737" ph="{...}" />
+            <marker date="1508056998990" expanded="true" signature="113:192" ph="&lt;h2.../&gt;" />
+            <marker date="1508056998990" expanded="true" signature="209:1735" ph="&lt;div.../&gt;" />
+            <marker date="1508056998990" expanded="true" signature="251:341" ph="&lt;div.../&gt;" />
+            <marker date="1508056998990" expanded="true" signature="351:594" ph="@..." />
+            <marker date="1508056998990" expanded="true" signature="398:594" ph="{...}" />
+            <marker date="1508056998990" expanded="true" signature="421:584" ph="&lt;div.../&gt;" />
+            <marker date="1508056998990" expanded="true" signature="604:1724" ph="&lt;div.../&gt;" />
+            <marker date="1508056998990" expanded="true" signature="647:1709" ph="&lt;table.../&gt;" />
+            <marker date="1508056998990" expanded="true" signature="712:992" ph="&lt;thead.../&gt;" />
+            <marker date="1508056998990" expanded="true" signature="740:967" ph="&lt;tr.../&gt;" />
+            <marker date="1508056998990" expanded="true" signature="1010:1688" ph="&lt;tbody.../&gt;" />
+            <marker date="1508056998990" expanded="true" signature="1038:1663" ph="@..." />
+            <marker date="1508056998990" expanded="true" signature="1066:1663" ph="{...}" />
+            <marker date="1508056998990" expanded="true" signature="1113:1641" ph="&lt;tr.../&gt;" />
+            <marker date="1508056998990" expanded="true" signature="1742:1933" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/ViewModels/Package/PackageIndexModel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="21" column="13" lean-forward="true" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+          <folding>
+            <marker date="1501782455180" expanded="false" signature="6:104" ph="..." />
+            <marker date="1501782455180" expanded="true" signature="142:1374" ph="{...}" />
+            <marker date="1501782455180" expanded="true" signature="214:1372" ph="{...}" />
+            <marker date="1501782455180" expanded="true" signature="650:867" ph="{...}" />
+            <marker date="1501782455180" expanded="true" signature="676:857" ph="{...}" />
+            <marker date="1501782455180" expanded="true" signature="903:1122" ph="{...}" />
+            <marker date="1501782455180" expanded="true" signature="929:1112" ph="{...}" />
+            <marker date="1501782455180" expanded="true" signature="1187:1252" ph="{...}" />
+            <marker date="1501782455180" expanded="true" signature="1301:1366" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicketManagementSystem.Web/Views/Package/Index.cshtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="665">
+          <caret line="62" column="66" lean-forward="false" selection-start-line="62" selection-start-column="66" selection-end-line="62" selection-end-column="66" />
+          <folding>
+            <marker date="1508057158086" expanded="true" signature="71:201" ph="@..." />
+            <marker date="1508057158086" expanded="true" signature="235:875" ph="&lt;ul.../&gt;" />
+            <marker date="1508057158086" expanded="true" signature="294:458" ph="&lt;li.../&gt;" />
+            <marker date="1508057158086" expanded="true" signature="464:661" ph="&lt;li.../&gt;" />
+            <marker date="1508057158086" expanded="true" signature="667:869" ph="&lt;li.../&gt;" />
+            <marker date="1508057158086" expanded="true" signature="877:3266" ph="@..." />
+            <marker date="1508057158086" expanded="true" signature="894:3212" ph="{...}" />
+            <marker date="1508057158086" expanded="true" signature="901:3119" ph="&lt;div.../&gt;" />
+            <marker date="1508057158086" expanded="true" signature="952:1326" ph="&lt;div.../&gt;" />
+            <marker date="1508057158086" expanded="true" signature="1047:1311" ph="@..." />
+            <marker date="1508057158086" expanded="true" signature="1060:1311" ph="{...}" />
+            <marker date="1508057158086" expanded="true" signature="1336:2790" ph="&lt;div.../&gt;" />
+            <marker date="1508057158086" expanded="true" signature="1379:2775" ph="&lt;table.../&gt;" />
+            <marker date="1508057158086" expanded="true" signature="1444:1881" ph="&lt;tr.../&gt;" />
+            <marker date="1508057158086" expanded="true" signature="1667:1800" ph="@..." />
+            <marker date="1508057158086" expanded="true" signature="1711:1800" ph="{...}" />
+            <marker date="1508057158086" expanded="true" signature="1899:2754" ph="@..." />
+            <marker date="1508057158086" expanded="true" signature="1927:2754" ph="{...}" />
+            <marker date="1508057158086" expanded="true" signature="1966:2736" ph="&lt;tr.../&gt;" />
+            <marker date="1508057158086" expanded="true" signature="2430:2611" ph="@..." />
+            <marker date="1508057158086" expanded="true" signature="2474:2611" ph="{...}" />
+            <marker date="1508057158086" expanded="true" signature="2800:3108" ph="@..." />
+            <marker date="1508057158086" expanded="true" signature="2835:3108" ph="{...}" />
+            <marker date="1508057158086" expanded="true" signature="2858:3098" ph="&lt;div.../&gt;" />
+            <marker date="1508057158086" expanded="true" signature="2901:3079" ph="@{...}" />
+            <marker date="1508057158086" expanded="true" signature="2978:3077" ph="{...}" />
+            <marker date="1508057158086" expanded="true" signature="3125:3210" ph="@{...}" />
+            <marker date="1508057158086" expanded="true" signature="3217:3266" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
