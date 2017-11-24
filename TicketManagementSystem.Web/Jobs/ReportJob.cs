@@ -4,6 +4,7 @@ using Ninject;
 using Quartz;
 using TicketManagementSystem.Business;
 using TicketManagementSystem.Business.Interfaces;
+using TicketManagementSystem.Business.Telegram;
 using TicketManagementSystem.Web.App_Start;
 
 namespace TicketManagementSystem.Web.Jobs
@@ -12,11 +13,14 @@ namespace TicketManagementSystem.Web.Jobs
     {
         private IReportService _reportService;
         private IPdfService _pdfService;
+        private ITelegramNotificationService _telegramNotificationService;
 
         public void Execute(IJobExecutionContext context)
         {
-            _reportService = NinjectWebCommon.GetInstance().Get<IReportService>();
-            _pdfService = NinjectWebCommon.GetInstance().Get<IPdfService>();
+            var ninjectInstance = NinjectWebCommon.GetInstance();
+            _reportService = ninjectInstance.Get<IReportService>();
+            _pdfService = ninjectInstance.Get<IPdfService>();
+            _telegramNotificationService = ninjectInstance.Get<ITelegramNotificationService>();
 
             if (!Convert.ToBoolean(WebConfigurationManager.AppSettings["AutomaticReportsEnabled"]))
                 return;
@@ -39,10 +43,13 @@ namespace TicketManagementSystem.Web.Jobs
             }
             catch
             {
+                _telegramNotificationService.TrySendMessage("Помилка створення автоматичних звітів.");
+
                 return;
             }
 
             _reportService.SaveReport(report);
+            _telegramNotificationService.TrySendMessage("Автоматичні звіти успішно створено!");
         }
     }
 }

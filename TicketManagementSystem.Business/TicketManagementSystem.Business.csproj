@@ -139,6 +139,11 @@
     <Compile Include="Services\TicketService.cs" />
     <Compile Include="Services\TicketService2.cs" />
     <Compile Include="Services\TodoService.cs" />
+    <Compile Include="Telegram\ITelegramNotificationService.cs" />
+    <Compile Include="Telegram\ITelegramService.cs" />
+    <Compile Include="Telegram\TelegramNotificationService.cs" />
+    <Compile Include="Telegram\TelegramNotificationsSettings.cs" />
+    <Compile Include="Telegram\TelegramService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TicketManagementSystem.Data.EF\TicketManagementSystem.Data.EF.csproj">

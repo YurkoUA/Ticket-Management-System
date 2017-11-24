@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web.Mvc;
 using Ninject;
 using TicketManagementSystem.Business;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Business.Services;
+using TicketManagementSystem.Business.Telegram;
 
 namespace TicketManagementSystem.Web.Util
 {
@@ -30,6 +32,8 @@ namespace TicketManagementSystem.Web.Util
 
         private void AddBindings()
         {
+            BindTelegramService();
+
             _kernel.Bind<IPdfService>().To<PdfService>();
             _kernel.Bind<ICacheService>().To<CacheService>();
 
@@ -46,6 +50,28 @@ namespace TicketManagementSystem.Web.Util
             _kernel.Bind<IPackageService>().To<PackageService>();
             _kernel.Bind<ITicketService>().To<TicketService>();
             _kernel.Bind<ITicketService2>().To<TicketService2>();
+        }
+
+        private void BindTelegramService()
+        {
+            bool isEnabled;
+
+            bool.TryParse(ConfigurationManager.AppSettings["IsTelegramNotificationsEnabled"],
+                out isEnabled);
+
+            var notificationsSettings = new TelegramNotificationsSettings
+            {
+                AccessToken = ConfigurationManager.AppSettings["BotToken"],
+                ChatId = ConfigurationManager.AppSettings["TelegramChatId"],
+                IsNotificationsEnabled = isEnabled
+            };
+
+            _kernel.Bind<ITelegramNotificationService>().To<TelegramNotificationService>()
+                .InSingletonScope()
+                .WithConstructorArgument(notificationsSettings);
+
+            _kernel.Bind<ITelegramService>().To<TelegramService>()
+                .InSingletonScope();
         }
     }
 }
