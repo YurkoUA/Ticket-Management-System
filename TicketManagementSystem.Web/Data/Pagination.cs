@@ -14,11 +14,11 @@ namespace TicketManagementSystem.Web.Data
             _pageUrl = pageUrl;
         }
 
-        private readonly int _buttonsOnPage;
+        protected readonly int _buttonsOnPage;
 
-        private readonly int _currentPage;
-        private readonly int _totalPages;
-        private readonly Func<int, string> _pageUrl;
+        protected readonly int _currentPage;
+        protected readonly int _totalPages;
+        protected readonly Func<int, string> _pageUrl;
 
         public MvcHtmlString CreatePagination()
         {
@@ -96,7 +96,7 @@ namespace TicketManagementSystem.Web.Data
             return buttonsBuilder.ToString();
         }
 
-        private string PageButton(int page, bool isActive)
+        protected virtual string PageButton(int page, bool isActive)
         {
             var a = new TagBuilder("a");
             a.MergeAttribute("href", _pageUrl(page));
@@ -113,7 +113,7 @@ namespace TicketManagementSystem.Web.Data
             return li.ToString();
         }
 
-        private string FirstPageButton()
+        protected virtual string FirstPageButton()
         {
             var span = new TagBuilder("span");
             span.MergeAttribute("aria-hidden", "true");
@@ -131,7 +131,7 @@ namespace TicketManagementSystem.Web.Data
             return li.ToString();
         }
 
-        private string LastPageButton()
+        protected virtual string LastPageButton()
         {
             var span = new TagBuilder("span");
             span.MergeAttribute("aria-hidden", "true");

@@ -53,25 +53,18 @@ namespace TicketManagementSystem.Web.Controllers
                 Tickets = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets),
                 PageInfo = pageInfo
             };
+
+            if (Request.IsAjaxRequest())
+                return PartialView("IndexPartial", viewModel);
+
             return View(viewModel);
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
-        public ActionResult Unallocated(int page = 1)
+        public ActionResult Unallocated()
         {
-            const int itemsOnPage = 30;
-
-            if (page < 1) page = 1;
-
-            var tickets = _ticketService.GetUnallocatedTickets((page - 1) * itemsOnPage, itemsOnPage);
-            var pageInfo = new PageInfo(page, _ticketService.CountUnallocatedTickets(), itemsOnPage);
-
-            var viewModel = new TicketIndexModel
-            {
-                Tickets = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets),
-                PageInfo = pageInfo
-            };
-            return View(viewModel);
+            var unallocated = _ticketService.GetUnallocatedTickets();
+            return View(MapperInstance.Map<IEnumerable<TicketDetailsModel>>(unallocated));
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
@@ -96,6 +89,10 @@ namespace TicketManagementSystem.Web.Controllers
                 Tickets = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets),
                 PageInfo = pageInfo
             };
+
+            if (Request.IsAjaxRequest())
+                return PartialView("HappyPartial", viewModel);
+
             return View(viewModel);
         }
 
@@ -167,6 +164,9 @@ namespace TicketManagementSystem.Web.Controllers
                     .FirstOrDefault(i => i.Value.Equals(viewModel.SerialId.ToString()))
                     ?.Text;
             }
+
+            if (Request.IsAjaxRequest())
+                return PartialView("FilterPartial", viewModel);
             
             return View(viewModel);
         }

@@ -201,6 +201,7 @@
     <Compile Include="Areas\Api\Controllers\SerialController.cs" />
     <Compile Include="Areas\Api\Controllers\StatisticsController.cs" />
     <Compile Include="Areas\Api\Controllers\TicketController.cs" />
+    <Compile Include="Data\AjaxPagination.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
     <Compile Include="Areas\Api\Controllers\AccountController.cs" />
@@ -290,9 +291,11 @@
     <Content Include="bower_components\angular\angular.js" />
     <Content Include="bower_components\angular\angular.min.js" />
     <Content Include="bower_components\angular\index.js" />
+    <Content Include="Content\loading-spinner-black.gif" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dataTables.bootstrap.min.css" />
+    <Content Include="Content\loading-spinner-blue.gif" />
     <Content Include="Content\loading_spinner.gif" />
     <Content Include="Content\max-width-override.css" />
     <Content Include="favicon.ico" />
@@ -322,6 +325,7 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\ajax-pagination-ticket.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\color-create.js" />
@@ -330,6 +334,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.ba-bbq.min.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -442,6 +447,10 @@
     <Content Include="Views\Ticket\FilterFormPartial.cshtml" />
     <Content Include="Views\Ticket\Latest.cshtml" />
     <Content Include="Views\Statistics\Monthly.cshtml" />
+    <Content Include="Views\Ticket\IndexPartial.cshtml" />
+    <Content Include="Views\Shared\LoadingSpinner.cshtml" />
+    <Content Include="Views\Ticket\HappyPartial.cshtml" />
+    <Content Include="Views\Ticket\FilterPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

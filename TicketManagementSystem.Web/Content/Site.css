@@ -26,3 +26,12 @@ textarea {
 .trash {
     color: rgb(209, 91, 71);
 }
+
+div.loading-spinner {
+    text-align: center;
+    padding: 20px;
+}
+
+.panel-footer {
+    text-align: center;
+}

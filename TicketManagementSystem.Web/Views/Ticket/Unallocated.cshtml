@@ -1,4 +1,4 @@
-﻿@model TicketIndexModel
+﻿@model IEnumerable<TicketDetailsModel>
 
 @{
     ViewBag.Title = "Нерозподілені квитки";
@@ -10,12 +10,12 @@
 {
     <h2>
         @ViewBag.Title
-        <small>@Model.PageInfo.TotalItems шт.</small>
+        <small>@Model.Count() шт.</small>
     </h2>
     <hr />
 
     <div class="panel panel-danger">
-        <div class="panel-heading">Сторінка @Model.PageInfo.PageNumber з @Model.PageInfo.TotalPages</div>
+        <div class="panel-heading">Нерозподілені квитки: @Model.Count() шт.</div>
 
         <div class="table-responsive">
             <table class="table table-hover table-bordered">
@@ -49,16 +49,6 @@
                 }
             </table>
         </div>
-
-        @if (Model.PageInfo.TotalPages > 1)
-        {
-            <div class="panel-footer">
-                @Html.PageLinks(Model.PageInfo, x => Url.Action("Unallocated", new
-                {
-                    page = x
-                }))
-            </div>
-        }
     </div>
 }
 else
