@@ -201,6 +201,7 @@
     <Compile Include="Areas\Api\Controllers\SerialController.cs" />
     <Compile Include="Areas\Api\Controllers\StatisticsController.cs" />
     <Compile Include="Areas\Api\Controllers\TicketController.cs" />
+    <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
     <Compile Include="Data\AjaxPagination.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
@@ -215,7 +216,7 @@
     <Compile Include="Controllers\ColorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PackageController.cs" />
-    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Areas\Report\Controllers\ReportController.cs" />
     <Compile Include="Controllers\SerialController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
@@ -252,7 +253,6 @@
     <Compile Include="ViewModels\Package\PackageIndexModel.cs" />
     <Compile Include="ViewModels\Package\PackageDetailsModel.cs" />
     <Compile Include="ViewModels\Package\PackageMakeDefaultModel.cs" />
-    <Compile Include="ViewModels\Report\ReportIndexModel.cs" />
     <Compile Include="ViewModels\SelectListModel.cs" />
     <Compile Include="ViewModels\Serial\SerialCreateModel.cs" />
     <Compile Include="ViewModels\Serial\SerialDetailsModel.cs" />
@@ -291,6 +291,16 @@
     <Content Include="bower_components\angular\angular.js" />
     <Content Include="bower_components\angular\angular.min.js" />
     <Content Include="bower_components\angular\index.js" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap-grid.css" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap-grid.min.css" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap-reboot.css" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap-reboot.min.css" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap.css" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap.min.css" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\js\bootstrap.bundle.js" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\js\bootstrap.bundle.min.js" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\js\bootstrap.js" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\js\bootstrap.min.js" />
     <Content Include="Content\loading-spinner-black.gif" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -319,6 +329,20 @@
     <Content Include="bower_components\angular-route\package.json" />
     <Content Include="bower_components\angular-route\README.md" />
     <Content Include="Areas\Api\Views\web.config" />
+    <Content Include="Areas\Report\Views\web.config" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap-grid.css.map" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap-grid.min.css.map" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap-reboot.css.map" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap-reboot.min.css.map" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap.css.map" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap.min.css.map" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\js\bootstrap.bundle.js.map" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\js\bootstrap.bundle.min.js.map" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\js\bootstrap.js.map" />
+    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\js\bootstrap.min.js.map" />
+    <Content Include="Areas\Report\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Report\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Report\Views\Report\Archive.cshtml" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -349,7 +373,8 @@
     <Content Include="Scripts\package.js" />
     <Content Include="Scripts\packages-modal.js" />
     <Content Include="Scripts\packages.select-list.js" />
-    <Content Include="Scripts\report-archive-modal.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\report.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\serial-create.js" />
@@ -438,10 +463,9 @@
     <Content Include="Views\Account\ChangePasswordModal.cshtml" />
     <Content Include="Views\Package\SearchModal.cshtml" />
     <Content Include="Views\Package\SearchPartial.cshtml" />
-    <Content Include="Views\Report\DefaultReportPrint.cshtml" />
-    <Content Include="Views\Report\PackagesReportPrint.cshtml" />
-    <Content Include="Views\Report\ArchiveModal.cshtml" />
-    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Areas\Report\Views\Report\DefaultReportPrint.cshtml" />
+    <Content Include="Areas\Report\Views\Report\PackagesReportPrint.cshtml" />
+    <Content Include="Areas\Report\Views\Report\Index.cshtml" />
     <Content Include="Views\Package\Tickets.cshtml" />
     <Content Include="Views\Ticket\Filter.cshtml" />
     <Content Include="Views\Ticket\FilterFormPartial.cshtml" />
@@ -455,6 +479,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Api\Views\Shared\" />
+    <Folder Include="Areas\Report\Models\" />
     <Folder Include="Areas\Todo\Models\" />
   </ItemGroup>
   <ItemGroup>

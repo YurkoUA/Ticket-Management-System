@@ -3,9 +3,11 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.UI;
 using TicketManagementSystem.Business;
+using TicketManagementSystem.Business.Extensions;
 using TicketManagementSystem.Business.Interfaces;
+using TicketManagementSystem.Web.Controllers;
 
-namespace TicketManagementSystem.Web.Controllers
+namespace TicketManagementSystem.Web.Areas.Report.Controllers
 {
     public class ReportController : BaseController
     {
@@ -21,23 +23,19 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View(new ReportIndexModel
-            {
-                ArchiveIsEmpty = _reportService.IsEmpty,
-                LastReport = _reportService.GetLastReport()
-            });
+            // Model is last report.
+            return View(_reportService.GetLastReport());
         }
 
         [HttpGet, OutputCache(Duration = 30, Location = OutputCacheLocation.Client)]
         public ActionResult Archive()
         {
             var reports = _reportService.GetReports()
-                .OrderByDescending(r => r.Id);
+                .OrderByDescending(r => r.Date)
+                .GroupBy(r => r.Date.ToString("MMMM yyyy"))
+                .ToDictionary(g => g.Key.FirstCharToUpper(), g => g.AsEnumerable());
 
-            if (!reports.Any())
-                return HttpNotFound();
-
-            return PartialView("ArchiveModal", reports);
+            return View(reports);
         }
 
         [HttpPost, ValidateAntiForgeryToken, Authorize(Roles = "Admin")]
