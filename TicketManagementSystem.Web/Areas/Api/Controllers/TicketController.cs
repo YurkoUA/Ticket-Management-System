@@ -65,6 +65,12 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         }
 
         [HttpGet, AllowAnonymous]
+        public IHttpActionResult SummaryByLatest()
+        {
+            return OkOrNoContent(_ticketService2.GetSummaryByLatest());
+        }
+
+        [HttpGet, AllowAnonymous]
         public IHttpActionResult Filter([FromUri]TicketFilterModel filter)
         {
             const int itemsOnPage = 30;

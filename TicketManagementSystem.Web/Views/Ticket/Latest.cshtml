@@ -12,6 +12,13 @@
     </h2>
     <hr />
 
+    <p>
+        <button id="show-summary-button" type="button" class="btn btn-default"
+                data-toggle="popover" data-container="body" data-placement="bottom" data-html="true">
+            Підсумок
+        </button>
+    </p>
+
     <div class="panel panel-info">
         <div class="panel-heading">Останні квитки: @Model.Count() шт.</div>
 
@@ -56,3 +63,7 @@ else
 <div>
     @Html.ActionLink("Назад до списку", "Index")
 </div>
+
+@section scripts {
+    @Scripts.Render("~/Scripts/ticket-latest.js")    
+}

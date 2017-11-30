@@ -104,6 +104,8 @@ namespace TicketManagementSystem.Business.Services
                     p.NewTickets = tickets.Count(t => t.AddDate > lastReportDate && t.PackageId == p.Id);
                 });
 
+                // This method schould calling from TicketService2, but we can't inject it there.
+                // TODO: Use this method from TicketService2.
                 dto.NewTicketsGroups = tickets.Where(t => t.AddDate > lastReportDate)
                     .GroupBy(t => $"{t.SerialName}-{t.ColorName} ({t.FirstNumber})")
                     .Select(g => new TicketsGroup
