@@ -1,4 +1,4 @@
-﻿<div ng-controller="todoController" ng-show="selectedTask !== undefined">
+﻿<div ng-show="selectedTask !== undefined">
     <h3>Задача "{{selectedTask.Title}}"</h3>
     <hr />
 
@@ -66,6 +66,6 @@
     </div>
 </div>
 
-<div ng-controller="todoController" ng-hide="selectedTask !== undefined" class="alert alert-danger" role="alert">
+<div ng-hide="selectedTask !== undefined" class="alert alert-danger" role="alert">
     Задачу не знайдено.
 </div>

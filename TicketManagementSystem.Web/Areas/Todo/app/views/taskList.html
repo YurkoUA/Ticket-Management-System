@@ -1,120 +1,118 @@
-﻿<div ng-controller="todoController">
-    <div ng-hide="taskList !== undefined">
-        <ng-include src="'/Areas/Todo/app/views/start.html'"></ng-include>
+﻿<div ng-hide="taskList !== undefined">
+    <ng-include src="'/Areas/Todo/app/views/start.html'"></ng-include>
+</div>
+
+<div ng-show="taskList !== undefined">
+    <h3>Список задач</h3>
+    <p><a href="#!create">Додати задачу</a></p>
+</div>
+
+<hr />
+
+<div class="panel panel-info" ng-show="taskList.None.length > 0">
+    <div class="panel-heading">Вільні задачі</div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Назва</th>
+                    <th>Пріоритет</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="task in taskList.None | orderBy: -Priority">
+                    <td><a href="#!details/{{task.Id}}">{{task.Title}}</a></td>
+                    <td>{{task.PriorityString}}</td>
+                    <td>
+                        <a href="#!edit/{{task.Id}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="#" ng-click="deleteTask(task, 'None')" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+</div>
 
-    <div ng-show="taskList !== undefined">
-        <h3>Список задач</h3>
-        <p><a href="#!create">Додати задачу</a></p>
+<div class="panel panel-warning" ng-show="taskList.InProgress.length > 0">
+    <div class="panel-heading">Задачі, що виконуються</div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Назва</th>
+                    <th>Пріоритет</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="task in taskList.InProgress | orderBy: -Priority">
+                    <td><a href="#!details/{{task.Id}}">{{task.Title}}</a></td>
+                    <td>{{task.PriorityString}}</td>
+                    <td>
+                        <a href="#!edit/{{task.Id}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="#" ng-click="deleteTask(task, 'InProgress')" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+</div>
 
-    <hr />
+<div class="panel panel-danger" ng-show="taskList.Recycle.length > 0">
+    <div class="panel-heading">Задачі, що перероблюються</div>
 
-    <div class="panel panel-info" ng-show="taskList.None.length > 0">
-        <div class="panel-heading">Вільні задачі</div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Назва</th>
+                    <th>Пріоритет</th>
+                    <th></th>
+                </tr>
+            </thead>
 
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Назва</th>
-                        <th>Пріоритет</th>
-                        <th></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr ng-repeat="task in taskList.None | orderBy: -Priority">
-                        <td><a href="#!details/{{task.Id}}">{{task.Title}}</a></td>
-                        <td>{{task.PriorityString}}</td>
-                        <td>
-                            <a href="#!edit/{{task.Id}}"><span class="glyphicon glyphicon-pencil"></span></a>
-                            <a href="#" ng-click="deleteTask(task, 'None')" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <tbody>
+                <tr ng-repeat="task in taskList.Recycle | orderBy: -Priority">
+                    <td><a href="#!details/{{task.Id}}">{{task.Title}}</a></td>
+                    <td>{{task.PriorityString}}</td>
+                    <td>
+                        <a href="#!edit/{{task.Id}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="#" ng-click="deleteTask(task, 'Recycle')" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+</div>
 
-    <div class="panel panel-warning" ng-show="taskList.InProgress.length > 0">
-        <div class="panel-heading">Задачі, що виконуються</div>
+<div class="panel panel-success" ng-show="taskList.Completed.length > 0">
+    <div class="panel-heading">Виконані задачі</div>
 
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Назва</th>
-                        <th>Пріоритет</th>
-                        <th></th>
-                    </tr>
-                </thead>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Назва</th>
+                    <th>Пріоритет</th>
+                    <th></th>
+                </tr>
+            </thead>
 
-                <tbody>
-                    <tr ng-repeat="task in taskList.InProgress | orderBy: -Priority">
-                        <td><a href="#!details/{{task.Id}}">{{task.Title}}</a></td>
-                        <td>{{task.PriorityString}}</td>
-                        <td>
-                            <a href="#!edit/{{task.Id}}"><span class="glyphicon glyphicon-pencil"></span></a>
-                            <a href="#" ng-click="deleteTask(task, 'InProgress')" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="panel panel-danger" ng-show="taskList.Recycle.length > 0">
-        <div class="panel-heading">Задачі, що перероблюються</div>
-
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Назва</th>
-                        <th>Пріоритет</th>
-                        <th></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr ng-repeat="task in taskList.Recycle | orderBy: -Priority">
-                        <td><a href="#!details/{{task.Id}}">{{task.Title}}</a></td>
-                        <td>{{task.PriorityString}}</td>
-                        <td>
-                            <a href="#!edit/{{task.Id}}"><span class="glyphicon glyphicon-pencil"></span></a>
-                            <a href="#" ng-click="deleteTask(task, 'Recycle')" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="panel panel-success" ng-show="taskList.Completed.length > 0">
-        <div class="panel-heading">Виконані задачі</div>
-
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Назва</th>
-                        <th>Пріоритет</th>
-                        <th></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr ng-repeat="task in taskList.Completed | orderBy: -Priority">
-                        <td><a href="#!details/{{task.Id}}">{{task.Title}}</a></td>
-                        <td>{{task.PriorityString}}</td>
-                        <td>
-                            <a href="#!edit/{{task.Id}}"><span class="glyphicon glyphicon-pencil"></span></a>
-                            <a href="#" ng-click="deleteTask(task, 'Completed')" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <tbody>
+                <tr ng-repeat="task in taskList.Completed | orderBy: -Priority">
+                    <td><a href="#!details/{{task.Id}}">{{task.Title}}</a></td>
+                    <td>{{task.PriorityString}}</td>
+                    <td>
+                        <a href="#!edit/{{task.Id}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="#" ng-click="deleteTask(task, 'Completed')" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

@@ -3,9 +3,11 @@
 
     angular
         .module('todoApp')
-        .controller('todoController', ['$scope', '$rootScope', '$window', '$route', '$location', '$templateCache', '$routeParams', 'todoService', taskController]);
+        .controller('todoController', ['$scope', '$rootScope', '$window', '$route', '$location', '$templateCache', '$routeParams', 'todoService', todoController]);
 
-    function taskController($scope, $rootScope, $window, $route, $location, $templateCache, $routeParams, todoService) {
+    function todoController($scope, $rootScope, $window, $route, $location, $templateCache, $routeParams, todoService) {
+        console.log("todoController is running...");
+
         $rootScope.title = "Головна";
 
         todoService.getGrouped()

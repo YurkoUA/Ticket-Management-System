@@ -6,6 +6,8 @@
         .controller('todoEditController', ['$scope', '$rootScope', '$window', '$timeout', '$route', '$location', '$templateCache', '$routeParams', 'todoService', todoEditController]);
 
     function todoEditController($scope, $rootScope, $window, $timeout, $route, $location, $templateCache, $routeParams, todoService) {
+        console.log("todoEditController is running...");
+
         $scope.selectedTask;
         $scope.formSuccessMessage;
         $scope.formErrors;

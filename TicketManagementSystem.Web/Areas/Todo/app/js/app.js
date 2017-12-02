@@ -27,5 +27,6 @@
         })
         .run(function ($rootScope) {
             $rootScope.title = "Головна";
+            console.log("The app is running...");
         });
 })();

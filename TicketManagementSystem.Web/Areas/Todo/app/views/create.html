@@ -1,54 +1,52 @@
-﻿<div ng-controller="todoController">
-    <h3>Додати задачу</h3>
-    <hr />
+﻿<h3>Додати задачу</h3>
+<hr />
 
-    <form id="createForm" name="createForm" ng-model="createForm">
-        <div class="form-horizontal">
-            <div class="form-group">
-                <label class="control-label col-md-2" for="Title">Назва</label>
+<form id="createForm" name="createForm" ng-model="createForm">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Title">Назва</label>
 
-                <div class="col-md-10">
-                    <input ng-model="Title" type="text" class="form-control text-box single-line" id="Title" name="Title" ng-required="true" ng-minlength="3" ng-maxlength="64" placeholder="Введіть назву задачі" />
-                    <span ng-show="!createForm.Title.$valid && createForm.Title.$touched" class="field-validation-valid text-danger">Назва задачі має бути від 3 до 64 символів.</span>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-md-2" for="Description">Опис</label>
-
-                <div class="col-md-10">
-                    <textarea ng-model="Description" class="form-control text-box multy-line" id="Description" name="Description" ng-maxlength="256" placeholder="Введіть опис задачі"></textarea>
-                    <span ng-show="!createForm.Description.$valid && createForm.Description.$touched" class="field-validation-valid text-danger">Опис не може бути більшим за 256 символів.</span>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-md-2" for="Priority">Пріоритет</label>
-
-                <div class="col-md-10">
-                    <select ng-model="Priority" class="form-control" id="Priority" name="Priority" required>
-                        <option ng-repeat="p in priorities" value="{{p.value}}">{{p.text}}</option>
-                    </select>
-                    <span ng-show="!createForm.Priority.$valid && createForm.Priority.$touched" class="field-validation-valid text-danger">Необхідно вказати пріоритет.</span>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="submit" ng-disabled="!createForm.$valid" class="btn btn-primary" ng-click="createTask(Title, Description, Priority, createForm)">Додати</button>
-                    <a href="#" role="button" class="btn btn-default">Скасувати</a>
-                </div>
+            <div class="col-md-10">
+                <input ng-model="Title" type="text" class="form-control text-box single-line" id="Title" name="Title" ng-required="true" ng-minlength="3" ng-maxlength="64" placeholder="Введіть назву задачі" />
+                <span ng-show="!createForm.Title.$valid && createForm.Title.$touched" class="field-validation-valid text-danger">Назва задачі має бути від 3 до 64 символів.</span>
             </div>
         </div>
-    </form>
 
-    <div ng-show="formSuccessMessage.length > 0" class="alert alert-success" role="alert">
-        <span>{{formSuccessMessage}}</span>
-    </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Description">Опис</label>
 
-    <div ng-show="formErrors.length > 0" class="alert alert-danger" role="alert">
-        <ul>
-            <li ng-repeat="e in formErrors">{{e}}</li>
-        </ul>
+            <div class="col-md-10">
+                <textarea ng-model="Description" class="form-control text-box multy-line" id="Description" name="Description" ng-maxlength="256" placeholder="Введіть опис задачі"></textarea>
+                <span ng-show="!createForm.Description.$valid && createForm.Description.$touched" class="field-validation-valid text-danger">Опис не може бути більшим за 256 символів.</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Priority">Пріоритет</label>
+
+            <div class="col-md-10">
+                <select ng-model="Priority" class="form-control" id="Priority" name="Priority" required>
+                    <option ng-repeat="p in priorities" value="{{p.value}}">{{p.text}}</option>
+                </select>
+                <span ng-show="!createForm.Priority.$valid && createForm.Priority.$touched" class="field-validation-valid text-danger">Необхідно вказати пріоритет.</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" ng-disabled="!createForm.$valid" class="btn btn-primary" ng-click="createTask(Title, Description, Priority, createForm)">Додати</button>
+                <a href="#" role="button" class="btn btn-default">Скасувати</a>
+            </div>
+        </div>
     </div>
+</form>
+
+<div ng-show="formSuccessMessage.length > 0" class="alert alert-success" role="alert">
+    <span>{{formSuccessMessage}}</span>
+</div>
+
+<div ng-show="formErrors.length > 0" class="alert alert-danger" role="alert">
+    <ul>
+        <li ng-repeat="e in formErrors">{{e}}</li>
+    </ul>
 </div>
