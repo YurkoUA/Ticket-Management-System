@@ -351,6 +351,7 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\ajax-pagination-package.js" />
     <Content Include="Scripts\ajax-pagination-ticket.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -478,6 +479,7 @@
     <Content Include="Views\Shared\LoadingSpinner.cshtml" />
     <Content Include="Views\Ticket\HappyPartial.cshtml" />
     <Content Include="Views\Ticket\FilterPartial.cshtml" />
+    <Content Include="Views\Package\IndexPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

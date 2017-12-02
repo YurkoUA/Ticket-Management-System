@@ -1,26 +1,44 @@
-﻿@using TicketManagementSystem.Business.Enums
-@model PackageIndexModel
+﻿@model PackageIndexModel
 
 @{
     ViewBag.Title = "Пачки";
-    PageInfo pageInfo = ViewBag.PageInfo as PageInfo;
     bool isAdmin = User.IsInRole("Admin");
 }
 
 <h2>@ViewBag.Title</h2>
 <hr />
 
-<ul class="nav nav-tabs nav-justified" role="tablist">
-    <li role="presentation" class="@Model.ClassAll">
-        <a href="@Url.Action("Index")" role="tab">Всі <span class="badge">@Model.TotalPackages</span></a>
+<ul id="packages-tabs" class="nav nav-tabs nav-justified" role="tablist">
+    <li role="presentation" class="@Model.ClassAll" data-tab-parameter="All">
+        <a href="@Url.Action("Index")" role="tab" 
+           data-ajax="true" data-ajax-method="GET" data-ajax-update="#packages-list-table" 
+           data-ajax-mode="replace" data-ajax-loading="#loading"
+           data-ajax-begin="OnPaginationBegin" data-ajax-success="OnTabPaginationSuccess"
+           data-tab-parameter="All">
+
+            Всі <span class="badge">@Model.TotalPackages</span>
+        </a>
     </li>
 
-    <li role="presentation" class="@Model.ClassOpened">
-        <a href="@Url.Action("Index", new { tab = "Opened" })" role="tab">Відкриті <span class="badge">@Model.OpenedPackages</span></a>
+    <li role="presentation" class="@Model.ClassOpened" data-tab-parameter="Opened">
+        <a href="@Url.Action("Index", new { tab = "Opened" })" role="tab"
+           data-ajax="true" data-ajax-method="GET" data-ajax-update="#packages-list-table" 
+           data-ajax-mode="replace" data-ajax-loading="#loading"
+           data-ajax-begin="OnPaginationBegin" data-ajax-success="OnTabPaginationSuccess"
+           data-tab-parameter="Opened">
+        
+            Відкриті <span class="badge">@Model.OpenedPackages</span>
+        </a>
     </li>
 
-    <li role="presentation" class="@Model.ClassSpecial">
-        <a href="@Url.Action("Index", new { tab = "Special" })" role="tab">Спеціальні <span class="badge">@Model.SpecialPackages</span></a>
+    <li role="presentation" class="@Model.ClassSpecial" data-tab-parameter="Special">
+        <a href="@Url.Action("Index", new { tab = "Special" })" role="tab"
+           data-ajax="true" data-ajax-method="GET" data-ajax-update="#packages-list-table" 
+           data-ajax-mode="replace" data-ajax-loading="#loading"
+           data-ajax-begin="OnPaginationBegin" data-ajax-success="OnTabPaginationSuccess"
+           data-tab-parameter="Special">
+        
+            Спеціальні <span class="badge">@Model.SpecialPackages</span></a>
     </li>
 </ul>
 
@@ -38,53 +56,16 @@
             }
         </div>
 
-        <div class="table-responsive">
-            <table class="table table-hover table-bordered">
-                <tr>
-                    <th>ID</th>
-                    <th>Назва</th>
-                    <th>Квитків</th>
-                    <th>Статус</th>
-                    <th>Номінал</th>
-                    
-                    @if (Model.Filter != PackagesFilter.Special)
-                    {
-                        <th>Перша цифра</th>
-                    }
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                        <td>@Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { })</td>
-                        <td>@Html.DisplayFor(modelItem => item.TicketsCount)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Status)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Nominal)</td>
-                        
-                        @if (Model.Filter != PackagesFilter.Special)
-                        {
-                            <td>@Html.DisplayFor(modelItem => item.FirstNumber)</td>
-                        }
-                    </tr>
-                }
-            </table>
-        </div>
-
-        @if (Model.PageInfo.TotalPages > 1)
-        {
-            <div class="panel-footer">
-                @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new
-                {
-                    page = x,
-                    tab = Model.Filter.ToString()
-                }))
-            </div>
+        @{ 
+            Html.RenderPartial("IndexPartial", Model);
+            Html.RenderPartial("LoadingSpinner");
         }
     </div>
 
     @section scripts {
-        @Scripts.Render("~/Scripts/package-search-modal.js")
+        @Scripts.Render("~/Scripts/jquery.ba-bbq.min.js",
+                        "~/Scripts/package-search-modal.js",
+                        "~/Scripts/ajax-pagination-package.js")
     }
 }
 else

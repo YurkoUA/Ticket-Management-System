@@ -54,6 +54,10 @@ namespace TicketManagementSystem.Web.Controllers
                 OpenedPackages = _packageService.OpenedCount(),
                 SpecialPackages = _packageService.SpecialCount()
             };
+
+            if (Request.IsAjaxRequest())
+                return PartialView("IndexPartial", viewModel);
+
             return View(viewModel);
         }
 

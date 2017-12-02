@@ -24,3 +24,15 @@ function setButtonLoadingState() {
 function resetButtonLoadingState() {
     $(".btn-loading").button('reset');
 }
+
+function changeUrlParams(newParams) {
+    var params = $.deparam.querystring(location.search);
+
+    if (params != undefined) {
+        for (var i in newParams) {
+            params[newParams[i].name] = newParams[i].value;
+        }
+        
+        history.pushState(null, '', location.pathname + "?" + $.param(params));
+    }
+}

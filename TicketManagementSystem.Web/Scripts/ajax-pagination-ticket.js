@@ -4,12 +4,9 @@
     var currentPageNumber = $("#PageNumber").val();
 
     if (currentPageNumber != undefined) {
-        var params = $.deparam.querystring(location.search);
-
-        if (params != undefined) {
-            params.page = currentPageNumber;
-            history.pushState(null, '', location.pathname + "?" + $.param(params));
-        }
+        changeUrlParams([
+            { name: "page", value: currentPageNumber }
+        ]);
     }
 }
 
