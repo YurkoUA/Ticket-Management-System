@@ -65,6 +65,12 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         }
 
         [HttpGet, AllowAnonymous]
+        public IHttpActionResult Today(int timezoneOffset = 0)
+        {
+            return OkOrNoContent(_ticketService2.GetTodayTickets(timezoneOffset));
+        }
+
+        [HttpGet, AllowAnonymous]
         public IHttpActionResult SummaryByLatest()
         {
             return OkOrNoContent(_ticketService2.GetSummaryByLatest());

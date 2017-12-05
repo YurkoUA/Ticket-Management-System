@@ -19,6 +19,7 @@
             @Html.ActionLink("Нерозподілені квитки", "Unallocated") |
             @Html.ActionLink("Квитки з однаковими номерами", "Clones") | 
             @Html.ActionLink("Останні квитки", "Latest") | 
+            @Html.ActionLink("Сьогоднішні квитки", "Today", new { }, new { id = "link-tickets-today" }) | 
             <a id="ticket-search" onclick="searchModal()">Пошук квитків</a> | 
             @Html.ActionLink("Фільтр", "Filter")
         </div>
@@ -39,7 +40,8 @@
     @section scripts {
         @Scripts.Render("~/Scripts/jquery.ba-bbq.min.js",
                         "~/Scripts/ticket-search-modal.js",
-                        "~/Scripts/ajax-pagination-ticket.js")
+                        "~/Scripts/ajax-pagination-ticket.js",
+                        "~/Scripts/link-tickets-today.js")
     }
 }
 else

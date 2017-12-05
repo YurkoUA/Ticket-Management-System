@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TicketDetailsModel>
 
 @{
-    ViewBag.Title = "Останні квитки";
+    ViewBag.Title = "Сьогоднішні квитки";
 }
 
 @if (Model.Any())
@@ -11,19 +11,11 @@
         <small>@Model.Count() шт.</small>
     </h2>
 
-    @Html.ActionLink("Сьогоднішні квитки", "Today", new { }, new { id = "link-tickets-today" })
-
+    @Html.ActionLink("Останні квитки", "Latest")
     <hr />
 
-    <p>
-        <button id="show-summary-button" type="button" class="btn btn-default"
-                data-toggle="popover" data-container="body" data-placement="bottom" data-html="true">
-            Підсумок
-        </button>
-    </p>
-
-    <div class="panel panel-info">
-        <div class="panel-heading">Останні квитки: @Model.Count() шт.</div>
+    <div class="panel panel-success">
+        <div class="panel-heading">Сьогоднішні квитки: @Model.Count() шт.</div>
 
         <div class="table-responsive">
             <table class="table table-hover table-bordered">
@@ -58,16 +50,14 @@
 else
 {
     <h2>@ViewBag.Title</h2>
+
+    @Html.ActionLink("Останні квитки", "Latest")
     <hr />
 
-    @Html.AlertDanger("З часу створення останнього звіту не було додано жодного квитка.")
+    @Html.AlertDanger("Сьогодні не було додано жодного квитка.")
 }
 
 <div>
     @Html.ActionLink("Назад до списку", "Index")
 </div>
 
-@section scripts {
-    @Scripts.Render("~/Scripts/ticket-latest.js",
-                    "~/Scripts/link-tickets-today.js")    
-}

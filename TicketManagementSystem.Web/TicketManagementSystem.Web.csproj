@@ -370,6 +370,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jquery.validation.double.fix.js" />
+    <Content Include="Scripts\link-tickets-today.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\package-create.js" />
     <Content Include="Scripts\package-search-modal.js" />
@@ -480,6 +481,7 @@
     <Content Include="Views\Ticket\HappyPartial.cshtml" />
     <Content Include="Views\Ticket\FilterPartial.cshtml" />
     <Content Include="Views\Package\IndexPartial.cshtml" />
+    <Content Include="Views\Ticket\Today.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

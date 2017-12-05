@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.DTO.Report;
@@ -26,6 +27,14 @@ namespace TicketManagementSystem.Business.Services
             return MapperInstance.Map<IEnumerable<TicketDTO>>(
                 Database.Tickets.GetAll(t => t.AddDate > date)
                 .OrderBy(t => t.Number));
+        }
+
+        public IEnumerable<TicketDTO> GetTodayTickets(int timezoneOffset)
+        {
+            timezoneOffset *= -1;
+
+            var tickets = Database.Tickets.GetAll(t => t.AddDate.AddMinutes(timezoneOffset).Date == DateTime.UtcNow.AddMinutes(timezoneOffset).Date);
+            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketGroupDTO> GetSummaryByLatest()

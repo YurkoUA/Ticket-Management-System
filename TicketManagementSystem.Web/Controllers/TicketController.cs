@@ -75,6 +75,13 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
+        public ActionResult Today(int timezoneOffset = 0)
+        {
+            var todayTickets = _ticketService2.GetTodayTickets(timezoneOffset);
+            return View(MapperInstance.Map<IEnumerable<TicketDetailsModel>>(todayTickets));
+        }
+
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
         public ActionResult Happy(int page = 1)
         {
             const int itemsOnPage = 30;
