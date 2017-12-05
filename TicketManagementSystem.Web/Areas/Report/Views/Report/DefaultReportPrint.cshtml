@@ -108,7 +108,7 @@
                     <td>-</td>
                     <td><u>Квитки зі звичайних пачок</u></td>
                     <td>@Model.DefaultPackagesTickets</td>
-                    <td>@Model.DefaultPackagesTicketsNew</td>
+                    <td>@Model.NewDefaultPackagesTickets</td>
                 </tr>
 
                 <tr class="active">
@@ -118,7 +118,7 @@
                     <td>@Model.NewUnallocatedTicketsCount</td>
                 </tr>
 
-                @foreach (var item in Model.Packages)
+                @foreach (var item in Model.SpecialPackages)
                 {
                     <tr>
                         <td>@item.Id</td>

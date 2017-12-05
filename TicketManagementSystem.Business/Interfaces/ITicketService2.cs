@@ -7,6 +7,6 @@ namespace TicketManagementSystem.Business.Interfaces
     public interface ITicketService2
     {
         IEnumerable<TicketDTO> GetLatestTickets();
-        IEnumerable<TicketsGroup> GetSummaryByLatest();
+        IEnumerable<TicketGroupDTO> GetSummaryByLatest();
     }
 }

@@ -58,8 +58,8 @@ namespace TicketManagementSystem.Business
 
                 #region Report
 
-                cfg.CreateMap<Report, DTO.Report.ReportDTO>();
-                cfg.CreateMap<DTO.Report.ReportDTO, Report>();
+                cfg.CreateMap<TicketManagementSystem.Data.EF.Models.Report, DTO.Report.ReportDTO>();
+                cfg.CreateMap<DTO.Report.ReportDTO, TicketManagementSystem.Data.EF.Models.Report>();
 
                 #endregion
 

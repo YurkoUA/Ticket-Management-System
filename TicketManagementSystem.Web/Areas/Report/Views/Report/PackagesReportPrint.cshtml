@@ -40,35 +40,38 @@
 
     <div>
         <h3>Квитки</h3>
-        <span>Всього: @Model.TotalTickets</span>
+        <span>Всього: @Model.TicketsCount</span>
         <br />
-        <span>Нових: @Model.NewTickets</span>
+        <span>Нових: @Model.NewTicketsCount</span>
         <br />
-        <span>Щасливих: @Model.HappyTickets</span>
+        <span>Щасливих: @Model.HappyTicketsCount</span>
         <br />
-        <span>Нових щасливих: @Model.NewHappyTickets</span>
+        <span>Нових щасливих: @Model.NewHappyTicketsCount</span>
     </div>
 
     <div>
         <h3>Пачки</h3>
 
-        <span>Всього: @Model.TotalPackages</span>
+        <span>Всього: @Model.PackagesCount</span>
         <br />
         <span>Нових: @Model.NewPackagesCount</span>
         <br />
-        <span>Звичайних: @Model.TotalDefaultPackages</span>
+        <span>Звичайних: @Model.DefaultPackagesCount</span>
         <br />
-        <span>Спеціальних: @Model.SpecialPackages.Count</span>
+        <span>Спеціальних: @Model.SpecialPackagesCount</span>
     </div>
 
-    @if (Model.TotalDefaultPackages > 0)
+    @if (Model.DefaultPackagesCount > 0)
     {
         <div>
             <h3>Звичайні пачки</h3>
 
             @foreach (var item in Model.DefaultPackages)
             {
-                <h4>Пачки серії "@item.Key"</h4>
+                <h4>
+                    Пачки серії "@item.Key"
+                    <small>@item.Value.Count шт.</small>
+                </h4>
 
                 <table class="table table-bordered table-condensed">
                     <thead>
@@ -101,8 +104,10 @@
         <hr />
 
         <div>
-            <h3>Спеціальні пачки</h3>
-            <span>Всього: @Model.SpecialPackages.Count</span>
+            <h3>
+                Спеціальні пачки
+                <small>@Model.SpecialPackages.Count шт.</small>
+            </h3>
 
             <table class="table table-bordered table-condensed">
                 <thead>

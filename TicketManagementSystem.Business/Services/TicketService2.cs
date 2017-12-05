@@ -28,11 +28,11 @@ namespace TicketManagementSystem.Business.Services
                 .OrderBy(t => t.Number));
         }
 
-        public IEnumerable<TicketsGroup> GetSummaryByLatest()
+        public IEnumerable<TicketGroupDTO> GetSummaryByLatest()
         {
             var tickets = GetLatestTickets();
 
-            return tickets.GroupBy(t => $"{t.SerialName}-{t.ColorName} ({t.FirstNumber})").Select(g => new TicketsGroup
+            return tickets.GroupBy(t => $"{t.SerialName}-{t.ColorName} ({t.FirstNumber})").Select(g => new TicketGroupDTO
             {
                 Name = g.Key,
                 Count = g.Count(),

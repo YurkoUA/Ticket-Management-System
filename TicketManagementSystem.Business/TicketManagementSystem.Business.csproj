@@ -93,11 +93,12 @@
     <Compile Include="DTO\Package\PackageMakeSpecialDTO.cs" />
     <Compile Include="DTO\Package\PackageSpecialCreateDTO.cs" />
     <Compile Include="DTO\Package\PackageSpecialEditDTO.cs" />
+    <Compile Include="DTO\Report\BaseReportDTO.cs" />
     <Compile Include="DTO\Report\DefaultReportDTO.cs" />
-    <Compile Include="DTO\Report\PackageDTO.cs" />
+    <Compile Include="DTO\Report\PackageFromReportDTO.cs" />
     <Compile Include="DTO\Report\PackageReportDTO.cs" />
     <Compile Include="DTO\Report\ReportDTO.cs" />
-    <Compile Include="DTO\Report\TicketsGroup.cs" />
+    <Compile Include="DTO\Report\TicketGroupDTO.cs" />
     <Compile Include="DTO\Serial\SerialCreateDTO.cs" />
     <Compile Include="DTO\Serial\SerialDTO.cs" />
     <Compile Include="DTO\Serial\SerialEditDTO.cs" />
@@ -125,6 +126,9 @@
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Pdf\PdfService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\DefaultReportBuilder.cs" />
+    <Compile Include="Report\PackageReportBuilder.cs" />
+    <Compile Include="Report\ReportBuilder.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Services\ColorService.cs" />
     <Compile Include="Interfaces\IColorService.cs" />

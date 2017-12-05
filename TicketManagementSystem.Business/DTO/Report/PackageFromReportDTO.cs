@@ -1,6 +1,6 @@
 ﻿namespace TicketManagementSystem.Business.DTO.Report
 {
-    public class PackageDTO
+    public class PackageFromReportDTO
     {
         public int Id { get; set; }
         public string PackageName { get; set; }

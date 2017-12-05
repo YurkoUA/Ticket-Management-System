@@ -1,6 +1,6 @@
 ﻿namespace TicketManagementSystem.Business.DTO.Report
 {
-    public class TicketsGroup
+    public class TicketGroupDTO
     {
         public string Name { get; set; }
         public int Count { get; set; }
