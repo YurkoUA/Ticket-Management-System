@@ -33,7 +33,9 @@ namespace TicketManagementSystem.Business.Services
         {
             timezoneOffset *= -1;
 
-            var tickets = Database.Tickets.GetAll(t => t.AddDate.AddMinutes(timezoneOffset).Date == DateTime.UtcNow.AddMinutes(timezoneOffset).Date);
+            var tickets = Database.Tickets
+                .GetAll(t => t.AddDate.AddMinutes(timezoneOffset).Date == DateTime.UtcNow.AddMinutes(timezoneOffset).Date)
+                .OrderBy(t => t.Number);
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
