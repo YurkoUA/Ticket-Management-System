@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.UI;
 using TicketManagementSystem.Business;
+using TicketManagementSystem.Business.AppSettings;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 
@@ -19,6 +20,7 @@ namespace TicketManagementSystem.Web.Controllers
         private readonly ISerialService _serialService;
         private readonly IColorService _colorService;
         private readonly ICacheService _cacheService;
+        private readonly IAppSettingsService _appSettingsService;
 
         public TicketController(
             ITicketService ticketService,
@@ -26,7 +28,8 @@ namespace TicketManagementSystem.Web.Controllers
             IPackageService packageService,
             ISerialService serialService,
             IColorService colorService,
-            ICacheService cacheService)
+            ICacheService cacheService,
+            IAppSettingsService appSettingsService)
         {
             _ticketService = ticketService;
             _ticketService2 = ticketService2;
@@ -34,6 +37,7 @@ namespace TicketManagementSystem.Web.Controllers
             _serialService = serialService;
             _colorService = colorService;
             _cacheService = cacheService;
+            _appSettingsService = appSettingsService;
         }
 
         #region Index, Unallocated, Happy, Details
@@ -41,9 +45,10 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
         public ActionResult Index(int page = 1)
         {
-            const int itemsOnPage = 20;
+            if (page < 1)
+                page = 1;
 
-            if (page < 1) page = 1;
+            var itemsOnPage = _appSettingsService.ItemsOnPage;
 
             var pageInfo = new PageInfo(page, _ticketService.TotalCount, itemsOnPage);
             var tickets = _ticketService.GetTickets((page - 1) * itemsOnPage, itemsOnPage);
@@ -84,9 +89,10 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
         public ActionResult Happy(int page = 1)
         {
-            const int itemsOnPage = 30;
+            if (page < 1)
+                page = 1;
 
-            if (page < 1) page = 1;
+            var itemsOnPage = _appSettingsService.ItemsOnPage;
 
             var tickets = _ticketService.GetHappyTickets((page - 1) * itemsOnPage, itemsOnPage);
             var pageInfo = new PageInfo(page, _ticketService.CountHappyTickets(), itemsOnPage);
@@ -141,12 +147,12 @@ namespace TicketManagementSystem.Web.Controllers
             if (viewModel.Page < 1)
                 viewModel.Page = 1;
 
-            const int itemsOnPage = 30;
-
             IEnumerable<TicketDTO> tickets;
 
             if (!viewModel.IsNull())
             {
+                var itemsOnPage = _appSettingsService.ItemsOnPage;
+
                 tickets = _ticketService.Filter(viewModel.FirstNumber, viewModel.ColorId, viewModel.SerialId);
 
                 viewModel.Tickets = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(

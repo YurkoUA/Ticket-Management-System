@@ -22,6 +22,8 @@ namespace TicketManagementSystem.Business.AppSettings
 
         public string TelegramChatId => GetValue("TelegramChatId");
 
+        public int ItemsOnPage => int.Parse(GetValueOrDefault("ItemsOnPage", 20));
+
         public string GetValue(string key)
         {
             return ConfigurationManager.AppSettings[key];

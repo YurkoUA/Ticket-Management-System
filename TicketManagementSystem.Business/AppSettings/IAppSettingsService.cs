@@ -16,6 +16,8 @@
         string BotToken { get; }
         string TelegramChatId { get; }
 
+        int ItemsOnPage { get; }
+
         string GetValue(string key);
     }
 }

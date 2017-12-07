@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.UI;
 using TicketManagementSystem.Business;
+using TicketManagementSystem.Business.AppSettings;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Enums;
 using TicketManagementSystem.Business.Interfaces;
@@ -18,18 +19,21 @@ namespace TicketManagementSystem.Web.Controllers
         private readonly IPackageService _packageService;
         private readonly IColorService _colorService;
         private readonly ISerialService _serialService;
+        private readonly IAppSettingsService _appSettingsService;
 
         public PackageController(IPackageService packageService, 
             IColorService colorService, 
             ISerialService serialService,
             ITicketService ticketServive,
-            ICacheService cacheService)
+            ICacheService cacheService,
+            IAppSettingsService appSettingsService)
         {
             _packageService = packageService;
             _colorService = colorService;
             _serialService = serialService;
             _ticketService = ticketServive;
             _cacheService = cacheService;
+            _appSettingsService = appSettingsService;
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
@@ -37,8 +41,8 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (page < 1)
                 page = 1;
-            
-            const int itemsOnPage = 20;
+
+            var itemsOnPage = _appSettingsService.ItemsOnPage;
 
             var packagesDtos = _packageService.GetPackages(tab);
 

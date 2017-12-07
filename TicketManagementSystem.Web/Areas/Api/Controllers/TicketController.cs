@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using TicketManagementSystem.Business.AppSettings;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 using static TicketManagementSystem.Web.Areas.Api.Models.Extensions;
@@ -15,12 +16,18 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         private readonly IPackageService _packageService;
         private readonly ITicketService _ticketService;
         private readonly ITicketService2 _ticketService2;
+        private readonly IAppSettingsService _appSettingsService;
 
-        public TicketController(ITicketService ticketService, IPackageService packageService, ITicketService2 ticketService2)
+        public TicketController(
+            ITicketService ticketService, 
+            IPackageService packageService, 
+            ITicketService2 ticketService2,
+            IAppSettingsService appSettingsService)
         {
             _ticketService = ticketService;
             _packageService = packageService;
             _ticketService2 = ticketService2;
+            _appSettingsService = appSettingsService;
         }
 
         [HttpGet, AllowAnonymous]
@@ -79,13 +86,13 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         [HttpGet, AllowAnonymous]
         public IHttpActionResult Filter([FromUri]TicketFilterModel filter)
         {
-            const int itemsOnPage = 30;
-
             if (filter == null || filter?.IsNull() == true)
                 return BadRequest();
 
+            var itemsToReturning = _appSettingsService.ItemsOnPage;
+
             var tickets = _ticketService.Filter(filter.FirstNumber, filter.ColorId, filter.SerialId);
-            return OkOrNoContent(tickets.Skip((filter.Page - 1) * itemsOnPage).Take(itemsOnPage));
+            return OkOrNoContent(tickets.Skip((filter.Page - 1) * itemsToReturning).Take(itemsToReturning));
         }
 
         [HttpGet, AllowAnonymous, Route("Search/{number}")]
