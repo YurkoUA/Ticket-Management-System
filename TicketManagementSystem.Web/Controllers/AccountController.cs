@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Web.Filters;
+using TicketManagementSystem.Business.AppSettings;
 
 namespace TicketManagementSystem.Web.Controllers
 {
@@ -18,11 +19,13 @@ namespace TicketManagementSystem.Web.Controllers
     {
         private readonly IUserService _userService;
         private readonly ILoginService _loginService;
+        private readonly IAppSettingsService _appSettingsService;
 
-        public AccountController(IUserService userService, ILoginService loginService)
+        public AccountController(IUserService userService, ILoginService loginService, IAppSettingsService appSettingsService)
         {
             _userService = userService;
             _loginService = loginService;
+            _appSettingsService = appSettingsService;
         }
 
         [HttpGet, Authorize, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
@@ -57,7 +60,7 @@ namespace TicketManagementSystem.Web.Controllers
                         IsPersistent = model.Remember
                     }, GetClaimsIdentity(user));
 
-                    _loginService.AddLogin(GetLoginDto(Request, user), RemoveOldLogins());
+                    _loginService.AddLogin(GetLoginDto(Request, user), _appSettingsService.RemoveOldLogins);
                     return RedirectToAction("Index");
                 }
             }
@@ -74,7 +77,7 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet, Authorize, OutputCache(Duration = 20, Location = OutputCacheLocation.Client)]
         public ActionResult LoginHistory()
         {
-            var logins = _loginService.GetLoginHistory(User.Identity.GetUserId<int>(), LoginsToShowCount());
+            var logins = _loginService.GetLoginHistory(User.Identity.GetUserId<int>(), _appSettingsService.LatestLoginsToShow);
 
             if (!logins.Any())
                 return HttpNotFound();
@@ -130,26 +133,6 @@ namespace TicketManagementSystem.Web.Controllers
                 "OWIN Provider", ClaimValueTypes.String));
 
             return claim;
-        }
-
-        private static bool RemoveOldLogins()
-        {
-            return Convert.ToBoolean(ConfigurationManager.AppSettings["RemoveOldLogins"]);
-        }
-
-        private static int LoginsToShowCount()
-        {
-            int count;
-
-            if(!int.TryParse(ConfigurationManager.AppSettings["LatestLoginsToShow"], out count))
-            {
-                count = 10;
-            }
-
-            if (count < 1)
-                count = 10;
-
-            return count;
         }
     }
 }

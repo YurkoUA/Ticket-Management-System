@@ -220,7 +220,7 @@
     <Compile Include="Controllers\SerialController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
-    <Compile Include="Util\CustomOAuthProvider.cs" />
+    <Compile Include="Data\CustomOAuthProvider.cs" />
     <Compile Include="Data\PageInfo.cs" />
     <Compile Include="Data\Pagination.cs" />
     <Compile Include="Extensions\Extensions.cs" />

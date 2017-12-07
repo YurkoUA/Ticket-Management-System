@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Web.Mvc;
 using Ninject;
 using TicketManagementSystem.Business;
+using TicketManagementSystem.Business.AppSettings;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Business.Services;
 using TicketManagementSystem.Business.Telegram;
@@ -32,10 +32,9 @@ namespace TicketManagementSystem.Web.Util
 
         private void AddBindings()
         {
-            BindTelegramService();
-
             _kernel.Bind<IPdfService>().To<PdfService>();
             _kernel.Bind<ICacheService>().To<CacheService>();
+            _kernel.Bind<IAppSettingsService>().To<AppSettingsService>();
 
             _kernel.Bind<IUserService>().To<UserService>();
             _kernel.Bind<ILoginService>().To<LoginService>();
@@ -50,20 +49,19 @@ namespace TicketManagementSystem.Web.Util
             _kernel.Bind<IPackageService>().To<PackageService>();
             _kernel.Bind<ITicketService>().To<TicketService>();
             _kernel.Bind<ITicketService2>().To<TicketService2>();
+
+            BindTelegramService();
         }
 
         private void BindTelegramService()
         {
-            bool isEnabled;
-
-            bool.TryParse(ConfigurationManager.AppSettings["IsTelegramNotificationsEnabled"],
-                out isEnabled);
+            var settingsService = _kernel.Get<IAppSettingsService>();
 
             var notificationsSettings = new TelegramNotificationsSettings
             {
-                AccessToken = ConfigurationManager.AppSettings["BotToken"],
-                ChatId = ConfigurationManager.AppSettings["TelegramChatId"],
-                IsNotificationsEnabled = isEnabled
+                AccessToken = settingsService.BotToken,
+                ChatId = settingsService.TelegramChatId,
+                IsNotificationsEnabled = settingsService.IsTelegramNotificationsEnabled
             };
 
             _kernel.Bind<ITelegramNotificationService>().To<TelegramNotificationService>()

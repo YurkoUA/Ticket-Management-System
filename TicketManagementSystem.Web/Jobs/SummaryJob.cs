@@ -1,7 +1,6 @@
-﻿using System;
-using System.Web.Configuration;
-using Ninject;
+﻿using Ninject;
 using Quartz;
+using TicketManagementSystem.Business.AppSettings;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Business.Telegram;
 using TicketManagementSystem.Web.App_Start;
@@ -11,19 +10,22 @@ namespace TicketManagementSystem.Web.Jobs
     public class SummaryJob : IJob
     {
         private ISummaryService _summaryService;
+        private IAppSettingsService _appSettingsService;
         private ITelegramNotificationService _telegramNotificationService;
 
         public void Execute(IJobExecutionContext context)
         {
-            if (!Convert.ToBoolean(WebConfigurationManager.AppSettings["AutomaticSummariesEnabled"]))
+            var ninjectInstance = NinjectWebCommon.GetInstance();
+
+            _summaryService = ninjectInstance.Get<ISummaryService>();
+            _appSettingsService = ninjectInstance.Get<IAppSettingsService>();
+            _telegramNotificationService = ninjectInstance.Get<ITelegramNotificationService>();
+
+            if (!_appSettingsService.IsAutomaticSummariesEnabled)
                 return;
 
             try
             {
-                var ninjectInstance = NinjectWebCommon.GetInstance();
-                _summaryService = ninjectInstance.Get<ISummaryService>();
-                _telegramNotificationService = ninjectInstance.Get<ITelegramNotificationService>();
-
                 if (!_summaryService.ExistsByCurrentMonth())
                 {
                     _summaryService.WriteSummary();

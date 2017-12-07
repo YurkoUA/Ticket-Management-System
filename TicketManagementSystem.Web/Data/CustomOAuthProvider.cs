@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Configuration;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
+using TicketManagementSystem.Business.AppSettings;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 
@@ -13,11 +13,13 @@ namespace TicketManagementSystem.Web
     {
         private readonly IUserService _userService;
         private readonly ILoginService _loginService;
+        private readonly IAppSettingsService _appSettingsService;
 
-        public CustomOAuthProvider(IUserService userService, ILoginService loginService)
+        public CustomOAuthProvider(IUserService userService, ILoginService loginService, IAppSettingsService appSettingsService)
         {
             _userService = userService;
             _loginService = loginService;
+            _appSettingsService = appSettingsService;
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
@@ -36,7 +38,7 @@ namespace TicketManagementSystem.Web
             var authTicket = new AuthenticationTicket(SetClaimsIdentity(context, user), new AuthenticationProperties());
             context.Validated(authTicket);
 
-            _loginService.AddLogin(GetLoginData(context, user), RemoveOldLogins());
+            _loginService.AddLogin(GetLoginData(context, user), _appSettingsService.RemoveOldLogins);
         }
 
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
@@ -70,11 +72,6 @@ namespace TicketManagementSystem.Web
                 UserAgent = context.Request.Headers["User-Agent"],
                 Host = $"{context.Request.Uri.Scheme}://{context.Request.Uri.Authority}"
             };
-        }
-
-        private static bool RemoveOldLogins()
-        {
-            return Convert.ToBoolean(ConfigurationManager.AppSettings["RemoveOldLogins"]);
         }
     }
 }
