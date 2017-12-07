@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using TicketManagementSystem.Data.EF.Interfaces;
 using TicketManagementSystem.Data.EF.Models;
 
@@ -55,6 +56,22 @@ namespace TicketManagementSystem.Data.EF
                 {
                     _db.SaveChanges();
                     action.Invoke();
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                }
+            }
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            using (var transaction = _db.Database.BeginTransaction())
+            {
+                try
+                {
+                    await _db.SaveChangesAsync();
                     transaction.Commit();
                 }
                 catch

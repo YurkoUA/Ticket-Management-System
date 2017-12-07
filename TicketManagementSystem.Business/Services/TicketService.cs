@@ -348,7 +348,14 @@ namespace TicketManagementSystem.Business.Services
 
         public bool Exists(TicketDTO ticketDTO)
         {
-            return Database.Tickets.Contains(MapperInstance.Map<Ticket>(ticketDTO));
+            var ticket = MapperInstance.Map<Ticket>(ticketDTO);
+            //return Database.Tickets.Contains(t => 
+            //{
+            //    return t.Number.Equals(ticket.Number, StringComparison.CurrentCultureIgnoreCase)
+            //        && t.ColorId == ticket.ColorId && t.SerialId == ticket.SerialId
+            //        && t.SerialNumber.Equals(ticket.SerialNumber, StringComparison.CurrentCultureIgnoreCase);
+            //});
+            return Database.Tickets.Contains(t => t.Equals(ticket));
         }
 
         public bool Exists(TicketDTO ticketDTO, int id)

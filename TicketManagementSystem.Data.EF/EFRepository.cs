@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using TicketManagementSystem.Data.EF.Interfaces;
 
 namespace TicketManagementSystem.Data.EF
@@ -37,19 +39,10 @@ namespace TicketManagementSystem.Data.EF
             return _dbSet.Find(id) != null;
         }
 
-        #region Is contains methods
-
-        public virtual bool Contains(T item)
-        {
-            return _dbSet.AsEnumerable().Contains(item);
-        }
-
         public virtual bool Contains(Func<T, bool> predicate)
         {
             return _dbSet.Any(predicate);
         }
-        
-        #endregion
 
         #region Read (Get) methods
 
@@ -95,6 +88,50 @@ namespace TicketManagementSystem.Data.EF
         public virtual void RemoveRange(IEnumerable<T> entities)
         {
             _dbSet.RemoveRange(entities);
+        }
+
+        #endregion
+
+        #region Async methods.
+     
+        public virtual async Task<int> GetCountAsync()
+        {
+            return await _dbSet.CountAsync();
+        }
+
+        public virtual async Task<int> GetCountAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.CountAsync(predicate);
+        }
+
+        public virtual async Task<bool> IsEmptyAsync()
+        {
+            return !(await _dbSet.AnyAsync());
+        }
+
+        public virtual async Task<bool> ExistsByIdAsync(int id)
+        {
+            return (await _dbSet.FindAsync(id)) != null;
+        }
+
+        public virtual async Task<bool> ContainsAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.AnyAsync(predicate);
+        }
+
+        public virtual async Task<IQueryable<T>> GetAllAsync()
+        {
+            return await Task.Run(() => _dbSet);
+        }
+
+        public virtual async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await Task.Run(() => _dbSet.Where(predicate));
+        }
+
+        public virtual async Task<T> GetByIdAsync(int id)
+        {
+            return await _dbSet.FindAsync(id);
         }
 
         #endregion

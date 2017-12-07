@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using TicketManagementSystem.Data.EF.Models;
 
 namespace TicketManagementSystem.Data.EF.Interfaces
@@ -19,7 +20,10 @@ namespace TicketManagementSystem.Data.EF.Interfaces
         IRepository<Ticket> Tickets { get; }
 
         void ExecuteSql(string request, params object[] parameters);
+
         void SaveChanges();
         void SaveChanges(Action action);
+
+        Task SaveChangesAsync();
     }
 }
