@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TicketManagementSystem.Business.DTO.Report;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Business.Report;
 using TicketManagementSystem.Data.EF.Interfaces;
-using Report = TicketManagementSystem.Data.EF.Models.Report;
 
 namespace TicketManagementSystem.Business.Services
 {
@@ -13,11 +13,13 @@ namespace TicketManagementSystem.Business.Services
     {
         private readonly IPackageService _packageService;
         private readonly ITicketService _ticketService;
+        private readonly IPdfService _pdfService;
 
-        public ReportService(IUnitOfWork database, ITicketService ticketServ, IPackageService packServ) : base(database)
+        public ReportService(IUnitOfWork database, ITicketService ticketServ, IPackageService packServ, IPdfService pdfService) : base(database)
         {
             _packageService = packServ;
             _ticketService = ticketServ;
+            _pdfService = pdfService;
         }
 
         public bool IsEmpty => Database.Reports.IsEmpty();
@@ -54,8 +56,25 @@ namespace TicketManagementSystem.Business.Services
 
         public void SaveReport(ReportDTO reportDTO)
         {
-            Database.Reports.Create(MapperInstance.Map<TicketManagementSystem.Data.EF.Models.Report>(reportDTO));
+            Database.Reports.Create(MapperInstance.Map<Data.EF.Models.Report>(reportDTO));
             Database.SaveChanges();
+        }
+
+        public bool TryCreatePDFs(ReportDTO reportDTO, Func<string, string> actionUrl, Func<string, string> savePath)
+        {
+            try
+            {
+                Parallel.Invoke(
+                    () => _pdfService.CreatePdf(actionUrl("DefaultReportPrint"), savePath(reportDTO.DefaultReportFileName())),
+                    () => _pdfService.CreatePdf(actionUrl("PackagesReportPrint"), savePath(reportDTO.PackagesReportFileName()))
+                );
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public DefaultReportDTO GetDefaultReportDTO()

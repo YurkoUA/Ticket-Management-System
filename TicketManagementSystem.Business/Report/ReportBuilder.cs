@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TicketManagementSystem.Business.DTO.Report;
 
 namespace TicketManagementSystem.Business.Report
@@ -61,9 +62,14 @@ namespace TicketManagementSystem.Business.Report
 
         public TBuilder SetSpecialPackagesUpdates(Func<int, int> predicate)
         {
-            _reportDto.SpecialPackages.ForEach(p =>
+            //_reportDto.SpecialPackages.ForEach(p =>
+            //{
+            //    p.NewTickets = predicate(p.Id);
+            //});
+
+            Parallel.ForEach(_reportDto.SpecialPackages, package =>
             {
-                p.NewTickets = predicate(p.Id);
+                package.NewTickets = predicate(package.Id);
             });
 
             return (TBuilder)this;

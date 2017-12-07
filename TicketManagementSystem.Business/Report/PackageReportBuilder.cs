@@ -37,7 +37,7 @@ namespace TicketManagementSystem.Business.Report
         {
             var count = 0;
 
-            foreach (var serial in packages)
+            foreach (var serial in packages.AsParallel())
             {
                 count += serial.Value.Count;
             }

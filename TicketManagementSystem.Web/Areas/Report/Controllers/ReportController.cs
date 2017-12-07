@@ -12,12 +12,10 @@ namespace TicketManagementSystem.Web.Areas.Report.Controllers
     public class ReportController : BaseController
     {
         private readonly IReportService _reportService;
-        private readonly IPdfService _pdfService;
 
-        public ReportController(IReportService reportService, IPdfService pdfService)
+        public ReportController(IReportService reportService)
         {
             _reportService = reportService;
-            _pdfService = pdfService;
         }
 
         [HttpGet]
@@ -44,18 +42,12 @@ namespace TicketManagementSystem.Web.Areas.Report.Controllers
             var report = _reportService.CreateReport(false);
             var folderPath = Request.RequestContext.HttpContext.Server.MapPath("~/Files/Reports/");
 
-            try
-            {
-                Func<string, string> fullUrl = actionName => Request.Url.Authority + Url.Action(actionName);
-                Func<string, string> pdfPath = fileName => $"{folderPath}{fileName}.pdf";
+            var isSuccess = _reportService.TryCreatePDFs(report,
+                    action => Request.Url.Authority + Url.Action(action),
+                    fileName => $"{folderPath}{fileName}.pdf");
 
-                _pdfService.CreatePdf(fullUrl("DefaultReportPrint"), pdfPath(report.DefaultReportFileName()));
-                _pdfService.CreatePdf(fullUrl("PackagesReportPrint"), pdfPath(report.PackagesReportFileName()));
-            }
-            catch
-            {
+            if (!isSuccess)
                 return HttpBadRequest();
-            }
 
             _reportService.SaveReport(report);
             return RedirectToAction("Index");
