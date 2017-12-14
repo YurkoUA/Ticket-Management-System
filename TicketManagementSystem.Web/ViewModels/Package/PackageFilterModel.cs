@@ -1,34 +1,35 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using TicketManagementSystem.Business.Enums;
+using TicketManagementSystem.Business.Extensions;
 
 namespace TicketManagementSystem.Web
 {
-    public class TicketFilterModel : IEnumerable<TicketDetailsModel>
+    public class PackageFilterModel : IEnumerable<PackageDetailsModel>
     {
-        [Display(Name = "Перша цифра")]
-        public int? FirstNumber { get; set; }
-
         [Display(Name = "Колір")]
         public int? ColorId { get; set; }
 
         [Display(Name = "Серія")]
         public int? SerialId { get; set; }
 
+        [Display(Name = "Перша цифра")]
+        public int? FirstNumber { get; set; }
+
+        [Display(Name = "Статус")]
+        public PackageStatusFilter Status { get; set; }
+        
         public string ColorName { get; set; }
         public string SerialName { get; set; }
 
-        public int Page { get; set; } = 1;
-
-        public PageInfo PageInfo { get; set; }
-        public IEnumerable<TicketDetailsModel> Tickets { get; set; } = new List<TicketDetailsModel>();
-
         public SelectList Colors { get; set; }
         public SelectList Series { get; set; }
+
+        public IEnumerable<PackageDetailsModel> Packages { get; set; } = new List<PackageDetailsModel>();
 
         public IEnumerable<SelectListItem> Numbers
         {
@@ -38,6 +39,13 @@ namespace TicketManagementSystem.Web
 
                 return numbers.Select(n => new SelectListItem { Text = n.ToString(), Value = n.ToString() });
             }
+        }
+
+        public bool IsNull()
+        {
+            return ColorId == null
+                && SerialId == null
+                && FirstNumber == null;
         }
 
         public override string ToString()
@@ -66,24 +74,24 @@ namespace TicketManagementSystem.Web
             if (FirstNumber != null)
                 sBuilder.Append($"Цифра: {FirstNumber}");
 
+            if (Status != PackageStatusFilter.None)
+                sBuilder.Append($", {Status.GetDisplayName()}");
+
             return sBuilder.ToString();
         }
 
-        public bool IsNull()
-        {
-            return FirstNumber == null
-                && ColorId == null
-                && SerialId == null;
-        }
+        #region IEnumerable<T> implementation.
 
-        public IEnumerator<TicketDetailsModel> GetEnumerator()
+        public IEnumerator<PackageDetailsModel> GetEnumerator()
         {
-            return Tickets.GetEnumerator();
+            return Packages.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return Tickets.GetEnumerator();
+            return Packages.GetEnumerator();
         }
+
+        #endregion
     }
 }

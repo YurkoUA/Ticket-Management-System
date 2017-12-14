@@ -91,6 +91,7 @@
     <Compile Include="DTO\Package\PackageCreateDTO.cs" />
     <Compile Include="DTO\Package\PackageDTO.cs" />
     <Compile Include="DTO\Package\PackageEditDTO.cs" />
+    <Compile Include="DTO\Package\PackageFilterDTO.cs" />
     <Compile Include="DTO\Package\PackageMakeDefaultDTO.cs" />
     <Compile Include="DTO\Package\PackageMakeSpecialDTO.cs" />
     <Compile Include="DTO\Package\PackageSpecialCreateDTO.cs" />
@@ -113,6 +114,8 @@
     <Compile Include="DTO\User\LoginDTO.cs" />
     <Compile Include="DTO\User\UserDTO.cs" />
     <Compile Include="Enums\PackagesFilter.cs" />
+    <Compile Include="Enums\PackageStatusFilter.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\UserExtensions.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />

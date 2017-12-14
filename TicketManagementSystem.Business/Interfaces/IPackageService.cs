@@ -21,6 +21,8 @@ namespace TicketManagementSystem.Business.Interfaces
         IEnumerable<TicketDTO> GetPackageTickets(int packageId, bool orderByNumber = false);
         IEnumerable<PackageDTO> GetCompatiblePackages(int colorId, int serialId, int? number = null);
 
+        IEnumerable<PackageDTO> Filter(PackageFilterDTO filter);
+
         PackageDTO GetPackage(int id);
 
         PackageDTO CreatePackage(PackageCreateDTO packageDTO);

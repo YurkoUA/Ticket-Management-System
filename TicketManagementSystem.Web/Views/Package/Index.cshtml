@@ -47,6 +47,8 @@
     <div class="panel panel-default tab-pane">
         <div class="panel-heading">
             <a onclick="searchModal()">Пошук пачок</a>
+            <span> | </span>
+            @Html.ActionLink("Фільтр", "Filter")
             @if (isAdmin)
             {
                 <span> | </span>

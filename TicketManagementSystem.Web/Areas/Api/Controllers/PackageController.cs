@@ -39,6 +39,15 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
             return OkOrNoContent(_packageService.GetPackages(skip, take, filter));
         }
 
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult Filter([FromUri]PackageFilterModel filter)
+        {
+            if (filter == null || filter?.IsNull() == true)
+                return BadRequest();
+
+            return OkOrNoContent(_packageService.Filter(MapperInstance.Map<PackageFilterDTO>(filter)));
+        }
+
         [HttpGet, AllowAnonymous, Route("Get/{id?}", Name = "PackageById")]
         public IHttpActionResult Get(int id)
         {

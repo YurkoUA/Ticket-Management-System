@@ -250,6 +250,7 @@
     <Compile Include="ViewModels\Package\PackageCreateSpecialModel.cs" />
     <Compile Include="ViewModels\Package\PackageEditDefaultModel.cs" />
     <Compile Include="ViewModels\Package\PackageEditSpecialModel.cs" />
+    <Compile Include="ViewModels\Package\PackageFilterModel.cs" />
     <Compile Include="ViewModels\Package\PackageIndexModel.cs" />
     <Compile Include="ViewModels\Package\PackageDetailsModel.cs" />
     <Compile Include="ViewModels\Package\PackageMakeDefaultModel.cs" />
@@ -482,6 +483,8 @@
     <Content Include="Views\Ticket\FilterPartial.cshtml" />
     <Content Include="Views\Package\IndexPartial.cshtml" />
     <Content Include="Views\Ticket\Today.cshtml" />
+    <Content Include="Views\Package\Filter.cshtml" />
+    <Content Include="Views\Package\FilterFormPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

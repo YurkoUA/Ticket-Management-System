@@ -1,0 +1,46 @@
+﻿@model PackageFilterModel
+
+@using(Html.BeginForm("Filter", "Package", FormMethod.Get))
+{
+    <hr />
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.FirstNumber, Model.Numbers, "(Будь-яка)", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ColorId, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ColorId, Model.Colors, "(Будь-який)", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SerialId, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.SerialId, Model.Series, "(Будь-яка)", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Status, EnumHelper.GetSelectList(typeof(TicketManagementSystem.Business.Enums.PackageStatusFilter)), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-primary" value="Застосувати фільтр" />
+            </div>
+        </div>
+    </div>
+}

@@ -115,6 +115,38 @@ namespace TicketManagementSystem.Web.Controllers
             return PartialView("SearchModal");
         }
 
+        [HttpGet, AllowAnonymous]
+        public ActionResult Filter(PackageFilterModel viewModel)
+        {
+            if (!viewModel.IsNull())
+            {
+                var packages = _packageService.Filter(MapperInstance.Map<PackageFilterDTO>(viewModel));
+                viewModel.Packages = MapperInstance.Map<IEnumerable<PackageDetailsModel>>(packages);
+            }
+
+            viewModel.Colors = GetColorsSelectList();
+            viewModel.Series = GetSeriesSelectList();
+
+            if (viewModel.ColorId != null)
+            {
+                viewModel.ColorName = viewModel.Colors
+                    .FirstOrDefault(i => i.Value.Equals(viewModel.ColorId.ToString()))
+                    ?.Text;
+            }
+
+            if (viewModel.SerialId != null)
+            {
+                viewModel.SerialName = viewModel.Series
+                    .FirstOrDefault(i => i.Value.Equals(viewModel.SerialId.ToString()))
+                    ?.Text;
+            }
+
+            if (Request.IsAjaxRequest())
+                return PartialView("FilterPartial", viewModel);
+
+            return View(viewModel);
+        }
+
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.ServerAndClient)]
         public ActionResult Tickets(int id)
         {

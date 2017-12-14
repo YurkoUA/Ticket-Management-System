@@ -118,6 +118,27 @@ namespace TicketManagementSystem.Business.Services
             return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
         }
 
+        public IEnumerable<PackageDTO> Filter(PackageFilterDTO filter)
+        {
+            IQueryable<Package> packages = Database.Packages.GetAll();
+
+            if (filter.ColorId != null)
+                packages = packages.Where(p => p.ColorId == filter.ColorId);
+
+            if (filter.SerialId != null)
+                packages = packages.Where(p => p.SerialId == filter.SerialId);
+
+            if (filter.FirstNumber != null)
+                packages = packages.Where(p => p.FirstNumber == filter.FirstNumber);
+
+            if (filter.Status != PackageStatusFilter.None)
+                packages = packages.Where(p => p.IsSpecial == (filter.Status == PackageStatusFilter.Special));
+
+            return MapperInstance.Map<IEnumerable<PackageDTO>>(
+                packages.OrderBy(p => p.Id).ThenBy(p => p.IsSpecial)
+            );
+        }
+
         public PackageDTO GetPackage(int id)
         {
             var package = Database.Packages.GetById(id);

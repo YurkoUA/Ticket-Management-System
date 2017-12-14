@@ -55,6 +55,9 @@ namespace TicketManagementSystem.Web
                 cfg.CreateMap<PackageEditDTO, PackageEditDefaultModel>();
                 cfg.CreateMap<PackageSpecialEditDTO, PackageEditSpecialModel>();
 
+                cfg.CreateMap<PackageFilterModel, PackageFilterDTO>();
+                cfg.CreateMap<PackageFilterDTO, PackageFilterModel>();
+
                 #endregion
 
                 #region Ticket
