@@ -119,9 +119,14 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\UserExtensions.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
+    <Compile Include="Interfaces\IColorValidationService.cs" />
     <Compile Include="Interfaces\ILoginService.cs" />
     <Compile Include="Interfaces\IPackageService.cs" />
+    <Compile Include="Interfaces\IPackageValidationService.cs" />
+    <Compile Include="Interfaces\ISerialValidationService.cs" />
     <Compile Include="Interfaces\ITicketService2.cs" />
+    <Compile Include="Interfaces\ITicketValidationService.cs" />
+    <Compile Include="Interfaces\ITodoValidationService.cs" />
     <Compile Include="Pdf\IPdfService.cs" />
     <Compile Include="Interfaces\IReportService.cs" />
     <Compile Include="Interfaces\IRoleService.cs" />
@@ -153,6 +158,12 @@
     <Compile Include="Telegram\TelegramNotificationService.cs" />
     <Compile Include="Telegram\TelegramNotificationsSettings.cs" />
     <Compile Include="Telegram\TelegramService.cs" />
+    <Compile Include="Validation\ColorValidationService.cs" />
+    <Compile Include="Validation\PackageValidationService.cs" />
+    <Compile Include="Validation\SerialValidationService.cs" />
+    <Compile Include="Validation\TicketValidationService.cs" />
+    <Compile Include="Validation\TodoValidationService.cs" />
+    <Compile Include="Validation\ValidationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TicketManagementSystem.Data.EF\TicketManagementSystem.Data.EF.csproj">

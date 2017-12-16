@@ -15,11 +15,13 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
     {
         private readonly IPackageService _packageService;
         private readonly ITicketService _ticketService;
+        private readonly IPackageValidationService _packageValidationService;
 
-        public PackageController(IPackageService packageService, ITicketService ticketService)
+        public PackageController(IPackageService packageService, ITicketService ticketService, IPackageValidationService packageValidationService)
         {
             _packageService = packageService;
             _ticketService = ticketService;
+            _packageValidationService = packageValidationService;
         }
 
         [HttpGet, AllowAnonymous]
@@ -86,7 +88,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var errors = _packageService.Validate(createDto);
+                var errors = _packageValidationService.Validate(createDto);
                 ToModelState(errors, ModelState);
 
                 if (ModelState.IsValid)
@@ -104,7 +106,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var errors = _packageService.Validate(createDto);
+                var errors = _packageValidationService.Validate(createDto);
                 ToModelState(errors, ModelState);
 
                 if (ModelState.IsValid)
@@ -122,7 +124,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var errors = _packageService.Validate(editDto);
+                var errors = _packageValidationService.Validate(editDto);
                 ToModelState(errors, ModelState);
 
                 if (ModelState.IsValid)
@@ -139,7 +141,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var errors = _packageService.Validate(editDto);
+                var errors = _packageValidationService.Validate(editDto);
                 ToModelState(errors, ModelState);
 
                 if (ModelState.IsValid)
@@ -204,7 +206,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var errors = _packageService.Validate(dto);
+                var errors = _packageValidationService.Validate(dto);
                 ToModelState(errors, ModelState);
 
                 if (ModelState.IsValid)
@@ -221,7 +223,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var errors = _packageService.Validate(dto);
+                var errors = _packageValidationService.Validate(dto);
                 ToModelState(errors, ModelState);
 
                 if (ModelState.IsValid)

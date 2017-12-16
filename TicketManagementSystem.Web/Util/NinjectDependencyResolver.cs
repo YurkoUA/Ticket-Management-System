@@ -7,6 +7,7 @@ using TicketManagementSystem.Business.AppSettings;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Business.Services;
 using TicketManagementSystem.Business.Telegram;
+using TicketManagementSystem.Business.Validation;
 
 namespace TicketManagementSystem.Web.Util
 {
@@ -50,7 +51,18 @@ namespace TicketManagementSystem.Web.Util
             _kernel.Bind<ITicketService>().To<TicketService>();
             _kernel.Bind<ITicketService2>().To<TicketService2>();
 
+            BindValidationServices();
             BindTelegramService();
+        }
+
+        private void BindValidationServices()
+        {
+            _kernel.Bind<IColorValidationService>().To<ColorValidationService>();
+            _kernel.Bind<ISerialValidationService>().To<SerialValidationService>();
+            _kernel.Bind<IPackageValidationService>().To<PackageValidationService>();
+            _kernel.Bind<ITicketValidationService>().To<TicketValidationService>();
+
+            _kernel.Bind<ITodoValidationService>().To<TodoValidationService>();
         }
 
         private void BindTelegramService()

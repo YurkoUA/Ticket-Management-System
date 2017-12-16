@@ -21,9 +21,6 @@ namespace TicketManagementSystem.Business.Interfaces
         void SetPriority(int id, TaskPriority priority);
 
         bool ExistsByTitle(string title);
-        bool IsTitleFree(int id, string ntitle);
-
-        IEnumerable<string> ValidateCreate(TodoTaskDTO dto);
-        IEnumerable<string> ValidateEdit(TodoTaskDTO dto);
+        bool IsTitleFree(int id, string title);
     }
 }

@@ -17,8 +17,5 @@ namespace TicketManagementSystem.Business.Interfaces
         bool ExistsById(int id);
         bool ExistsByName(string name);
         bool IsNameFree(int id, string name);
-
-        IEnumerable<string> Validate(ColorCreateDTO createDTO);
-        IEnumerable<string> Validate(ColorEditDTO editDTO);
     }
 }

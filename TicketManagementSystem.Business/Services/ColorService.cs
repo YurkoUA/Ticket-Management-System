@@ -78,31 +78,5 @@ namespace TicketManagementSystem.Business.Services
             return !Database.Colours
                 .Contains(m => m.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase) && m.Id != id);
         }
-
-        public IEnumerable<string> Validate(ColorCreateDTO createDTO)
-        {
-            var errors = new List<string>();
-            errors.AddRange(ValidateObject(createDTO));
-
-            if (ExistsByName(createDTO.Name))
-            {
-                errors.Add($"Колір \"{createDTO.Name}\" вже існує.");
-            }
-
-            return errors;
-        }
-
-        public IEnumerable<string> Validate(ColorEditDTO editDTO)
-        {
-            var errors = new List<string>();
-            errors.AddRange(ValidateObject(editDTO));
-
-            if (!IsNameFree(editDTO.Id, editDTO.Name))
-            {
-                errors.Add($"Колір \"{editDTO.Name}\" вже існує.");
-            }
-
-            return errors;
-        }
     }
 }

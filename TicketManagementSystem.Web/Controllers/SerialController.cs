@@ -13,12 +13,17 @@ namespace TicketManagementSystem.Web.Controllers
         private readonly ICacheService _cacheService;
         private readonly ISerialService _serialService;
         private readonly IPackageService _packageService;
+        private readonly ISerialValidationService _serialValidationService;
 
-        public SerialController(ISerialService serialService, IPackageService packageService, ICacheService cacheServ)
+        public SerialController(ISerialService serialService, 
+            IPackageService packageService, 
+            ICacheService cacheServ,
+            ISerialValidationService serialValidationService)
         {
             _serialService = serialService;
             _packageService = packageService;
             _cacheService = cacheServ;
+            _serialValidationService = serialValidationService;
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 30, Location = OutputCacheLocation.Client)]
@@ -63,10 +68,7 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient)]
-        public ActionResult Create()
-        {
-            return View();
-        }
+        public ActionResult Create() => View();
 
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create(SerialCreateModel model)
@@ -74,7 +76,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (ModelState.IsValid)
             {
                 var createDTO = MapperInstance.Map<SerialCreateDTO>(model);
-                var errors = _serialService.Validate(createDTO);
+                var errors = _serialValidationService.Validate(createDTO);
                 errors.ToModelState(ModelState);
 
                 if (ModelState.IsValid)
@@ -119,7 +121,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (ModelState.IsValid)
             {
                 var editDTO = MapperInstance.Map<SerialEditDTO>(model);
-                var errors = _serialService.Validate(editDTO);
+                var errors = _serialValidationService.Validate(editDTO);
                 errors.ToModelState(ModelState);
 
                 if (ModelState.IsValid)

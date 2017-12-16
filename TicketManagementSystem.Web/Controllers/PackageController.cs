@@ -21,13 +21,17 @@ namespace TicketManagementSystem.Web.Controllers
         private readonly IColorService _colorService;
         private readonly ISerialService _serialService;
         private readonly IAppSettingsService _appSettingsService;
+        private readonly IPackageValidationService _packageValidationService;
+        private readonly ITicketValidationService _ticketValidationService;
 
         public PackageController(IPackageService packageService, 
             IColorService colorService, 
             ISerialService serialService,
             ITicketService ticketServive,
             ICacheService cacheService,
-            IAppSettingsService appSettingsService)
+            IAppSettingsService appSettingsService,
+            IPackageValidationService packageValidationService,
+            ITicketValidationService ticketValidationService)
         {
             _packageService = packageService;
             _colorService = colorService;
@@ -35,6 +39,8 @@ namespace TicketManagementSystem.Web.Controllers
             _ticketService = ticketServive;
             _cacheService = cacheService;
             _appSettingsService = appSettingsService;
+            _packageValidationService = packageValidationService;
+            _ticketValidationService = ticketValidationService;
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
@@ -185,7 +191,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (ModelState.IsValid)
             {
                 var createDTO = MapperInstance.Map<PackageCreateDTO>(viewModel);
-                var errors = _packageService.Validate(createDTO);
+                var errors = _packageValidationService.Validate(createDTO);
 
                 errors.ToModelState(ModelState);
 
@@ -204,7 +210,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (ModelState.IsValid)
             {
                 var createDTO = MapperInstance.Map<PackageSpecialCreateDTO>(viewModel);
-                var errors = _packageService.Validate(createDTO);
+                var errors = _packageValidationService.Validate(createDTO);
                 errors.ToModelState(ModelState);
 
                 if (ModelState.IsValid)
@@ -287,7 +293,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (ModelState.IsValid)
             {
                 var editDTO = MapperInstance.Map<PackageEditDTO>(viewModel);
-                var errors = _packageService.Validate(editDTO);
+                var errors = _packageValidationService.Validate(editDTO);
                 errors.ToModelState(ModelState);
 
                 if (ModelState.IsValid)
@@ -305,7 +311,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (ModelState.IsValid)
             {
                 var editDTO = MapperInstance.Map<PackageSpecialEditDTO>(viewModel);
-                var errors = _packageService.Validate(editDTO);
+                var errors = _packageValidationService.Validate(editDTO);
                 errors.ToModelState(ModelState);
 
                 if (ModelState.IsValid)
@@ -415,7 +421,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var errors = _packageService.Validate(viewModelDto);
+                var errors = _packageValidationService.Validate(viewModelDto);
                 errors.ToModelState(ModelState);
 
                 if (ModelState.IsValid)
@@ -461,7 +467,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (ModelState.IsValid)
             {
                 var dto = MapperInstance.Map<PackageMakeDefaultDTO>(viewModel);
-                var errors = _packageService.Validate(dto);
+                var errors = _packageValidationService.Validate(dto);
                 errors.ToModelState(ModelState);
 
                 if (ModelState.IsValid)
@@ -498,7 +504,7 @@ namespace TicketManagementSystem.Web.Controllers
             }
 
             var toMoveIds = ticketsMove.Select(t => t.Id).ToArray();
-            var errors = _ticketService.ValidateMoveFewToPackage(id, toMoveIds);
+            var errors = _ticketValidationService.ValidateMoveFewToPackage(id, toMoveIds);
             errors.ToModelState(ModelState);
 
             if (ModelState.IsValid)

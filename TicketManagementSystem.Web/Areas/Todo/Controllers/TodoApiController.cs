@@ -15,11 +15,13 @@ namespace TicketManagementSystem.Web.Areas.Todo.Controllers
     [Authorize(Roles = "Admin")]
     public class TodoApiController : BaseApiController
     {
-        private ITodoService _todoService;
+        private readonly ITodoService _todoService;
+        private readonly ITodoValidationService _todoValidationService;
 
-        public TodoApiController(ITodoService todoService)
+        public TodoApiController(ITodoService todoService, ITodoValidationService todoValidationService)
         {
             _todoService = todoService;
+            _todoValidationService = todoValidationService;
         }
 
         [HttpGet, Route("GetAllTasks")]
@@ -81,7 +83,7 @@ namespace TicketManagementSystem.Web.Areas.Todo.Controllers
         {
             if (ModelState.IsValid)
             {
-                var errors = _todoService.ValidateCreate(dto);
+                var errors = _todoValidationService.ValidateCreate(dto);
                 ToModelState(errors, ModelState);
 
                 if (ModelState.IsValid)
@@ -99,7 +101,7 @@ namespace TicketManagementSystem.Web.Areas.Todo.Controllers
             dto.Id = id;
             if (ModelState.IsValid)
             {
-                var errors = _todoService.ValidateEdit(dto);
+                var errors = _todoValidationService.ValidateEdit(dto);
                 ToModelState(errors, ModelState);
 
                 if (ModelState.IsValid)

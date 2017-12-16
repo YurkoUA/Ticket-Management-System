@@ -54,11 +54,5 @@ namespace TicketManagementSystem.Business.Interfaces
         int CountUnallocatedTickets();
         int CountUnallocatedByPackage(int packageId);
         int CountHappyTickets();
-
-        IEnumerable<string> Validate(TicketCreateDTO createDTO);
-        IEnumerable<string> Validate(TicketEditDTO editDTO);
-        IEnumerable<string> ValidateChangeNumber(int ticketId, string newNumber);
-        IEnumerable<string> ValidateMoveToPackage(int ticketId, int packageId);
-        IEnumerable<string> ValidateMoveFewToPackage(int packageId, params int[] ticketsIds);
     }
 }

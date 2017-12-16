@@ -22,6 +22,7 @@ namespace TicketManagementSystem.Web.Controllers
         private readonly IColorService _colorService;
         private readonly ICacheService _cacheService;
         private readonly IAppSettingsService _appSettingsService;
+        private readonly ITicketValidationService _ticketValidationService;
 
         public TicketController(
             ITicketService ticketService,
@@ -30,7 +31,8 @@ namespace TicketManagementSystem.Web.Controllers
             ISerialService serialService,
             IColorService colorService,
             ICacheService cacheService,
-            IAppSettingsService appSettingsService)
+            IAppSettingsService appSettingsService,
+            ITicketValidationService ticketValidationService)
         {
             _ticketService = ticketService;
             _ticketService2 = ticketService2;
@@ -39,6 +41,7 @@ namespace TicketManagementSystem.Web.Controllers
             _colorService = colorService;
             _cacheService = cacheService;
             _appSettingsService = appSettingsService;
+            _ticketValidationService = ticketValidationService;
         }
 
         #region Index, Unallocated, Happy, Details
@@ -228,7 +231,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (ModelState.IsValid)
             {
                 var createDTO = MapperInstance.Map<TicketCreateDTO>(model);
-                var errors = _ticketService.Validate(createDTO);
+                var errors = _ticketValidationService.Validate(createDTO);
 
                 errors.ToModelState(ModelState);
 
@@ -316,7 +319,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (ModelState.IsValid)
             {
                 var editDTO = MapperInstance.Map<TicketEditDTO>(model);
-                var errors = _ticketService.Validate(editDTO);
+                var errors = _ticketValidationService.Validate(editDTO);
 
                 errors.ToModelState(ModelState);
 
@@ -404,7 +407,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var errors = _ticketService.ValidateMoveToPackage(viewModel.Id, viewModel.PackageId);
+                var errors = _ticketValidationService.ValidateMoveToPackage(viewModel.Id, viewModel.PackageId);
                 errors.ToModelState(ModelState);
 
                 if (ModelState.IsValid)
@@ -449,7 +452,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var errors = _ticketService.ValidateChangeNumber(viewModel.Id, viewModel.Number);
+                var errors = _ticketValidationService.ValidateChangeNumber(viewModel.Id, viewModel.Number);
                 errors.ToModelState(ModelState);
 
                 if (ModelState.IsValid)

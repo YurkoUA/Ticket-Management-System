@@ -48,12 +48,5 @@ namespace TicketManagementSystem.Business.Interfaces
 
         int OpenedCount();
         int SpecialCount();
-
-        IEnumerable<string> Validate(PackageCreateDTO createDTO);
-        IEnumerable<string> Validate(PackageSpecialCreateDTO createDTO);
-        IEnumerable<string> Validate(PackageEditDTO editDTO);
-        IEnumerable<string> Validate(PackageSpecialEditDTO editDTO);
-        IEnumerable<string> Validate(PackageMakeDefaultDTO dto);
-        IEnumerable<string> Validate(PackageMakeSpecialDTO dto);
     }
 }

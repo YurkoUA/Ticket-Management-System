@@ -15,7 +15,7 @@ namespace TicketManagementSystem.Data.EF.Models
         [StringLength(256)]
         public string Description { get; set; }
 
-        public TaskPriority Priority { get; set; }
+        public TaskPriority Priority { get; set; } = TaskPriority.VeryLow;
         public TaskStatus Status { get; set; }
 
         #region System.Object methods

@@ -17,7 +17,7 @@ namespace TicketManagementSystem.Business.DTO
         [StringLength(256, ErrorMessage = "Опис не може бути більшим за 256 символів.")]
         public string Description { get; set; }
 
-        public TaskPriority Priority { get; set; }
+        public TaskPriority Priority { get; set; } = TaskPriority.VeryLow;
         public TaskStatus Status { get; set; } = TaskStatus.None;
 
         public string PriorityString => Priority.GetDisplayName();

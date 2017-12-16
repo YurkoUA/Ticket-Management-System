@@ -144,29 +144,5 @@ namespace TicketManagementSystem.Business.Services
             return !Database.Tasks
                 .Contains(t => t.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase) && t.Id != id);
         }
-
-        public IEnumerable<string> ValidateCreate(TodoTaskDTO dto)
-        {
-            var errors = new List<string>();
-            errors.AddRange(ValidateObject(dto));
-
-            if (ExistsByTitle(dto.Title))
-            {
-                errors.Add($"Задача \"{dto.Title}\" вже існує.");
-            }
-            return errors;
-        }
-
-        public IEnumerable<string> ValidateEdit(TodoTaskDTO dto)
-        {
-            var errors = new List<string>();
-            errors.AddRange(ValidateObject(dto));
-
-            if (!IsTitleFree(dto.Id, dto.Title))
-            {
-                errors.Add($"Задача \"{dto.Title}\" вже існує.");
-            }
-            return errors;
-        }
     }
 }

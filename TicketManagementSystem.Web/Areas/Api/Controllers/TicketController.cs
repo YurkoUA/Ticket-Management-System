@@ -18,17 +18,20 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         private readonly ITicketService _ticketService;
         private readonly ITicketService2 _ticketService2;
         private readonly IAppSettingsService _appSettingsService;
+        private readonly ITicketValidationService _ticketValidationService;
 
         public TicketController(
             ITicketService ticketService, 
             IPackageService packageService, 
             ITicketService2 ticketService2,
-            IAppSettingsService appSettingsService)
+            IAppSettingsService appSettingsService,
+            ITicketValidationService ticketValidationService)
         {
             _ticketService = ticketService;
             _packageService = packageService;
             _ticketService2 = ticketService2;
             _appSettingsService = appSettingsService;
+            _ticketValidationService = ticketValidationService;
         }
 
         [HttpGet, AllowAnonymous]
@@ -147,7 +150,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var errors = _ticketService.Validate(createDto);
+                var errors = _ticketValidationService.Validate(createDto);
                 ToModelState(errors, ModelState);
 
                 if (ModelState.IsValid)
@@ -172,7 +175,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var errors = _ticketService.Validate(editDto);
+                var errors = _ticketValidationService.Validate(editDto);
                 ToModelState(errors, ModelState);
 
                 if (ModelState.IsValid)
@@ -199,7 +202,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         [HttpPut]
         public dynamic Move(int id, [FromBody]int packageId)
         {
-            var errors = _ticketService.ValidateMoveToPackage(id, packageId);
+            var errors = _ticketValidationService.ValidateMoveToPackage(id, packageId);
             ToModelState(errors, ModelState);
 
             if (ModelState.IsValid)
@@ -218,7 +221,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         [HttpPut]
         public dynamic ChangeNumber(int id, [FromBody]string number)
         {
-            var errors = _ticketService.ValidateChangeNumber(id, number);
+            var errors = _ticketValidationService.ValidateChangeNumber(id, number);
             ToModelState(errors, ModelState);
 
             if (ModelState.IsValid)

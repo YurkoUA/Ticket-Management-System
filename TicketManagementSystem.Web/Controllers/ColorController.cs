@@ -13,12 +13,17 @@ namespace TicketManagementSystem.Web.Controllers
         private readonly ICacheService _cacheService;
         private readonly IColorService _colorService;
         private readonly IPackageService _packageService;
+        private readonly IColorValidationService _colorValidationService;
 
-        public ColorController(IColorService colorService, IPackageService packageService, ICacheService cacheServ)
+        public ColorController(IColorService colorService, 
+            IPackageService packageService, 
+            ICacheService cacheServ,
+            IColorValidationService colorValidationService)
         {
             _colorService = colorService;
             _packageService = packageService;
             _cacheService = cacheServ;
+            _colorValidationService = colorValidationService;
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 30, Location = OutputCacheLocation.Client)]
@@ -76,7 +81,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (ModelState.IsValid)
             {
                 var createDTO = MapperInstance.Map<ColorCreateDTO>(model);
-                var errors = _colorService.Validate(createDTO);
+                var errors = _colorValidationService.Validate(createDTO);
                 errors.ToModelState(ModelState);
 
                 if (ModelState.IsValid)
@@ -123,7 +128,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (ModelState.IsValid)
             {
                 var editDTO = MapperInstance.Map<ColorEditDTO>(model);
-                var errors = _colorService.Validate(editDTO);
+                var errors = _colorValidationService.Validate(editDTO);
                 errors.ToModelState(ModelState);
 
                 if (ModelState.IsValid)
