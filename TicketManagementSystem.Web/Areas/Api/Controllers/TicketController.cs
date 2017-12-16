@@ -5,6 +5,7 @@ using System.Web.Http;
 using TicketManagementSystem.Business.AppSettings;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
+using TicketManagementSystem.Web.Hubs;
 using static TicketManagementSystem.Web.Areas.Api.Models.Extensions;
 
 namespace TicketManagementSystem.Web.Areas.Api.Controllers
@@ -190,6 +191,8 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
                 return NotFound();
 
             _ticketService.Remove(id);
+
+            TicketsHub.RemoveTicketsIds(new[] { id });
             return Ok();
         }
 
@@ -201,7 +204,12 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
 
             if (ModelState.IsValid)
             {
-                _ticketService.MoveToPackage(id, packageId);
+                bool isUnallocated;
+                _ticketService.MoveToPackage(id, packageId, out isUnallocated);
+
+                if (isUnallocated)
+                    TicketsHub.RemoveTicketsIds(new[] { id });
+
                 return Ok();
             }
             return BadRequestWithErrors(ModelState);

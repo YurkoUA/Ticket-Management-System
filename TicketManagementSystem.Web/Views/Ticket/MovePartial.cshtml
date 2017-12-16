@@ -12,6 +12,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.IsUnallocated)
 
     <div class="form-horizontal">
         <div class="form-group">

@@ -8,6 +8,7 @@ using TicketManagementSystem.Business.AppSettings;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Enums;
 using TicketManagementSystem.Business.Interfaces;
+using TicketManagementSystem.Web.Hubs;
 
 namespace TicketManagementSystem.Web.Controllers
 {
@@ -503,6 +504,8 @@ namespace TicketManagementSystem.Web.Controllers
             if (ModelState.IsValid)
             {
                 _ticketService.MoveFewToPackage(id, toMoveIds);
+
+                TicketsHub.RemoveTicketsIds(tickets.Select(t => t.Id));
                 return SuccessPartial($"Квитків переміщено {toMoveIds.Length}.");
             }
             return ErrorPartial(ModelState);

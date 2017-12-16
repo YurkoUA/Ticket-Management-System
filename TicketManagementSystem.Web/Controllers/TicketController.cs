@@ -8,6 +8,7 @@ using TicketManagementSystem.Business;
 using TicketManagementSystem.Business.AppSettings;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
+using TicketManagementSystem.Web.Hubs;
 
 namespace TicketManagementSystem.Web.Controllers
 {
@@ -362,6 +363,8 @@ namespace TicketManagementSystem.Web.Controllers
             else
             {
                 _ticketService.Remove(id);
+
+                TicketsHub.RemoveTicketsIds(new[] { id });
                 return SuccessPartial("Квиток видалено.");
             }
         }
@@ -407,6 +410,10 @@ namespace TicketManagementSystem.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     _ticketService.MoveToPackage(viewModel.Id, viewModel.PackageId);
+
+                    if (viewModel.IsUnallocated)
+                        TicketsHub.RemoveTicketsIds(new[] { viewModel.Id });
+
                     return SuccessPartial("Квиток успішно переміщено.");
                 }
             }

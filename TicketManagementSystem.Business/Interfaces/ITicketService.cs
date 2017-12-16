@@ -38,6 +38,7 @@ namespace TicketManagementSystem.Business.Interfaces
 
         TicketDTO ChangeNumber(int ticketId, string number);
         TicketDTO MoveToPackage(int ticketId, int packageId);
+        TicketDTO MoveToPackage(int ticketId, int packageId, out bool isUnallocated);
         void MoveFewToPackage(int packageId, params int[] ticketsIds);
 
         bool Exists(TicketDTO ticketDTO);

@@ -5,17 +5,13 @@
     bool isAdmin = User.IsInRole("Admin");
 }
 
+<h2>@ViewBag.Title</h2>
+<hr />
 
 @if (Model.Any())
 {
-    <h2>
-        @ViewBag.Title
-        <small>@Model.Count() шт.</small>
-    </h2>
-    <hr />
-
     <div class="panel panel-danger">
-        <div class="panel-heading">Нерозподілені квитки: @Model.Count() шт.</div>
+        <div class="panel-heading">Нерозподілені квитки: <span id="unallocated-count">@Model.Count()</span> шт.</div>
 
         <div class="table-responsive">
             <table class="table table-hover table-bordered">
@@ -34,7 +30,7 @@
 
                 @foreach (var item in Model)
                 {
-                    <tr class="@item.TrClass()">
+                    <tr id="ticket-@item.Id" class="@item.TrClass()">
                         <td>@Html.ActionLink(item.Number, "Details", new { id = item.Id }, new { })</td>
                         <td><a target="_blank" href="@Url.Action("Details", "Color", new { id = item.ColorId })">@item.ColorName</a></td>
                         <td><a target="_blank" href="@Url.Action("Details", "Serial", new { id = item.SerialId })">@item.SerialFull</a></td>
@@ -53,12 +49,15 @@
 }
 else
 {
-    <h2>@ViewBag.Title</h2>
-    <hr />
-
     @Html.AlertDanger("Нерозподілених квитків немає.")
 }
 
 <div>
     @Html.ActionLink("Назад до списку", "Index")
 </div>
+
+@section scripts {
+    @Scripts.Render("~/Scripts/jquery.signalR-2.2.2.min.js",
+                    "~/signalr/hubs",
+                    "~/Scripts/signalr-ticket-unallocated.js")
+}

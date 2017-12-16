@@ -29,6 +29,7 @@ namespace TicketManagementSystem.Web
             });
 
             app.ConfigureOAuth();
+            app.MapSignalR();
         }
 
         private static bool IsApiRequest(IOwinRequest request)

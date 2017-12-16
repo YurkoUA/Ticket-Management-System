@@ -298,6 +298,27 @@ namespace TicketManagementSystem.Business.Services
             return MapperInstance.Map<TicketDTO>(ticket);
         }
 
+        public TicketDTO MoveToPackage(int ticketId, int packageId, out bool isUnallocated)
+        {
+            isUnallocated = false;
+
+            if (!_packageService.ExistsById(packageId))
+                return null;
+
+            var ticket = Database.Tickets.GetById(ticketId);
+
+            if (ticket == null)
+                return null;
+
+            isUnallocated = ticket.PackageId == null;
+
+            ticket.PackageId = packageId;
+            Database.Tickets.Update(ticket);
+            Database.SaveChanges();
+
+            return MapperInstance.Map<TicketDTO>(ticket);
+        }
+
         public void MoveFewToPackage(int packageId, params int[] ticketsIds)
         {
             if (!_packageService.ExistsById(packageId))

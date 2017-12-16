@@ -9,6 +9,7 @@ namespace TicketManagementSystem.Web
         public int Id { get; set; }       
         public string Number { get; set; }       
         public int PackageId { get; set; }
+        public bool IsUnallocated { get; set; }
 
         [Display(Name = "Оберіть пачку")]
         public SelectList Packages { get; set; }
