@@ -26,7 +26,7 @@ namespace TicketManagementSystem.Data.EF.Models
 
         [StringLength(32)]
         public string Date { get; set; }
-        public DateTime AddDate { get; set; } = DateTime.Now.ToUniversalTime();
+        public DateTime AddDate { get; set; } = DateTime.UtcNow;
 
         #region Navigation properties
 
@@ -35,12 +35,6 @@ namespace TicketManagementSystem.Data.EF.Models
         public virtual Serial Serial { get; set; }
 
         #endregion
-
-        public bool IsHappy()
-        {
-            var numbers = Number.Select(n => int.Parse(n.ToString())).ToArray();
-            return numbers[0] + numbers[1] + numbers[2] == numbers[3] + numbers[4] + numbers[5];
-        }
 
         public int CompareTo(Ticket other)
         {
@@ -62,13 +56,19 @@ namespace TicketManagementSystem.Data.EF.Models
         {
             if (obj is Ticket ticket)
             {
-                return Number.Equals(ticket.Number, StringComparison.CurrentCultureIgnoreCase)
+                return Number.Equals(ticket.Number)
                     && ColorId == ticket.ColorId && SerialId == ticket.SerialId
-                    && SerialNumber.Equals(ticket.SerialNumber, StringComparison.CurrentCultureIgnoreCase);
+                    && SerialNumber.Equals(ticket.SerialNumber);
             }
             return false;
         }
 
         #endregion
+
+        public static bool IsHappy(Ticket ticket)
+        {
+            var numbers = ticket.Number.Select(n => int.Parse(n.ToString())).ToArray();
+            return numbers[0] + numbers[1] + numbers[2] == numbers[3] + numbers[4] + numbers[5];
+        }
     }
 }

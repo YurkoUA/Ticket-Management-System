@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
@@ -29,7 +30,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetClones()
         {
-            var clones = Database.Tickets.GetAll()
+            var clones = Database.Tickets.GetAllWithInclude()
                 .AsEnumerable()
                 .GroupBy(t => t.Number)
                 .Where(g => g.Skip(1).Any())
@@ -43,35 +44,38 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetTickets()
         {
-            var tickets = Database.Tickets.GetAll()
-                .OrderBy(t => t.Number);
+            var tickets = Database.Tickets.GetAllWithInclude()
+                .OrderBy(t => t.Number)
+                .AsEnumerable();
 
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetTickets(int skip, int take)
         {
-            var tickets = Database.Tickets.GetAll()
+            var tickets = Database.Tickets.GetAllWithInclude()
                 .OrderBy(t => t.Number)
-                //.AsEnumerable()
-                .Skip(skip)
-                .Take(take);
+                .Skip(() => skip)
+                .Take(() => take)
+                .AsEnumerable();
 
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetTicketsByPackage(int packageId)
         {
-            var tickets = Database.Tickets.GetAll(t => t.PackageId == packageId)
-                .OrderBy(t => t.Number);
+            var tickets = Database.Tickets.GetAllWithInclude(t => t.PackageId == packageId)
+                .OrderBy(t => t.Number)
+                .AsEnumerable();
 
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetUnallocatedTickets()
         {
-            var tickets = Database.Tickets.GetAll(t => t.PackageId == null)
-                .OrderBy(t => t.Number);
+            var tickets = Database.Tickets.GetAllWithInclude(t => t.PackageId == null)
+                .OrderBy(t => t.Number)
+                .AsEnumerable();
 
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
@@ -99,31 +103,31 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetUnallocatedTickets(int skip, int take)
         {
-            var tickets = Database.Tickets.GetAll(t => t.PackageId == null)
+            var tickets = Database.Tickets.GetAllWithInclude(t => t.PackageId == null)
                 .OrderBy(t => t.Number)
-                //.AsEnumerable()
-                .Skip(skip)
-                .Take(take);
+                .Skip(() => skip)
+                .Take(() => take)
+                .AsEnumerable();
 
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetHappyTickets()
         {
-            var tickets = Database.Tickets.GetAll()
+            var tickets = Database.Tickets.GetAllWithInclude()
                 .OrderBy(t => t.Number)
                 .AsEnumerable()
-                .Where(t => t.IsHappy());
+                .Where(t => Ticket.IsHappy(t));
 
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetHappyTickets(int skip, int take)
         {
-            var tickets = Database.Tickets.GetAll()
+            var tickets = Database.Tickets.GetAllWithInclude()
                 .OrderBy(t => t.Number)
                 .AsEnumerable()
-                .Where(t => t.IsHappy())
+                .Where(t => Ticket.IsHappy(t))
                 .Skip(skip)
                 .Take(take);
 
@@ -132,7 +136,7 @@ namespace TicketManagementSystem.Business.Services
 
         public TicketDTO GetById(int id)
         {
-            var ticket = Database.Tickets.GetById(id);
+            var ticket = Database.Tickets.GetByIdWithInclude(id);
 
             if (ticket == null)
                 return null;
@@ -146,7 +150,7 @@ namespace TicketManagementSystem.Business.Services
                 return null;
 
             var index = new Random().Next(0, TotalCount + 1);
-            var ticket = Database.Tickets.GetAll()
+            var ticket = Database.Tickets.GetAllWithInclude()
                 .OrderBy(t => t.Id)
                 .Skip(index)
                 .Take(1)
@@ -160,32 +164,34 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetByNumber(string number, bool partialMatches = false)
         {
-            IEnumerable<Ticket> tickets;
+            IQueryable<Ticket> tickets;
 
             if (partialMatches)
             {
-                tickets = Database.Tickets.GetAll(t => t.Number.Contains(number));
+                tickets = Database.Tickets.GetAllWithInclude(t => t.Number.Contains(number));
             }
             else
             {
-                tickets = Database.Tickets.GetAll(t => t.Number.Equals(number));
+                tickets = Database.Tickets.GetAllWithInclude(t => t.Number.Equals(number));
             }
 
             tickets = tickets.OrderBy(t => t.Number);
 
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
+            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets.AsEnumerable());
         }
 
         public IEnumerable<TicketDTO> GetByNumber(string number, int id)
         {
-            var tickets = Database.Tickets.GetAll(t => t.Number.Equals(number) && t.Id != id);
+            var tickets = Database.Tickets.GetAllWithInclude(t => t.Number.Equals(number) && t.Id != id)
+                .AsEnumerable();
+
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> Filter(int? firstNumber, int? colorId, int? serialId)
         {
-            IQueryable<Ticket> tickets = Database.Tickets.GetAll();
-            
+            IQueryable<Ticket> tickets = Database.Tickets.GetAllWithInclude();
+
             if (colorId != null)
                 tickets = tickets.Where(t => t.ColorId == colorId);
 
@@ -196,7 +202,7 @@ namespace TicketManagementSystem.Business.Services
                 tickets = tickets.ToList().Where(t => int.Parse(t.Number.First().ToString()) == firstNumber).AsQueryable();
 
             return MapperInstance.Map<IEnumerable<TicketDTO>>(
-                tickets.OrderBy(t => t.Number)
+                tickets.OrderBy(t => t.Number).AsEnumerable()
             );
         }
 
@@ -323,15 +329,13 @@ namespace TicketManagementSystem.Business.Services
             if (!_packageService.ExistsById(packageId))
                 return;
 
-            foreach (var id in ticketsIds)
-            {
-                var ticket = Database.Tickets.GetById(id);
+            var tickets = Database.Tickets.GetAll(t => ticketsIds.Contains(t.Id));
 
-                if (ticket != null)
-                {
-                    ticket.PackageId = packageId;
-                }
+            foreach (var t in tickets)
+            {
+                t.PackageId = packageId;
             }
+
             Database.SaveChanges();
         }
 
@@ -359,7 +363,7 @@ namespace TicketManagementSystem.Business.Services
 
         public int CountHappyTickets()
         {
-            return Database.Tickets.GetCount(t => t.IsHappy());
+            return Database.Tickets.GetAll().AsEnumerable().Count(t => Ticket.IsHappy(t));
         }
 
         #endregion
@@ -369,14 +373,16 @@ namespace TicketManagementSystem.Business.Services
         public bool Exists(TicketDTO ticketDTO)
         {
             var ticket = MapperInstance.Map<Ticket>(ticketDTO);
-            return Database.Tickets.Contains(t => t.Equals(ticket));
+            return Database.Tickets.Any(t => t.Number.Equals(ticket.Number) && t.SerialNumber.Equals(ticket.SerialNumber)
+                && t.ColorId == ticket.ColorId && t.SerialId == ticket.SerialId);
         }
 
         public bool Exists(TicketDTO ticketDTO, int id)
         {
             var ticket = MapperInstance.Map<Ticket>(ticketDTO);
 
-            return Database.Tickets.Contains(t => t.Equals(ticket) && t.Id != id);
+            return Database.Tickets.Any(t => t.Number.Equals(ticket.Number) && t.SerialNumber.Equals(ticket.SerialNumber)
+                && t.ColorId == ticket.ColorId && t.SerialId == ticket.SerialId && t.Id != id);
         }
 
         public bool ExistsById(int id)
@@ -386,7 +392,7 @@ namespace TicketManagementSystem.Business.Services
 
         public bool ExistsByNumber(string number)
         {
-            return Database.Tickets.Contains(t => t.Number.Equals(number));
+            return Database.Tickets.Any(t => t.Number.Equals(number));
         }
 
         #endregion

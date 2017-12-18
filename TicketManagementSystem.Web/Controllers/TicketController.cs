@@ -96,14 +96,25 @@ namespace TicketManagementSystem.Web.Controllers
             if (page < 1)
                 page = 1;
 
-            var itemsOnPage = _appSettingsService.ItemsOnPage;
+            IEnumerable<TicketDTO> happyTickets;
 
-            var tickets = _ticketService.GetHappyTickets((page - 1) * itemsOnPage, itemsOnPage);
-            var pageInfo = new PageInfo(page, _ticketService.CountHappyTickets(), itemsOnPage);
+            if (_cacheService.Contains("HappyTickets"))
+            {
+                happyTickets = _cacheService.GetItem<IEnumerable<TicketDTO>>("HappyTickets");
+            }
+            else
+            {
+                happyTickets = _ticketService.GetHappyTickets();
+                _cacheService.AddOrReplaceItem("HappyTickets", happyTickets, 5);
+            }
+
+            var itemsOnPage = _appSettingsService.ItemsOnPage;
+            
+            var pageInfo = new PageInfo(page, happyTickets.Count(), itemsOnPage);
 
             var viewModel = new TicketIndexModel
             {
-                Tickets = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets),
+                Tickets = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(happyTickets.Skip((page - 1) * itemsOnPage).Take(itemsOnPage)),
                 PageInfo = pageInfo
             };
 

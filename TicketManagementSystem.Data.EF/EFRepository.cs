@@ -24,7 +24,7 @@ namespace TicketManagementSystem.Data.EF
             return _dbSet.Count();
         }
 
-        public virtual int GetCount(Func<T, bool> predicate)
+        public virtual int GetCount(Expression<Func<T, bool>> predicate)
         {
             return _dbSet.Count(predicate);
         }
@@ -39,7 +39,7 @@ namespace TicketManagementSystem.Data.EF
             return _dbSet.Find(id) != null;
         }
 
-        public virtual bool Contains(Func<T, bool> predicate)
+        public virtual bool Any(Expression<Func<T, bool>> predicate)
         {
             return _dbSet.Any(predicate);
         }
@@ -51,16 +51,20 @@ namespace TicketManagementSystem.Data.EF
             return _dbSet;
         }
 
-        public virtual IEnumerable<T> GetAll(Func<T, bool> predicate)
+        public virtual IQueryable<T> GetAll(Expression<Func<T, bool>> predicate)
         {
-            return _dbSet.Where(predicate);
+            return _dbSet.Where(predicate).AsQueryable();
         }
 
         public virtual T GetById(int id)
         {
             return _dbSet.Find(id);
         }
-        
+
+        public virtual IQueryable<T> GetAllWithInclude() => GetAll();
+        public virtual IQueryable<T> GetAllWithInclude(Expression<Func<T, bool>> predicate) => GetAll(predicate);
+        public virtual T GetByIdWithInclude(int id) => GetById(id);
+
         #endregion
 
         #region CUD operations (withot Read)
@@ -114,7 +118,7 @@ namespace TicketManagementSystem.Data.EF
             return (await _dbSet.FindAsync(id)) != null;
         }
 
-        public virtual async Task<bool> ContainsAsync(Expression<Func<T, bool>> predicate)
+        public virtual async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
         {
             return await _dbSet.AnyAsync(predicate);
         }
@@ -124,7 +128,7 @@ namespace TicketManagementSystem.Data.EF
             return await Task.Run(() => _dbSet);
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> predicate)
+        public virtual async Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> predicate)
         {
             return await Task.Run(() => _dbSet.Where(predicate));
         }

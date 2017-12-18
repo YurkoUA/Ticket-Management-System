@@ -95,7 +95,7 @@ namespace TicketManagementSystem.Business
                     .ForMember(dest => dest.ColorName, opt => opt.MapFrom(src => src.Color.ToString()))
                     .ForMember(dest => dest.SerialName, opt => opt.MapFrom(src => src.Serial.ToString()))
                     .ForMember(dest => dest.PackageName, opt => opt.MapFrom(src => src.Package.ToString()))
-                    .ForMember(dest => dest.IsHappy, opt => opt.MapFrom(src => src.IsHappy()));
+                    .ForMember(dest => dest.IsHappy, opt => opt.MapFrom(src => Ticket.IsHappy(src)));
 
                 cfg.CreateMap<TicketDTO, Ticket>()
                     .ForMember(dest => dest.Package, opt => opt.Ignore())

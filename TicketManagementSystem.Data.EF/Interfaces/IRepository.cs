@@ -9,15 +9,19 @@ namespace TicketManagementSystem.Data.EF.Interfaces
     public interface IRepository<T> where T : class
     {
         int GetCount();
-        int GetCount(Func<T, bool> predicate);
+        int GetCount(Expression<Func<T, bool>> predicate);
 
         bool IsEmpty();
         bool ExistsById(int id);
-        bool Contains(Func<T, bool> predicate);
+        bool Any(Expression<Func<T, bool>> predicate);
 
         IQueryable<T> GetAll();
-        IEnumerable<T> GetAll(Func<T, bool> predicate);
+        IQueryable<T> GetAll(Expression<Func<T, bool>> predicate);
         T GetById(int id);
+
+        IQueryable<T> GetAllWithInclude();
+        IQueryable<T> GetAllWithInclude(Expression<Func<T, bool>> predicate);
+        T GetByIdWithInclude(int id);
 
         T Create(T item);
         void Update(T item);
@@ -32,10 +36,10 @@ namespace TicketManagementSystem.Data.EF.Interfaces
 
         Task<bool> IsEmptyAsync();
         Task<bool> ExistsByIdAsync(int id);
-        Task<bool> ContainsAsync(Expression<Func<T, bool>> predicate);
+        Task<bool> AnyAsync(Expression<Func<T, bool>> predicate);
 
         Task<IQueryable<T>> GetAllAsync();
-        Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> predicate);
+        Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> predicate);
         Task<T> GetByIdAsync(int id);
 
         #endregion

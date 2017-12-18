@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Data.EF.Interfaces;
@@ -15,12 +16,12 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<SerialDTO> GetSeries()
         {
-            return MapperInstance.Map<IEnumerable<SerialDTO>>(Database.Series.GetAll());
+            return MapperInstance.Map<IEnumerable<SerialDTO>>(Database.Series.GetAllWithInclude().AsEnumerable());
         }
 
         public SerialDTO GetSerial(int id)
         {
-            var serial = Database.Series.GetById(id);
+            var serial = Database.Series.GetByIdWithInclude(id);
 
             if (serial == null)
                 return null;
@@ -30,7 +31,7 @@ namespace TicketManagementSystem.Business.Services
 
         public SerialEditDTO GetSerialEdit(int id)
         {
-            var serial = Database.Series.GetById(id);
+            var serial = Database.Series.GetByIdWithInclude(id);
 
             if (serial == null)
                 return null;
@@ -71,13 +72,13 @@ namespace TicketManagementSystem.Business.Services
         public bool ExistsByName(string name)
         {
             return Database.Series
-                .Contains(s => s.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
+                .Any(s => s.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public bool IsNameFree(int id, string name)
         {
             return !Database.Series
-                .Contains(m => m.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase) && m.Id != id);
+                .Any(m => m.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase) && m.Id != id);
         }
     }
 }

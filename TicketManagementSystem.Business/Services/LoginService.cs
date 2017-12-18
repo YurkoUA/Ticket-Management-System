@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
@@ -31,7 +32,7 @@ namespace TicketManagementSystem.Business.Services
 
             var logins = Database.Logins.GetAll(l => l.UserId == userId)
                 .OrderByDescending(l => l.Id)
-                .Take(take);
+                .Take(() => take);
 
             return MapperInstance.Map<IEnumerable<LoginDTO>>(logins);
         }
@@ -54,7 +55,7 @@ namespace TicketManagementSystem.Business.Services
 
             if (countToRemove > 0)
             {
-                Database.Logins.RemoveRange(logins.Take(countToRemove));
+                Database.Logins.RemoveRange(logins.Take(() => countToRemove));
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Data.EF.Interfaces;
@@ -15,12 +16,12 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<ColorDTO> GetColors()
         {
-            return MapperInstance.Map<IEnumerable<ColorDTO>>(Database.Colours.GetAll());
+            return MapperInstance.Map<IEnumerable<ColorDTO>>(Database.Colours.GetAllWithInclude().AsEnumerable());
         }
 
         public ColorDTO GetColor(int id)
         {
-            var color = Database.Colours.GetById(id);
+            var color = Database.Colours.GetByIdWithInclude(id);
 
             if (color == null)
                 return null;
@@ -30,7 +31,7 @@ namespace TicketManagementSystem.Business.Services
 
         public ColorEditDTO GetColorEdit(int id)
         {
-            var color = Database.Colours.GetById(id);
+            var color = Database.Colours.GetByIdWithInclude(id);
 
             if (color == null)
                 return null;
@@ -70,13 +71,13 @@ namespace TicketManagementSystem.Business.Services
         public bool ExistsByName(string name)
         {
             return Database.Colours
-                .Contains(c => c.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
+                .Any(c => c.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public bool IsNameFree(int id, string name)
         {
             return !Database.Colours
-                .Contains(m => m.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase) && m.Id != id);
+                .Any(m => m.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase) && m.Id != id);
         }
     }
 }

@@ -26,7 +26,8 @@ namespace TicketManagementSystem.Business.Services
 
             return MapperInstance.Map<IEnumerable<TicketDTO>>(
                 Database.Tickets.GetAll(t => t.AddDate > date)
-                .OrderBy(t => t.Number));
+                .OrderBy(t => t.Number)
+                .AsEnumerable());
         }
 
         public IEnumerable<TicketDTO> GetTodayTickets(int timezoneOffset)
@@ -34,8 +35,9 @@ namespace TicketManagementSystem.Business.Services
             timezoneOffset *= -1;
 
             var tickets = Database.Tickets
-                .GetAll(t => t.AddDate.AddMinutes(timezoneOffset).Date == DateTime.UtcNow.AddMinutes(timezoneOffset).Date)
-                .OrderBy(t => t.Number);
+                .GetAllWithInclude(t => t.AddDate.AddMinutes(timezoneOffset).Date == DateTime.UtcNow.AddMinutes(timezoneOffset).Date)
+                .OrderBy(t => t.Number)
+                .AsEnumerable();
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 

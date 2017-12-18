@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using TicketManagementSystem.Business;
 using TicketManagementSystem.Business.AppSettings;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
@@ -18,6 +19,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         private readonly ITicketService _ticketService;
         private readonly ITicketService2 _ticketService2;
         private readonly IAppSettingsService _appSettingsService;
+        private readonly ICacheService _cacheService;
         private readonly ITicketValidationService _ticketValidationService;
 
         public TicketController(
@@ -25,12 +27,14 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
             IPackageService packageService, 
             ITicketService2 ticketService2,
             IAppSettingsService appSettingsService,
+            ICacheService cacheService,
             ITicketValidationService ticketValidationService)
         {
             _ticketService = ticketService;
             _packageService = packageService;
             _ticketService2 = ticketService2;
             _appSettingsService = appSettingsService;
+            _cacheService = cacheService;
             _ticketValidationService = ticketValidationService;
         }
 
@@ -54,7 +58,19 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         [HttpGet, AllowAnonymous]
         public IHttpActionResult Happy(int skip = 0, int take = 30)
         {
-            return OkOrNoContent(_ticketService.GetHappyTickets(skip, take));
+            IEnumerable<TicketDTO> happyTickets;
+
+            if (_cacheService.Contains("HappyTickets"))
+            {
+                happyTickets = _cacheService.GetItem<IEnumerable<TicketDTO>>("HappyTickets");
+            }
+            else
+            {
+                happyTickets = _ticketService.GetHappyTickets();
+                _cacheService.AddOrReplaceItem("HappyTickets", happyTickets, 5);
+            }
+
+            return OkOrNoContent(happyTickets.Skip(skip).Take(take));
         }
 
         [HttpGet, AllowAnonymous]

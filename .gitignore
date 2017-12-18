@@ -245,3 +245,4 @@ ModelManifest.xml
 /TicketManagementSystem.Web/Files/Reports
 /TicketManagementSystem.Web/Web.Debug.config
 /TicketManagementSystem.Web/Web.Release.config
+/TicketManagementSystem.Web/Properties/PublishProfiles

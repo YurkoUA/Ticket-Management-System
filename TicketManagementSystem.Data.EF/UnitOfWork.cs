@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using TicketManagementSystem.Data.EF.Interfaces;
 using TicketManagementSystem.Data.EF.Models;
+using TicketManagementSystem.Data.EF.Repositories;
 
 namespace TicketManagementSystem.Data.EF
 {
@@ -115,31 +116,45 @@ namespace TicketManagementSystem.Data.EF
 
         public IRepository<Color> Colours
         {
-            get => _colours ?? (_colours = new EFRepository<Color>(_db));
+            get => _colours ?? (_colours = new ColorRepository(_db));
         }
 
         public IRepository<Serial> Series
         {
-            get => _series ?? (_series = new EFRepository<Serial>(_db));
+            get => _series ?? (_series = new SerialRepository(_db));
         }
 
         public IRepository<Package> Packages
         {
-            get => _packages ?? (_packages = new EFRepository<Package>(_db));
+            get => _packages ?? (_packages = new PackageRepository(_db));
         }
 
         public IRepository<Ticket> Tickets
         {
-            get => _tickets ?? (_tickets = new EFRepository<Ticket>(_db));
+            get => _tickets ?? (_tickets = new TicketRepository(_db));
         }
 
         #endregion
 
         #region IDisposable
+
+        private bool _disposed = false;
+
+        public void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                _db.Dispose();
+            }
+            _disposed = true;
+        }
+
         public void Dispose()
         {
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
+
         #endregion
     }
 }

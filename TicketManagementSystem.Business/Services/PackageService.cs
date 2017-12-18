@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Enums;
 using TicketManagementSystem.Business.Interfaces;
@@ -24,37 +26,40 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<PackageDTO> FindByName(string name)
         {
-            var packages = Database.Packages.GetAll(p => p.ToString().Contains(name));
+            var packages = Database.Packages
+                .GetAllWithInclude(p => p.ToString().Contains(name))
+                .AsEnumerable();
+
             return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
         }
 
         public IEnumerable<PackageDTO> GetPackages()
         {
-            var packages = Database.Packages.GetAll()
+            var packages = Database.Packages.GetAllWithInclude()
                 .OrderByDescending(p => p.IsOpened)
                 .ThenByDescending(p => p.IsSpecial)
-                .ThenByDescending(p => p.Id);
+                .ThenByDescending(p => p.Id)
+                .AsEnumerable();
 
             return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
         }
 
         public IEnumerable<PackageDTO> GetPackages(int skip, int take)
         {
-            var packages = Database.Packages.GetAll()
+            var packages = Database.Packages.GetAllWithInclude()
                 .OrderByDescending(p => p.IsOpened)
                 .ThenByDescending(p => p.IsSpecial)
                 .ThenByDescending(p => p.Id)
-                //.AsEnumerable()
-                .Skip(skip)
-                .Take(take);
+                .Skip(() => skip)
+                .Take(() => take)
+                .AsEnumerable();
 
             return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
         }
 
         public IEnumerable<PackageDTO> GetPackages(PackagesFilter filter)
         {
-            var packages = Database.Packages.GetAll(GetExpressionByFilter(filter))
-                //.AsEnumerable()
+            var packages = Database.Packages.GetAllWithInclude(GetExpressionByFilter(filter))
                 .OrderByDescending(p => p.IsOpened)
                 .ThenByDescending(p => p.IsSpecial)
                 .ThenByDescending(p => p.Id)
@@ -65,32 +70,35 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<PackageDTO> GetPackages(int skip, int take, PackagesFilter filter)
         {
-            var packages = Database.Packages.GetAll(GetExpressionByFilter(filter))
-                //.AsEnumerable()
+            var packages = Database.Packages.GetAllWithInclude(GetExpressionByFilter(filter))
                 .OrderByDescending(p => p.IsOpened)
                 .ThenByDescending(p => p.IsSpecial)
                 .ThenByDescending(p => p.Id)
-                .Skip(skip)
-                .Take(take);
+                .Skip(() => skip)
+                .Take(() => take)
+                .AsEnumerable();
 
             return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
         }
 
         public IEnumerable<PackageDTO> GetPackagesByColor(int colorId)
         {
-            var packages = Database.Packages.GetAll(p => p.ColorId == colorId);
+            var packages = Database.Packages.GetAllWithInclude(p => p.ColorId == colorId)
+                .AsEnumerable();
+
             return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
         }
 
         public IEnumerable<PackageDTO> GetPackagesBySerial(int serialId)
         {
-            var packages = Database.Packages.GetAll(p => p.SerialId == serialId);
+            var packages = Database.Packages.GetAllWithInclude(p => p.SerialId == serialId)
+                .AsEnumerable();
             return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
         }
 
         public IEnumerable<TicketDTO> GetPackageTickets(int packageId, bool orderByNumber = false)
         {
-            var tickets = Database.Tickets.GetAll(t => t.PackageId == packageId);
+            var tickets = Database.Tickets.GetAllWithInclude(t => t.PackageId == packageId);
 
             if (!tickets.Any())
                 return null;
@@ -98,12 +106,12 @@ namespace TicketManagementSystem.Business.Services
             if (orderByNumber)
                 tickets = tickets.OrderBy(t => t.Number);
 
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
+            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets.AsEnumerable());
         }
 
         public IEnumerable<PackageDTO> GetCompatiblePackages(int colorId, int serialId, int? number = null)
         {
-            var packages = Database.Packages.GetAll(p => (p.ColorId == null || p.ColorId == colorId)
+            var packages = Database.Packages.GetAllWithInclude(p => (p.ColorId == null || p.ColorId == colorId)
                     && (p.SerialId == null || p.SerialId == serialId)
                     && p.IsOpened);
 
@@ -115,12 +123,12 @@ namespace TicketManagementSystem.Business.Services
             if (!packages.Any())
                 return null;
 
-            return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
+            return MapperInstance.Map<IEnumerable<PackageDTO>>(packages.AsEnumerable());
         }
 
         public IEnumerable<PackageDTO> Filter(PackageFilterDTO filter)
         {
-            IQueryable<Package> packages = Database.Packages.GetAll();
+            IQueryable<Package> packages = Database.Packages.GetAllWithInclude();
 
             if (filter.ColorId != null)
                 packages = packages.Where(p => p.ColorId == filter.ColorId);
@@ -135,13 +143,13 @@ namespace TicketManagementSystem.Business.Services
                 packages = packages.Where(p => p.IsSpecial == (filter.Status == PackageStatusFilter.Special));
 
             return MapperInstance.Map<IEnumerable<PackageDTO>>(
-                packages.OrderBy(p => p.Id).ThenBy(p => p.IsSpecial)
+                packages.OrderBy(p => p.Id).ThenBy(p => p.IsSpecial).AsEnumerable()
             );
         }
 
         public PackageDTO GetPackage(int id)
         {
-            var package = Database.Packages.GetById(id);
+            var package = Database.Packages.GetByIdWithInclude(id);
 
             if (package == null)
                 return null;
@@ -342,32 +350,26 @@ namespace TicketManagementSystem.Business.Services
 
         public bool ExistsByName(string name)
         {
-            return Database.Packages.Contains(p => p.Name?.Equals(name, StringComparison.CurrentCultureIgnoreCase) == true);
+            return Database.Packages.Any(p => p.Name != null && p.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase) == true);
         }
 
         public bool IsNameFree(int id, string name)
         {
             return !Database.Packages
-                .Contains(p => p.Name?.Equals(name, StringComparison.CurrentCultureIgnoreCase) == true && p.Id != id);
+                .Any(p => p.Name != null && p.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase) == true && p.Id != id);
         }
 
         #endregion
 
         #region Count
 
-        public int OpenedCount()
-        {
-            return Database.Packages.GetCount(p => p.IsOpened);
-        }
+        public int OpenedCount() => Database.Packages.GetCount(p => p.IsOpened);
 
-        public int SpecialCount()
-        {
-            return Database.Packages.GetCount(p => p.IsSpecial);
-        }
+        public int SpecialCount() => Database.Packages.GetCount(p => p.IsSpecial);
 
         #endregion
 
-        private Func<Package, bool> GetExpressionByFilter(PackagesFilter filter)
+        private Expression<Func<Package, bool>> GetExpressionByFilter(PackagesFilter filter)
         {
             switch(filter)
             {

@@ -136,13 +136,13 @@ namespace TicketManagementSystem.Business.Services
         public bool ExistsByTitle(string title)
         {
             return Database.Tasks
-                .Contains(t => t.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase));
+                .Any(t => t.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public bool IsTitleFree(int id, string title)
         {
             return !Database.Tasks
-                .Contains(t => t.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase) && t.Id != id);
+                .Any(t => t.Title.Equals(title, StringComparison.CurrentCultureIgnoreCase) && t.Id != id);
         }
     }
 }

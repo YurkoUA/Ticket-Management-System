@@ -93,7 +93,7 @@ namespace TicketManagementSystem.Business.Services
                              .SetUnallocatedTicketsCount(tickets.Count(t => t.PackageId == null));
 
             // Fix this. Make access through service.
-            builder = builder.SetDefaultPackagesTickets(Database.Tickets.GetCount(t => t.Package?.IsSpecial == false));
+            builder = builder.SetDefaultPackagesTickets(Database.Tickets.GetCount(t => t.PackageId != null && t.Package.IsSpecial == false));
 
             builder = builder.SetSpecialPackages(packages.Where(p => p.IsSpecial)
                     .Select(p => new PackageFromReportDTO
@@ -117,7 +117,7 @@ namespace TicketManagementSystem.Business.Services
                                  .SetNewPackagesCount(packages.Count(t => t.Date > lastReportDate))
                        
                                  .SetNewUnallocatedTicketsCount(tickets.Count(t => t.PackageId == null && t.AddDate > lastReportDate))
-                                 .SetNewDefaultPackagesTickets(Database.Tickets.GetCount(t => t.AddDate > lastReportDate && t.Package?.IsSpecial == false));
+                                 .SetNewDefaultPackagesTickets(Database.Tickets.GetCount(t => t.AddDate > lastReportDate && t.PackageId != null && t.Package.IsSpecial == false));
 
 
                 // This method schould be calling from TicketService2, but we can't inject it there.

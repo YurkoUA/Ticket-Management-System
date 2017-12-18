@@ -51,14 +51,14 @@ namespace TicketManagementSystem.Business.Services
 
         public bool ExistsByCurrentMonth()
         {
-            return Database.Summary.Contains(s => isThisMonth(s.Date));
+            return Database.Summary.GetAll().AsEnumerable().Any(isThisMonth);
 
-            bool isThisMonth(DateTime date)
+            bool isThisMonth(Summary summary)
             {
                 var now = DateTime.Now.ToUniversalTime();
 
-                return date.Month == now.Month
-                    && date.Year == now.Year;
+                return summary.Date.Month == now.Month
+                    && summary.Date.Year == now.Year;
             }
         }
 
@@ -66,7 +66,7 @@ namespace TicketManagementSystem.Business.Services
         {
             return new Summary
             {
-                Date = DateTime.Now.ToUniversalTime(),
+                Date = DateTime.UtcNow,
                 Packages = _packageService.TotalCount,
                 Tickets = _ticketService.TotalCount,
                 HappyTickets = _ticketService.CountHappyTickets()
