@@ -17,13 +17,20 @@ namespace TicketManagementSystem.Business
 
         public bool AddOrReplaceItem<T>(string key, T item)
         {
-            return MemoryCache.Default.Add(key, item, DateTimeOffset.Now.AddHours(1));
+            return AddOrReplaceItem(key, item, 60);
+        }
+
+        public bool AddOrReplaceItem<T>(string key, T item, int timeToStoreMinutes)
+        {
+            if (timeToStoreMinutes < 1)
+                timeToStoreMinutes = 1;
+
+            return MemoryCache.Default.Add(key, item, DateTime.UtcNow.AddMinutes(timeToStoreMinutes));
         }
 
         public void DeleteItem(string key)
         {
-            if (Contains(key))
-                MemoryCache.Default.Remove(key);
+            MemoryCache.Default.Remove(key);
         }
     }
 }
