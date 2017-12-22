@@ -55,9 +55,9 @@ namespace TicketManagementSystem.Business.Services
             return MapperInstance.Map<UserDTO>(user);
         }
 
-        public Task CreateAsync(User user)
+        public async Task CreateAsync(User user)
         {
-            return Task.Run(() =>
+            await Task.Run(() =>
             {
                 Database.Users.Create(user);
                 Database.SaveChanges();
@@ -85,18 +85,18 @@ namespace TicketManagementSystem.Business.Services
             }
         }
 
-        public Task UpdateAsync(User user)
+        public async Task UpdateAsync(User user)
         {
-            return Task.Run(() =>
+            await Task.Run(() =>
             {
                 Database.Users.Update(user);
                 Database.SaveChanges();
             });
         }
 
-        public Task DeleteAsync(User user)
+        public async Task DeleteAsync(User user)
         {
-            return Task.Run(() =>
+            await Task.Run(() =>
             {
                 Database.Users.Remove(user);
                 Database.SaveChanges();
@@ -115,49 +115,46 @@ namespace TicketManagementSystem.Business.Services
             }
         }
 
-        public Task<User> FindByIdAsync(int userId)
+        public async Task<User> FindByIdAsync(int userId)
         {
-            return Task.Run(() =>
+            return await Task.Run(() =>
             {
-                return Database.Users.GetById(userId);
+                return Database.Users.GetByIdIncluding(userId, u => u.Role);
             });
         }
 
-        public Task<User> FindByNameAsync(string userName)
+        public async Task<User> FindByNameAsync(string userName)
         {
-            return Task.Run(() =>
+            return await Task.Run(() =>
             {
-                return Database.Users.GetAll(u => u.UserName.Equals(userName, StringComparison.CurrentCultureIgnoreCase))
+                return Database.Users.GetAllIncluding(u => u.UserName.Equals(userName, StringComparison.CurrentCultureIgnoreCase), u => u.Role)
                     .FirstOrDefault();
             });
         }
 
-        public Task<User> FindByEmailAsync(string email)
+        public async Task<User> FindByEmailAsync(string email)
         {
-            return Task.Run(() =>
+            return await Task.Run(() =>
             {
-                return Database.Users.GetAll(u => u.Email.Equals(email, StringComparison.CurrentCultureIgnoreCase))
+                return Database.Users.GetAllIncluding(u => u.Email.Equals(email, StringComparison.CurrentCultureIgnoreCase), u => u.Role)
                     .FirstOrDefault();
             }); ;
         }
 
-        public Task<string> GetEmailAsync(User user)
+        public async Task<string> GetEmailAsync(User user)
         {
-            return Task.Run(() =>
-            {
-                return user.Email;
-            });
+            return await Task.Run(() => user.Email);
         }
 
-        public Task<bool> GetEmailConfirmedAsync(User user)
+        public async Task<bool> GetEmailConfirmedAsync(User user)
         {
             // Email is always confirmed.
-            return Task.Run(() => true);
+            return await Task.Run(() => true);
         }
 
-        public Task<string> GetPasswordHashAsync(User user)
+        public async Task<string> GetPasswordHashAsync(User user)
         {
-            return Task.Run(() =>
+            return await Task.Run(() =>
             {
                 // TODO: Byte array to string.
                 return user.PasswordHash.ToString();
@@ -195,13 +192,10 @@ namespace TicketManagementSystem.Business.Services
             throw new NotImplementedException();
         }
 
-        public Task SetEmailAsync(User user, string email)
+        public async Task SetEmailAsync(User user, string email)
         {
             // TODO: Change hash after change email.
-            return Task.Run(() =>
-            {
-                user.Email = email;
-            });
+            await Task.Run(() => user.Email = email);
         }
 
         public Task SetEmailConfirmedAsync(User user, bool confirmed)
@@ -213,9 +207,9 @@ namespace TicketManagementSystem.Business.Services
         /// WARNING!!! Without saving database.
         /// </summary>
         /// <param name="passwordHash">This is not a hash, this is original password.</param>
-        public Task SetPasswordHashAsync(User user, string passwordHash)
+        public async Task SetPasswordHashAsync(User user, string passwordHash)
         {
-            return Task.Run(() =>
+            await Task.Run(() =>
             {
                 var password = passwordHash;
                 var userBytes = GetUserBytes(user, password);

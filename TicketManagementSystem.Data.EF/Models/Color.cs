@@ -16,8 +16,8 @@ namespace TicketManagementSystem.Data.EF.Models
 
         #region Navigation properties
 
-        public virtual IList<Package> Packages { get; set; } = new List<Package>();
-        public virtual IList<Ticket> Tickets { get; set; } = new List<Ticket>();
+        public IList<Package> Packages { get; set; } = new List<Package>();
+        public IList<Ticket> Tickets { get; set; } = new List<Ticket>();
 
         #endregion
 

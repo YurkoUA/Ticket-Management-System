@@ -16,12 +16,15 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<ColorDTO> GetColors()
         {
-            return MapperInstance.Map<IEnumerable<ColorDTO>>(Database.Colours.GetAllWithInclude().AsEnumerable());
+            var colors = Database.Colours.GetAllIncluding(c => c.Packages, c => c.Tickets)
+                .AsEnumerable();
+            return MapperInstance.Map<IEnumerable<ColorDTO>>(colors);
+            //return Database.Colours.GetAll().Select(ColorDTO.CreateFromColor);
         }
 
         public ColorDTO GetColor(int id)
         {
-            var color = Database.Colours.GetByIdWithInclude(id);
+            var color = Database.Colours.GetByIdIncluding(id, c => c.Packages, c => c.Tickets);
 
             if (color == null)
                 return null;
@@ -31,7 +34,7 @@ namespace TicketManagementSystem.Business.Services
 
         public ColorEditDTO GetColorEdit(int id)
         {
-            var color = Database.Colours.GetByIdWithInclude(id);
+            var color = Database.Colours.GetByIdIncluding(id, c => c.Packages, c => c.Tickets);
 
             if (color == null)
                 return null;

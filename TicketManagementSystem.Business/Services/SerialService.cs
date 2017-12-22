@@ -16,12 +16,12 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<SerialDTO> GetSeries()
         {
-            return MapperInstance.Map<IEnumerable<SerialDTO>>(Database.Series.GetAllWithInclude().AsEnumerable());
+            return MapperInstance.Map<IEnumerable<SerialDTO>>(Database.Series.GetAllIncluding(s => s.Packages, s => s.Tickets).AsEnumerable());
         }
 
         public SerialDTO GetSerial(int id)
         {
-            var serial = Database.Series.GetByIdWithInclude(id);
+            var serial = Database.Series.GetByIdIncluding(id, s => s.Packages, s => s.Tickets);
 
             if (serial == null)
                 return null;
@@ -31,7 +31,7 @@ namespace TicketManagementSystem.Business.Services
 
         public SerialEditDTO GetSerialEdit(int id)
         {
-            var serial = Database.Series.GetByIdWithInclude(id);
+            var serial = Database.Series.GetByIdIncluding(id, s => s.Packages, s => s.Tickets);
 
             if (serial == null)
                 return null;

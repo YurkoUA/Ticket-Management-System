@@ -22,9 +22,9 @@ namespace TicketManagementSystem.Data.EF.Models
         public byte[] Salt { get; set; }
 
         public int RoleId { get; set; }
-        public virtual Role Role { get; set; }
+        public Role Role { get; set; }
 
-        public virtual IList<Login> Logins { get; set; }
+        public IList<Login> Logins { get; set; }
 
         #region System.Object methods
 

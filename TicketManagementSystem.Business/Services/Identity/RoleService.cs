@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Data.EF.Interfaces;
@@ -15,46 +13,43 @@ namespace TicketManagementSystem.Business.Services
         {
         }
 
-        public Task CreateAsync(Role role)
+        public async Task CreateAsync(Role role)
         {
-            return Task.Run(() =>
+            await Task.Run(() =>
             {
                 Database.Roles.Create(role);
                 Database.SaveChanges();
             });
         }
 
-        public Task UpdateAsync(Role role)
+        public async Task UpdateAsync(Role role)
         {
-            return Task.Run(() =>
+            await Task.Run(() =>
             {
                 Database.Roles.Update(role);
                 Database.SaveChanges();
             });
         }
 
-        public Task DeleteAsync(Role role)
+        public async Task DeleteAsync(Role role)
         {
-            return Task.Run(() =>
+            await Task.Run(() =>
             {
                 Database.Roles.Remove(role);
                 Database.SaveChanges();
             });
         }
 
-        public Task<Role> FindByIdAsync(int roleId)
+        public async Task<Role> FindByIdAsync(int roleId)
         {
-            return Task.Run(() =>
-            {
-                return Database.Roles.GetById(roleId);
-            });
+            return await Task.Run(() => Database.Roles.GetByIdIncluding(roleId, r => r.Users));
         }
 
-        public Task<Role> FindByNameAsync(string roleName)
+        public async Task<Role> FindByNameAsync(string roleName)
         {
-            return Task.Run(() =>
+            return await Task.Run(() =>
             {
-                return Database.Roles.GetAll(r => r.Name.Equals(roleName, StringComparison.CurrentCultureIgnoreCase))
+                return Database.Roles.GetAllIncluding(r => r.Name.Equals(roleName, StringComparison.CurrentCultureIgnoreCase), r => r.Users)
                     .FirstOrDefault();
             });
         }

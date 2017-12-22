@@ -19,9 +19,9 @@ namespace TicketManagementSystem.Data.EF.Interfaces
         IQueryable<T> GetAll(Expression<Func<T, bool>> predicate);
         T GetById(int id);
 
-        IQueryable<T> GetAllWithInclude();
-        IQueryable<T> GetAllWithInclude(Expression<Func<T, bool>> predicate);
-        T GetByIdWithInclude(int id);
+        IQueryable<T> GetAllIncluding(params Expression<Func<T, object>>[] includeProperties);
+        IQueryable<T> GetAllIncluding(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties);
+        T GetByIdIncluding(int id, params Expression<Func<T, object>>[] includeProperties);
 
         T Create(T item);
         void Update(T item);

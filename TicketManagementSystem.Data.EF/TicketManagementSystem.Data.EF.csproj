@@ -109,9 +109,12 @@
     <Compile Include="Models\Role.cs" />
     <Compile Include="Enums\TaskPriority.cs" />
     <Compile Include="Repositories\ColorRepository.cs" />
+    <Compile Include="Repositories\LoginRepository.cs" />
     <Compile Include="Repositories\PackageRepository.cs" />
+    <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\SerialRepository.cs" />
     <Compile Include="Repositories\TicketRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

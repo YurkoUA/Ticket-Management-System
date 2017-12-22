@@ -17,7 +17,7 @@ namespace TicketManagementSystem.Data.EF.Models
 
         #region Navigation properties
 
-        public virtual IList<User> Users { get; set; } = new List<User>();
+        public IList<User> Users { get; set; } = new List<User>();
 
         #endregion
 

@@ -30,7 +30,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetClones()
         {
-            var clones = Database.Tickets.GetAllWithInclude()
+            var clones = Database.Tickets.GetAllIncluding(t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets)
                 .AsEnumerable()
                 .GroupBy(t => t.Number)
                 .Where(g => g.Skip(1).Any())
@@ -44,7 +44,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetTickets()
         {
-            var tickets = Database.Tickets.GetAllWithInclude()
+            var tickets = Database.Tickets.GetAllIncluding(t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets)
                 .OrderBy(t => t.Number)
                 .AsEnumerable();
 
@@ -53,7 +53,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetTickets(int skip, int take)
         {
-            var tickets = Database.Tickets.GetAllWithInclude()
+            var tickets = Database.Tickets.GetAllIncluding(t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets)
                 .OrderBy(t => t.Number)
                 .Skip(() => skip)
                 .Take(() => take)
@@ -64,7 +64,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetTicketsByPackage(int packageId)
         {
-            var tickets = Database.Tickets.GetAllWithInclude(t => t.PackageId == packageId)
+            var tickets = Database.Tickets.GetAllIncluding(t => t.PackageId == packageId, t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets)
                 .OrderBy(t => t.Number)
                 .AsEnumerable();
 
@@ -73,7 +73,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetUnallocatedTickets()
         {
-            var tickets = Database.Tickets.GetAllWithInclude(t => t.PackageId == null)
+            var tickets = Database.Tickets.GetAllIncluding(t => t.PackageId == null, t => t.Color, t => t.Serial, t => t.Package.Tickets)
                 .OrderBy(t => t.Number)
                 .AsEnumerable();
 
@@ -103,7 +103,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetUnallocatedTickets(int skip, int take)
         {
-            var tickets = Database.Tickets.GetAllWithInclude(t => t.PackageId == null)
+            var tickets = Database.Tickets.GetAllIncluding(t => t.PackageId == null, t => t.Color, t => t.Serial, t => t.Package.Tickets)
                 .OrderBy(t => t.Number)
                 .Skip(() => skip)
                 .Take(() => take)
@@ -114,7 +114,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetHappyTickets()
         {
-            var tickets = Database.Tickets.GetAllWithInclude()
+            var tickets = Database.Tickets.GetAllIncluding(t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets)
                 .OrderBy(t => t.Number)
                 .AsEnumerable()
                 .Where(t => Ticket.IsHappy(t));
@@ -124,7 +124,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetHappyTickets(int skip, int take)
         {
-            var tickets = Database.Tickets.GetAllWithInclude()
+            var tickets = Database.Tickets.GetAllIncluding(t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets)
                 .OrderBy(t => t.Number)
                 .AsEnumerable()
                 .Where(t => Ticket.IsHappy(t))
@@ -136,7 +136,7 @@ namespace TicketManagementSystem.Business.Services
 
         public TicketDTO GetById(int id)
         {
-            var ticket = Database.Tickets.GetByIdWithInclude(id);
+            var ticket = Database.Tickets.GetByIdIncluding(id, t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets);
 
             if (ticket == null)
                 return null;
@@ -150,7 +150,8 @@ namespace TicketManagementSystem.Business.Services
                 return null;
 
             var index = new Random().Next(0, TotalCount + 1);
-            var ticket = Database.Tickets.GetAllWithInclude()
+
+            var ticket = Database.Tickets.GetAllIncluding(t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets)
                 .OrderBy(t => t.Id)
                 .Skip(index)
                 .Take(1)
@@ -168,11 +169,11 @@ namespace TicketManagementSystem.Business.Services
 
             if (partialMatches)
             {
-                tickets = Database.Tickets.GetAllWithInclude(t => t.Number.Contains(number));
+                tickets = Database.Tickets.GetAllIncluding(t => t.Number.Contains(number), t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets);
             }
             else
             {
-                tickets = Database.Tickets.GetAllWithInclude(t => t.Number.Equals(number));
+                tickets = Database.Tickets.GetAllIncluding(t => t.Number.Equals(number), t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets);
             }
 
             tickets = tickets.OrderBy(t => t.Number);
@@ -182,7 +183,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> GetByNumber(string number, int id)
         {
-            var tickets = Database.Tickets.GetAllWithInclude(t => t.Number.Equals(number) && t.Id != id)
+            var tickets = Database.Tickets.GetAllIncluding(t => t.Number.Equals(number) && t.Id != id, t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets)
                 .AsEnumerable();
 
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
@@ -190,7 +191,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketDTO> Filter(int? firstNumber, int? colorId, int? serialId)
         {
-            IQueryable<Ticket> tickets = Database.Tickets.GetAllWithInclude();
+            IQueryable<Ticket> tickets = Database.Tickets.GetAllIncluding(t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets);
 
             if (colorId != null)
                 tickets = tickets.Where(t => t.ColorId == colorId);

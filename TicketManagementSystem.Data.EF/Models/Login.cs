@@ -13,6 +13,6 @@ namespace TicketManagementSystem.Data.EF.Models
         public string Host { get; set; }
         public string Type { get; set; }
 
-        public virtual User User { get; set; }
+        public User User { get; set; }
     }
 }

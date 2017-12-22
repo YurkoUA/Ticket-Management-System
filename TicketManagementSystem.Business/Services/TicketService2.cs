@@ -24,10 +24,11 @@ namespace TicketManagementSystem.Business.Services
 
             var date = _reportService.GetLastReport().Date;
 
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(
-                Database.Tickets.GetAll(t => t.AddDate > date)
+            var tickets = Database.Tickets.GetAllIncluding(t => t.AddDate > date, t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets)
                 .OrderBy(t => t.Number)
-                .AsEnumerable());
+                .AsEnumerable();
+
+            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetTodayTickets(int timezoneOffset)
@@ -35,9 +36,11 @@ namespace TicketManagementSystem.Business.Services
             timezoneOffset *= -1;
 
             var tickets = Database.Tickets
-                .GetAllWithInclude(t => t.AddDate.AddMinutes(timezoneOffset).Date == DateTime.UtcNow.AddMinutes(timezoneOffset).Date)
+                .GetAllIncluding(t => t.AddDate.AddMinutes(timezoneOffset).Date == DateTime.UtcNow.AddMinutes(timezoneOffset).Date, 
+                    t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets)
                 .OrderBy(t => t.Number)
                 .AsEnumerable();
+
             return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
         }
 

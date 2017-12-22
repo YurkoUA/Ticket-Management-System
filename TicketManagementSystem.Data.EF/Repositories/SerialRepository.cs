@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using TicketManagementSystem.Data.EF.Models;
@@ -12,21 +11,9 @@ namespace TicketManagementSystem.Data.EF.Repositories
         {
         }
 
-        public override IQueryable<Serial> GetAllWithInclude()
+        public override Serial GetByIdIncluding(int id, params Expression<Func<Serial, object>>[] includeProperties)
         {
-            return _dbSet
-                .Include(s => s.Packages)
-                .Include(s => s.Tickets);
-        }
-
-        public override IQueryable<Serial> GetAllWithInclude(Expression<Func<Serial, bool>> predicate)
-        {
-            return GetAllWithInclude().Where(predicate);
-        }
-
-        public override Serial GetByIdWithInclude(int id)
-        {
-            return GetAllWithInclude(s => s.Id == id).FirstOrDefault();
+            return base.GetAllIncluding(includeProperties).SingleOrDefault(s => s.Id == id);
         }
     }
 }

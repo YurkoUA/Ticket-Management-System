@@ -86,17 +86,17 @@ namespace TicketManagementSystem.Data.EF
 
         public IRepository<User> Users
         {
-            get => _users ?? (_users = new EFRepository<User>(_db));
+            get => _users ?? (_users = new UserRepository(_db));
         }
 
         public IRepository<Login> Logins
         {
-            get => _logins ?? (_logins = new EFRepository<Login>(_db));
+            get => _logins ?? (_logins = new LoginRepository(_db));
         }
 
         public IRepository<Role> Roles
         {
-            get => _roles ?? (_roles = new EFRepository<Role>(_db));
+            get => _roles ?? (_roles = new RoleRepository(_db));
         }
 
         public IRepository<Summary> Summary

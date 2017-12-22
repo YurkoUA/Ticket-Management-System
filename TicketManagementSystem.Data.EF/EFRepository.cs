@@ -61,9 +61,34 @@ namespace TicketManagementSystem.Data.EF
             return _dbSet.Find(id);
         }
 
-        public virtual IQueryable<T> GetAllWithInclude() => GetAll();
-        public virtual IQueryable<T> GetAllWithInclude(Expression<Func<T, bool>> predicate) => GetAll(predicate);
-        public virtual T GetByIdWithInclude(int id) => GetById(id);
+        public virtual IQueryable<T> GetAllIncluding(params Expression<Func<T, object>>[] includeProperties)
+        {
+            var collection = GetAll();
+
+            foreach (var property in includeProperties)
+            {
+                collection = collection.Include(property);
+            }
+
+            return collection;
+        }
+
+        public virtual IQueryable<T> GetAllIncluding(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
+        {
+            var collection = GetAll(predicate);
+
+            foreach (var property in includeProperties)
+            {
+                collection = collection.Include(property);
+            }
+
+            return collection;
+        }
+
+        public virtual T GetByIdIncluding(int id, params Expression<Func<T, object>>[] includeProperties)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
 
