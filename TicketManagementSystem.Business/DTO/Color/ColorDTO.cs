@@ -11,6 +11,8 @@ namespace TicketManagementSystem.Business.DTO
         public int PackagesCount { get; set; }
         public int TicketsCount { get; set; }
 
+        public override string ToString() => Name;
+
         public static Expression<Func<Color, ColorDTO>> CreateFromColor = c => new ColorDTO
         {
             Id = c.Id,

@@ -1,5 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
 using TicketManagementSystem.Business.Attributes;
+using TicketManagementSystem.Data.EF.Models;
 
 namespace TicketManagementSystem.Business.DTO
 {
@@ -22,5 +25,16 @@ namespace TicketManagementSystem.Business.DTO
 
         [StringLength(32, ErrorMessage = "Дата не може бути довша за 32 символи.")]
         public string Date { get; set; }
+
+        public static Expression<Func<Ticket, TicketEditDTO>> CreateFromTicket = t => new TicketEditDTO
+        {
+            RowVersion = t.RowVersion,
+            Id = t.Id,
+            ColorId = t.ColorId,
+            SerialId = t.SerialId,
+            SerialNumber = t.SerialNumber,
+            Note = t.Note,
+            Date = t.Date
+        };
     }
 }

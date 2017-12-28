@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TicketManagementSystem.Data.EF.Models;
+using TicketManagementSystem.Business.Extensions;
 
 namespace TicketManagementSystem.Tests
 {
@@ -7,52 +7,45 @@ namespace TicketManagementSystem.Tests
     public class TicketTests
     {
         [TestMethod]
-        public void IsHappy_000000()
-        {
-            var ticket = new Ticket { Number = "000000" };
-            Assert.IsTrue(Ticket.IsHappy(ticket));
-        }
-
-        [TestMethod]
         public void IsHappy_006600()
         {
-            var ticket = new Ticket { Number = "006600" };
-            Assert.IsTrue(Ticket.IsHappy(ticket));
+            Assert.IsTrue("006600".IsHappy());
         }
 
         [TestMethod]
         public void IsHappy_100100()
         {
-            var ticket = new Ticket { Number = "100100" };
-            Assert.IsTrue(Ticket.IsHappy(ticket));
+            Assert.IsTrue("100100".IsHappy());
         }
 
         [TestMethod]
         public void IsHappy_111111()
         {
-            var ticket = new Ticket { Number = "111111" };
-            Assert.IsTrue(Ticket.IsHappy(ticket));
+            Assert.IsTrue("111111".IsHappy());
         }
 
         [TestMethod]
         public void IsHappy_317623()
         {
-            var ticket = new Ticket { Number = "317623" };
-            Assert.IsTrue(Ticket.IsHappy(ticket));
+            Assert.IsTrue("317623".IsHappy());
+        }
+
+        [TestMethod]
+        public void IsNotHappy_000000()
+        {
+            Assert.IsFalse("000000".IsHappy());
         }
 
         [TestMethod]
         public void IsNotHappy_219623()
         {
-            var ticket = new Ticket { Number = "219623" };
-            Assert.IsFalse(Ticket.IsHappy(ticket));
+            Assert.IsFalse("219623".IsHappy());
         }
 
         [TestMethod]
         public void IsNotHappy_001002()
         {
-            var ticket = new Ticket { Number = "001002" };
-            Assert.IsFalse(Ticket.IsHappy(ticket));
+            Assert.IsFalse("001002".IsHappy());
         }
     }
 }

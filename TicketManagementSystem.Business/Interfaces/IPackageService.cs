@@ -31,16 +31,16 @@ namespace TicketManagementSystem.Business.Interfaces
         PackageEditDTO GetPackageEdit(int id);
         PackageSpecialEditDTO GetSpecialPackageEdit(int id);
 
-        PackageDTO EditPackage(PackageEditDTO packageDTO);
-        PackageDTO EditSpecialPackage(PackageSpecialEditDTO packageDTO);
+        void EditPackage(PackageEditDTO packageDTO);
+        void EditSpecialPackage(PackageSpecialEditDTO packageDTO);
         
         void Remove(int id);
 
         void OpenPackage(int id);
         void ClosePackage(int id);
 
-        PackageDTO MakeSpecial(PackageMakeSpecialDTO dto);
-        PackageDTO MakeDefault(PackageMakeDefaultDTO dto);
+        void MakeSpecial(PackageMakeSpecialDTO dto);
+        void MakeDefault(PackageMakeDefaultDTO dto);
 
         bool ExistsById(int id);
         bool ExistsByName(string name);

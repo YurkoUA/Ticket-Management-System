@@ -17,7 +17,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
 
         protected IHttpActionResult OkOrNoContent<T>(IEnumerable<T> enumerable)
         {
-            return enumerable.Any() ? Ok(enumerable) : NoContent();
+            return enumerable?.Any() == true ? Ok(enumerable) : NoContent();
         }
 
         protected IHttpActionResult OkOrNoContent<T>(T obj)

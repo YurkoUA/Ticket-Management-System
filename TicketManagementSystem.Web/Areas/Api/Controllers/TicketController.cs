@@ -59,18 +59,20 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         public IHttpActionResult Happy(int skip = 0, int take = 30)
         {
             IEnumerable<TicketDTO> happyTickets;
+            happyTickets = _ticketService.GetHappyTickets(skip, take);
+            return OkOrNoContent(happyTickets);
 
-            if (_cacheService.Contains("HappyTickets"))
-            {
-                happyTickets = _cacheService.GetItem<IEnumerable<TicketDTO>>("HappyTickets");
-            }
-            else
-            {
-                happyTickets = _ticketService.GetHappyTickets();
-                _cacheService.AddOrReplaceItem("HappyTickets", happyTickets, 5);
-            }
+            //if (_cacheService.Contains("HappyTickets"))
+            //{
+            //    happyTickets = _cacheService.GetItem<IEnumerable<TicketDTO>>("HappyTickets");
+            //}
+            //else
+            //{
+            //    happyTickets = _ticketService.GetHappyTickets();
+            //    _cacheService.AddOrReplaceItem("HappyTickets", happyTickets, 5);
+            //}
 
-            return OkOrNoContent(happyTickets.Skip(skip).Take(take));
+            //return OkOrNoContent(happyTickets.Skip(skip).Take(take));
         }
 
         [HttpGet, AllowAnonymous]

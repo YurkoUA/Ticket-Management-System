@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using TicketManagementSystem.Data.EF.Models;
 
 namespace TicketManagementSystem.Business.DTO
 {
@@ -21,5 +24,17 @@ namespace TicketManagementSystem.Business.DTO
         public string Note { get; set; }
 
         public int TicketsCount { get; set; }
+
+        public static Expression<Func<Package, PackageEditDTO>> CreateFromPackage = p => new PackageEditDTO
+        {
+            RowVersion = p.RowVersion,
+            Id = p.Id,
+            ColorId = (int)p.ColorId,
+            SerialId = (int)p.SerialId,
+            FirstNumber = p.FirstNumber,
+            Nominal = p.Nominal,
+            Note = p.Note,
+            TicketsCount = p.Tickets.Count
+        };
     }
 }

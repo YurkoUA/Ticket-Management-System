@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using TicketManagementSystem.Data.EF.Models;
 
 namespace TicketManagementSystem.Business.DTO
 {
@@ -11,5 +14,13 @@ namespace TicketManagementSystem.Business.DTO
 
         public bool CanBeDeleted { get; set; }
         public byte[] RowVersion { get; set; }
+
+        public static Expression<Func<Color, ColorEditDTO>> CreateFromColor = c => new ColorEditDTO
+        {
+            Id = c.Id,
+            Name = c.Name,
+            RowVersion = c.RowVersion,
+            CanBeDeleted = c.Packages.Count == 0 && c.Tickets.Count == 0
+        };
     }
 }

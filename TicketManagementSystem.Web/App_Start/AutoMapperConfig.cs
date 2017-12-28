@@ -39,11 +39,14 @@ namespace TicketManagementSystem.Web
 
                 #region Package
 
-                cfg.CreateMap<PackageDTO, PackageIndexModel>();
-                cfg.CreateMap<PackageDTO, PackageDetailsModel>();
+                cfg.CreateMap<PackageDTO, PackageDetailsModel>()
+                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ToString()));
+
+                cfg.CreateMap<PackageDTO, PackageMakeSpecialDTO>()
+                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ToString()));
 
                 cfg.CreateMap<PackageDTO, PackageMakeDefaultModel>();
-                cfg.CreateMap<PackageDTO, PackageMakeSpecialDTO>();
+
                 cfg.CreateMap<PackageMakeDefaultModel, PackageMakeDefaultDTO>();
 
                 cfg.CreateMap<PackageCreateDefaultModel, PackageCreateDTO>();

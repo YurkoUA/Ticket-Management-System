@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using TicketManagementSystem.Data.EF.Models;
 using TicketManagementSystem.Business.DTO;
+using System.Linq;
 
 namespace TicketManagementSystem.Business
 {
@@ -58,8 +59,8 @@ namespace TicketManagementSystem.Business
 
                 #region Report
 
-                cfg.CreateMap<TicketManagementSystem.Data.EF.Models.Report, DTO.Report.ReportDTO>();
-                cfg.CreateMap<DTO.Report.ReportDTO, TicketManagementSystem.Data.EF.Models.Report>();
+                cfg.CreateMap<Data.EF.Models.Report, DTO.Report.ReportDTO>();
+                cfg.CreateMap<DTO.Report.ReportDTO, Data.EF.Models.Report>();
 
                 #endregion
 
@@ -73,10 +74,10 @@ namespace TicketManagementSystem.Business
                 #region Package
 
                 cfg.CreateMap<Package, PackageDTO>()
-                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ToString()))
                     .ForMember(dest => dest.ColorName, opt => opt.MapFrom(src => src.Color.ToString()))
                     .ForMember(dest => dest.SerialName, opt => opt.MapFrom(src => src.Serial.ToString()))
-                    .ForMember(dest => dest.TicketsCount, opt => opt.MapFrom(src => src.Tickets.Count));
+                    .ForMember(dest => dest.TicketsCount, opt => opt.MapFrom(src => src.Tickets.Count))
+                    .ForMember(dest => dest.FirstTicketNumber, opt => opt.MapFrom(src => src.Tickets.OrderBy(t => t.Id).FirstOrDefault().Number));
 
                 cfg.CreateMap<Package, PackageEditDTO>()
                     .ForMember(dest => dest.TicketsCount, opt => opt.MapFrom(src => src.Tickets.Count));
@@ -94,8 +95,7 @@ namespace TicketManagementSystem.Business
                 cfg.CreateMap<Ticket, TicketDTO>()
                     .ForMember(dest => dest.ColorName, opt => opt.MapFrom(src => src.Color.ToString()))
                     .ForMember(dest => dest.SerialName, opt => opt.MapFrom(src => src.Serial.ToString()))
-                    .ForMember(dest => dest.PackageName, opt => opt.MapFrom(src => src.Package.ToString()))
-                    .ForMember(dest => dest.IsHappy, opt => opt.MapFrom(src => Ticket.IsHappy(src)));
+                    .ForMember(dest => dest.PackageName, opt => opt.MapFrom(src => src.Package.ToString()));
 
                 cfg.CreateMap<TicketDTO, Ticket>()
                     .ForMember(dest => dest.Package, opt => opt.Ignore())

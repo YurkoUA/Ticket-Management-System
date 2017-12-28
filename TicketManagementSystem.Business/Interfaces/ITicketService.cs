@@ -7,8 +7,6 @@ namespace TicketManagementSystem.Business.Interfaces
     {
         int TotalCount { get; }
 
-        IEnumerable<TicketDTO> GetClones();
-
         IEnumerable<TicketDTO> GetTickets();
         IEnumerable<TicketDTO> GetTickets(int skip, int take);
 
@@ -21,6 +19,8 @@ namespace TicketManagementSystem.Business.Interfaces
         IEnumerable<TicketDTO> GetHappyTickets();
         IEnumerable<TicketDTO> GetHappyTickets(int skip, int take);
 
+        IEnumerable<TicketDTO> GetClones();
+
         TicketDTO GetById(int id);
         TicketDTO GetRandomTicket();
         IEnumerable<TicketDTO> GetByNumber(string number, bool partialMatches = false);
@@ -31,14 +31,14 @@ namespace TicketManagementSystem.Business.Interfaces
         TicketEditDTO GetEdit(int id);
 
         TicketDTO Create(TicketCreateDTO ticketDTO);
-        TicketDTO Edit(TicketEditDTO ticketDTO);
+        void Edit(TicketEditDTO ticketDTO);
         void Remove(int id);
 
         void CreateMany(TicketCreateDTO[] createDTO);
 
-        TicketDTO ChangeNumber(int ticketId, string number);
-        TicketDTO MoveToPackage(int ticketId, int packageId);
-        TicketDTO MoveToPackage(int ticketId, int packageId, out bool isUnallocated);
+        void ChangeNumber(int ticketId, string number);
+        void MoveToPackage(int ticketId, int packageId);
+        void MoveToPackage(int ticketId, int packageId, out bool isUnallocated);
         void MoveFewToPackage(int packageId, params int[] ticketsIds);
 
         bool Exists(TicketDTO ticketDTO);
@@ -54,5 +54,8 @@ namespace TicketManagementSystem.Business.Interfaces
         int CountUnallocatedTickets();
         int CountUnallocatedByPackage(int packageId);
         int CountHappyTickets();
+
+        IEnumerable<int> GetClonesIds();
+        IEnumerable<int> GetHappyTicketsIds();
     }
 }

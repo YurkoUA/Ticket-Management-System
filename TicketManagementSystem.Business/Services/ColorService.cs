@@ -16,30 +16,19 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<ColorDTO> GetColors()
         {
-            var colors = Database.Colours.GetAllIncluding(c => c.Packages, c => c.Tickets)
-                .AsEnumerable();
-            return MapperInstance.Map<IEnumerable<ColorDTO>>(colors);
-            //return Database.Colours.GetAll().Select(ColorDTO.CreateFromColor);
+            return Database.Colours.GetAll().Select(ColorDTO.CreateFromColor);
         }
 
         public ColorDTO GetColor(int id)
         {
-            var color = Database.Colours.GetByIdIncluding(id, c => c.Packages, c => c.Tickets);
-
-            if (color == null)
-                return null;
-
-            return MapperInstance.Map<ColorDTO>(color);
+            return Database.Colours.GetAll(c => c.Id == id).Select(ColorDTO.CreateFromColor)
+                .SingleOrDefault();
         }
 
         public ColorEditDTO GetColorEdit(int id)
         {
-            var color = Database.Colours.GetByIdIncluding(id, c => c.Packages, c => c.Tickets);
-
-            if (color == null)
-                return null;
-
-            return MapperInstance.Map<ColorEditDTO>(color);
+            return Database.Colours.GetAll(c => c.Id == id).Select(ColorEditDTO.CreateFromColor)
+                .SingleOrDefault();
         }
 
         public ColorDTO Create(ColorCreateDTO colorDTO)

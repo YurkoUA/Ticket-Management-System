@@ -22,5 +22,7 @@ namespace TicketManagementSystem.Business.DTO
 
         public string PriorityString => Priority.GetDisplayName();
         public string StatusString => Status.GetDisplayName();
+
+        public override string ToString() => Title;
     }
 }

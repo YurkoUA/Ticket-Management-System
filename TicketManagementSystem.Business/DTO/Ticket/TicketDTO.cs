@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using Newtonsoft.Json;
+using TicketManagementSystem.Business.Extensions;
+using TicketManagementSystem.Data.EF.Models;
 
 namespace TicketManagementSystem.Business.DTO
 {
@@ -8,6 +11,8 @@ namespace TicketManagementSystem.Business.DTO
     {
         public int Id { get; set; }
         public string Number { get; set; }
+
+        #region Dynamic properties for api.
 
         public dynamic Package
         {
@@ -22,6 +27,8 @@ namespace TicketManagementSystem.Business.DTO
 
         public dynamic Color => new { Id = ColorId, Name = ColorName };
         public dynamic Serial => new { Id = SerialId, Name = SerialName };
+
+        #endregion
 
         [JsonIgnore]
         public int? PackageId { get; set; }
@@ -45,7 +52,7 @@ namespace TicketManagementSystem.Business.DTO
         public string Date { get; set; }
         public DateTime AddDate { get; set; }
 
-        public bool IsHappy { get; set; }
+        public bool IsHappy => Number.IsHappy();
         public int? Clones { get; set; }
 
         [JsonIgnore]
@@ -53,5 +60,27 @@ namespace TicketManagementSystem.Business.DTO
         {
             get => int.Parse(Number.First().ToString());
         }
+
+        public override string ToString() => Number;
+
+        public static Expression<Func<Ticket, TicketDTO>> CreateFromTicket = t => new TicketDTO
+        {
+            Id = t.Id,
+            Number = t.Number,
+
+            PackageId = t.PackageId,
+            PackageName = t.Package.Name,
+
+            ColorId = t.ColorId,
+            ColorName = t.Color.Name,
+
+            SerialId = t.SerialId,
+            SerialName = t.Serial.Name,
+            SerialNumber = t.SerialNumber,
+
+            Note = t.Note,
+            Date = t.Date,
+            AddDate = t.AddDate
+        };
     }
 }

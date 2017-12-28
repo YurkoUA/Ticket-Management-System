@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TicketManagementSystem.Business.DTO.Report;
+using TicketManagementSystem.Business.Extensions;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Business.Report;
 using TicketManagementSystem.Data.EF.Interfaces;
@@ -26,7 +27,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<ReportDTO> GetReports()
         {
-            var reports = Database.Reports.GetAll().AsEnumerable();
+            var reports = Database.Reports.GetAll();
             return MapperInstance.Map<IEnumerable<ReportDTO>>(reports);
         }
 
@@ -42,7 +43,8 @@ namespace TicketManagementSystem.Business.Services
 
         public ReportDTO GetLastReport()
         {
-            return MapperInstance.Map<ReportDTO>(Database.Reports.GetAll().AsEnumerable().LastOrDefault());
+            var report = Database.Reports.GetAll().OrderByDescending(r => r.Id).FirstOrDefault();
+            return MapperInstance.Map<ReportDTO>(report);
         }
 
         public ReportDTO CreateReport(bool isAutomatic)
@@ -80,20 +82,21 @@ namespace TicketManagementSystem.Business.Services
         public DefaultReportDTO GetDefaultReportDTO()
         {
             var lastReport = GetLastReport();
+
+            var tickets = Database.Tickets.GetAllIncluding(t => t.Color, t => t.Serial, t => t.Package).ToList();
             var packages = _packageService.GetPackages();
-            var tickets = _ticketService.GetTickets();
 
             var builder = new DefaultReportBuilder();
 
             builder = builder.SetTicketsCount(tickets.Count())
-                             .SetHappyTicketsCount(tickets.Count(t => t.IsHappy))
+                             .SetHappyTicketsCount(tickets.Count(t => t.Number.IsHappy()))
                              
                              .SetDefaultPackagesCount(packages.Count(p => !p.IsSpecial))
 
                              .SetUnallocatedTicketsCount(tickets.Count(t => t.PackageId == null));
 
             // Fix this. Make access through service.
-            builder = builder.SetDefaultPackagesTickets(Database.Tickets.GetCount(t => t.PackageId != null && t.Package.IsSpecial == false));
+            builder = builder.SetDefaultPackagesTickets(tickets.Count(t => t.Package?.IsSpecial == false));
 
             builder = builder.SetSpecialPackages(packages.Where(p => p.IsSpecial)
                     .Select(p => new PackageFromReportDTO
@@ -112,24 +115,24 @@ namespace TicketManagementSystem.Business.Services
                 builder = builder.SetLastReportDate(lastReportDate)
 
                                  .SetNewTicketsCount(tickets.Count(t => t.AddDate > lastReportDate))
-                                 .SetNewHappyTicketsCount(tickets.Count(t => t.IsHappy && t.AddDate > lastReportDate))
+                                 .SetNewHappyTicketsCount(tickets.Count(t => t.Number.IsHappy() && t.AddDate > lastReportDate))
                        
                                  .SetNewPackagesCount(packages.Count(t => t.Date > lastReportDate))
                        
                                  .SetNewUnallocatedTicketsCount(tickets.Count(t => t.PackageId == null && t.AddDate > lastReportDate))
-                                 .SetNewDefaultPackagesTickets(Database.Tickets.GetCount(t => t.AddDate > lastReportDate && t.PackageId != null && t.Package.IsSpecial == false));
+                                 .SetNewDefaultPackagesTickets(tickets.Count(t => t.AddDate > lastReportDate && t.Package?.IsSpecial == false));
 
 
                 // This method schould be calling from TicketService2, but we can't inject it there.
                 // TODO: Use this method from TicketService2.
 
                 builder = builder.SetNewTicketsGroups(tickets.Where(t => t.AddDate > lastReportDate)
-                    .GroupBy(t => $"{t.SerialName}-{t.ColorName} ({t.FirstNumber})")
+                    .GroupBy(t => $"{t.Serial.Name}-{t.Color.Name} ({t.Number.First()})")
                     .Select(g => new TicketGroupDTO
                     {
                         Name = g.Key,
                         Count = g.Count(),
-                        HappyCount = g.Count(t => t.IsHappy)
+                        HappyCount = g.Count(t => t.Number.IsHappy())
                     }).OrderByDescending(t => t.Count)
                        .ToList());
 
@@ -144,13 +147,14 @@ namespace TicketManagementSystem.Business.Services
 
         public PackageReportDTO GetPackagesReportDTO()
         {
+            var tickets = Database.Tickets.GetAll().ToList();
+
             var lastReport = GetLastReport();
             var packages = _packageService.GetPackages();
-            var tickets = _ticketService.GetTickets();
 
             var builder = new PackageReportBuilder()
                 .SetTicketsCount(tickets.Count())
-                .SetHappyTicketsCount(tickets.Count(t => t.IsHappy));
+                .SetHappyTicketsCount(tickets.Count(t => t.Number.IsHappy()));
 
             builder = builder.SetDefaultPackages(packages.Where(p => !p.IsSpecial)
                                 .GroupBy(p => p.SerialName)
@@ -159,7 +163,7 @@ namespace TicketManagementSystem.Business.Services
                                     .Select(p => new PackageFromReportDTO
                                     {
                                         Id = p.Id,
-                                        PackageName = p.Name,
+                                        PackageName = p.ToString(),
                                         TotalTickets = p.TicketsCount
                                     }).OrderBy(p => p.Id)
                                     .ToList()))
@@ -168,7 +172,7 @@ namespace TicketManagementSystem.Business.Services
                                 .Select(p => new PackageFromReportDTO
                                 {
                                     Id = p.Id,
-                                    PackageName = p.Name,
+                                    PackageName = p.ToString(),
                                     TotalTickets = p.TicketsCount
                                 }).OrderBy(p => p.Id)
                                 .ToList());
@@ -181,7 +185,7 @@ namespace TicketManagementSystem.Business.Services
                 builder = builder.SetLastReportDate(lastReportDate)
 
                                  .SetNewTicketsCount(tickets.Count(t => t.AddDate > lastReportDate))
-                                 .SetNewHappyTicketsCount(tickets.Count(t => t.IsHappy && t.AddDate > lastReportDate))
+                                 .SetNewHappyTicketsCount(tickets.Count(t => t.Number.IsHappy() && t.AddDate > lastReportDate))
                                  .SetNewPackagesCount(packages.Count(p => p.Date > lastReportDate));
 
                 Func<int, int> func = packageId =>

@@ -94,7 +94,7 @@ namespace TicketManagementSystem.Web.Controllers
                 Param = id
             };
 
-            ViewBag.Title = $"Пачка \"{package.Name}\"";
+            ViewBag.Title = $"Пачка \"{package}\"";
             return View("Package", partialModel);
         }
 
@@ -162,7 +162,7 @@ namespace TicketManagementSystem.Web.Controllers
             var package = _packageService.GetPackage(id);
             var tickets = _packageService.GetPackageTickets(id, true);
 
-            ViewBag.Title = $"Квитки з пачки \"{package.Name}\"";
+            ViewBag.Title = $"Квитки з пачки \"{package}\"";
             ViewBag.PackageId = id;
             ViewBag.IsOpened = package.IsOpened;
 
@@ -343,7 +343,7 @@ namespace TicketManagementSystem.Web.Controllers
                 Param = id
             };
 
-            ViewBag.Title = $"Видалити пачку \"{package.Name}\"";
+            ViewBag.Title = $"Видалити пачку \"{package}\"";
             return View("Package", partialModel);
         }
 

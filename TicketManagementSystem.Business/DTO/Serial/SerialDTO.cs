@@ -1,4 +1,8 @@
-﻿namespace TicketManagementSystem.Business.DTO
+﻿using System;
+using System.Linq.Expressions;
+using TicketManagementSystem.Data.EF.Models;
+
+namespace TicketManagementSystem.Business.DTO
 {
     public class SerialDTO
     {
@@ -7,5 +11,16 @@
         public string Note { get; set; }
         public int PackagesCount { get; set; }
         public int TicketsCount { get; set; }
+
+        public override string ToString() => Name;
+
+        public static Expression<Func<Serial, SerialDTO>> CreateFromSerial = s => new SerialDTO
+        {
+            Id = s.Id,
+            Name = s.Name,
+            Note = s.Note,
+            PackagesCount = s.Packages.Count,
+            TicketsCount = s.Tickets.Count
+        };
     }
 }

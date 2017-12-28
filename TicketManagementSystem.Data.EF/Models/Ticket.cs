@@ -64,11 +64,5 @@ namespace TicketManagementSystem.Data.EF.Models
         }
 
         #endregion
-
-        public static bool IsHappy(Ticket ticket)
-        {
-            var numbers = ticket.Number.Select(n => int.Parse(n.ToString())).ToArray();
-            return numbers[0] + numbers[1] + numbers[2] == numbers[3] + numbers[4] + numbers[5];
-        }
     }
 }

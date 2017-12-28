@@ -96,25 +96,27 @@ namespace TicketManagementSystem.Web.Controllers
             if (page < 1)
                 page = 1;
 
-            IEnumerable<TicketDTO> happyTickets;
-
-            if (_cacheService.Contains("HappyTickets"))
-            {
-                happyTickets = _cacheService.GetItem<IEnumerable<TicketDTO>>("HappyTickets");
-            }
-            else
-            {
-                happyTickets = _ticketService.GetHappyTickets();
-                _cacheService.AddOrReplaceItem("HappyTickets", happyTickets, 5);
-            }
-
             var itemsOnPage = _appSettingsService.ItemsOnPage;
+
+            IEnumerable<TicketDTO> happyTickets;
+            happyTickets = _ticketService.GetHappyTickets((page - 1) * itemsOnPage, itemsOnPage);
+
+            //if (_cacheService.Contains("HappyTickets"))
+            //{
+            //    happyTickets = _cacheService.GetItem<IEnumerable<TicketDTO>>("HappyTickets");
+            //}
+            //else
+            //{
+            //    happyTickets = _ticketService.GetHappyTickets();
+            //    _cacheService.AddOrReplaceItem("HappyTickets", happyTickets, 5);
+            //}
+
             
-            var pageInfo = new PageInfo(page, happyTickets.Count(), itemsOnPage);
+            var pageInfo = new PageInfo(page, _ticketService.CountHappyTickets(), itemsOnPage);
 
             var viewModel = new TicketIndexModel
             {
-                Tickets = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(happyTickets.Skip((page - 1) * itemsOnPage).Take(itemsOnPage)),
+                Tickets = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(happyTickets/*.Skip((page - 1) * itemsOnPage).Take(itemsOnPage)*/),
                 PageInfo = pageInfo
             };
 
@@ -266,7 +268,7 @@ namespace TicketManagementSystem.Web.Controllers
             var viewModel = new TicketCreateInPackageModel
             {
                 PackageId = package.Id,
-                PackageName = package.Name
+                PackageName = package.ToString()
             };
 
             if (package.ColorId != null)
@@ -336,8 +338,8 @@ namespace TicketManagementSystem.Web.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    var id = _ticketService.Edit(editDTO).Id;
-                    return SuccessPartial("Зміни збережено!", Url.Action("Details", new { id = id }), "Переглянути");
+                    _ticketService.Edit(MapperInstance.Map<TicketEditDTO>(model));
+                    return SuccessPartial("Зміни збережено!", Url.Action("Details", new { id = model.Id }), "Переглянути");
                 }
             }
             return ErrorPartial(ModelState);
