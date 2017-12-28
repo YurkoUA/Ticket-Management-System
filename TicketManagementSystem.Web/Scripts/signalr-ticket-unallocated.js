@@ -3,12 +3,20 @@
 
     ticketsHub.client.removeTickets = function (idArray) {
         if (idArray != undefined && idArray.length > 0) {
+            var removedCount = 0;
+
             for (var i in idArray) {
-                $("tr#ticket-" + idArray[i]).remove();
-                console.log("The ticket ID: " + idArray[i] + " has been removed from the list.");
+                var selector = "tr#ticket-" + idArray[i];
+
+                if ($(selector).length) {
+                    removedCount++;
+
+                    $(selector).remove();
+                    console.log("The ticket ID: " + idArray[i] + " has been removed from the list.");
+                }
             }
 
-            changeCount(idArray.length);
+            changeCount(removedCount);
         }
     };
 
