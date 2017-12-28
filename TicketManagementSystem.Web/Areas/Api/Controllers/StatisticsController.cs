@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 using TicketManagementSystem.Business.Interfaces;
 
 namespace TicketManagementSystem.Web.Areas.Api.Controllers
@@ -8,96 +6,32 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
     [RoutePrefix("api/Statistics")]
     public class StatisticsController : BaseApiController
     {
-        private readonly IColorService _colorService;
-        private readonly ISerialService _serialService;
-        private readonly ITicketService _ticketService;
         private readonly ISummaryService _summaryService;
+        private readonly IStatisticsService _statisticsService;
 
-        public StatisticsController(IColorService colorServ,
-                                    ISerialService serialServ,
-                                    ITicketService ticketServ,
-                                    ISummaryService summaryServ)
+        public StatisticsController(IStatisticsService statisticsService, ISummaryService summaryService)
         {
-            _colorService = colorServ;
-            _serialService = serialServ;
-            _ticketService = ticketServ;
-            _summaryService = summaryServ;
+            _statisticsService = statisticsService;
+            _summaryService = summaryService;
         }
 
         [HttpGet]
-        public IHttpActionResult Tickets()
-        {
-            var happy = _ticketService.CountHappyTickets();
-
-            return Ok(new ArrayList
-            {
-                new { Type = "Звичайні", Count = _ticketService.TotalCount - happy },
-                new { Type = "Щасливі", Count = happy }
-            });
-        }
+        public IHttpActionResult Tickets() => Ok(_statisticsService.TicketsTypes());
 
         [HttpGet]
-        public IHttpActionResult ByFirstNumber()
-        {
-            return Ok(_ticketService.GetTickets()
-                .GroupBy(t => t.FirstNumber)
-                .OrderBy(g => g.Key)
-                .Select(g => new
-                {
-                    Number = g.Key.ToString(),
-                    Count = g.Count()
-                }));
-        }
+        public IHttpActionResult ByFirstNumber() => Ok(_statisticsService.TicketsByFirstNumber());
 
         [HttpGet]
-        public IHttpActionResult HappyByFirstNumber()
-        {
-            return Ok(_ticketService.GetHappyTickets()
-                .GroupBy(t => t.FirstNumber)
-                .OrderBy(g => g.Key)
-                .Select(g => new
-                {
-                    Number = g.Key.ToString(),
-                    Count = g.Count()
-                }));
-        }
+        public IHttpActionResult HappyByFirstNumber() => Ok(_statisticsService.HappyTicketsByFirstNumber());
 
         [HttpGet]
-        public IHttpActionResult BySerial()
-        {
-            return Ok(_serialService.GetSeries()
-                .OrderByDescending(s => s.TicketsCount)
-                .Select(s => new
-                {
-                    Serial = s.Name,
-                    Tickets = s.TicketsCount
-                }));
-        }
+        public IHttpActionResult BySerial() => Ok(_statisticsService.TicketsBySerial());
 
         [HttpGet]
-        public IHttpActionResult ByColor()
-        {
-            return Ok(_colorService.GetColors()
-                .OrderByDescending(c => c.TicketsCount)
-                .Select(c => new
-                {
-                    Color = c.Name,
-                    Tickets = c.TicketsCount
-                }));
-        }
+        public IHttpActionResult ByColor() => Ok(_statisticsService.TicketsByColor());
 
         [HttpGet]
-        public IHttpActionResult HappyBySerial()
-        {
-            return Ok(_ticketService.GetHappyTickets()
-                .GroupBy(t => t.SerialName)
-                .OrderByDescending(g => g.Count())
-                .Select(g => new
-                {
-                    Serial = g.Key,
-                    Tickets = g.Count()
-                }));
-        }
+        public IHttpActionResult HappyBySerial() => Ok(_statisticsService.HappyTicketsBySerial());
 
         [HttpGet]
         public IHttpActionResult Summaries()

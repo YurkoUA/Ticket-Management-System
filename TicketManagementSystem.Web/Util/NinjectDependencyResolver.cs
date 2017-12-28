@@ -41,6 +41,7 @@ namespace TicketManagementSystem.Web.Util
             _kernel.Bind<ILoginService>().To<LoginService>();
             _kernel.Bind<IRoleService>().To<RoleService>();
 
+            _kernel.Bind<IStatisticsService>().To<StatisticsService>();
             _kernel.Bind<ISummaryService>().To<SummaryService>();
             _kernel.Bind<IReportService>().To<ReportService>();
             _kernel.Bind<ITodoService>().To<TodoService>();

@@ -5,12 +5,12 @@
 
 function startLoad() {
     var charts = [
-        new Chart("by-serial-chart", "BySerial", "Serial", "Tickets", "Квитки за серіями", "Серія", "Квитків"),
-        new Chart("by-color-chart", "ByColor", "Color", "Tickets", "Квитки за кольорами", "Колір", "Квитків"),
-        new Chart("tickets-chart", "Tickets", "Type", "Count", "Звичайні/щасливі квитки", "Тип", "Квитків"),
-        new Chart("by-number-chart", "ByFirstNumber", "Number", "Count", "Квитки за першою цифрою", "Цифра", "Квитків"),
-        new Chart("happy-by-serial-chart", "HappyBySerial", "Serial", "Tickets", "Щасливі квитки за серіями", "Серія", "Квитків"),
-        new Chart("happy-by-number-chart", "HappyByFirstNumber", "Number", "Count", "Щасливі квитки за першою цифрою", "Цифра", "Квитків"),
+        new Chart("by-serial-chart", "BySerial", "Name", "Count", "Квитки за серіями", "Серія", "Квитків"),
+        new Chart("by-color-chart", "ByColor", "Name", "Count", "Квитки за кольорами", "Колір", "Квитків"),
+        new Chart("tickets-chart", "Tickets", "Name", "Count", "Звичайні/щасливі квитки", "Тип", "Квитків"),
+        new Chart("by-number-chart", "ByFirstNumber", "Name", "Count", "Квитки за першою цифрою", "Цифра", "Квитків"),
+        new Chart("happy-by-serial-chart", "HappyBySerial", "Name", "Count", "Щасливі квитки за серіями", "Серія", "Квитків"),
+        new Chart("happy-by-number-chart", "HappyByFirstNumber", "Name", "Count", "Щасливі квитки за першою цифрою", "Цифра", "Квитків"),
     ];
 
     for (var i in charts) {

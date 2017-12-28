@@ -105,6 +105,7 @@
     <Compile Include="DTO\Serial\SerialCreateDTO.cs" />
     <Compile Include="DTO\Serial\SerialDTO.cs" />
     <Compile Include="DTO\Serial\SerialEditDTO.cs" />
+    <Compile Include="DTO\Summary\ChartDTO.cs" />
     <Compile Include="DTO\Summary\SummaryDTO.cs" />
     <Compile Include="DTO\Summary\SummaryPeriodDTO.cs" />
     <Compile Include="DTO\Ticket\TicketCreateDTO.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Interfaces\IPackageService.cs" />
     <Compile Include="Interfaces\IPackageValidationService.cs" />
     <Compile Include="Interfaces\ISerialValidationService.cs" />
+    <Compile Include="Interfaces\IStatisticsService.cs" />
     <Compile Include="Interfaces\ITicketService2.cs" />
     <Compile Include="Interfaces\ITicketValidationService.cs" />
     <Compile Include="Interfaces\ITodoValidationService.cs" />
@@ -149,6 +151,7 @@
     <Compile Include="Services\PackageService.cs" />
     <Compile Include="Services\ReportService.cs" />
     <Compile Include="Services\SerialService.cs" />
+    <Compile Include="Services\StatisticsService.cs" />
     <Compile Include="Services\SummaryService.cs" />
     <Compile Include="Services\TicketService.cs" />
     <Compile Include="Services\TicketService2.cs" />
