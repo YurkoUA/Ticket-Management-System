@@ -10,6 +10,14 @@
 
 @if (Model.Any())
 {
+    <p>
+        <button id="show-summary-button" type="button" class="btn btn-default"
+                data-toggle="popover" data-container="body" data-placement="bottom" data-html="true"
+                data-summary-url="/api/Ticket/SummaryByUnallocated">
+            Підсумок
+        </button>
+    </p>
+
     <div class="panel panel-danger">
         <div class="panel-heading">Нерозподілені квитки: <span id="unallocated-count">@Model.Count()</span> шт.</div>
 
@@ -58,6 +66,7 @@ else
 
 @section scripts {
     @Scripts.Render("~/Scripts/jquery.signalR-2.2.2.min.js",
-                    "~/signalr/hubs",
-                    "~/Scripts/signalr-ticket-unallocated.js")
+                        "~/signalr/hubs",
+                        "~/Scripts/signalr-ticket-unallocated.js",
+                        "~/Scripts/ticket-summary.js")
 }

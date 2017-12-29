@@ -106,6 +106,12 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         }
 
         [HttpGet, AllowAnonymous]
+        public IHttpActionResult SummaryByUnallocated()
+        {
+            return OkOrNoContent(_ticketService2.GetSummaryByUnallocated());
+        }
+
+        [HttpGet, AllowAnonymous]
         public IHttpActionResult Filter([FromUri]TicketFilterModel filter)
         {
             if (filter == null || filter?.IsNull() == true)

@@ -400,7 +400,7 @@
     <Content Include="Scripts\statistics.js" />
     <Content Include="Scripts\ticket-create-many.js" />
     <Content Include="Scripts\ticket-create.js" />
-    <Content Include="Scripts\ticket-latest.js" />
+    <Content Include="Scripts\ticket-summary.js" />
     <Content Include="Scripts\ticket-search-modal.js" />
     <Content Include="Scripts\ticket.js" />
     <Content Include="Scripts\tickets-by-number-modal.js" />

@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.DTO.Report;
+using TicketManagementSystem.Business.Extensions;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Data.EF.Interfaces;
 
@@ -47,13 +48,30 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<TicketGroupDTO> GetSummaryByLatest()
         {
-            var tickets = GetLatestTickets();
+            if (_reportService.IsEmpty)
+                return null;
 
-            return tickets.GroupBy(t => $"{t.SerialName}-{t.ColorName} ({t.FirstNumber})").Select(g => new TicketGroupDTO
+            var date = _reportService.GetLastReport().Date;
+
+            var tickets = Database.Tickets.GetAllIncluding(t => t.AddDate > date, t => t.Color, t => t.Serial).AsEnumerable();
+
+            return tickets.GroupBy(t => $"{t.Serial.Name}-{t.Color.Name} ({t.Number.First()})").Select(g => new TicketGroupDTO
             {
                 Name = g.Key,
                 Count = g.Count(),
-                HappyCount = g.Count(t => t.IsHappy)
+                HappyCount = g.Count(t => t.Number.IsHappy())
+            }).OrderByDescending(t => t.Count);
+        }
+
+        public IEnumerable<TicketGroupDTO> GetSummaryByUnallocated()
+        {
+            var tickets = Database.Tickets.GetAllIncluding(t => t.PackageId == null, t => t.Color, t => t.Serial).AsEnumerable();
+
+            return tickets.GroupBy(t => $"{t.Serial.Name}-{t.Color.Name} ({t.Number.First()})").Select(g => new TicketGroupDTO
+            {
+                Name = g.Key,
+                Count = g.Count(),
+                HappyCount = g.Count(t => t.Number.IsHappy())
             }).OrderByDescending(t => t.Count);
         }
     }

@@ -1,10 +1,11 @@
 ﻿$(document).ready(getSummary);
 
 function getSummary() {
-    $("#show-summary-button").popover({});
+    var showButton = $("#show-summary-button");
+    showButton.popover({});
 
     $.ajax({
-        url: "/api/Ticket/SummaryByLatest",
+        url: showButton.attr("data-summary-url"),
         success: function (data, textStatus) {
             if (textStatus === 204) {
                 $("#show-summary-button").attr("data-content", "Дані відсутні!");
