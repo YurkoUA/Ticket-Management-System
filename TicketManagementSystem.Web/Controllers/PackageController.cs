@@ -351,7 +351,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (package.IsOpened) return HttpBadRequest();
 
             _packageService.OpenPackage(id);
-            return RedirectToAction("Details", new { id = id, partial = true });
+            return HttpSuccess();
         }
 
         [HttpPost]
@@ -363,7 +363,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (!package.IsOpened) return HttpBadRequest();
 
             _packageService.ClosePackage(id);
-            return RedirectToAction("Details", new { id = id, partial = true });
+            return HttpSuccess();
         }
 
         [HttpGet]

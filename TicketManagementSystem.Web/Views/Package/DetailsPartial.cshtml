@@ -30,7 +30,9 @@
 
         @if (isAdmin)
         {
-            @Html.Partial("StatusActionsPartial", Model)
+            {
+                Html.RenderPartial("StatusActionsPartial", Model);
+            }
         }
         else
         {

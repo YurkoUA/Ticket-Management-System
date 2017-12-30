@@ -11,6 +11,7 @@ namespace TicketManagementSystem.Web.Controllers
         protected IMapper MapperInstance => AutoMapperConfig.CreateMapper();
 
         protected HttpStatusCodeResult HttpBadRequest() => new HttpStatusCodeResult(400);
+        protected HttpStatusCodeResult HttpSuccess() => new HttpStatusCodeResult(200);
 
         protected ActionResult ErrorPartial(ModelStateDictionary modelState)
         {

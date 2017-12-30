@@ -12,8 +12,8 @@
         @Ajax.ActionLink(linkText, action, routeValues, new AjaxOptions
         {
             Confirm = confirmMessage,
-            UpdateTargetId = "package-grid",
-            HttpMethod = "POST"
+            HttpMethod = "POST",
+            OnSuccess = "OnPackageOpenedSuccess"
         });
     }
 </dd>

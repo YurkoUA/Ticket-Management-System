@@ -22,3 +22,7 @@ function checkAll() {
 function onToolbarSelectionChanged() {
     $('#package-result').html('');
 }
+
+function OnPackageOpenedSuccess(data) {
+    location.reload();
+}
