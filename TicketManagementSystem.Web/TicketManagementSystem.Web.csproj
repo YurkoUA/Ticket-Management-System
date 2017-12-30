@@ -276,7 +276,7 @@
     <Compile Include="ViewModels\Ticket\TicketIndexModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketMoveModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketUnallocatedMoveModel.cs" />
-    <Compile Include="Views\PartialModel.cs" />
+    <Compile Include="Views\PartialViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Todo\app\css\ie10-viewport-bug-workaround.css" />

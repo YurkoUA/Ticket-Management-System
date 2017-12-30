@@ -73,28 +73,22 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public ActionResult Details(int id, bool partial = false)
+        public ActionResult Details(int id)
         {
             var package = _packageService.GetPackage(id);
 
             if (package == null)
                 return HttpNotFound();
 
-            if (Request.IsAjaxRequest() || partial)
+            var packageVM = MapperInstance.Map<PackageDetailsModel>(package);
+            packageVM.UnallocatedTicketsCount = _ticketService.CountUnallocatedByPackage(id);
+
+            if (Request.IsAjaxRequest())
             {
-                var viewModel = MapperInstance.Map<PackageDetailsModel>(package);
-                viewModel.UnallocatedTicketsCount = _ticketService.CountUnallocatedByPackage(id);
-                return PartialView("DetailsPartial", viewModel);
+                return PartialView("DetailsPartial", packageVM);
             }
 
-            var partialModel = new PartialModel<int>
-            {
-                Action = "Details",
-                Controller = "Package",
-                Param = id
-            };
-
-            ViewBag.Title = $"Пачка \"{package}\"";
+            var partialModel = new PartialViewModel(id, packageVM, "DetailsPartial", $"Пачка \"{package}\"");
             return View("Package", partialModel);
         }
 
@@ -223,67 +217,53 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int id, bool partial = false)
+        public ActionResult Edit(int id)
         {
             if (_packageService.GetPackage(id)?.IsSpecial == true)
-                return RedirectToAction("EditSpecial", new { id = id });
+                return RedirectToAction("EditSpecial", new { id });
 
             var editDTO = _packageService.GetPackageEdit(id);
 
             if (editDTO == null)
                 return HttpNotFound();
 
-            if (Request.IsAjaxRequest() || partial)
-            {
-                var viewModel = MapperInstance.Map<PackageEditDefaultModel>(editDTO);
-                viewModel.Colors = GetColorsSelectList();
-                viewModel.Series = GetSeriesSelectList();
+            var packageVM = MapperInstance.Map<PackageEditDefaultModel>(editDTO);
+            packageVM.Colors = GetColorsSelectList();
+            packageVM.Series = GetSeriesSelectList();
 
-                return PartialView("EditPartial", viewModel);
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("EditPartial", packageVM);
             }
 
-            var partialModel = new PartialModel<int>
-            {
-                Action = "Edit",
-                Controller = "Package",
-                Param = id
-            };
-
-            ViewBag.Title = "Редагувати пачку";
+            var partialModel = new PartialViewModel(id, packageVM, "EditPartial", "Редагувати пачку");
             return View("Package", partialModel);
         }
 
         [HttpGet]
-        public ActionResult EditSpecial(int id, bool partial = false)
+        public ActionResult EditSpecial(int id)
         {
             if (_packageService.GetPackage(id)?.IsSpecial == false)
-                return RedirectToAction("Edit", new { id = id });
+                return RedirectToAction("Edit", new { id });
 
             var editSpecDTO = _packageService.GetSpecialPackageEdit(id);
 
             if (editSpecDTO == null)
                 return HttpNotFound();
 
-            if (Request.IsAjaxRequest() || partial)
+            var packageVM = MapperInstance.Map<PackageEditSpecialModel>(editSpecDTO);
+            packageVM.Colors = GetColorsSelectList();
+            packageVM.Series = GetSeriesSelectList();
+
+            if (packageVM.ColorId == null) packageVM.ColorId = 0;
+            if (packageVM.SerialId == null) packageVM.SerialId = 0;
+
+            if (Request.IsAjaxRequest())
             {
-                var viewModel = MapperInstance.Map<PackageEditSpecialModel>(editSpecDTO);
-                viewModel.Colors = GetColorsSelectList();
-                viewModel.Series = GetSeriesSelectList();
-
-                if (viewModel.ColorId == null) viewModel.ColorId = 0;
-                if (viewModel.SerialId == null) viewModel.SerialId = 0;
-
-                return PartialView("EditSpecialPartial", viewModel);
+                return PartialView("EditSpecialPartial", packageVM);
             }
 
-            var partialModel = new PartialModel<int>
-            {
-                Action = "EditSpecial",
-                Controller = "Package",
-                Param = id
-            };
-
-            ViewBag.Title = $"Редагувати пачку \"{editSpecDTO.Name}\"";
+            var partialModel = new PartialViewModel(id, packageVM, "EditSpecialPartial", $"Редагувати пачку \"{editSpecDTO.Name}\"");
             return View("Package", partialModel);
         }
 
@@ -324,26 +304,21 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(int id, bool partial = false)
+        public ActionResult Delete(int id)
         {
             var package = _packageService.GetPackage(id);
 
             if (package == null)
                 return HttpNotFound();
 
-            if (Request.IsAjaxRequest() || partial)
+            var packageVM = MapperInstance.Map<PackageDetailsModel>(package);
+
+            if (Request.IsAjaxRequest())
             {
-                return PartialView("DeletePartial", MapperInstance.Map<PackageDetailsModel>(package));
+                return PartialView("DeletePartial", packageVM);
             }
 
-            var partialModel = new PartialModel<int>
-            {
-                Action = "Delete",
-                Controller = "Package",
-                Param = id
-            };
-
-            ViewBag.Title = $"Видалити пачку \"{package}\"";
+            var partialModel = new PartialViewModel(id, packageVM, "DeletePartial", $"Видалити пачку \"{package}\"");
             return View("Package", partialModel);
         }
 
@@ -392,27 +367,21 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult MakeSpecial(int id, bool partial = false)
+        public ActionResult MakeSpecial(int id)
         {
             var package = _packageService.GetPackage(id);
 
             if (package == null) return HttpNotFound();
             if (package.IsSpecial) return HttpBadRequest();
 
-            if (Request.IsAjaxRequest() || partial)
+            var packageVM = MapperInstance.Map<PackageMakeSpecialDTO>(package);
+
+            if (Request.IsAjaxRequest())
             {
-                var viewModel = MapperInstance.Map<PackageMakeSpecialDTO>(package);
-                return PartialView("MakeSpecialPartial", viewModel);
+                return PartialView("MakeSpecialPartial", packageVM);
             }
 
-            var partialModel = new PartialModel<int>
-            {
-                Action = "MakeSpecial",
-                Controller = "Package",
-                Param = id
-            };
-
-            ViewBag.Title = "Зробити пачку звичайною";
+            var partialModel = new PartialViewModel(id, packageVM, "MakeSpecialPartial", "Зробити пачку звичайною");
             return View("Package", partialModel);
         }
 
@@ -441,23 +410,16 @@ namespace TicketManagementSystem.Web.Controllers
             if (package == null) return HttpNotFound();
             if (!package.IsSpecial) return HttpBadRequest();
 
+            var packageVM = MapperInstance.Map<PackageMakeDefaultModel>(package);
+            packageVM.Colors = GetColorsSelectList();
+            packageVM.Series = GetSeriesSelectList();
+
             if (Request.IsAjaxRequest() || partial)
             {
-                var viewModel = MapperInstance.Map<PackageMakeDefaultModel>(package);
-                viewModel.Colors = GetColorsSelectList();
-                viewModel.Series = GetSeriesSelectList();
-
-                return PartialView("MakeDefaultPartial", viewModel);
+                return PartialView("MakeDefaultPartial", packageVM);
             }
 
-            var partialModel = new PartialModel<int>
-            {
-                Action = "MakeDefault",
-                Controller = "Package",
-                Param = id
-            };
-
-            ViewBag.Title = "Зробити пачку звичайною";
+            var partialModel = new PartialViewModel(id, packageVM, "MakeDefaultPartial", "Зробити пачку звичайною");
             return View("Package", partialModel);
         }
 

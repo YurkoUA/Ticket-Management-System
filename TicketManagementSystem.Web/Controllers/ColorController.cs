@@ -34,27 +34,21 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10)]
-        public ActionResult Details(int id, bool partial = false)
+        public ActionResult Details(int id)
         {
             var color = _colorService.GetColor(id);
 
             if (color == null)
                 return HttpNotFound();
 
-            if (Request.IsAjaxRequest() || partial)
-            {
-                var viewModel = MapperInstance.Map<ColorDetailsModel>(color);
-                return PartialView("DetailsPartial", viewModel);
-            }
-            
-            ViewBag.Title = $"Колір \"{color.Name}\"";
+            var colorVM = MapperInstance.Map<ColorDetailsModel>(color);
 
-            var partialModel = new PartialModel<int>
+            if (Request.IsAjaxRequest())
             {
-                Action = "Details",
-                Controller = "Color",
-                Param = id
-            };
+                return PartialView("DetailsPartial", colorVM);
+            }
+
+            var partialModel = new PartialViewModel(id, colorVM, "DetailsPartial", $"Колір \"{color.Name}\"");
             return View("Color", partialModel);
         }
 
@@ -98,27 +92,21 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int id, bool partial = false)
+        public ActionResult Edit(int id)
         {
             var color = _colorService.GetColorEdit(id);
 
             if (color == null)
                 return HttpNotFound();
 
-            if (Request.IsAjaxRequest() || partial)
+            var colorVM = MapperInstance.Map<ColorEditModel>(color);
+
+            if (Request.IsAjaxRequest())
             {
-                var viewModel = MapperInstance.Map<ColorEditModel>(color);
-                return PartialView("EditPartial", viewModel);
+                return PartialView("EditPartial", colorVM);
             }
             
-            ViewBag.Title = $"Редагування кольору \"{color.Name}\"";
-
-            var partialModel = new PartialModel<int>
-            {
-                Action = "Edit",
-                Controller = "Color",
-                Param = id
-            };
+            var partialModel = new PartialViewModel(id, colorVM, "EditPartial", $"Редагування кольору \"{color.Name}\"");
             return View("Color", partialModel);
         }
 
@@ -143,27 +131,21 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(int? id, bool partial = false)
+        public ActionResult Delete(int? id)
         {
             var color = _colorService.GetColor((int)id);
 
             if (color == null)
                 return HttpNotFound();
 
-            if (Request.IsAjaxRequest() || partial)
+            var colorVM = MapperInstance.Map<ColorDetailsModel>(color);
+
+            if (Request.IsAjaxRequest())
             {
-                var viewModel = MapperInstance.Map<ColorDetailsModel>(color);
-                return PartialView("DeletePartial", viewModel);
+                return PartialView("DeletePartial", colorVM);
             }
             
-            ViewBag.Title = $"Видалення кольору \"{color.Name}\"";
-
-            var partialModel = new PartialModel<int>
-            {
-                Action = "Delete",
-                Controller = "Color",
-                Param = (int)id
-            };
+            var partialModel = new PartialViewModel((int)id, colorVM, "DeletePartial", $"Видалення кольору \"{color.Name}\"");
             return View("Color", partialModel);
         }
 

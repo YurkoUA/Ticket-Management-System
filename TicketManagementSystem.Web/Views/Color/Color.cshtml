@@ -1,17 +1,23 @@
-﻿@model PartialModel<int>
+﻿@model PartialViewModel
 
 @{
+    ViewBag.Title = Model.Title;
     bool isAdmin = User.IsInRole("Admin");
 }
 
 <div id="color-grid">
-    @Html.Action(Model.Action, Model.Controller, new { id = Model.Param, partial = true })
+    @{ 
+        Html.RenderPartial(Model.PartialViewName, Model.ModelObject);
+    }
 </div>
 
 @if (isAdmin)
 {
     <div id="color-result"></div>
-    @Html.Partial("ToolbarPartial", Model.Param)
+    
+    { 
+        Html.RenderPartial("ToolbarPartial", Model.ModelId);
+    }
 }
 <br />
 

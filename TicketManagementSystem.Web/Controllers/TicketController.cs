@@ -127,32 +127,24 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public ActionResult Details(int id, bool partial = false)
+        public ActionResult Details(int id)
         {
             var ticket = _ticketService.GetById(id);
 
             if (ticket == null) return HttpNotFound();
 
-            if (Request.IsAjaxRequest() || partial)
+            var ticketVM = MapperInstance.Map<TicketDetailsModel>(ticket);
+            var ticketsByNumber = _ticketService.CountByNumber(ticket.Number);
+
+            if (ticketsByNumber > 1)
+                ticketVM.Clones = ticketsByNumber - 1;
+
+            if (Request.IsAjaxRequest())
             {
-                var viewModel = MapperInstance.Map<TicketDetailsModel>(ticket);
-
-                var ticketsByNumber = _ticketService.CountByNumber(ticket.Number);
-
-                if (ticketsByNumber > 1)
-                    viewModel.Clones = ticketsByNumber - 1;
-
-                return PartialView("DetailsPartial", viewModel);
+                return PartialView("DetailsPartial", ticketVM);
             }
 
-            var partialModel = new PartialModel<int>
-            {
-                Action = "Details",
-                Controller = "Ticket",
-                Param = id
-            };
-
-            ViewBag.Title = $"Квиток №{ticket.Number}";
+            var partialModel = new PartialViewModel(id, ticketVM, "DetailsPartial", $"Квиток №{ticket.Number}");
             return View("Ticket", partialModel);
         }
 
@@ -295,34 +287,26 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int id, bool partial = false)
+        public ActionResult Edit(int id)
         {
             var ticket = _ticketService.GetEdit(id);
-
-
+            
             if (ticket == null) return HttpNotFound();
 
-            if (Request.IsAjaxRequest() || partial)
+            var ticketVM = MapperInstance.Map<TicketEditModel>(ticket);
+
+            if (ticketVM.CanSelectColor)
+                ticketVM.Colors = GetColorsList();
+
+            if (ticketVM.CanSelectSerial)
+                ticketVM.Series = GetSeriesList();
+
+            if (Request.IsAjaxRequest())
             {
-                var viewModel = MapperInstance.Map<TicketEditModel>(ticket);
-
-                if (viewModel.CanSelectColor)
-                    viewModel.Colors = GetColorsList();
-
-                if (viewModel.CanSelectSerial)
-                    viewModel.Series = GetSeriesList();
-
-                return PartialView("EditPartial", viewModel);
+                return PartialView("EditPartial", ticketVM);
             }
 
-            var partialModel = new PartialModel<int>
-            {
-                Action = "Edit",
-                Controller = "Ticket",
-                Param = id
-            };
-
-            ViewBag.Title = "Редагувати квиток";
+            var partialModel = new PartialViewModel(id, ticketVM, "EditPartial", "Редагувати квиток");
             return View("Ticket", partialModel);
         }
 
@@ -346,25 +330,20 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(int? id, bool partial = false)
+        public ActionResult Delete(int? id)
         {
             var ticket = _ticketService.GetById((int)id);
 
             if (ticket == null) return HttpNotFound();
 
-            if (Request.IsAjaxRequest() || partial)
+            var ticketVM = MapperInstance.Map<TicketDetailsModel>(ticket);
+
+            if (Request.IsAjaxRequest())
             {
-                return PartialView("DeletePartial", MapperInstance.Map<TicketDetailsModel>(ticket));
+                return PartialView("DeletePartial", ticketVM);
             }
 
-            var partialModel = new PartialModel<int>
-            {
-                Action = "Delete",
-                Controller = "Ticket",
-                Param = (int)id
-            };
-
-            ViewBag.Title = $"Видалити квиток №{ticket.Number}";
+            var partialModel = new PartialViewModel((int)id, ticketVM, "DeletePartial", $"Видалити квиток №{ticket.Number}");
             return View("Ticket", partialModel);
         }
 
@@ -390,28 +369,21 @@ namespace TicketManagementSystem.Web.Controllers
         #region Move, ChangeNumber
 
         [HttpGet]
-        public ActionResult Move(int id, bool partial = false)
+        public ActionResult Move(int id)
         {
             var ticket = _ticketService.GetById(id);
 
             if (ticket == null) return HttpNotFound();
 
-            if (Request.IsAjaxRequest() || partial)
-            {
-                var viewModel = MapperInstance.Map<TicketMoveModel>(ticket);
-                viewModel.Packages = GetPackagesList(ticket.ColorId, ticket.SerialId, int.Parse(ticket.Number.First().ToString()));
+            var ticketVM = MapperInstance.Map<TicketMoveModel>(ticket);
+            ticketVM.Packages = GetPackagesList(ticket.ColorId, ticket.SerialId, int.Parse(ticket.Number.First().ToString()));
 
-                return PartialView("MovePartial", viewModel);
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("MovePartial", ticketVM);
             }
 
-            var partialModel = new PartialModel<int>
-            {
-                Action = "Move",
-                Controller = "Ticket",
-                Param = id
-            };
-
-            ViewBag.Title = $"Перемістити квиток №{ticket.Number}";
+            var partialModel = new PartialViewModel(id, ticketVM, "MovePartial", $"Перемістити квиток №{ticket.Number}");
             return View("Ticket", partialModel);
         }
 
@@ -437,26 +409,20 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult ChangeNumber(int id, bool partial = false)
+        public ActionResult ChangeNumber(int id)
         {
             var ticket = _ticketService.GetById(id);
 
             if (ticket == null) return HttpNotFound();
 
-            if (Request.IsAjaxRequest() || partial)
+            var ticketVM = MapperInstance.Map<TicketChangeNumberModel>(ticket);
+
+            if (Request.IsAjaxRequest())
             {
-                var viewModel = MapperInstance.Map<TicketChangeNumberModel>(ticket);
-                return PartialView("ChangeNumberPartial", viewModel);
+                return PartialView("ChangeNumberPartial", ticketVM);
             }
 
-            var partialModel = new PartialModel<int>
-            {
-                Action = "ChangeNumber",
-                Controller = "Ticket",
-                Param = id
-            };
-
-            ViewBag.Title = "Змінити номер квитка";
+            var partialModel = new PartialViewModel(id, ticketVM, "ChangeNumberPartial", "Змінити номер квитка");
             return View("Ticket", partialModel);
         }
 

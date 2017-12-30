@@ -34,27 +34,21 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public ActionResult Details(int id, bool partial = false)
+        public ActionResult Details(int id)
         {
             var serial = _serialService.GetSerial(id);
 
             if (serial == null)
                 return HttpNotFound();
 
-            if (Request.IsAjaxRequest() || partial)
+            var serialVM = MapperInstance.Map<SerialDetailsModel>(serial);
+
+            if (Request.IsAjaxRequest())
             {
-                var viewModel = MapperInstance.Map<SerialDetailsModel>(serial);
-                return PartialView("DetailsPartial", viewModel);
+                return PartialView("DetailsPartial", serialVM);
             }
 
-            var partialModel = new PartialModel<int>
-            {
-                Action = "Details",
-                Controller = "Serial",
-                Param = id
-            };
-
-            ViewBag.Title = $"Серія \"{serial.Name}\"";
+            var partialModel = new PartialViewModel(id, serialVM, "DetailsPartial", $"Серія \"{serial.Name}\"");
             return View("Serial", partialModel);
         }
 
@@ -91,27 +85,21 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int id, bool partial = false)
+        public ActionResult Edit(int id)
         {
             var serial = _serialService.GetSerialEdit(id);
 
             if (serial == null)
                 return HttpNotFound();
 
-            if (Request.IsAjaxRequest() || partial)
+            var serialVM = MapperInstance.Map<SerialEditModel>(serial);
+
+            if (Request.IsAjaxRequest())
             {
-                var viewModel = MapperInstance.Map<SerialEditModel>(serial);
-                return PartialView("EditPartial", viewModel);
+                return PartialView("EditPartial", serialVM);
             }
 
-            var partialModel = new PartialModel<int>
-            {
-                Action = "Edit",
-                Controller = "Serial",
-                Param = id
-            };
-            ViewBag.Title = $"Редагування серії \"{serial.Name}\"";
-
+            var partialModel = new PartialViewModel(id, serialVM, "EditPartial", $"Редагування серії \"{serial.Name}\"");
             return View("Serial", partialModel);
         }
 
@@ -136,27 +124,21 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(int? id, bool partial = false)
+        public ActionResult Delete(int? id)
         {
             var serial = _serialService.GetSerial((int)id);
 
             if (serial == null)
                 return HttpNotFound();
 
-            if (Request.IsAjaxRequest() || partial)
+            var serialVM = MapperInstance.Map<SerialDetailsModel>(serial);
+
+            if (Request.IsAjaxRequest())
             {
-                var viewModel = MapperInstance.Map<SerialDetailsModel>(serial);
-                return PartialView("DeletePartial", viewModel);
+                return PartialView("DeletePartial", serialVM);
             }
 
-            var partialModel = new PartialModel<int>
-            {
-                Action = "Delete",
-                Controller = "Serial",
-                Param = (int)id
-            };
-
-            ViewBag.Title = $"Видалення серії \"{serial.Name}\"";
+            var partialModel = new PartialViewModel((int)id, serialVM, "DeletePartial", $"Видалення серії \"{serial.Name}\"");
             return View("Serial", partialModel);
         }
 
