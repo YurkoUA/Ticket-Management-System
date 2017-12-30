@@ -18,8 +18,10 @@ namespace TicketManagementSystem.Web.Controllers
         [OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
         public ActionResult Index()
         {
-            ViewBag.TotalCount = _ticketService.TotalCount;
-            ViewBag.TotalOfHappy = _ticketService.CountHappyTickets();
+            var ticketsCount = _ticketService.GetCount();
+
+            ViewBag.TotalCount = ticketsCount.Total;
+            ViewBag.TotalOfHappy = ticketsCount.Happy;
             ViewBag.TotalPackages = _packageService.TotalCount;
             return View();
         }

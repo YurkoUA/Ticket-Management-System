@@ -39,15 +39,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult GetCount()
-        {
-            return Ok(new
-            {
-                Total = _ticketService.TotalCount,
-                Happy = _ticketService.CountHappyTickets(),
-                Unallocated = _ticketService.CountUnallocatedTickets()
-            });
-        }
+        public IHttpActionResult GetCount() => Ok(_ticketService.GetCount());
 
         [HttpGet, AllowAnonymous]
         public IHttpActionResult GetAll(int skip = 0, int take = 30)

@@ -24,8 +24,6 @@ namespace TicketManagementSystem.Business.DTO
         [StringLength(128, ErrorMessage = "Довжина не може перевищувати 128 символів.")]
         public string Note { get; set; }
 
-        public int TicketsCount { get; set; }
-
         public static Expression<Func<Package, PackageSpecialEditDTO>> CreateFromPackage = p => new PackageSpecialEditDTO
         {
             RowVersion = p.RowVersion,
@@ -34,8 +32,7 @@ namespace TicketManagementSystem.Business.DTO
             ColorId = p.ColorId,
             SerialId = p.SerialId,
             Nominal = p.Nominal,
-            Note = p.Note,
-            TicketsCount = p.Tickets.Count
+            Note = p.Note
         };
     }
 }

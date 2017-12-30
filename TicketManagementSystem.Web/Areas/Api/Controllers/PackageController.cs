@@ -25,15 +25,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult GetCount()
-        {
-            return Ok(new
-            {
-                Total = _packageService.TotalCount,
-                Opened = _packageService.OpenedCount(),
-                Special = _packageService.SpecialCount()
-            });
-        }
+        public IHttpActionResult GetCount() => Ok(_packageService.GetCount());
 
         [HttpGet, AllowAnonymous]
         public IHttpActionResult GetAll(int skip = 0, int take = 30, PackagesFilter filter = PackagesFilter.All)

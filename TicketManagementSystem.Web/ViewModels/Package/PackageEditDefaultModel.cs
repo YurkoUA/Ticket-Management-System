@@ -35,7 +35,7 @@ namespace TicketManagementSystem.Web
         public string Note { get; set; }
 
         [HiddenInput(DisplayValue = false)]
-        public int TicketsCount { get; set; }
+        public bool IsEmpty { get; set; }
 
         [HiddenInput(DisplayValue = false)]
         public SelectList Colors { get; set; }

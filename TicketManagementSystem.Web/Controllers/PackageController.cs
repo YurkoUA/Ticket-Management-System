@@ -43,7 +43,7 @@ namespace TicketManagementSystem.Web.Controllers
             _ticketValidationService = ticketValidationService;
         }
 
-        [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 20, Location = OutputCacheLocation.Client)]
         public ActionResult Index(int page = 1, PackagesFilter tab = PackagesFilter.All)
         {
             if (page < 1)
@@ -51,19 +51,18 @@ namespace TicketManagementSystem.Web.Controllers
 
             var itemsOnPage = _appSettingsService.ItemsOnPage;
 
-            var packagesDtos = _packageService.GetPackages(tab);
-
-            var pageInfo = new PageInfo(page, packagesDtos.Count(), itemsOnPage);
-            var packages = packagesDtos.Skip((page - 1) * itemsOnPage).Take(itemsOnPage);
+            var packages = _packageService.GetPackages((page - 1) * itemsOnPage, itemsOnPage, tab);
+            var count = _packageService.GetCount();
+            var pageInfo = new PageInfo(page, count.Where(tab), itemsOnPage);
 
             var viewModel = new PackageIndexModel
             {
                 Packages = MapperInstance.Map<IEnumerable<PackageDetailsModel>>(packages),
                 PageInfo = pageInfo,
                 Filter = tab,
-                TotalPackages = _packageService.TotalCount,
-                OpenedPackages = _packageService.OpenedCount(),
-                SpecialPackages = _packageService.SpecialCount()
+                TotalPackages = count.Total,
+                OpenedPackages = count.Opened,
+                SpecialPackages = count.Special
             };
 
             if (Request.IsAjaxRequest())
@@ -456,7 +455,7 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult MoveUnallocatedTickets(int id, TicketUnallocatedMoveModel[] tickets)
+        public ActionResult MoveUnallocatedTickets(int id, IEnumerable<TicketUnallocatedMoveModel> tickets)
         {
             var ticketsMove = tickets.Where(t => t.Move);
 
@@ -473,7 +472,7 @@ namespace TicketManagementSystem.Web.Controllers
             {
                 _ticketService.MoveFewToPackage(id, toMoveIds);
 
-                TicketsHub.RemoveTicketsIds(tickets.Select(t => t.Id));
+                TicketsHub.RemoveTicketsIds(ticketsMove.Select(t => t.Id));
                 return SuccessPartial($"Квитків переміщено {toMoveIds.Length}.");
             }
             return ErrorPartial(ModelState);

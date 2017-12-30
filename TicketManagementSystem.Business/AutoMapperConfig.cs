@@ -80,10 +80,7 @@ namespace TicketManagementSystem.Business
                     .ForMember(dest => dest.FirstTicketNumber, opt => opt.MapFrom(src => src.Tickets.OrderBy(t => t.Id).FirstOrDefault().Number));
 
                 cfg.CreateMap<Package, PackageEditDTO>()
-                    .ForMember(dest => dest.TicketsCount, opt => opt.MapFrom(src => src.Tickets.Count));
-
-                cfg.CreateMap<Package, PackageSpecialEditDTO>()
-                    .ForMember(dest => dest.TicketsCount, opt => opt.MapFrom(src => src.Tickets.Count));
+                    .ForMember(dest => dest.IsEmpty, opt => opt.MapFrom(src => !src.Tickets.Any()));
 
                 cfg.CreateMap<PackageCreateDTO, Package>();
                 cfg.CreateMap<PackageSpecialCreateDTO, Package>();

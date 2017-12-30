@@ -30,6 +30,21 @@ namespace TicketManagementSystem.Business.Services
 
         public int TotalCount => Database.Tickets.GetCount();
 
+        public TicketCountDTO GetCount()
+        {
+            var tickets = Database.Tickets.GetAll()
+                .Select(t => new { t.Number, t.PackageId })
+                .AsNoTracking()
+                .ToList();
+
+            return new TicketCountDTO
+            {
+                Total = tickets.Count(),
+                Happy = tickets.Count(t => t.Number.IsHappy()),
+                Unallocated = tickets.Count(t => t.PackageId == null)
+            };
+        }
+
         #region Get
 
         public IEnumerable<TicketDTO> GetTickets()
@@ -134,9 +149,18 @@ namespace TicketManagementSystem.Business.Services
             return MapperInstance.Map<IEnumerable<TicketDTO>>(clones);
         }
 
-        public TicketDTO GetById(int id)
+        public TicketDTO GetById(int id, bool include = true)
         {
-            var ticket = Database.Tickets.GetByIdIncluding(id, t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets, t => t.Package.Color, t => t.Package.Serial);
+            Ticket ticket;
+
+            if (include)
+            {
+                ticket = Database.Tickets.GetByIdIncluding(id, t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets, t => t.Package.Color, t => t.Package.Serial);
+            }
+            else
+            {
+                ticket = Database.Tickets.GetById(id);
+            }
 
             if (ticket == null)
                 return null;
@@ -212,18 +236,15 @@ namespace TicketManagementSystem.Business.Services
 
         public TicketEditDTO GetEdit(int id)
         {
-            var ticket = Database.Tickets.GetByIdIncluding(id, t => t.Color, t => t.Serial, t => t.Package);
+            var ticket = Database.Tickets.GetByIdIncluding(id, t => t.Package);
 
             if (ticket == null)
                 return null;
 
             var dto = MapperInstance.Map<TicketEditDTO>(ticket);
+            dto.CanSelectColor = ticket.Package?.ColorId == null;
+            dto.CanSelectSerial = ticket.Package?.SerialId == null;
 
-            if (ticket.PackageId != null)
-            {
-                dto.CanSelectColor = ticket.Package.ColorId == null;
-                dto.CanSelectSerial = ticket.Package.SerialId == null;
-            }
             return dto;
         }
 

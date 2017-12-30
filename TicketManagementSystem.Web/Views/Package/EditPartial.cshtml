@@ -18,7 +18,7 @@
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.RowVersion)
 
-        @if (Model.TicketsCount == 0)
+        @if (Model.IsEmpty)
         {
             <div class="form-group">
                 @Html.LabelFor(model => model.ColorId, htmlAttributes: new { @class = "control-label col-md-2" })

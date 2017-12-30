@@ -6,6 +6,7 @@ namespace TicketManagementSystem.Business.Interfaces
     public interface ITicketService
     {
         int TotalCount { get; }
+        TicketCountDTO GetCount();
 
         IEnumerable<TicketDTO> GetTickets();
         IEnumerable<TicketDTO> GetTickets(int skip, int take);
@@ -21,7 +22,8 @@ namespace TicketManagementSystem.Business.Interfaces
 
         IEnumerable<TicketDTO> GetClones();
 
-        TicketDTO GetById(int id);
+        TicketDTO GetById(int id, bool include = true);
+
         TicketDTO GetRandomTicket();
         IEnumerable<TicketDTO> GetByNumber(string number, bool partialMatches = false);
         IEnumerable<TicketDTO> GetByNumber(string number, int id);

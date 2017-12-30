@@ -46,7 +46,7 @@ namespace TicketManagementSystem.Web.Controllers
 
         #region Index, Unallocated, Happy, Details
 
-        [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
+        [HttpGet, AllowAnonymous, OutputCache(Duration = 20, Location = OutputCacheLocation.Client)]
         public ActionResult Index(int page = 1)
         {
             if (page < 1)
@@ -371,7 +371,7 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet]
         public ActionResult Move(int id)
         {
-            var ticket = _ticketService.GetById(id);
+            var ticket = _ticketService.GetById(id, false);
 
             if (ticket == null) return HttpNotFound();
 
@@ -411,7 +411,7 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet]
         public ActionResult ChangeNumber(int id)
         {
-            var ticket = _ticketService.GetById(id);
+            var ticket = _ticketService.GetById(id, false);
 
             if (ticket == null) return HttpNotFound();
 

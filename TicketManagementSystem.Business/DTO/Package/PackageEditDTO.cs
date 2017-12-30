@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Linq.Expressions;
 using TicketManagementSystem.Data.EF.Models;
 
@@ -23,7 +24,7 @@ namespace TicketManagementSystem.Business.DTO
         [StringLength(128, ErrorMessage = "Довжина не може перевищувати 128 символів.")]
         public string Note { get; set; }
 
-        public int TicketsCount { get; set; }
+        public bool IsEmpty { get; set; }
 
         public static Expression<Func<Package, PackageEditDTO>> CreateFromPackage = p => new PackageEditDTO
         {
@@ -34,7 +35,7 @@ namespace TicketManagementSystem.Business.DTO
             FirstNumber = p.FirstNumber,
             Nominal = p.Nominal,
             Note = p.Note,
-            TicketsCount = p.Tickets.Count
+            IsEmpty = !p.Tickets.Any()
         };
     }
 }

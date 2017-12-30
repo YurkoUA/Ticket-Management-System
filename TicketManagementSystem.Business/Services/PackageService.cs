@@ -24,6 +24,21 @@ namespace TicketManagementSystem.Business.Services
 
         public int TotalCount => Database.Packages.GetCount();
 
+        public PackageCountDTO GetCount()
+        {
+            var packages = Database.Packages.GetAll()
+                .Select(p => new { p.IsOpened, p.IsSpecial })
+                .AsNoTracking()
+                .ToList();
+
+            return new PackageCountDTO
+            {
+                Total = packages.Count(),
+                Opened = packages.Count(p => p.IsOpened),
+                Special = packages.Count(p => p.IsSpecial)
+            };
+        }
+
         public IEnumerable<PackageDTO> FindByName(string name)
         {
             var packages = Database.Packages.GetAllIncluding(p => p.Color, p => p.Serial, p => p.Tickets)
@@ -167,14 +182,14 @@ namespace TicketManagementSystem.Business.Services
 
         public PackageEditDTO GetPackageEdit(int id)
         {
-            return Database.Packages.GetAllIncluding(p => p.Id == id, p => p.Color, p => p.Serial)
+            return Database.Packages.GetAll(p => p.Id == id)
                 .Select(PackageEditDTO.CreateFromPackage)
                 .SingleOrDefault();
         }
 
         public PackageSpecialEditDTO GetSpecialPackageEdit(int id)
         {
-            return Database.Packages.GetAllIncluding(p => p.Id == id, p => p.Color, p => p.Serial)
+            return Database.Packages.GetAll(p => p.Id == id)
                 .Select(PackageSpecialEditDTO.CreateFromPackage)
                 .SingleOrDefault();
         }

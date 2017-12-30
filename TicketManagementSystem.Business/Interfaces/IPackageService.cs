@@ -7,6 +7,7 @@ namespace TicketManagementSystem.Business.Interfaces
     public interface IPackageService
     {
         int TotalCount { get; }
+        PackageCountDTO GetCount();
 
         IEnumerable<PackageDTO> FindByName(string name);
 
