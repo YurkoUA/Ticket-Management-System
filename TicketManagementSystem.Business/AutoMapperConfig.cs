@@ -1,13 +1,13 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using TicketManagementSystem.Data.EF.Models;
 using TicketManagementSystem.Business.DTO;
-using System.Linq;
 
 namespace TicketManagementSystem.Business
 {
     public class AutoMapperConfig
     {
-        public static IMapper CreateMapper()
+        private static IMapper CreateMapper()
         {
             var config = new MapperConfiguration(cfg =>
             {
@@ -114,6 +114,16 @@ namespace TicketManagementSystem.Business
             });
 
             return config.CreateMapper();
+        }
+
+        private static IMapper mapper;
+
+        public static IMapper GetInstance()
+        {
+            if (mapper == null)
+                mapper = CreateMapper();
+
+            return mapper;
         }
     }
 }

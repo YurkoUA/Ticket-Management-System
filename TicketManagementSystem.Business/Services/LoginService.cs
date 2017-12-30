@@ -22,7 +22,7 @@ namespace TicketManagementSystem.Business.Services
             var logins = Database.Logins.GetAll(l => l.UserId == userId)
                 .OrderByDescending(l => l.Id);
 
-            return MapperInstance.Map<IEnumerable<LoginDTO>>(logins);
+            return Mapper.Map<IEnumerable<LoginDTO>>(logins);
         }
 
         public IEnumerable<LoginDTO> GetLoginHistory(int userId, int take)
@@ -34,12 +34,12 @@ namespace TicketManagementSystem.Business.Services
                 .OrderByDescending(l => l.Id)
                 .Take(() => take);
 
-            return MapperInstance.Map<IEnumerable<LoginDTO>>(logins);
+            return Mapper.Map<IEnumerable<LoginDTO>>(logins);
         }
 
         public void AddLogin(LoginDTO loginDTO, bool remvoveOldLogins)
         {
-            var login = MapperInstance.Map<Login>(loginDTO);
+            var login = Mapper.Map<Login>(loginDTO);
             Database.Logins.Create(login);
 
             if (remvoveOldLogins)

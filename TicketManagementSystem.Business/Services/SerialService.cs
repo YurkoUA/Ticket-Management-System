@@ -33,10 +33,10 @@ namespace TicketManagementSystem.Business.Services
 
         public SerialDTO Create(SerialCreateDTO serialDTO)
         {
-            var serial = Database.Series.Create(MapperInstance.Map<Serial>(serialDTO));
+            var serial = Database.Series.Create(Mapper.Map<Serial>(serialDTO));
             Database.SaveChanges();
 
-            return MapperInstance.Map<SerialDTO>(serial);
+            return Mapper.Map<SerialDTO>(serial);
         }
 
         public void Edit(SerialEditDTO serialDTO)

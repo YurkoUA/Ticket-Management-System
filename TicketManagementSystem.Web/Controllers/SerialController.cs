@@ -29,7 +29,7 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet, AllowAnonymous, OutputCache(Duration = 30, Location = OutputCacheLocation.Client)]
         public ActionResult Index()
         {
-            var viewModel = MapperInstance.Map<IEnumerable<SerialIndexModel>>(_serialService.GetSeries());
+            var viewModel = Mapper.Map<IEnumerable<SerialIndexModel>>(_serialService.GetSeries());
             return View(viewModel);
         }
 
@@ -41,7 +41,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (serial == null)
                 return HttpNotFound();
 
-            var serialVM = MapperInstance.Map<SerialDetailsModel>(serial);
+            var serialVM = Mapper.Map<SerialDetailsModel>(serial);
 
             if (Request.IsAjaxRequest())
             {
@@ -58,7 +58,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (!_serialService.ExistsById(id)) return HttpNotFound();
 
             var packages = _packageService.GetPackagesBySerial(id);
-            return PartialView("~/Views/Package/PackagesModal.cshtml", MapperInstance.Map<IEnumerable<PackageDetailsModel>>(packages));
+            return PartialView("~/Views/Package/PackagesModal.cshtml", Mapper.Map<IEnumerable<PackageDetailsModel>>(packages));
         }
 
         [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient)]
@@ -69,7 +69,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var createDTO = MapperInstance.Map<SerialCreateDTO>(model);
+                var createDTO = Mapper.Map<SerialCreateDTO>(model);
                 var errors = _serialValidationService.Validate(createDTO);
                 errors.ToModelState(ModelState);
 
@@ -92,7 +92,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (serial == null)
                 return HttpNotFound();
 
-            var serialVM = MapperInstance.Map<SerialEditModel>(serial);
+            var serialVM = Mapper.Map<SerialEditModel>(serial);
 
             if (Request.IsAjaxRequest())
             {
@@ -108,7 +108,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var editDTO = MapperInstance.Map<SerialEditDTO>(model);
+                var editDTO = Mapper.Map<SerialEditDTO>(model);
                 var errors = _serialValidationService.Validate(editDTO);
                 errors.ToModelState(ModelState);
 
@@ -131,7 +131,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (serial == null)
                 return HttpNotFound();
 
-            var serialVM = MapperInstance.Map<SerialDetailsModel>(serial);
+            var serialVM = Mapper.Map<SerialDetailsModel>(serial);
 
             if (Request.IsAjaxRequest())
             {

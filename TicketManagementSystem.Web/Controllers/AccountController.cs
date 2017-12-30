@@ -36,7 +36,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (user == null)
                 return HttpNotFound();
 
-            return View(MapperInstance.Map<AccountIndexModel>(user));
+            return View(Mapper.Map<AccountIndexModel>(user));
         }
 
         [HttpGet, OnlyAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]

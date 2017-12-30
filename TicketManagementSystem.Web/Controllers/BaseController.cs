@@ -8,7 +8,7 @@ namespace TicketManagementSystem.Web.Controllers
     public abstract class BaseController : Controller
     {
         protected IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
-        protected IMapper MapperInstance => AutoMapperConfig.CreateMapper();
+        protected IMapper Mapper => AutoMapperConfig.GetInstance();
 
         protected HttpStatusCodeResult HttpBadRequest() => new HttpStatusCodeResult(400);
         protected HttpStatusCodeResult HttpSuccess() => new HttpStatusCodeResult(200);

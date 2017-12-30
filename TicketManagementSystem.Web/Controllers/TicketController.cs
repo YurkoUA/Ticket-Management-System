@@ -59,7 +59,7 @@ namespace TicketManagementSystem.Web.Controllers
 
             var viewModel = new TicketIndexModel
             {
-                Tickets = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets),
+                Tickets = Mapper.Map<IEnumerable<TicketDetailsModel>>(tickets),
                 PageInfo = pageInfo
             };
 
@@ -73,21 +73,21 @@ namespace TicketManagementSystem.Web.Controllers
         public ActionResult Unallocated()
         {
             var unallocated = _ticketService.GetUnallocatedTickets();
-            return View(MapperInstance.Map<IEnumerable<TicketDetailsModel>>(unallocated));
+            return View(Mapper.Map<IEnumerable<TicketDetailsModel>>(unallocated));
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
         public ActionResult Latest()
         {
             var latestTickets = _ticketService2.GetLatestTickets();
-            return View(MapperInstance.Map<IEnumerable<TicketDetailsModel>>(latestTickets));
+            return View(Mapper.Map<IEnumerable<TicketDetailsModel>>(latestTickets));
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
         public ActionResult Today(int timezoneOffset = 0)
         {
             var todayTickets = _ticketService2.GetTodayTickets(timezoneOffset);
-            return View(MapperInstance.Map<IEnumerable<TicketDetailsModel>>(todayTickets));
+            return View(Mapper.Map<IEnumerable<TicketDetailsModel>>(todayTickets));
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10, Location = OutputCacheLocation.Client)]
@@ -116,7 +116,7 @@ namespace TicketManagementSystem.Web.Controllers
 
             var viewModel = new TicketIndexModel
             {
-                Tickets = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(happyTickets/*.Skip((page - 1) * itemsOnPage).Take(itemsOnPage)*/),
+                Tickets = Mapper.Map<IEnumerable<TicketDetailsModel>>(happyTickets/*.Skip((page - 1) * itemsOnPage).Take(itemsOnPage)*/),
                 PageInfo = pageInfo
             };
 
@@ -133,7 +133,7 @@ namespace TicketManagementSystem.Web.Controllers
 
             if (ticket == null) return HttpNotFound();
 
-            var ticketVM = MapperInstance.Map<TicketDetailsModel>(ticket);
+            var ticketVM = Mapper.Map<TicketDetailsModel>(ticket);
             var ticketsByNumber = _ticketService.CountByNumber(ticket.Number);
 
             if (ticketsByNumber > 1)
@@ -164,7 +164,7 @@ namespace TicketManagementSystem.Web.Controllers
 
                 tickets = _ticketService.Filter(viewModel.FirstNumber, viewModel.ColorId, viewModel.SerialId);
 
-                viewModel.Tickets = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(
+                viewModel.Tickets = Mapper.Map<IEnumerable<TicketDetailsModel>>(
                     tickets.Skip((viewModel.Page - 1) * itemsOnPage).Take(itemsOnPage));
 
                 viewModel.PageInfo = new PageInfo(viewModel.Page, tickets.Count(), itemsOnPage);
@@ -206,7 +206,7 @@ namespace TicketManagementSystem.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                return PartialView("SearchPartial", MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets));
+                return PartialView("SearchPartial", Mapper.Map<IEnumerable<TicketDetailsModel>>(tickets));
             }
             return ErrorPartial(ModelState);
         }
@@ -235,7 +235,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var createDTO = MapperInstance.Map<TicketCreateDTO>(model);
+                var createDTO = Mapper.Map<TicketCreateDTO>(model);
                 var errors = _ticketValidationService.Validate(createDTO);
 
                 errors.ToModelState(ModelState);
@@ -293,7 +293,7 @@ namespace TicketManagementSystem.Web.Controllers
             
             if (ticket == null) return HttpNotFound();
 
-            var ticketVM = MapperInstance.Map<TicketEditModel>(ticket);
+            var ticketVM = Mapper.Map<TicketEditModel>(ticket);
 
             if (ticketVM.CanSelectColor)
                 ticketVM.Colors = GetColorsList();
@@ -315,14 +315,14 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var editDTO = MapperInstance.Map<TicketEditDTO>(model);
+                var editDTO = Mapper.Map<TicketEditDTO>(model);
                 var errors = _ticketValidationService.Validate(editDTO);
 
                 errors.ToModelState(ModelState);
 
                 if (ModelState.IsValid)
                 {
-                    _ticketService.Edit(MapperInstance.Map<TicketEditDTO>(model));
+                    _ticketService.Edit(Mapper.Map<TicketEditDTO>(model));
                     return SuccessPartial("Зміни збережено!", Url.Action("Details", new { id = model.Id }), "Переглянути");
                 }
             }
@@ -336,7 +336,7 @@ namespace TicketManagementSystem.Web.Controllers
 
             if (ticket == null) return HttpNotFound();
 
-            var ticketVM = MapperInstance.Map<TicketDetailsModel>(ticket);
+            var ticketVM = Mapper.Map<TicketDetailsModel>(ticket);
 
             if (Request.IsAjaxRequest())
             {
@@ -375,7 +375,7 @@ namespace TicketManagementSystem.Web.Controllers
 
             if (ticket == null) return HttpNotFound();
 
-            var ticketVM = MapperInstance.Map<TicketMoveModel>(ticket);
+            var ticketVM = Mapper.Map<TicketMoveModel>(ticket);
             ticketVM.Packages = GetPackagesList(ticket.ColorId, ticket.SerialId, int.Parse(ticket.Number.First().ToString()));
 
             if (Request.IsAjaxRequest())
@@ -415,7 +415,7 @@ namespace TicketManagementSystem.Web.Controllers
 
             if (ticket == null) return HttpNotFound();
 
-            var ticketVM = MapperInstance.Map<TicketChangeNumberModel>(ticket);
+            var ticketVM = Mapper.Map<TicketChangeNumberModel>(ticket);
 
             if (Request.IsAjaxRequest())
             {
@@ -458,14 +458,14 @@ namespace TicketManagementSystem.Web.Controllers
             if (!tickets.Any())
                 return HttpNotFound();
 
-            var viewModel = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets);
+            var viewModel = Mapper.Map<IEnumerable<TicketDetailsModel>>(tickets);
             return PartialView(viewModel);
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 30, Location = OutputCacheLocation.Client)]
         public ActionResult Clones()
         {
-            var viewModel = MapperInstance.Map<IEnumerable<TicketDetailsModel>>(_ticketService.GetClones());
+            var viewModel = Mapper.Map<IEnumerable<TicketDetailsModel>>(_ticketService.GetClones());
             return View(viewModel);
         }
 

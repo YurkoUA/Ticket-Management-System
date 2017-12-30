@@ -6,12 +6,12 @@ namespace TicketManagementSystem.Business
     public abstract class Service
     {
         public IUnitOfWork Database { get; set; }
-        public IMapper MapperInstance { get; }
+        public IMapper Mapper { get; }
 
         public Service(IUnitOfWork database)
         {
             Database = database;
-            MapperInstance = AutoMapperConfig.CreateMapper();
+            Mapper = AutoMapperConfig.GetInstance();
         }
     }
 }

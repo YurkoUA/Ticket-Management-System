@@ -39,7 +39,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
             if (filter == null || filter?.IsNull() == true)
                 return BadRequest();
 
-            return OkOrNoContent(_packageService.Filter(MapperInstance.Map<PackageFilterDTO>(filter)));
+            return OkOrNoContent(_packageService.Filter(Mapper.Map<PackageFilterDTO>(filter)));
         }
 
         [HttpGet, AllowAnonymous, Route("Get/{id?}", Name = "PackageById")]

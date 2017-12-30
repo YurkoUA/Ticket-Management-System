@@ -22,7 +22,7 @@ namespace TicketManagementSystem.Business.Services
                 .ThenByDescending(t => t.Date)
                 .AsEnumerable();
 
-            return MapperInstance.Map<IEnumerable<TodoTaskDTO>>(tasks);
+            return Mapper.Map<IEnumerable<TodoTaskDTO>>(tasks);
         }
 
         public IEnumerable<TodoTaskDTO> GetTasks(TaskStatus status)
@@ -32,7 +32,7 @@ namespace TicketManagementSystem.Business.Services
                 .ThenByDescending(t => t.Date)
                 .AsEnumerable();
 
-            return MapperInstance.Map<IEnumerable<TodoTaskDTO>>(tasks);
+            return Mapper.Map<IEnumerable<TodoTaskDTO>>(tasks);
         }
 
         public Dictionary<TaskStatus, IEnumerable<TodoTaskDTO>> GetTasksGroupByStatus()
@@ -41,7 +41,7 @@ namespace TicketManagementSystem.Business.Services
                 .AsEnumerable()
                 .OrderByDescending(t => t.Priority)
                 .GroupBy(t => t.Status)
-                .ToDictionary(g => g.Key, g => MapperInstance.Map<IEnumerable<TodoTaskDTO>>(
+                .ToDictionary(g => g.Key, g => Mapper.Map<IEnumerable<TodoTaskDTO>>(
                     g.AsEnumerable()));
 
             return tasks;
@@ -56,7 +56,7 @@ namespace TicketManagementSystem.Business.Services
                 .AsEnumerable()
                 .OrderByDescending(t => t.Priority)
                 .GroupBy(t => t.Status)
-                .ToDictionary(g => g.Key, g => MapperInstance.Map<IEnumerable<TodoTaskDTO>>(
+                .ToDictionary(g => g.Key, g => Mapper.Map<IEnumerable<TodoTaskDTO>>(
                     g.Take(take).AsEnumerable()));
 
             return tasks;
@@ -69,17 +69,17 @@ namespace TicketManagementSystem.Business.Services
             if (task == null)
                 return null;
 
-            return MapperInstance.Map<TodoTaskDTO>(task);
+            return Mapper.Map<TodoTaskDTO>(task);
         }
 
         public TodoTaskDTO Create(TodoTaskDTO taskDTO)
         {
             var task = Database.Tasks.Create(
-                    MapperInstance.Map<TodoTask>(taskDTO));
+                    Mapper.Map<TodoTask>(taskDTO));
 
             Database.SaveChanges();
 
-            return MapperInstance.Map<TodoTaskDTO>(task);
+            return Mapper.Map<TodoTaskDTO>(task);
         }
 
         public void Update(TodoTaskDTO taskDTO)

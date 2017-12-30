@@ -45,7 +45,7 @@ namespace TicketManagementSystem.Business.Services
                 .AsEnumerable()
                 .Where(p => p.ToString().Contains(name));
 
-            return MapperInstance.Map<IEnumerable<PackageDTO>>(packages);
+            return Mapper.Map<IEnumerable<PackageDTO>>(packages);
         }
 
         public IEnumerable<PackageDTO> GetPackages()
@@ -110,7 +110,7 @@ namespace TicketManagementSystem.Business.Services
             if (orderByNumber)
                 tickets = tickets.OrderBy(t => t.Number);
 
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
+            return Mapper.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<PackageDTO> GetCompatiblePackages(int colorId, int serialId, int? number = null)
@@ -164,20 +164,20 @@ namespace TicketManagementSystem.Business.Services
 
         public PackageDTO CreatePackage(PackageCreateDTO packageDTO)
         {
-            var package = Database.Packages.Create(MapperInstance.Map<Package>(packageDTO));
+            var package = Database.Packages.Create(Mapper.Map<Package>(packageDTO));
             Database.SaveChanges();
 
-            return MapperInstance.Map<PackageDTO>(package);
+            return Mapper.Map<PackageDTO>(package);
         }
 
         public PackageDTO CreateSpecialPackage(PackageSpecialCreateDTO packageDTO)
         {
-            var package = MapperInstance.Map<Package>(packageDTO);
+            var package = Mapper.Map<Package>(packageDTO);
             package.IsSpecial = true;
             package = Database.Packages.Create(package);
             Database.SaveChanges();
 
-            return MapperInstance.Map<PackageDTO>(package);
+            return Mapper.Map<PackageDTO>(package);
         }
 
         public PackageEditDTO GetPackageEdit(int id)

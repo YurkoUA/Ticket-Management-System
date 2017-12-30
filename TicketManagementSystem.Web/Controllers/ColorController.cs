@@ -29,7 +29,7 @@ namespace TicketManagementSystem.Web.Controllers
         [HttpGet, AllowAnonymous, OutputCache(Duration = 30, Location = OutputCacheLocation.Client)]
         public ActionResult Index()
         {
-            var viewModel = MapperInstance.Map<IEnumerable<ColorIndexModel>>(_colorService.GetColors());
+            var viewModel = Mapper.Map<IEnumerable<ColorIndexModel>>(_colorService.GetColors());
             return View(viewModel);
         }
 
@@ -41,7 +41,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (color == null)
                 return HttpNotFound();
 
-            var colorVM = MapperInstance.Map<ColorDetailsModel>(color);
+            var colorVM = Mapper.Map<ColorDetailsModel>(color);
 
             if (Request.IsAjaxRequest())
             {
@@ -60,7 +60,7 @@ namespace TicketManagementSystem.Web.Controllers
 
             var packages = _packageService.GetPackagesByColor(id);
             
-            return PartialView("~/Views/Package/PackagesModal.cshtml", MapperInstance.Map<IEnumerable<PackageDetailsModel>>(packages));
+            return PartialView("~/Views/Package/PackagesModal.cshtml", Mapper.Map<IEnumerable<PackageDetailsModel>>(packages));
         }
 
         [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient)]
@@ -74,7 +74,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var createDTO = MapperInstance.Map<ColorCreateDTO>(model);
+                var createDTO = Mapper.Map<ColorCreateDTO>(model);
                 var errors = _colorValidationService.Validate(createDTO);
                 errors.ToModelState(ModelState);
 
@@ -99,7 +99,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (color == null)
                 return HttpNotFound();
 
-            var colorVM = MapperInstance.Map<ColorEditModel>(color);
+            var colorVM = Mapper.Map<ColorEditModel>(color);
 
             if (Request.IsAjaxRequest())
             {
@@ -115,7 +115,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var editDTO = MapperInstance.Map<ColorEditDTO>(model);
+                var editDTO = Mapper.Map<ColorEditDTO>(model);
                 var errors = _colorValidationService.Validate(editDTO);
                 errors.ToModelState(ModelState);
 
@@ -138,7 +138,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (color == null)
                 return HttpNotFound();
 
-            var colorVM = MapperInstance.Map<ColorDetailsModel>(color);
+            var colorVM = Mapper.Map<ColorDetailsModel>(color);
 
             if (Request.IsAjaxRequest())
             {

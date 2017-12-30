@@ -57,7 +57,7 @@ namespace TicketManagementSystem.Web.Controllers
 
             var viewModel = new PackageIndexModel
             {
-                Packages = MapperInstance.Map<IEnumerable<PackageDetailsModel>>(packages),
+                Packages = Mapper.Map<IEnumerable<PackageDetailsModel>>(packages),
                 PageInfo = pageInfo,
                 Filter = tab,
                 TotalPackages = count.Total,
@@ -79,7 +79,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (package == null)
                 return HttpNotFound();
 
-            var packageVM = MapperInstance.Map<PackageDetailsModel>(package);
+            var packageVM = Mapper.Map<PackageDetailsModel>(package);
             packageVM.UnallocatedTicketsCount = _ticketService.CountUnallocatedByPackage(id);
 
             if (Request.IsAjaxRequest())
@@ -104,7 +104,7 @@ namespace TicketManagementSystem.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                return PartialView("SearchPartial", MapperInstance.Map<IEnumerable<PackageDetailsModel>>(packages));
+                return PartialView("SearchPartial", Mapper.Map<IEnumerable<PackageDetailsModel>>(packages));
             }
             return ErrorPartial(ModelState);
         }
@@ -120,8 +120,8 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (!viewModel.IsNull())
             {
-                var packages = _packageService.Filter(MapperInstance.Map<PackageFilterDTO>(viewModel));
-                viewModel.Packages = MapperInstance.Map<IEnumerable<PackageDetailsModel>>(packages);
+                var packages = _packageService.Filter(Mapper.Map<PackageFilterDTO>(viewModel));
+                viewModel.Packages = Mapper.Map<IEnumerable<PackageDetailsModel>>(packages);
             }
 
             viewModel.Colors = GetColorsSelectList();
@@ -159,7 +159,7 @@ namespace TicketManagementSystem.Web.Controllers
             ViewBag.PackageId = id;
             ViewBag.IsOpened = package.IsOpened;
 
-            return View(MapperInstance.Map<IEnumerable<TicketDetailsModel>>(tickets));
+            return View(Mapper.Map<IEnumerable<TicketDetailsModel>>(tickets));
         }
 
         [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
@@ -183,7 +183,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var createDTO = MapperInstance.Map<PackageCreateDTO>(viewModel);
+                var createDTO = Mapper.Map<PackageCreateDTO>(viewModel);
                 var errors = _packageValidationService.Validate(createDTO);
 
                 errors.ToModelState(ModelState);
@@ -202,7 +202,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var createDTO = MapperInstance.Map<PackageSpecialCreateDTO>(viewModel);
+                var createDTO = Mapper.Map<PackageSpecialCreateDTO>(viewModel);
                 var errors = _packageValidationService.Validate(createDTO);
                 errors.ToModelState(ModelState);
 
@@ -226,7 +226,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (editDTO == null)
                 return HttpNotFound();
 
-            var packageVM = MapperInstance.Map<PackageEditDefaultModel>(editDTO);
+            var packageVM = Mapper.Map<PackageEditDefaultModel>(editDTO);
             packageVM.Colors = GetColorsSelectList();
             packageVM.Series = GetSeriesSelectList();
 
@@ -250,7 +250,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (editSpecDTO == null)
                 return HttpNotFound();
 
-            var packageVM = MapperInstance.Map<PackageEditSpecialModel>(editSpecDTO);
+            var packageVM = Mapper.Map<PackageEditSpecialModel>(editSpecDTO);
             packageVM.Colors = GetColorsSelectList();
             packageVM.Series = GetSeriesSelectList();
 
@@ -271,7 +271,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var editDTO = MapperInstance.Map<PackageEditDTO>(viewModel);
+                var editDTO = Mapper.Map<PackageEditDTO>(viewModel);
                 var errors = _packageValidationService.Validate(editDTO);
                 errors.ToModelState(ModelState);
 
@@ -289,7 +289,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var editDTO = MapperInstance.Map<PackageSpecialEditDTO>(viewModel);
+                var editDTO = Mapper.Map<PackageSpecialEditDTO>(viewModel);
                 var errors = _packageValidationService.Validate(editDTO);
                 errors.ToModelState(ModelState);
 
@@ -310,7 +310,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (package == null)
                 return HttpNotFound();
 
-            var packageVM = MapperInstance.Map<PackageDetailsModel>(package);
+            var packageVM = Mapper.Map<PackageDetailsModel>(package);
 
             if (Request.IsAjaxRequest())
             {
@@ -373,7 +373,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (package == null) return HttpNotFound();
             if (package.IsSpecial) return HttpBadRequest();
 
-            var packageVM = MapperInstance.Map<PackageMakeSpecialDTO>(package);
+            var packageVM = Mapper.Map<PackageMakeSpecialDTO>(package);
 
             if (Request.IsAjaxRequest())
             {
@@ -409,7 +409,7 @@ namespace TicketManagementSystem.Web.Controllers
             if (package == null) return HttpNotFound();
             if (!package.IsSpecial) return HttpBadRequest();
 
-            var packageVM = MapperInstance.Map<PackageMakeDefaultModel>(package);
+            var packageVM = Mapper.Map<PackageMakeDefaultModel>(package);
             packageVM.Colors = GetColorsSelectList();
             packageVM.Series = GetSeriesSelectList();
 
@@ -427,7 +427,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var dto = MapperInstance.Map<PackageMakeDefaultDTO>(viewModel);
+                var dto = Mapper.Map<PackageMakeDefaultDTO>(viewModel);
                 var errors = _packageValidationService.Validate(dto);
                 errors.ToModelState(ModelState);
 
@@ -451,7 +451,7 @@ namespace TicketManagementSystem.Web.Controllers
 
             var tickets = _ticketService.GetUnallocatedTickets(id).ToArray();
 
-            return PartialView("MoveUnallocatedPartial", MapperInstance.Map<TicketUnallocatedMoveModel[]>(tickets));
+            return PartialView("MoveUnallocatedPartial", Mapper.Map<TicketUnallocatedMoveModel[]>(tickets));
         }
 
         [HttpPost, ValidateAntiForgeryToken]

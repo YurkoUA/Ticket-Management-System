@@ -7,7 +7,7 @@ namespace TicketManagementSystem.Business.Extensions
     {
         public static UserDTO ToDto(this User user)
         {
-            return AutoMapperConfig.CreateMapper().Map<UserDTO>(user);
+            return AutoMapperConfig.GetInstance().Map<UserDTO>(user);
         }
     }
 }

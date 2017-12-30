@@ -30,7 +30,7 @@ namespace TicketManagementSystem.Business.Services
                 .OrderBy(t => t.Number)
                 .AsEnumerable();
 
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
+            return Mapper.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetTodayTickets(int timezoneOffset)
@@ -43,7 +43,7 @@ namespace TicketManagementSystem.Business.Services
                     t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets)
                 .OrderBy(t => t.Number);
 
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
+            return Mapper.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketGroupDTO> GetSummaryByLatest()

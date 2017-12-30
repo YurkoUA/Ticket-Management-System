@@ -29,7 +29,7 @@ namespace TicketManagementSystem.Business.Services
             {
                 if (CheckPassword(user, password))
                 {
-                    return MapperInstance.Map<UserDTO>(user);
+                    return Mapper.Map<UserDTO>(user);
                 }
             }
             return null;
@@ -42,7 +42,7 @@ namespace TicketManagementSystem.Business.Services
             if (user == null)
                 return null;
 
-            return MapperInstance.Map<UserDTO>(user);
+            return Mapper.Map<UserDTO>(user);
         }
 
         public async Task<UserDTO> GetUserAsync(string email)
@@ -52,7 +52,7 @@ namespace TicketManagementSystem.Business.Services
             if (user == null)
                 return null;
 
-            return MapperInstance.Map<UserDTO>(user);
+            return Mapper.Map<UserDTO>(user);
         }
 
         public async Task CreateAsync(User user)

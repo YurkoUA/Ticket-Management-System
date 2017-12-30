@@ -5,7 +5,7 @@ namespace TicketManagementSystem.Web
 {
     public class AutoMapperConfig
     {
-        public static IMapper CreateMapper()
+        private static IMapper CreateMapper()
         {
             var config = new MapperConfiguration(cfg =>
             {
@@ -83,6 +83,16 @@ namespace TicketManagementSystem.Web
             });
 
             return config.CreateMapper();
+        }
+
+        private static IMapper mapper;
+
+        public static IMapper GetInstance()
+        {
+            if (mapper == null)
+                mapper = CreateMapper();
+
+            return mapper;
         }
     }
 }

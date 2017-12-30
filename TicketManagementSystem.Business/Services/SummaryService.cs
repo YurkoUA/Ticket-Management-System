@@ -21,7 +21,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<SummaryDTO> GetSummaries()
         {
-            return MapperInstance.Map<IEnumerable<SummaryDTO>>(
+            return Mapper.Map<IEnumerable<SummaryDTO>>(
                 Database.Summary.GetAll()
                 .AsEnumerable());
         }

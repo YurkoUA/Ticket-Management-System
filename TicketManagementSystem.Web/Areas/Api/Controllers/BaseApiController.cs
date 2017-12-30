@@ -11,7 +11,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
 {
     public abstract class BaseApiController : ApiController
     {
-        protected IMapper MapperInstance => AutoMapperConfig.CreateMapper();
+        protected IMapper Mapper => AutoMapperConfig.GetInstance();
 
         protected IHttpActionResult NoContent() => StatusCode(HttpStatusCode.NoContent);
 

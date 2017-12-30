@@ -32,7 +32,7 @@ namespace TicketManagementSystem.Business.Validation
             var errors = new List<string>();
             errors.AddRange(ValidateObject(createDTO));
 
-            if (_ticketService.Exists(MapperInstance.Map<TicketDTO>(createDTO)))
+            if (_ticketService.Exists(Mapper.Map<TicketDTO>(createDTO)))
             {
                 errors.Add("Такий квиток вже існує.");
             }
@@ -86,7 +86,7 @@ namespace TicketManagementSystem.Business.Validation
 
             var ticket = Database.Tickets.GetById(editDTO.Id);
 
-            var dtoForCheckExisting = MapperInstance.Map<TicketDTO>(editDTO);
+            var dtoForCheckExisting = Mapper.Map<TicketDTO>(editDTO);
             dtoForCheckExisting.Number = ticket.Number;
 
             if (_ticketService.Exists(dtoForCheckExisting, editDTO.Id))

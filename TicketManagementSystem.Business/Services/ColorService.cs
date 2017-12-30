@@ -33,10 +33,10 @@ namespace TicketManagementSystem.Business.Services
 
         public ColorDTO Create(ColorCreateDTO colorDTO)
         {
-            var color = Database.Colours.Create(MapperInstance.Map<Color>(colorDTO));
+            var color = Database.Colours.Create(Mapper.Map<Color>(colorDTO));
             Database.SaveChanges();
 
-            return MapperInstance.Map<ColorDTO>(color);
+            return Mapper.Map<ColorDTO>(color);
         }
 
         public void Edit(ColorEditDTO colorDTO)

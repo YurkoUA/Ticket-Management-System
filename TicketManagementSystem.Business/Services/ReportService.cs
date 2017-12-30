@@ -28,7 +28,7 @@ namespace TicketManagementSystem.Business.Services
         public IEnumerable<ReportDTO> GetReports()
         {
             var reports = Database.Reports.GetAll();
-            return MapperInstance.Map<IEnumerable<ReportDTO>>(reports);
+            return Mapper.Map<IEnumerable<ReportDTO>>(reports);
         }
 
         public ReportDTO GetById(int id)
@@ -38,13 +38,13 @@ namespace TicketManagementSystem.Business.Services
             if (report == null)
                 return null;
 
-            return MapperInstance.Map<ReportDTO>(report);
+            return Mapper.Map<ReportDTO>(report);
         }
 
         public ReportDTO GetLastReport()
         {
             var report = Database.Reports.GetAll().OrderByDescending(r => r.Id).FirstOrDefault();
-            return MapperInstance.Map<ReportDTO>(report);
+            return Mapper.Map<ReportDTO>(report);
         }
 
         public ReportDTO CreateReport(bool isAutomatic)
@@ -53,12 +53,12 @@ namespace TicketManagementSystem.Business.Services
             {
                 IsAutomatic = isAutomatic
             };
-            return MapperInstance.Map<ReportDTO>(report);
+            return Mapper.Map<ReportDTO>(report);
         }
 
         public void SaveReport(ReportDTO reportDTO)
         {
-            Database.Reports.Create(MapperInstance.Map<Data.EF.Models.Report>(reportDTO));
+            Database.Reports.Create(Mapper.Map<Data.EF.Models.Report>(reportDTO));
             Database.SaveChanges();
         }
 

@@ -53,7 +53,7 @@ namespace TicketManagementSystem.Business.Services
                 .OrderBy(t => t.Number)
                 .AsEnumerable();
 
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
+            return Mapper.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetTickets(int skip, int take)
@@ -64,7 +64,7 @@ namespace TicketManagementSystem.Business.Services
                 .Take(() => take)
                 .AsEnumerable();
 
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
+            return Mapper.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetTicketsByPackage(int packageId)
@@ -73,7 +73,7 @@ namespace TicketManagementSystem.Business.Services
                 .OrderBy(t => t.Number)
                 .AsEnumerable();
 
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
+            return Mapper.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetUnallocatedTickets()
@@ -82,7 +82,7 @@ namespace TicketManagementSystem.Business.Services
                 .OrderBy(t => t.Number)
                 .AsEnumerable();
 
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
+            return Mapper.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetUnallocatedTickets(int packageId)
@@ -114,7 +114,7 @@ namespace TicketManagementSystem.Business.Services
                 .Take(() => take)
                 .AsEnumerable();
 
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
+            return Mapper.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetHappyTickets()
@@ -124,7 +124,7 @@ namespace TicketManagementSystem.Business.Services
                     t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets, t => t.Package.Color, t => t.Package.Serial)
                 .OrderBy(t => t.Number);
 
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
+            return Mapper.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetHappyTickets(int skip, int take)
@@ -136,7 +136,7 @@ namespace TicketManagementSystem.Business.Services
                 .Skip(() => skip)
                 .Take(() => take);
 
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
+            return Mapper.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> GetClones()
@@ -146,7 +146,7 @@ namespace TicketManagementSystem.Business.Services
                     t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets, t => t.Package.Color, t => t.Package.Serial)
                 .OrderBy(t => t.Number);
 
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(clones);
+            return Mapper.Map<IEnumerable<TicketDTO>>(clones);
         }
 
         public TicketDTO GetById(int id, bool include = true)
@@ -165,7 +165,7 @@ namespace TicketManagementSystem.Business.Services
             if (ticket == null)
                 return null;
 
-            return MapperInstance.Map<TicketDTO>(ticket);
+            return Mapper.Map<TicketDTO>(ticket);
         }
 
         public TicketDTO GetRandomTicket()
@@ -184,7 +184,7 @@ namespace TicketManagementSystem.Business.Services
             if (ticket == null)
                 return null;
 
-            return MapperInstance.Map<TicketDTO>(ticket);
+            return Mapper.Map<TicketDTO>(ticket);
         }
 
         public IEnumerable<TicketDTO> GetByNumber(string number, bool partialMatches = false)
@@ -202,7 +202,7 @@ namespace TicketManagementSystem.Business.Services
 
             tickets = tickets.OrderBy(t => t.Number);
 
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets.AsEnumerable());
+            return Mapper.Map<IEnumerable<TicketDTO>>(tickets.AsEnumerable());
         }
 
         public IEnumerable<TicketDTO> GetByNumber(string number, int id)
@@ -211,7 +211,7 @@ namespace TicketManagementSystem.Business.Services
                 t => t.Serial, t => t.Package, t => t.Package.Tickets, t => t.Package.Color, t => t.Package.Serial)
                 .AsEnumerable();
 
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
+            return Mapper.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public IEnumerable<TicketDTO> Filter(int? firstNumber, int? colorId, int? serialId)
@@ -231,7 +231,7 @@ namespace TicketManagementSystem.Business.Services
 
             tickets = tickets.OrderBy(t => t.Number);
 
-            return MapperInstance.Map<IEnumerable<TicketDTO>>(tickets);
+            return Mapper.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
         public TicketEditDTO GetEdit(int id)
@@ -241,7 +241,7 @@ namespace TicketManagementSystem.Business.Services
             if (ticket == null)
                 return null;
 
-            var dto = MapperInstance.Map<TicketEditDTO>(ticket);
+            var dto = Mapper.Map<TicketEditDTO>(ticket);
             dto.CanSelectColor = ticket.Package?.ColorId == null;
             dto.CanSelectSerial = ticket.Package?.SerialId == null;
 
@@ -252,9 +252,9 @@ namespace TicketManagementSystem.Business.Services
 
         public TicketDTO Create(TicketCreateDTO ticketDTO)
         {
-            var ticket = Database.Tickets.Create(MapperInstance.Map<Ticket>(ticketDTO));
+            var ticket = Database.Tickets.Create(Mapper.Map<Ticket>(ticketDTO));
             Database.SaveChanges();
-            return MapperInstance.Map<TicketDTO>(ticket);
+            return Mapper.Map<TicketDTO>(ticket);
         }
 
         public void Edit(TicketEditDTO ticketDTO)
@@ -395,14 +395,14 @@ namespace TicketManagementSystem.Business.Services
 
         public bool Exists(TicketDTO ticketDTO)
         {
-            var ticket = MapperInstance.Map<Ticket>(ticketDTO);
+            var ticket = Mapper.Map<Ticket>(ticketDTO);
             return Database.Tickets.Any(t => t.Number.Equals(ticket.Number) && t.SerialNumber.Equals(ticket.SerialNumber)
                 && t.ColorId == ticket.ColorId && t.SerialId == ticket.SerialId);
         }
 
         public bool Exists(TicketDTO ticketDTO, int id)
         {
-            var ticket = MapperInstance.Map<Ticket>(ticketDTO);
+            var ticket = Mapper.Map<Ticket>(ticketDTO);
 
             return Database.Tickets.Any(t => t.Number.Equals(ticket.Number) && t.SerialNumber.Equals(ticket.SerialNumber)
                 && t.ColorId == ticket.ColorId && t.SerialId == ticket.SerialId && t.Id != id);
