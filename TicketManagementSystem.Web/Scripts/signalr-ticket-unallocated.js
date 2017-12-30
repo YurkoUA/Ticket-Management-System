@@ -31,6 +31,7 @@
 
             if (count > 0) {
                 $("#unallocated-count").html(count);
+                getSummary();
             }
             else {
                 location.reload();
