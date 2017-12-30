@@ -110,9 +110,10 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
                 return BadRequest();
 
             var itemsToReturning = _appSettingsService.ItemsOnPage;
+            int allTicketsByFilterCount;
 
-            var tickets = _ticketService.Filter(filter.FirstNumber, filter.ColorId, filter.SerialId);
-            return OkOrNoContent(tickets.Skip((filter.Page - 1) * itemsToReturning).Take(itemsToReturning));
+            var tickets = _ticketService.Filter(filter.FirstNumber, filter.ColorId, filter.SerialId, (filter.Page - 1) * itemsToReturning, itemsToReturning, out allTicketsByFilterCount);
+            return OkOrNoContent(tickets);
         }
 
         [HttpGet, AllowAnonymous, Route("Search/{number}")]

@@ -214,9 +214,9 @@ namespace TicketManagementSystem.Business.Services
             return Mapper.Map<IEnumerable<TicketDTO>>(tickets);
         }
 
-        public IEnumerable<TicketDTO> Filter(int? firstNumber, int? colorId, int? serialId)
+        public IEnumerable<TicketDTO> Filter(int? firstNumber, int? colorId, int? serialId, int skip, int take, out int count)
         {
-            var tickets = Database.Tickets.GetAllIncluding(t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Tickets, t => t.Package.Color, t => t.Package.Serial);
+            var tickets = Database.Tickets.GetAll();
 
             if (colorId != null)
                 tickets = tickets.Where(t => t.ColorId == colorId);
@@ -230,6 +230,15 @@ namespace TicketManagementSystem.Business.Services
                 tickets = tickets.Where(t => SqlFunctions.Ascii(t.Number) == SqlFunctions.Ascii(sfirstNumber));
 
             tickets = tickets.OrderBy(t => t.Number);
+            count = tickets.Count();
+
+            tickets = tickets.Skip(skip).Take(take)
+                .Include(t => t.Color)
+                .Include(t => t.Serial)
+                .Include(t => t.Package)
+                .Include(t => t.Package.Tickets)
+                .Include(t => t.Package.Color)
+                .Include(t => t.Package.Serial);
 
             return Mapper.Map<IEnumerable<TicketDTO>>(tickets);
         }

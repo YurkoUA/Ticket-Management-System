@@ -161,13 +161,12 @@ namespace TicketManagementSystem.Web.Controllers
             if (!viewModel.IsNull())
             {
                 var itemsOnPage = _appSettingsService.ItemsOnPage;
+                int allTicketsByFilterCount;
 
-                tickets = _ticketService.Filter(viewModel.FirstNumber, viewModel.ColorId, viewModel.SerialId);
+                tickets = _ticketService.Filter(viewModel.FirstNumber, viewModel.ColorId, viewModel.SerialId, (viewModel.Page - 1) * itemsOnPage, itemsOnPage, out allTicketsByFilterCount);
 
-                viewModel.Tickets = Mapper.Map<IEnumerable<TicketDetailsModel>>(
-                    tickets.Skip((viewModel.Page - 1) * itemsOnPage).Take(itemsOnPage));
-
-                viewModel.PageInfo = new PageInfo(viewModel.Page, tickets.Count(), itemsOnPage);
+                viewModel.Tickets = Mapper.Map<IEnumerable<TicketDetailsModel>>(tickets);
+                viewModel.PageInfo = new PageInfo(viewModel.Page, allTicketsByFilterCount, itemsOnPage);
             }
 
             viewModel.Colors = GetColorsList();

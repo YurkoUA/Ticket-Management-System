@@ -28,7 +28,7 @@ namespace TicketManagementSystem.Business.Interfaces
         IEnumerable<TicketDTO> GetByNumber(string number, bool partialMatches = false);
         IEnumerable<TicketDTO> GetByNumber(string number, int id);
 
-        IEnumerable<TicketDTO> Filter(int? firstNumber, int? colorId, int? serialId);
+        IEnumerable<TicketDTO> Filter(int? firstNumber, int? colorId, int? serialId, int skip, int take, out int count);
 
         TicketEditDTO GetEdit(int id);
 
