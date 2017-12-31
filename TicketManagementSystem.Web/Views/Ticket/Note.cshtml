@@ -1,0 +1,50 @@
+﻿@model TicketNoteModel
+
+@{
+    ViewBag.Title = $"Квитки \"{Model.Note}\"";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+@if (Model.Any())
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">Квитки з приміткою "@Model.Note": @Model.TicketsCount шт.</div>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Номер</th>
+                        <th>Колір</th>
+                        <th>Серія</th>
+                        <th>Пачка</th>
+                        <th>Дата</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach(var item in Model)
+                    {
+                        <tr class="@item.TrClass()">
+                            <td>@Html.ActionLink(item.Number, "Details", new { id = item.Id }, new { })</td>
+                            <td><a target="_blank" href="@Url.Action("Details", "Color", new { id = item.ColorId })">@item.ColorName</a></td>
+                            <td><a target="_blank" href="@Url.Action("Details", "Serial", new { id = item.SerialId })">@item.SerialFull</a></td>
+                            <td><a href="@Url.Action("Details", "Package", new { id = item.PackageId })">@item.PackageName</a></td>
+                            <td>@item.Date</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+ else
+{
+    @Html.AlertDanger($"Немає жодного квитка з приміткою \"{Model.Note}\".")
+}
+
+<p>
+    @Html.ActionLink("Назад до списку", "Notes")
+</p>

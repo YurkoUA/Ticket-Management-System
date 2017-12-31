@@ -15,13 +15,14 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            @Html.ActionLink("Щасливі квитки", "Happy") | 
+            @Html.ActionLink("Щасливі квитки", "Happy") |
             @Html.ActionLink("Нерозподілені квитки", "Unallocated") |
-            @Html.ActionLink("Квитки з однаковими номерами", "Clones") | 
-            @Html.ActionLink("Останні квитки", "Latest") | 
-            @Html.ActionLink("Сьогоднішні квитки", "Today", new { }, new { id = "link-tickets-today" }) | 
+            @Html.ActionLink("Квитки з однаковими номерами", "Clones") |
+            @Html.ActionLink("Останні квитки", "Latest") |
+            @Html.ActionLink("Сьогоднішні квитки", "Today", new { }, new { id = "link-tickets-today" }) |
             <a id="ticket-search" onclick="searchModal()">Пошук квитків</a> | 
-            @Html.ActionLink("Фільтр", "Filter")
+            @Html.ActionLink("Фільтр", "Filter") | 
+            @Html.ActionLink("Примітки", "Notes")
         </div>
 
         @if (isAdmin)

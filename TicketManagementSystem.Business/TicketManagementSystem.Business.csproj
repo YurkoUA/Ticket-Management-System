@@ -113,6 +113,7 @@
     <Compile Include="DTO\Ticket\TicketCreateDTO.cs" />
     <Compile Include="DTO\Ticket\TicketDTO.cs" />
     <Compile Include="DTO\Ticket\TicketEditDTO.cs" />
+    <Compile Include="DTO\Ticket\TicketNotesDTO.cs" />
     <Compile Include="DTO\Todo\TodoTaskDTO.cs" />
     <Compile Include="DTO\User\LoginDTO.cs" />
     <Compile Include="DTO\User\UserDTO.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Interfaces\IPackageValidationService.cs" />
     <Compile Include="Interfaces\ISerialValidationService.cs" />
     <Compile Include="Interfaces\IStatisticsService.cs" />
+    <Compile Include="Interfaces\ITicketNotesService.cs" />
     <Compile Include="Interfaces\ITicketService2.cs" />
     <Compile Include="Interfaces\ITicketValidationService.cs" />
     <Compile Include="Interfaces\ITodoValidationService.cs" />
@@ -155,6 +157,7 @@
     <Compile Include="Services\SerialService.cs" />
     <Compile Include="Services\StatisticsService.cs" />
     <Compile Include="Services\SummaryService.cs" />
+    <Compile Include="Services\TicketNotesService.cs" />
     <Compile Include="Services\TicketService.cs" />
     <Compile Include="Services\TicketService2.cs" />
     <Compile Include="Services\TodoService.cs" />

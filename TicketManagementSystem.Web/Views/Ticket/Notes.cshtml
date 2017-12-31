@@ -1,0 +1,40 @@
+﻿@model IEnumerable<TicketManagementSystem.Business.DTO.TicketNotesDTO>
+
+@{ 
+    ViewBag.Title = "Примітки";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+@if (Model.Any())
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">Примітки: @Model.Count() шт.</div>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Примітка</th>
+                        <th>Квитків</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach(var note in Model)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(note.Note, "Note", new { note = note.Note })</td>
+                            <td>@note.TicketsCount</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    @Html.AlertDanger("Не додано жодного квитка з приміткою.")
+}

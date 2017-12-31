@@ -21,6 +21,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         private readonly IAppSettingsService _appSettingsService;
         private readonly ICacheService _cacheService;
         private readonly ITicketValidationService _ticketValidationService;
+        private readonly ITicketNotesService _ticketNotesService;
 
         public TicketController(
             ITicketService ticketService, 
@@ -28,7 +29,8 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
             ITicketService2 ticketService2,
             IAppSettingsService appSettingsService,
             ICacheService cacheService,
-            ITicketValidationService ticketValidationService)
+            ITicketValidationService ticketValidationService,
+            ITicketNotesService ticketNotesService)
         {
             _ticketService = ticketService;
             _packageService = packageService;
@@ -36,6 +38,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
             _appSettingsService = appSettingsService;
             _cacheService = cacheService;
             _ticketValidationService = ticketValidationService;
+            _ticketNotesService = ticketNotesService;
         }
 
         [HttpGet, AllowAnonymous]
@@ -83,6 +86,21 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         public IHttpActionResult Latest()
         {
             return OkOrNoContent(_ticketService2.GetLatestTickets());
+        }
+
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult Notes()
+        {
+            return OkOrNoContent(_ticketNotesService.GetNotes());
+        }
+
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult GetByNote(string note)
+        {
+            if (string.IsNullOrEmpty(note))
+                return BadRequest();
+
+            return OkOrNoContent(_ticketNotesService.GetTicketsByNote(note));
         }
 
         [HttpGet, AllowAnonymous]

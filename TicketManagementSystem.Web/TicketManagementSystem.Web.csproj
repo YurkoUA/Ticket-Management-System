@@ -208,6 +208,7 @@
     <Compile Include="Areas\Api\Controllers\StatisticsController.cs" />
     <Compile Include="Areas\Api\Controllers\TicketController.cs" />
     <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
+    <Compile Include="Controllers\TicketController_Note.cs" />
     <Compile Include="Data\AjaxPagination.cs" />
     <Compile Include="Hubs\TicketsHub.cs" />
     <Compile Include="Startup.cs" />
@@ -275,6 +276,7 @@
     <Compile Include="ViewModels\Ticket\TicketFilterModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketIndexModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketMoveModel.cs" />
+    <Compile Include="ViewModels\Ticket\TicketNoteModel.cs" />
     <Compile Include="ViewModels\Ticket\TicketUnallocatedMoveModel.cs" />
     <Compile Include="Views\PartialViewModel.cs" />
   </ItemGroup>
@@ -496,6 +498,8 @@
     <Content Include="Views\Ticket\Today.cshtml" />
     <Content Include="Views\Package\Filter.cshtml" />
     <Content Include="Views\Package\FilterFormPartial.cshtml" />
+    <Content Include="Views\Ticket\Notes.cshtml" />
+    <Content Include="Views\Ticket\Note.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

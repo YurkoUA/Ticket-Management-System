@@ -13,7 +13,7 @@ using TicketManagementSystem.Web.Hubs;
 namespace TicketManagementSystem.Web.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class TicketController : BaseController
+    public partial class TicketController : BaseController
     {
         private readonly ITicketService _ticketService;
         private readonly ITicketService2 _ticketService2;
@@ -23,6 +23,7 @@ namespace TicketManagementSystem.Web.Controllers
         private readonly ICacheService _cacheService;
         private readonly IAppSettingsService _appSettingsService;
         private readonly ITicketValidationService _ticketValidationService;
+        private readonly ITicketNotesService _ticketNotesService;
 
         public TicketController(
             ITicketService ticketService,
@@ -32,7 +33,8 @@ namespace TicketManagementSystem.Web.Controllers
             IColorService colorService,
             ICacheService cacheService,
             IAppSettingsService appSettingsService,
-            ITicketValidationService ticketValidationService)
+            ITicketValidationService ticketValidationService,
+            ITicketNotesService ticketNotesService)
         {
             _ticketService = ticketService;
             _ticketService2 = ticketService2;
@@ -42,6 +44,7 @@ namespace TicketManagementSystem.Web.Controllers
             _cacheService = cacheService;
             _appSettingsService = appSettingsService;
             _ticketValidationService = ticketValidationService;
+            _ticketNotesService = ticketNotesService;
         }
 
         #region Index, Unallocated, Happy, Details
@@ -211,10 +214,7 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient)]
-        public ActionResult SearchModal()
-        {
-            return PartialView("SearchModal");
-        }
+        public ActionResult SearchModal() => PartialView("SearchModal");
 
         #region CRUD
 

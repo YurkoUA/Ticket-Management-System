@@ -52,6 +52,8 @@ namespace TicketManagementSystem.Web.Util
             _kernel.Bind<ITicketService>().To<TicketService>();
             _kernel.Bind<ITicketService2>().To<TicketService2>();
 
+            _kernel.Bind<ITicketNotesService>().To<TicketNotesService>();
+
             BindValidationServices();
             BindTelegramService();
         }
