@@ -23,10 +23,7 @@ namespace TicketManagementSystem.Business.Telegram
                 var resp = await _httpClient.PostAsync("sendMessage", 
                     new StringContent(await JsonConvert.SerializeObjectAsync(message), Encoding.UTF8, "application/json"));
 
-                if (resp.IsSuccessStatusCode)
-                    return true;
-
-                return false;
+                return resp.IsSuccessStatusCode;
             }
             catch
             {

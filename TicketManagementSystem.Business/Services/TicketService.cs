@@ -232,7 +232,7 @@ namespace TicketManagementSystem.Business.Services
             tickets = tickets.OrderBy(t => t.Number);
             count = tickets.Count();
 
-            tickets = tickets.Skip(skip).Take(take)
+            tickets = tickets.Skip(() => skip).Take(() => take)
                 .Include(t => t.Color)
                 .Include(t => t.Serial)
                 .Include(t => t.Package)
