@@ -36,7 +36,7 @@ namespace TicketManagementSystem.Business.Services
         public IEnumerable<TicketDTO> GetTodayTickets(int timezoneOffset)
         {
             timezoneOffset *= -1;
-            var today = DateTime.Today.ToUniversalTime();
+            var today = DateTime.UtcNow.Date;
 
             var tickets = Database.Tickets
                 .GetAllIncluding(t => DbFunctions.TruncateTime(DbFunctions.AddMinutes(t.AddDate, timezoneOffset)) == today, 
