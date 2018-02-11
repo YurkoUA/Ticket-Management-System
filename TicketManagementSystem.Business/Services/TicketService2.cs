@@ -74,5 +74,17 @@ namespace TicketManagementSystem.Business.Services
                 HappyCount = g.Count(t => t.Number.IsHappy())
             }).OrderByDescending(t => t.Count);
         }
+
+        public IEnumerable<string> GetNotes(string note, int take)
+        {
+            var notes = Database.Tickets.GetAll()
+                .Where(t => t.Note != null && t.Note.IndexOf(note) >= 0)
+                .Select(t => t.Note)
+                .Take(take)
+                .AsEnumerable()
+                .OrderBy(t => t.FirstOrDefault());
+
+            return notes;
+        }
     }
 }

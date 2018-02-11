@@ -202,6 +202,7 @@
     <Compile Include="App_Start\OAuthConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Api\Controllers\ColorController.cs" />
+    <Compile Include="Areas\Api\Controllers\NoteController.cs" />
     <Compile Include="Areas\Api\Controllers\PackageController.cs" />
     <Compile Include="Areas\Api\Controllers\ReportController.cs" />
     <Compile Include="Areas\Api\Controllers\SerialController.cs" />
