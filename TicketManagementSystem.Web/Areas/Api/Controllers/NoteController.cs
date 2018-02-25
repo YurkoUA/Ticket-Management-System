@@ -6,11 +6,11 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
     [RoutePrefix("api/Note")]
     public class NoteController : BaseApiController
     {
-        private readonly ITicketService2 _ticketService2;
+        private readonly ITicketNotesService _ticketNotesService;
 
-        public NoteController(ITicketService2 ticketService2)
+        public NoteController(ITicketNotesService ticketNotesService)
         {
-            _ticketService2 = ticketService2;
+            _ticketNotesService = ticketNotesService;
         }
 
         [HttpGet]
@@ -22,7 +22,7 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
             if (take < 1)
                 take = 5;
 
-            return OkOrNoContent(_ticketService2.GetNotes(note, take));
+            return OkOrNoContent(_ticketNotesService.GetNotes(note, take));
         }
     }
 }

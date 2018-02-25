@@ -10,7 +10,5 @@ namespace TicketManagementSystem.Business.Interfaces
         IEnumerable<TicketDTO> GetTodayTickets(int timezoneOffset);
         IEnumerable<TicketGroupDTO> GetSummaryByLatest();
         IEnumerable<TicketGroupDTO> GetSummaryByUnallocated();
-
-        IEnumerable<string> GetNotes(string note, int take);
     }
 }

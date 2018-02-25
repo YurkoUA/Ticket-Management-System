@@ -33,5 +33,18 @@ namespace TicketManagementSystem.Business.Services
 
             return Mapper.Map<IEnumerable<TicketDTO>>(tickets);
         }
+
+        public IEnumerable<string> GetNotes(string note, int take)
+        {
+            var notes = Database.Tickets.GetAll()
+                .Where(t => t.Note != null && t.Note.IndexOf(note) >= 0)
+                .Select(t => t.Note)
+                .Distinct()
+                .Take(take)
+                .AsEnumerable()
+                .OrderBy(t => t.FirstOrDefault());
+
+            return notes;
+        }
     }
 }
