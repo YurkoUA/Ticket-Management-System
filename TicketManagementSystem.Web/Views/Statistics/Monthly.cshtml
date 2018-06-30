@@ -9,9 +9,10 @@
     Статистика станом на @Html.DisplayDateTime(DateTime.Now.ToUniversalTime(), "G")
 </p>
 
-<div id="tickets-periods" style="width: 900px; height: 500px;"></div>
-<div id="tickets-monthly" style="width: 900px; height: 500px;"></div>
-<div id="happy-tickets-monthly" style="width: 900px; height: 500px;"></div>
+<div id="tickets-periods" class="chart"></div>
+<div id="tickets-monthly" class="chart"></div>
+<div id="happy-tickets-monthly" class="chart"></div>
+<div id="packages-monthly" class="chart"></div>
 
 @section scripts {
     @Scripts.Render("https://www.gstatic.com/charts/loader.js", "~/Scripts/statistics-monthly.js")

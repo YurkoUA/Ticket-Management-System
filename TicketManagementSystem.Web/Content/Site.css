@@ -35,3 +35,8 @@ div.loading-spinner {
 .panel-footer {
     text-align: center;
 }
+
+.chart {
+    width: 1400px;
+    height: 500px;
+}

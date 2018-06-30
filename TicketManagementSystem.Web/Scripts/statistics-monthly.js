@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+    $("div.container").addClass("container-fluid");
+    $("div.container").removeClass("container");
+
     google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(startLoad);
 });
@@ -13,9 +16,9 @@ function loadPeriods() {
         url: "/api/Statistics/SummariesPeriods", success: function (data, textStatus) {
             if (textStatus === 204) {
                 hidePeriodsChart();
+            } else {
+                drawPeriodsChart(getPeriodsDataTable(data));
             }
-
-            drawPeriodsChart(getPeriodsDataTable(data));
         }, error: function () {
             hidePeriodsChart();
         }
@@ -27,10 +30,11 @@ function loadMonthly() {
         url: "/api/Statistics/Summaries", success: function (data, textStatus) {
             if (textStatus === 204) {
                 hideMonthlyCharts();
+            } else {
+                drawLineChart(getMonthlyDataTable(data, "Tickets"), "tickets-monthly", "Темпи зростання кількості квитків", "blue");
+                drawLineChart(getMonthlyDataTable(data, "HappyTickets"), "happy-tickets-monthly", "Темпи зростання кількості щасливих квитків", "green");
+                drawLineChart(getMonthlyDataTable(data, "Packages"), "packages-monthly", "Темпи зростання кількості пачок", "red");
             }
-
-            drawLineChart(getMonthlyDataTable(data, "Tickets"), "tickets-monthly", "Темпи зростання кількості квитків", "blue");
-            drawLineChart(getMonthlyDataTable(data, "HappyTickets"), "happy-tickets-monthly", "Темпи зростання кількості щасливих квитків", "green");
         }, error: function () {
             hideMonthlyCharts();
         }
@@ -62,7 +66,7 @@ function getMonthlyDataTable(dataArray, valueKey) {
 function drawPeriodsChart(dataTable) {
     var chart = new google.visualization.ColumnChart(document.getElementById("tickets-periods"));
     var opts = {
-        title: "Темпи збору квитків за періодами",
+        title: "Кількість зібраних квитків за місяцями",
         legend: { position: 'none' }
     };
 
@@ -87,4 +91,5 @@ function hidePeriodsChart() {
 function hideMonthlyCharts() {
     $('#tickets-monthly').hide();
     $('#happy-tickets-monthly').hide();
+    $('#packages-monthly').hide();
 }
