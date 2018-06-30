@@ -15,5 +15,7 @@ namespace TicketManagementSystem.Web
 
         [Display(Name = "Квитків:")]
         public int TicketsCount { get; set; }
+
+        public bool CanBeDeleted { get; set; }
     }
 }

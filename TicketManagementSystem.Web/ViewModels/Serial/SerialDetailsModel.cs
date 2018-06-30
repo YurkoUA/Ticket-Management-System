@@ -18,5 +18,7 @@ namespace TicketManagementSystem.Web
 
         [Display(Name = "Примітка:")]
         public string Note { get; set; }
+
+        public bool CanBeDeleted { get; set; }
     }
 }

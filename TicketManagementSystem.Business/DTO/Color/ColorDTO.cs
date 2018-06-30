@@ -11,6 +11,8 @@ namespace TicketManagementSystem.Business.DTO
         public int PackagesCount { get; set; }
         public int TicketsCount { get; set; }
 
+        public bool CanBeDeleted => PackagesCount == 0 && TicketsCount == 0;
+
         public override string ToString() => Name;
 
         public static Expression<Func<Color, ColorDTO>> CreateFromColor = c => new ColorDTO

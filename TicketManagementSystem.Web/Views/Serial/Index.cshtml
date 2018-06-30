@@ -6,57 +6,68 @@
 }
 
 <h2>@ViewBag.Title</h2>
+
+@if (isAdmin)
+{
+    <p class="hidden-lg hidden-md">
+        @Html.ActionLink("Створити нову", "Create")
+    </p>
+}
+
 <hr />
 
 @if (Model.Any())
 {
-    <div class="panel panel-default">
-        <div class="panel-heading">@ViewBag.Title</div>
+    <div class="panel panel-info">
+        <div class="panel-heading">@ViewBag.Title (@Model.Count() шт)</div>
 
-        @if (isAdmin)
-        {
-            <div class="panel-body">
-                @Html.ActionLink("Створити нову", "Create")
-            </div>
-        }
-
-        <div class="table-responsive">
-            <table class="table table-hover table-bordered">
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Id)</th>
-                    <th>@Html.DisplayNameFor(model => model.Name)</th>
-                    <th>@Html.DisplayNameFor(model => model.PackagesCount)</th>
-                    <th>@Html.DisplayNameFor(model => model.TicketsCount)</th>
-                    <th>@Html.DisplayNameFor(model => model.Note)</th>
-                    <th></th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                        <td>@Html.ActionLink(item.Name, "Details", new { id = item.Id })</td>
-                        <td>@Html.DisplayFor(modelItem => item.PackagesCount)</td>
-                        <td>@Html.DisplayFor(modelItem => item.TicketsCount)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Note)</td>
-                        <td>
+                        <th>@Html.DisplayNameFor(model => model.Id)</th>
+                        <th>@Html.DisplayNameFor(model => model.Name)</th>
+                        <th>@Html.DisplayNameFor(model => model.PackagesCount)</th>
+                        <th>@Html.DisplayNameFor(model => model.TicketsCount)</th>
+                        <th>@Html.DisplayNameFor(model => model.Note)</th>
+
+                        @if (isAdmin)
+                        {
+                            <th></th>
+                        }
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                            <td>@Html.ActionLink(item.Name, "Details", new { id = item.Id })</td>
+                            <td>@Html.DisplayFor(modelItem => item.PackagesCount)</td>
+                            <td>@Html.DisplayFor(modelItem => item.TicketsCount)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Note)</td>
+
                             @if (isAdmin)
                             {
-                                @Html.ActionLink("Редагувати", "Edit", new { id = item.Id })
+                                <td class="text-center">
+                                    <a href="@Url.Action("Edit", "Serial", new { id = item.Id })"><span class="text-info glyphicon glyphicon-pencil"></span></a>
 
-                                if (item.PackagesCount == 0 && item.TicketsCount == 0)
-                                {
-                                    <span> | </span>
-
-                                    @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
-                                }
+                                    @if (item.CanBeDeleted)
+                                    {
+                                        <a href="@Url.Action("Delete", "Serial", new { id = item.Id })"><span class="text-danger glyphicon glyphicon-trash"></span></a>
+                                    }
+                                </td>
                             }
-                        </td>
-                    </tr>
-                }
-            </table>
+                        </tr>
+                    }
+                </table>
+            </div>
         </div>
     </div>
+
+    if (isAdmin)
+    {
+        @Html.DisplayAddButtonFor(Url.Action("Create", "Serial"), "Створити серію")
+    }
 }
 else
 {

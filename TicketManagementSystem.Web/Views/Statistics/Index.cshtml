@@ -10,13 +10,21 @@
     Статистика станом на @Html.DisplayDateTime(DateTime.Now.ToUniversalTime(), "G")
 </p>
 
-<div id="by-serial-chart" style="width: 500px; height: 500px;"></div>
-<div id="by-color-chart" style="width: 500px; height: 500px;"></div>
-<div id="tickets-chart" style="width: 500px; height: 500px;"></div>
-<div id="by-number-chart" style="width: 500px; height: 500px;"></div>
-<div id="happy-by-serial-chart" style="width: 500px; height: 500px;"></div>
-<div id="happy-by-number-chart" style="width: 500px; height: 500px;"></div>
+<div class="row">
+    <div id="by-serial-chart" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pie-chart"></div>
+    <div id="by-number-chart" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pie-chart"></div>
+</div>
 
-@section scripts {
-    @Scripts.Render("https://www.gstatic.com/charts/loader.js", "~/Scripts/statistics.js")
-}
+<div class="row">
+    <div id="by-color-chart" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pie-chart"></div>
+    <div id="tickets-chart" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pie-chart"></div>
+</div>
+
+<div class="row">
+    <div id="happy-by-serial-chart" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pie-chart"></div>
+    <div id="happy-by-number-chart" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pie-chart"></div>
+</div>
+
+    @section scripts {
+        @Scripts.Render("https://www.gstatic.com/charts/loader.js", "~/Scripts/statistics.js")
+    }

@@ -211,6 +211,7 @@
     <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
     <Compile Include="Controllers\TicketController_Note.cs" />
     <Compile Include="Data\AjaxPagination.cs" />
+    <Compile Include="Helpers\CustomHelpers.cs" />
     <Compile Include="Hubs\TicketsHub.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
