@@ -8,6 +8,7 @@ namespace TicketManagementSystem.Web
         public int Id { get; set; }
 
         [Display(Name = "Email:")]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Display(Name = "Ім'я:")]

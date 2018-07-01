@@ -8,8 +8,6 @@ namespace TicketManagementSystem.Business.DTO.Report
         public DateTime Date { get; set; }
         public bool IsAutomatic { get; set; }
 
-        public string TrClass => !IsAutomatic ? "warning" : "";
-
         public string DefaultReportFileName()
         {
             return $"Report_Default_{ConvertDateTime(Date)}";

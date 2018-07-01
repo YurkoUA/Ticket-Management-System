@@ -18,24 +18,13 @@
 
     <hr />
 
-    @*<dl class="dl-horizontal">
-        <dd><a id="login-history-button">Історія входів</a></dd>
-        <dd><a id="change-password-button">Змінити пароль</a></dd>
-
-        @if (User.IsInRole("Admin"))
-        {
-            <dd>@Html.ActionLink("Звіти", "Index", "Report")</dd>
-            <dd><a href="/Todo">TODO Explorer</a></dd>
-        }
-    </dl>*@
-
     <div class="list-group">
         <a id="login-history-button" class="list-group-item">Історія входів</a>
         <a id="change-password-button" class="list-group-item">Змінити пароль</a>
 
         @if (User.IsInRole("Admin"))
         {
-            @Html.ActionLink("Звіти", "Index", "Report", new { }, new { @class = "list-group-item" })
+            <a class="list-group-item" href="@Url.Action("Index", "Report")">Звіти</a>
             <a class="list-group-item" href="/Todo">TODO Explorer</a>
         }
     </div>

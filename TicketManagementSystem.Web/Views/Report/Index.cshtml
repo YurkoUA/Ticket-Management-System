@@ -1,0 +1,56 @@
+﻿@model TicketManagementSystem.Business.DTO.Report.ReportDTO
+
+@{
+    // Model is LastReport.
+
+    ViewBag.Title = "Звіти";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+@if (Model != null)
+{
+    <div class="jumbotron">
+        <h2>Останній звіт</h2>
+
+        @if (Model.IsAutomatic)
+        {
+            <p class="text-warning text-muted">Створений автоматично</p>
+        }
+
+        <h4>Дата: @Html.DisplayDateTime(Model.Date, "G")</h4>
+
+        <a href="@Url.Content($"~/Files/Reports/{Model.DefaultReportFileName()}.pdf")" class="btn btn-primary" target="_blank">Загальний звіт</a>
+        <a href="@Url.Content($"~/Files/Reports/{Model.PackagesReportFileName()}.pdf")" class="btn btn-primary" target="_blank">Звіт по пачкам</a>
+    </div>
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <div class="jumbotron">
+        <h2>Новий звіт</h2>
+
+        <p>
+            <a href="@Url.Action("DefaultReportPrint")" class="btn btn-default" target="_blank">Загальний звіт</a>
+            <a href="@Url.Action("PackagesReportPrint")" class="btn btn-default" target="_blank">Звіт по пачкам</a>
+        </p>
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#save-report-modal">Зберегти звіт</button>
+    </div>
+}
+
+@if (Model != null)
+{
+    <div class="jumbotron">
+        <h2>Архів</h2>
+        <p>Можна переглянути архів звітів, вони згруповані за кожним місяцем.</p>
+
+        <a href="@Url.Action("Archive")" class="btn btn-primary">Перейти до архіву</a>
+    </div>
+
+    Html.RenderPartial("ReportSaveModalPartial");
+}
+
+@section scripts {
+    <script src="~/Scripts/report.js"></script>
+}

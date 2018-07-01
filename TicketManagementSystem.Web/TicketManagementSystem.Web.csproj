@@ -208,7 +208,6 @@
     <Compile Include="Areas\Api\Controllers\SerialController.cs" />
     <Compile Include="Areas\Api\Controllers\StatisticsController.cs" />
     <Compile Include="Areas\Api\Controllers\TicketController.cs" />
-    <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
     <Compile Include="Controllers\TicketController_Note.cs" />
     <Compile Include="Data\AjaxPagination.cs" />
     <Compile Include="Helpers\CustomHelpers.cs" />
@@ -226,7 +225,7 @@
     <Compile Include="Controllers\ColorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PackageController.cs" />
-    <Compile Include="Areas\Report\Controllers\ReportController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SerialController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
@@ -303,16 +302,6 @@
     <Content Include="bower_components\angular\angular.js" />
     <Content Include="bower_components\angular\angular.min.js" />
     <Content Include="bower_components\angular\index.js" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap-grid.css" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap-grid.min.css" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap-reboot.css" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap-reboot.min.css" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap.css" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap.min.css" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\js\bootstrap.bundle.js" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\js\bootstrap.bundle.min.js" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\js\bootstrap.js" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\js\bootstrap.min.js" />
     <Content Include="Content\loading-spinner-black.gif" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -320,6 +309,7 @@
     <Content Include="Content\loading-spinner-blue.gif" />
     <Content Include="Content\loading_spinner.gif" />
     <Content Include="Content\max-width-override.css" />
+    <Content Include="Content\report.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -341,20 +331,8 @@
     <Content Include="bower_components\angular-route\package.json" />
     <Content Include="bower_components\angular-route\README.md" />
     <Content Include="Areas\Api\Views\web.config" />
-    <Content Include="Areas\Report\Views\web.config" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap-grid.css.map" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap-grid.min.css.map" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap-reboot.css.map" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap-reboot.min.css.map" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap.css.map" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\css\bootstrap.min.css.map" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\js\bootstrap.bundle.js.map" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\js\bootstrap.bundle.min.js.map" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\js\bootstrap.js.map" />
-    <Content Include="bower_components\bootstrap-4.0.0-beta.2-dist\js\bootstrap.min.js.map" />
-    <Content Include="Areas\Report\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Report\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Report\Views\Report\Archive.cshtml" />
+    <Content Include="Scripts\report-archive.js" />
+    <Content Include="Views\Report\Archive.cshtml" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <None Include="job_scheduling_data_2_0.xsd">
@@ -484,9 +462,9 @@
     <Content Include="Views\Account\ChangePasswordModal.cshtml" />
     <Content Include="Views\Package\SearchModal.cshtml" />
     <Content Include="Views\Package\SearchPartial.cshtml" />
-    <Content Include="Areas\Report\Views\Report\DefaultReportPrint.cshtml" />
-    <Content Include="Areas\Report\Views\Report\PackagesReportPrint.cshtml" />
-    <Content Include="Areas\Report\Views\Report\Index.cshtml" />
+    <Content Include="Views\Report\DefaultReportPrint.cshtml" />
+    <Content Include="Views\Report\PackagesReportPrint.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\Package\Tickets.cshtml" />
     <Content Include="Views\Ticket\Filter.cshtml" />
     <Content Include="Views\Ticket\FilterFormPartial.cshtml" />
@@ -502,11 +480,12 @@
     <Content Include="Views\Package\FilterFormPartial.cshtml" />
     <Content Include="Views\Ticket\Notes.cshtml" />
     <Content Include="Views\Ticket\Note.cshtml" />
+    <Content Include="Views\Report\ReportSaveModalPartial.cshtml" />
+    <Content Include="Views\Report\_ReportPrintLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Api\Views\Shared\" />
-    <Folder Include="Areas\Report\Models\" />
     <Folder Include="Areas\Todo\Models\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,69 @@
+﻿@model Dictionary<string, IEnumerable<TicketManagementSystem.Business.DTO.Report.ReportDTO>>
+
+@{
+    ViewBag.Title = "Архів звітів";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+@if (Model.Any())
+{
+    <div class="list-group">
+        @foreach (var group in Model)
+        {
+            <button type="button" class="list-group-item" data-toggle="collapse" data-target="#report-@group.Key.GetHashCode()" data-reports-key="@group.Key.GetHashCode()"
+                    aria-expanded="false" aria-controls="report-@group.Key.GetHashCode()">
+                <span>@group.Key</span>
+                <span class="badge text-right">@group.Value.Count()</span>
+            </button>
+
+            <div id="report-@group.Key.GetHashCode()" data-reports-key="@group.Key.GetHashCode()" class="collapse">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            @foreach (var item in group.Value)
+                            {
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <strong>@item.Date.ToString("D")</strong>
+                                            </h4>
+                                        </div>
+
+                                        <div class="panel-body text-center">
+                                            <p>Дата: @Html.DisplayDateTime(item.Date, "G")</p>
+
+                                            @if (item.IsAutomatic)
+                                            {
+                                                <p class="text-danger">Створений автоматично</p>
+                                            }
+                                        </div>
+
+                                        <div class="panel-footer">
+                                            <div class="row">
+                                                <a href="@Url.Content($"~/Files/Reports/{item.DefaultReportFileName()}.pdf")" class="btn btn-link col-lg-6 col-md-6 col-sm-6 col-xs-6" target="_blank">Загальний звіт</a>
+                                                <a href="@Url.Content($"~/Files/Reports/{item.PackagesReportFileName()}.pdf")" class="btn btn-link col-lg-6 col-md-6 col-sm-6 col-xs-6" target="_blank">Звіт по пачкам</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    @Html.AlertDanger("Поки що не було створено жодного звіту!")
+}
+
+<p><a href="@Url.Action("Index")">Назад</a></p>
+
+@section Scripts {
+    <script src="~/Scripts/report-archive.js"></script>    
+}

@@ -3,9 +3,8 @@ using System.Web.Mvc;
 using System.Web.UI;
 using TicketManagementSystem.Business.Extensions;
 using TicketManagementSystem.Business.Interfaces;
-using TicketManagementSystem.Web.Controllers;
 
-namespace TicketManagementSystem.Web.Areas.Report.Controllers
+namespace TicketManagementSystem.Web.Controllers
 {
     public class ReportController : BaseController
     {
