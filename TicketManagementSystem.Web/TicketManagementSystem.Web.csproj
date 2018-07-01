@@ -482,6 +482,7 @@
     <Content Include="Views\Ticket\Note.cshtml" />
     <Content Include="Views\Report\ReportSaveModalPartial.cshtml" />
     <Content Include="Views\Report\_ReportPrintLayout.cshtml" />
+    <Content Include="Views\Serial\SerialFooterPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

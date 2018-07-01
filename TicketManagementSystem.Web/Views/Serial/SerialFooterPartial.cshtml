@@ -1,0 +1,10 @@
+﻿@model int
+
+@if (User.IsInRole("Admin"))
+{
+    <div id="serial-result"></div>
+
+    <div class="panel-footer">
+        @{ Html.RenderPartial("ToolbarPartial", Model); }
+    </div>
+}

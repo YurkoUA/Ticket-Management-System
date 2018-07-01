@@ -21,46 +21,44 @@
     <div class="panel panel-info">
         <div class="panel-heading">@ViewBag.Title (@Model.Count() шт)</div>
 
-        <div class="panel-body">
-            <div class="table-responsive">
-                <table class="table table-hover table-bordered">
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Id)</th>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.PackagesCount)</th>
+                    <th>@Html.DisplayNameFor(model => model.TicketsCount)</th>
+                    <th>@Html.DisplayNameFor(model => model.Note)</th>
+
+                    @if (isAdmin)
+                    {
+                        <th></th>
+                    }
+                </tr>
+
+                @foreach (var item in Model)
+                {
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.Id)</th>
-                        <th>@Html.DisplayNameFor(model => model.Name)</th>
-                        <th>@Html.DisplayNameFor(model => model.PackagesCount)</th>
-                        <th>@Html.DisplayNameFor(model => model.TicketsCount)</th>
-                        <th>@Html.DisplayNameFor(model => model.Note)</th>
+                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                        <td>@Html.ActionLink(item.Name, "Details", new { id = item.Id })</td>
+                        <td>@Html.DisplayFor(modelItem => item.PackagesCount)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TicketsCount)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Note)</td>
 
                         @if (isAdmin)
                         {
-                            <th></th>
+                            <td class="text-center">
+                                <a href="@Url.Action("Edit", "Serial", new { id = item.Id })"><span class="text-info glyphicon glyphicon-pencil"></span></a>
+
+                                @if (item.CanBeDeleted)
+                                {
+                                    <a href="@Url.Action("Delete", "Serial", new { id = item.Id })"><span class="text-danger glyphicon glyphicon-trash"></span></a>
+                                }
+                            </td>
                         }
                     </tr>
-
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                            <td>@Html.ActionLink(item.Name, "Details", new { id = item.Id })</td>
-                            <td>@Html.DisplayFor(modelItem => item.PackagesCount)</td>
-                            <td>@Html.DisplayFor(modelItem => item.TicketsCount)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Note)</td>
-
-                            @if (isAdmin)
-                            {
-                                <td class="text-center">
-                                    <a href="@Url.Action("Edit", "Serial", new { id = item.Id })"><span class="text-info glyphicon glyphicon-pencil"></span></a>
-
-                                    @if (item.CanBeDeleted)
-                                    {
-                                        <a href="@Url.Action("Delete", "Serial", new { id = item.Id })"><span class="text-danger glyphicon glyphicon-trash"></span></a>
-                                    }
-                                </td>
-                            }
-                        </tr>
-                    }
-                </table>
-            </div>
+                }
+            </table>
         </div>
     </div>
 
