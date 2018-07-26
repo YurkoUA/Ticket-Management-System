@@ -5,31 +5,47 @@
     ViewBag.Title = $"Колір \"{Model.Name}\"";
 }
 
-<div>
-    <h2>@ViewBag.Title</h2>
-    <hr />
+@Html.Hidden("partial-view-title", (string)ViewBag.Title)
 
-    <dl class="dl-horizontal">
-        <dt>@Html.DisplayNameFor(model => model.Id)</dt>
-        <dd>@Html.DisplayFor(model => model.Id)</dd>
-
-        <dt>@Html.DisplayNameFor(model => model.Name)</dt>
-        <dd>@Html.DisplayFor(model => model.Name)</dd>
-
-        @if (Model.PackagesCount > 0)
-        {
-            <dt>@Html.DisplayNameFor(model => model.PackagesCount)</dt>
-            <dd>
-                @Html.DisplayFor(model => model.PackagesCount)
-                <a onclick="packagesByColorModal(@Model.Id)">   (Переглянути)</a>
-            </dd>
-        }
-
-        @if (Model.TicketsCount > 0)
-        {
-            <dt>@Html.DisplayNameFor(model => model.TicketsCount)</dt>
-            <dd>@Html.DisplayFor(model => model.TicketsCount)</dd>
-        }
-
-    </dl>
+<div class="panel-heading">
+    <h4 class="panel-title">@ViewBag.Title</h4>
 </div>
+
+<div class="panel-body">
+    <div class="table-responsive">
+        <table class="table table-information">
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayNameFor(m => m.Id)</td>
+                    <td>@Html.DisplayFor(m => m.Id)</td>
+                </tr>
+
+                <tr>
+                    <td>@Html.DisplayNameFor(m => m.Name)</td>
+                    <td>@Html.DisplayFor(m => m.Name)</td>
+                </tr>
+
+                @if (Model.PackagesCount > 0)
+                {
+                    <tr>
+                        <td>@Html.DisplayNameFor(m => m.PackagesCount)</td>
+                        <td>
+                            @Html.DisplayFor(m => m.PackagesCount)
+                            <a href="#" onclick="packagesByColorModal(@Model.Id)">   (Переглянути)</a>
+                        </td>
+                    </tr>
+                }
+
+                @if (Model.TicketsCount > 0)
+                {
+                    <tr>
+                        <td>@Html.DisplayNameFor(m => m.TicketsCount)</td>
+                        <td>@Html.DisplayFor(m => m.TicketsCount)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@{ Html.RenderPartial("ColorFooterPartial", Model.Id); }

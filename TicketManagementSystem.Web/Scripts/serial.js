@@ -9,7 +9,7 @@ function OnComplete(request, status) {
 
 // For delete action.
 function onDeletingSuccess(data) {
-    $('#serial-toolbar').html('');
+    location.href = '/Serial';
 }
 
 function onToolbarSelectionChanged() {

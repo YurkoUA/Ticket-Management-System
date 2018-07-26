@@ -2,24 +2,14 @@
 
 @{
     ViewBag.Title = Model.Title;
-    bool isAdmin = User.IsInRole("Admin");
 }
 
-<div id="color-grid">
-    @{ 
-        Html.RenderPartial(Model.PartialViewName, Model.ModelObject);
-    }
+<h2 id="page-title">@ViewBag.Title</h2>
+<hr />
+
+<div id="color-grid" class="panel panel-info">
+    @{ Html.RenderPartial(Model.PartialViewName, Model.ModelObject); }
 </div>
-
-@if (isAdmin)
-{
-    <div id="color-result"></div>
-    
-    { 
-        Html.RenderPartial("ToolbarPartial", Model.ModelId);
-    }
-}
-<br />
 
 <div>
     @Html.ActionLink("Назад до списку", "Index")

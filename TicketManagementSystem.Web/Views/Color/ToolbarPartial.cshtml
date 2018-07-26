@@ -3,18 +3,17 @@
 @{
     Layout = null;
     var routeValues = new { id = Model };
-    var ajaxOptions = new AjaxOptions { UpdateTargetId = "color-grid", OnBegin = "onToolbarSelectionChanged" };
+    var ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "color-grid",
+        OnBegin = "onToolbarSelectionChanged",
+        OnSuccess = "onToolbarSelectionChangedSuccess"
+    };
+    var html = new { @class = "list-group-item" };
 }
 
-<div class="dropdown" id="color-toolbar">
-    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        Керувати
-        <span class="caret"></span>
-    </button>
-
-    <ul class="dropdown-menu">
-        <li>@Ajax.ActionLink("Деталі", "Details", routeValues, ajaxOptions, new { })</li>
-        <li>@Ajax.ActionLink("Редагувати", "Edit", routeValues, ajaxOptions, new { })</li>
-        <li>@Ajax.ActionLink("Видалити", "Delete", routeValues, ajaxOptions, new { })</li>
-    </ul>
+<div class="list-group text-left">
+    @Ajax.ActionLink("Деталі", "Details", routeValues, ajaxOptions, html)
+    @Ajax.ActionLink("Редагувати", "Edit", routeValues, ajaxOptions, html)
+    @Ajax.ActionLink("Видалити", "Delete", routeValues, ajaxOptions, html)
 </div>

@@ -5,10 +5,13 @@
     ViewBag.Title = $"Видалення кольору \"{Model.Name}\"";
 }
 
-<div>
-    <h2>@ViewBag.Title</h2>
-    <hr />
+@Html.Hidden("partial-view-title", (string)ViewBag.Title)
 
+<div class="panel-heading">
+    <h4 class="panel-title">@ViewBag.Title</h4>
+</div>
+
+<div class="panel-body">
     <div id="color-delete-grid">
         @if (Model.PackagesCount == 0 && Model.TicketsCount == 0)
         {
@@ -38,3 +41,5 @@
         }
     </div>
 </div>
+
+@{ Html.RenderPartial("ColorFooterPartial", Model.Id); }

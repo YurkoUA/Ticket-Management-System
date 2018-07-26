@@ -483,6 +483,7 @@
     <Content Include="Views\Report\ReportSaveModalPartial.cshtml" />
     <Content Include="Views\Report\_ReportPrintLayout.cshtml" />
     <Content Include="Views\Serial\SerialFooterPartial.cshtml" />
+    <Content Include="Views\Color\ColorFooterPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

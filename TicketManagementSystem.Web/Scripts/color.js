@@ -1,17 +1,25 @@
 ﻿function OnBegin() {
-    setButtonLoadingState();
     onToolbarSelectionChanged();
+    setButtonLoadingState();
+}
+
+function OnComplete(request, status) {
+    resetButtonLoadingState();
 }
 
 // For delete action.
 function onDeletingSuccess(data) {
-    $('#color-toolbar').html('');
+    location.href = '/Color';
 }
 
 function onToolbarSelectionChanged() {
     $('#color-result').html('');
 }
 
-function OnComplete(request, status) {
-    resetButtonLoadingState();
+function onToolbarSelectionChangedSuccess(data) {
+    var title = $("#partial-view-title").val();
+
+    if (title != undefined) {
+        $("h2#page-title").html(title);
+    }
 }
