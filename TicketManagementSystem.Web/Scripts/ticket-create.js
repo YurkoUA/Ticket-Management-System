@@ -32,6 +32,8 @@ function OnSuccess(data) {
 
 function pushNoteToArray(note) {
     if (note !== undefined && notesArray.indexOf(note) < 0) {
+        note = note.replace(new RegExp('#', 'g'), '№');
+
         notesArray.push(note);
         appendToDropdown(note);
 

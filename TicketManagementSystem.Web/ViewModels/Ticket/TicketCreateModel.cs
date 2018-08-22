@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using TicketManagementSystem.Business.Attributes;
 
 namespace TicketManagementSystem.Web
 {
-    public class TicketCreateModel
+    public class TicketCreateModel : IValidatableObject
     {
         [Display(Name = "Номер")]
         [Required(ErrorMessage = "Необхідно вказати номер квитка.")]
@@ -41,5 +42,11 @@ namespace TicketManagementSystem.Web
 
         [HiddenInput(DisplayValue = false)]
         public SelectList Packages { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            Note = Note.Replace('#', '№');
+            return new List<ValidationResult>();
+        }
     }
 }
