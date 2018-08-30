@@ -45,7 +45,9 @@ namespace TicketManagementSystem.Web
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            Note = Note.Replace('#', '№');
+            if (Note != null)
+                Note = Note.Replace('#', '№');
+
             return new List<ValidationResult>();
         }
     }

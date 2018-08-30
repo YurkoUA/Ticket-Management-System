@@ -10,6 +10,11 @@ $("#note-dropdown").on('click', 'li', function () {
     }
 });
 
+$('*').bind('keydown', 'alt+s', function () {
+    console.log('keydown');
+    $('#SerialNumber').focus();
+});
+
 function OnBegin() {
     $('#create-result').html("");
     setButtonLoadingState();
@@ -31,7 +36,7 @@ function OnSuccess(data) {
 }
 
 function pushNoteToArray(note) {
-    if (note !== undefined && notesArray.indexOf(note) < 0) {
+    if (note !== undefined && note.length > 0 && notesArray.indexOf(note) < 0) {
         note = note.replace(new RegExp('#', 'g'), '№');
 
         notesArray.push(note);

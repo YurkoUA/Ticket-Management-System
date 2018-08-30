@@ -331,6 +331,8 @@
     <Content Include="bower_components\angular-route\package.json" />
     <Content Include="bower_components\angular-route\README.md" />
     <Content Include="Areas\Api\Views\web.config" />
+    <Content Include="Scripts\jquery.hotkeys.js" />
+    <Content Include="Scripts\jquery.hotkeys.min.js" />
     <Content Include="Scripts\report-archive.js" />
     <Content Include="Views\Report\Archive.cshtml" />
     <Content Include="Content\bootstrap.css.map" />
