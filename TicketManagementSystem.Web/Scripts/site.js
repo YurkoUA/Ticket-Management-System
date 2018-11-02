@@ -14,7 +14,7 @@ function convertDate() {
 }
 
 function putCurrentDate(inputName) {
-    $('#' + inputName).val(new Date().toLocaleDateString());
+    $('#' + inputName).val(new Date().toLocaleDateString('uk-UA'));
 }
 
 function setButtonLoadingState() {

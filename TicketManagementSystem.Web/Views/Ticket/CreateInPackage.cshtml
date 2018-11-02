@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = $"Додати квиток до пачки \"{Model.PackageName}\"";
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.css" />
 }
 
 @Styles.Render("~/Content/max-width-override.css")
@@ -97,7 +98,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-3">
-                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                <input id="Date" name="Date" class="form-control" readonly data-date-format="dd.mm.yyyy" />
                 <a class="btn btn-link btn-sm" onclick="putCurrentDate('Date')">Сьогодні</a>
                 <br />
                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
@@ -115,5 +116,6 @@
 <div id="create-result"></div>
 
 @section scripts {
+    @Scripts.Render("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js")
     @Scripts.Render("~/Scripts/jquery.hotkeys.min.js", "~/Scripts/ticket-create.js")
 }

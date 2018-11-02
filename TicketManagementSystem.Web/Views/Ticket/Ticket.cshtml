@@ -3,10 +3,11 @@
 @{
     ViewBag.Title = Model.Title;
     bool isAdmin = User.IsInRole("Admin");
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.css" />
 }
 
 <div id="ticket-grid">
-    @{ 
+    @{
         Html.RenderPartial(Model.PartialViewName, Model.ModelObject);
     }
 </div>
@@ -21,5 +22,6 @@
 }
 
 @section scripts {
-    @Scripts.Render("~/Scripts/tickets-by-number-modal.js", "~/Scripts/ticket.js")    
+    @Scripts.Render("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js")
+    @Scripts.Render("~/Scripts/tickets-by-number-modal.js", "~/Scripts/ticket.js")
 }

@@ -3,6 +3,12 @@
     setButtonLoadingState();
 }
 
+function onToolbarEventSuccess(data) {
+    $("#Date").datepicker({
+        orientation: 'bottom'
+    });
+}
+
 // For delete action.
 function onDeletingSuccess(data) {
     $('#ticket-toolbar').html('');

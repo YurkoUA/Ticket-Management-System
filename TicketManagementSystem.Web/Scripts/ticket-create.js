@@ -10,6 +10,10 @@ $("#note-dropdown").on('click', 'li', function () {
     }
 });
 
+$("#Date").datepicker({
+    orientation: 'bottom'
+});
+
 $('*').bind('keydown', 'alt+s', function () {
     console.log('keydown');
     $('#SerialNumber').focus();

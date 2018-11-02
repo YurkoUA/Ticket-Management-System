@@ -2,7 +2,7 @@
 
 @{
     Layout = null;
-    var ajaxOptions = new AjaxOptions { UpdateTargetId = "ticket-grid", OnBegin = "onToolbarSelectionChanged" };
+    var ajaxOptions = new AjaxOptions { UpdateTargetId = "ticket-grid", OnBegin = "onToolbarSelectionChanged", OnSuccess = "onToolbarEventSuccess" };
     var routeValues = new { id = Model };
 }
 
