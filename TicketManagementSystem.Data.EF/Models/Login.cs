@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TicketManagementSystem.Data.EF.Models
 {
+    [Table("Login")]
     public class Login
     {
         public int Id { get; set; }

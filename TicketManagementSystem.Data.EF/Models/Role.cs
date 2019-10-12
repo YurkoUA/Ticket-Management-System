@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNet.Identity;
 
 namespace TicketManagementSystem.Data.EF.Models
 {
+    [Table("Role")]
     public class Role : IRole<int>
     {
         public int Id { get; set; }

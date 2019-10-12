@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace TicketManagementSystem.Data.EF.Models
 {
+    [Table("Ticket")]
     public class Ticket : IComparable<Ticket>
     {
         [Timestamp]

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TicketManagementSystem.Data.EF.Models
 {
+    [Table("Color")]
     public class Color
     {
         [Timestamp]

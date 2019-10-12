@@ -67,35 +67,6 @@
     <Compile Include="Enums\TaskStatus.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Migrations\201706211938247_Initial.cs" />
-    <Compile Include="Migrations\201706211938247_Initial.Designer.cs">
-      <DependentUpon>201706211938247_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706251245296_LoginHistory.cs" />
-    <Compile Include="Migrations\201706251245296_LoginHistory.Designer.cs">
-      <DependentUpon>201706251245296_LoginHistory.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707031332019_AddSummary.cs" />
-    <Compile Include="Migrations\201707031332019_AddSummary.Designer.cs">
-      <DependentUpon>201707031332019_AddSummary.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707141710186_AddedReports.cs" />
-    <Compile Include="Migrations\201707141710186_AddedReports.Designer.cs">
-      <DependentUpon>201707141710186_AddedReports.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707150607422_AddedTodoExplorer.cs" />
-    <Compile Include="Migrations\201707150607422_AddedTodoExplorer.Designer.cs">
-      <DependentUpon>201707150607422_AddedTodoExplorer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707290817277_TodoTask_IncreasedFields.cs" />
-    <Compile Include="Migrations\201707290817277_TodoTask_IncreasedFields.Designer.cs">
-      <DependentUpon>201707290817277_TodoTask_IncreasedFields.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710071950216_Added_Login_Host.cs" />
-    <Compile Include="Migrations\201710071950216_Added_Login_Host.Designer.cs">
-      <DependentUpon>201710071950216_Added_Login_Host.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Color.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Package.cs" />
@@ -119,29 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706211938247_Initial.resx">
-      <DependentUpon>201706211938247_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706251245296_LoginHistory.resx">
-      <DependentUpon>201706251245296_LoginHistory.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707031332019_AddSummary.resx">
-      <DependentUpon>201707031332019_AddSummary.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707141710186_AddedReports.resx">
-      <DependentUpon>201707141710186_AddedReports.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707150607422_AddedTodoExplorer.resx">
-      <DependentUpon>201707150607422_AddedTodoExplorer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707290817277_TodoTask_IncreasedFields.resx">
-      <DependentUpon>201707290817277_TodoTask_IncreasedFields.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710071950216_Added_Login_Host.resx">
-      <DependentUpon>201710071950216_Added_Login_Host.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
