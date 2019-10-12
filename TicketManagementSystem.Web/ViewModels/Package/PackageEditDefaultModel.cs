@@ -8,10 +8,6 @@ namespace TicketManagementSystem.Web
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
-        [Timestamp]
-        [HiddenInput(DisplayValue = false)]
-        public byte[] RowVersion { get; set; }
-
         [Required(ErrorMessage = "Необхідно обрати колір.")]
         [Display(Name = "Колір")]
         public int ColorId { get; set; }

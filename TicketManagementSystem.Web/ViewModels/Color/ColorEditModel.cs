@@ -5,10 +5,6 @@ namespace TicketManagementSystem.Web
 {
     public class ColorEditModel
     {
-        [Timestamp]
-        [HiddenInput(DisplayValue = false)]
-        public byte[] RowVersion { get; set; }
-
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 

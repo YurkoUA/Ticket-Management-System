@@ -246,3 +246,5 @@ ModelManifest.xml
 /TicketManagementSystem.Web/Web.Debug.config
 /TicketManagementSystem.Web/Web.Release.config
 /TicketManagementSystem.Web/Properties/PublishProfiles
+/TicketManagementSystem.Database/TicketManagementSystem.Database.jfm
+/TicketManagementSystem.Database/TicketManagementSystem.Database.dbmdl

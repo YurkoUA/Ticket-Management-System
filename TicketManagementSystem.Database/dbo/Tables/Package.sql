@@ -1,6 +1,5 @@
 ﻿CREATE TABLE [dbo].[Package] (
     [Id]          INT            IDENTITY (1, 1) NOT NULL,
-    [RowVersion]  ROWVERSION     NOT NULL,
     [Name]        NVARCHAR (64)  NULL,
     [ColorId]     INT            NULL,
     [SerialId]    INT            NULL,

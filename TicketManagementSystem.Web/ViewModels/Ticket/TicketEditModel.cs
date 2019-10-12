@@ -7,9 +7,6 @@ namespace TicketManagementSystem.Web
     public class TicketEditModel
     {
         [HiddenInput(DisplayValue = false)]
-        public byte[] RowVersion { get; set; }
-
-        [HiddenInput(DisplayValue = false)]
         public bool CanSelectColor { get; set; }
 
         [HiddenInput(DisplayValue = false)]

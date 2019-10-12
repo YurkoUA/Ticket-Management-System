@@ -17,14 +17,12 @@ namespace TicketManagementSystem.Business.DTO
         public string Note { get; set; }
 
         public bool CanBeDeleted { get; set; }
-        public byte[] RowVersion { get; set; }
 
         public static Expression<Func<Serial, SerialEditDTO>> CreateFromSerial = s => new SerialEditDTO
         {
             Id = s.Id,
             Name = s.Name,
             Note = s.Note,
-            RowVersion = s.RowVersion,
             CanBeDeleted = s.Packages.Count == 0 && s.Tickets.Count == 0
         };
     }

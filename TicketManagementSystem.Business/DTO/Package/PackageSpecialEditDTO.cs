@@ -7,7 +7,6 @@ namespace TicketManagementSystem.Business.DTO
 {
     public class PackageSpecialEditDTO
     {
-        public byte[] RowVersion { get; set; }
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Необхідно вказати назву пачки.")]
@@ -26,7 +25,6 @@ namespace TicketManagementSystem.Business.DTO
 
         public static Expression<Func<Package, PackageSpecialEditDTO>> CreateFromPackage = p => new PackageSpecialEditDTO
         {
-            RowVersion = p.RowVersion,
             Id = p.Id,
             Name = p.Name,
             ColorId = p.ColorId,

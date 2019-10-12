@@ -278,9 +278,6 @@ namespace TicketManagementSystem.Business.Services
                 ticket.Note = ticketDTO.Note;
                 ticket.Date = ticketDTO.Date;
 
-                if (ticketDTO.RowVersion != null)
-                    ticket.RowVersion = ticketDTO.RowVersion;
-
                 Database.Tickets.Update(ticket);
                 Database.SaveChanges();
             }

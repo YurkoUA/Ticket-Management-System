@@ -9,9 +9,6 @@ namespace TicketManagementSystem.Data.EF.Models
     [Table("User")]
     public class User : IUser<int>
     {
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
-
         public int Id { get; set; }
 
         [StringLength(64)]

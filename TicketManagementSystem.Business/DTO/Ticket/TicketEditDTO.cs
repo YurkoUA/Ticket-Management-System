@@ -8,7 +8,6 @@ namespace TicketManagementSystem.Business.DTO
 {
     public class TicketEditDTO
     {
-        public byte[] RowVersion { get; set; }      
         public int Id { get; set; }        
         public int ColorId { get; set; }        
         public int SerialId { get; set; }
@@ -28,7 +27,6 @@ namespace TicketManagementSystem.Business.DTO
 
         public static Expression<Func<Ticket, TicketEditDTO>> CreateFromTicket = t => new TicketEditDTO
         {
-            RowVersion = t.RowVersion,
             Id = t.Id,
             ColorId = t.ColorId,
             SerialId = t.SerialId,

@@ -206,9 +206,6 @@ namespace TicketManagementSystem.Business.Services
                 package.Nominal = packageDTO.Nominal;
                 package.Note = packageDTO.Note;
 
-                if (packageDTO.RowVersion != null)
-                    package.RowVersion = packageDTO.RowVersion;
-
                 Database.Packages.Update(package);
                 Database.SaveChanges(() => {
                     
@@ -229,9 +226,6 @@ namespace TicketManagementSystem.Business.Services
                 package.SerialId = packageDTO.SerialId;
                 package.Nominal = packageDTO.Nominal;
                 package.Note = packageDTO.Note;
-
-                if (packageDTO.RowVersion != null)
-                    package.RowVersion = packageDTO.RowVersion;
 
                 Database.Packages.Update(package);
                 Database.SaveChanges();

@@ -43,7 +43,6 @@ namespace TicketManagementSystem.Business.Services
         {
             var color = Database.Colours.GetById(colorDTO.Id);
             color.Name = colorDTO.Name;
-            color.RowVersion = colorDTO.RowVersion;
 
             Database.Colours.Update(color);
             Database.SaveChanges();

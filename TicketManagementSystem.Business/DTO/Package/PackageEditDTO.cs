@@ -8,7 +8,6 @@ namespace TicketManagementSystem.Business.DTO
 {
     public class PackageEditDTO
     {
-        public byte[] RowVersion { get; set; }
         public int Id { get; set; }
 
         public int ColorId { get; set; }
@@ -28,7 +27,6 @@ namespace TicketManagementSystem.Business.DTO
 
         public static Expression<Func<Package, PackageEditDTO>> CreateFromPackage = p => new PackageEditDTO
         {
-            RowVersion = p.RowVersion,
             Id = p.Id,
             ColorId = (int)p.ColorId,
             SerialId = (int)p.SerialId,

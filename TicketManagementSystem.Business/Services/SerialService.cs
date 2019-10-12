@@ -44,8 +44,6 @@ namespace TicketManagementSystem.Business.Services
             var serial = Database.Series.GetById(serialDTO.Id);
             serial.Name = serialDTO.Name;
             serial.Note = serialDTO.Note;
-            serial.RowVersion = serialDTO.RowVersion;
-
             Database.Series.Update(serial);
             Database.SaveChanges();
         }

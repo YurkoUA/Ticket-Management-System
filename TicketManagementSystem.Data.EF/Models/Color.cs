@@ -8,9 +8,6 @@ namespace TicketManagementSystem.Data.EF.Models
     [Table("Color")]
     public class Color
     {
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
-
         public int Id { get; set; }
 
         [StringLength(32, MinimumLength = 3)]

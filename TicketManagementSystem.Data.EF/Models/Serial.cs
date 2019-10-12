@@ -8,9 +8,6 @@ namespace TicketManagementSystem.Data.EF.Models
     [Table("Serial")]
     public class Serial
     {
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
-
         public int Id { get; set; }
 
         [StringLength(4, MinimumLength = 4)]
