@@ -64,13 +64,6 @@ namespace TicketManagementSystem.Business
 
                 #endregion
 
-                #region TodoTask
-
-                cfg.CreateMap<TodoTask, TodoTaskDTO>();
-                cfg.CreateMap<TodoTaskDTO, TodoTask>();
-
-                #endregion
-
                 #region Package
 
                 cfg.CreateMap<Package, PackageDTO>()

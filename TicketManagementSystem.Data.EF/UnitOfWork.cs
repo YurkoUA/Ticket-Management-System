@@ -21,7 +21,6 @@ namespace TicketManagementSystem.Data.EF
 
         private IRepository<Summary> _summary;
         private IRepository<Report> _reports;
-        private IRepository<TodoTask> _tasks;
 
         private IRepository<Color> _colours;
         private IRepository<Serial> _series;
@@ -107,11 +106,6 @@ namespace TicketManagementSystem.Data.EF
         public IRepository<Report> Reports
         {
             get => _reports ?? (_reports = new EFRepository<Report>(_db));
-        }
-
-        public IRepository<TodoTask> Tasks
-        {
-            get => _tasks ?? (_tasks = new EFRepository<TodoTask>(_db));
         }
 
         public IRepository<Color> Colours

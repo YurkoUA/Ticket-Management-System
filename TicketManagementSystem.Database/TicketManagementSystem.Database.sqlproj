@@ -74,7 +74,6 @@
     <Build Include="dbo\Tables\Ticket.sql" />
     <Build Include="dbo\Tables\Summary.sql" />
     <Build Include="dbo\Tables\Report.sql" />
-    <Build Include="dbo\Tables\TodoTasks.sql" />
     <Build Include="dbo\Views\VW_Packages.sql" />
     <Build Include="dbo\Views\VW_Tickets.sql" />
     <Build Include="dbo\Functions\fn_Number_IsReversible.sql" />

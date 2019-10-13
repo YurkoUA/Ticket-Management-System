@@ -201,25 +201,15 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\OAuthConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Api\Controllers\ColorController.cs" />
-    <Compile Include="Areas\Api\Controllers\NoteController.cs" />
-    <Compile Include="Areas\Api\Controllers\PackageController.cs" />
-    <Compile Include="Areas\Api\Controllers\ReportController.cs" />
-    <Compile Include="Areas\Api\Controllers\SerialController.cs" />
     <Compile Include="Areas\Api\Controllers\StatisticsController.cs" />
-    <Compile Include="Areas\Api\Controllers\TicketController.cs" />
     <Compile Include="Controllers\TicketController_Note.cs" />
     <Compile Include="Data\AjaxPagination.cs" />
     <Compile Include="Helpers\CustomHelpers.cs" />
     <Compile Include="Hubs\TicketsHub.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
-    <Compile Include="Areas\Api\Controllers\AccountController.cs" />
     <Compile Include="Areas\Api\Controllers\BaseApiController.cs" />
-    <Compile Include="Areas\Todo\Controllers\TodoApiController.cs" />
-    <Compile Include="Areas\Todo\Controllers\TodoController.cs" />
     <Compile Include="Areas\Api\Models\Extensions.cs" />
-    <Compile Include="Areas\Todo\TodoAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ColorController.cs" />
@@ -282,26 +272,6 @@
     <Compile Include="Views\PartialViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Todo\app\css\ie10-viewport-bug-workaround.css" />
-    <Content Include="Areas\Todo\app\css\jumbotron-narrow.css" />
-    <Content Include="Areas\Todo\app\css\navbar-fixed-top.css" />
-    <Content Include="Areas\Todo\app\js\app.js" />
-    <Content Include="Areas\Todo\app\js\controllers\todoController.js" />
-    <Content Include="Areas\Todo\app\js\controllers\todoEditController.js" />
-    <Content Include="Areas\Todo\app\js\ie10-viewport-bug-workaround.js" />
-    <Content Include="Areas\Todo\app\js\services\todoService.js" />
-    <Content Include="Areas\Todo\app\views\create.html" />
-    <Content Include="Areas\Todo\app\views\details.html" />
-    <Content Include="Areas\Todo\app\views\edit.html" />
-    <Content Include="Areas\Todo\app\views\taskList.html" />
-    <Content Include="Areas\Todo\app\views\start.html" />
-    <Content Include="bower_components\angular-route\angular-route.js" />
-    <Content Include="bower_components\angular-route\angular-route.min.js" />
-    <Content Include="bower_components\angular-route\index.js" />
-    <Content Include="bower_components\angular\angular-csp.css" />
-    <Content Include="bower_components\angular\angular.js" />
-    <Content Include="bower_components\angular\angular.min.js" />
-    <Content Include="bower_components\angular\index.js" />
     <Content Include="Content\loading-spinner-black.gif" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -315,22 +285,6 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\account-index.js" />
-    <Content Include="bower_components\angular\.bower.json" />
-    <Content Include="bower_components\angular\angular.min.js.gzip" />
-    <Content Include="bower_components\angular\angular.min.js.map" />
-    <Content Include="bower_components\angular\bower.json" />
-    <Content Include="bower_components\angular\LICENSE.md" />
-    <Content Include="bower_components\angular\package.json" />
-    <Content Include="bower_components\angular\README.md" />
-    <Content Include="Areas\Todo\Views\Todo\Index.cshtml" />
-    <Content Include="Areas\Todo\Views\web.config" />
-    <Content Include="bower_components\angular-route\.bower.json" />
-    <Content Include="bower_components\angular-route\angular-route.min.js.map" />
-    <Content Include="bower_components\angular-route\bower.json" />
-    <Content Include="bower_components\angular-route\LICENSE.md" />
-    <Content Include="bower_components\angular-route\package.json" />
-    <Content Include="bower_components\angular-route\README.md" />
-    <Content Include="Areas\Api\Views\web.config" />
     <Content Include="Scripts\jquery.hotkeys.js" />
     <Content Include="Scripts\jquery.hotkeys.min.js" />
     <Content Include="Scripts\report-archive.js" />
@@ -489,8 +443,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Api\Views\Shared\" />
-    <Folder Include="Areas\Todo\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

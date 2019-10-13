@@ -44,7 +44,6 @@ namespace TicketManagementSystem.Web.Util
             _kernel.Bind<IStatisticsService>().To<StatisticsService>();
             _kernel.Bind<ISummaryService>().To<SummaryService>();
             _kernel.Bind<IReportService>().To<ReportService>();
-            _kernel.Bind<ITodoService>().To<TodoService>();
 
             _kernel.Bind<IColorService>().To<ColorService>();
             _kernel.Bind<ISerialService>().To<SerialService>();
@@ -64,8 +63,6 @@ namespace TicketManagementSystem.Web.Util
             _kernel.Bind<ISerialValidationService>().To<SerialValidationService>();
             _kernel.Bind<IPackageValidationService>().To<PackageValidationService>();
             _kernel.Bind<ITicketValidationService>().To<TicketValidationService>();
-
-            _kernel.Bind<ITodoValidationService>().To<TodoValidationService>();
         }
 
         private void BindTelegramService()

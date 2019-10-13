@@ -12,7 +12,6 @@ namespace TicketManagementSystem.Data.EF.Interfaces
 
         IRepository<Summary> Summary { get; }
         IRepository<Report> Reports { get; }
-        IRepository<TodoTask> Tasks { get; }
 
         IRepository<Color> Colours { get; }
         IRepository<Serial> Series { get; }

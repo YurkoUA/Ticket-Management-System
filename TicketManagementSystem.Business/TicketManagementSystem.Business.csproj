@@ -114,7 +114,6 @@
     <Compile Include="DTO\Ticket\TicketDTO.cs" />
     <Compile Include="DTO\Ticket\TicketEditDTO.cs" />
     <Compile Include="DTO\Ticket\TicketNotesDTO.cs" />
-    <Compile Include="DTO\Todo\TodoTaskDTO.cs" />
     <Compile Include="DTO\User\LoginDTO.cs" />
     <Compile Include="DTO\User\UserDTO.cs" />
     <Compile Include="Enums\PackagesFilter.cs" />
@@ -132,13 +131,11 @@
     <Compile Include="Interfaces\ITicketNotesService.cs" />
     <Compile Include="Interfaces\ITicketService2.cs" />
     <Compile Include="Interfaces\ITicketValidationService.cs" />
-    <Compile Include="Interfaces\ITodoValidationService.cs" />
     <Compile Include="Pdf\IPdfService.cs" />
     <Compile Include="Interfaces\IReportService.cs" />
     <Compile Include="Interfaces\IRoleService.cs" />
     <Compile Include="Interfaces\ISummaryService.cs" />
     <Compile Include="Interfaces\ITicketService.cs" />
-    <Compile Include="Interfaces\ITodoService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Pdf\PdfService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -160,7 +157,6 @@
     <Compile Include="Services\TicketNotesService.cs" />
     <Compile Include="Services\TicketService.cs" />
     <Compile Include="Services\TicketService2.cs" />
-    <Compile Include="Services\TodoService.cs" />
     <Compile Include="Telegram\ITelegramNotificationService.cs" />
     <Compile Include="Telegram\ITelegramService.cs" />
     <Compile Include="Telegram\TelegramNotificationService.cs" />
@@ -170,7 +166,6 @@
     <Compile Include="Validation\PackageValidationService.cs" />
     <Compile Include="Validation\SerialValidationService.cs" />
     <Compile Include="Validation\TicketValidationService.cs" />
-    <Compile Include="Validation\TodoValidationService.cs" />
     <Compile Include="Validation\ValidationService.cs" />
   </ItemGroup>
   <ItemGroup>
