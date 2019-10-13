@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
 using TicketManagementSystem.Business;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
+using TicketManagementSystem.Domain.Color.Queries;
+using TicketManagementSystem.Infrastructure.Domain.Processors;
 
 namespace TicketManagementSystem.Web.Controllers
 {
@@ -15,15 +18,23 @@ namespace TicketManagementSystem.Web.Controllers
         private readonly IPackageService _packageService;
         private readonly IColorValidationService _colorValidationService;
 
+        private readonly IQueryProcessorAsync _queryProcessorAsync;
+        private readonly ICommandProcessorAsync _commandProcessorAsync;
+
         public ColorController(IColorService colorService, 
             IPackageService packageService, 
             ICacheService cacheServ,
-            IColorValidationService colorValidationService)
+            IColorValidationService colorValidationService,
+            IQueryProcessorAsync queryProcessorAsync,
+            ICommandProcessorAsync commandProcessorAsync)
         {
             _colorService = colorService;
             _packageService = packageService;
             _cacheService = cacheServ;
             _colorValidationService = colorValidationService;
+
+            _queryProcessorAsync = queryProcessorAsync;
+            _commandProcessorAsync = commandProcessorAsync;
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 30, Location = OutputCacheLocation.Client)]
@@ -34,12 +45,12 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 10)]
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            var color = _colorService.GetColor(id);
-
-            if (color == null)
-                return HttpNotFound();
+            var color = await _queryProcessorAsync.ProcessAsync(new GetColorQuery
+            {
+                ColorId = id
+            });
 
             var colorVM = Mapper.Map<ColorDetailsModel>(color);
 

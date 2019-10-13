@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Ninject;
 
 namespace TicketManagementSystem.Infrastructure.Domain.Processors
 {
     public abstract class BaseProcessor
     {
-        protected readonly IServiceProvider container;
+        protected readonly IKernel container;
 
-        protected BaseProcessor(IServiceProvider container)
+        protected BaseProcessor(IKernel container)
         {
             this.container = container;
         }

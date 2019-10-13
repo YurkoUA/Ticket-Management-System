@@ -5,6 +5,7 @@ using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Common;
 using TicketManagementSystem.Business.Infrastructure;
+using TicketManagementSystem.Domain.Util;
 using TicketManagementSystem.Web.Util;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(TicketManagementSystem.Web.App_Start.NinjectWebCommon), "Start")]
@@ -36,7 +37,11 @@ namespace TicketManagementSystem.Web.App_Start
         
         private static IKernel CreateKernel()
         {
-            var modules = new INinjectModule[] { new ServiceModule("DefaultConnection") };
+            var modules = new INinjectModule[] 
+            {
+                new ServiceModule("DefaultConnection"),
+                new DomainModule("DefaultConnection")
+            };
             kernel = new StandardKernel(modules);
 
             try

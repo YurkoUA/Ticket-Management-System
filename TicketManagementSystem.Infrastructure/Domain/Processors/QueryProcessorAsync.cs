@@ -1,11 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Ninject;
 
 namespace TicketManagementSystem.Infrastructure.Domain.Processors
 {
     public class QueryProcessorAsync : BaseProcessor, IQueryProcessorAsync
     {
-        public QueryProcessorAsync(IServiceProvider container) : base(container)
+        public QueryProcessorAsync(IKernel container) : base(container)
         {
         }
 

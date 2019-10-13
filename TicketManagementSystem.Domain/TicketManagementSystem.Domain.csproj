@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,13 +44,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Color\Queries\GetColorQuery.cs" />
+    <Compile Include="Color\Queries\GetColorQueryHandlerAsync.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\DomainModule.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TicketManagementSystem.Data\TicketManagementSystem.Data.csproj">
+      <Project>{f6987316-0141-43a4-a74d-9a209f8dc588}</Project>
+      <Name>TicketManagementSystem.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicketManagementSystem.Infrastructure\TicketManagementSystem.Infrastructure.csproj">
       <Project>{140e5a97-acb4-4a8b-adb9-41fcc8122188}</Project>
       <Name>TicketManagementSystem.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TicketManagementSystem.ViewModels\TicketManagementSystem.ViewModels.csproj">
+      <Project>{4ED9573A-3540-4100-828D-FF65E087CB8D}</Project>
+      <Name>TicketManagementSystem.ViewModels</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

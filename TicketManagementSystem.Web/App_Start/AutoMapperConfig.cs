@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TicketManagementSystem.Business.DTO;
+using TicketManagementSystem.ViewModels.Color;
 
 namespace TicketManagementSystem.Web
 {
@@ -17,6 +18,8 @@ namespace TicketManagementSystem.Web
 
                 cfg.CreateMap<ColorEditModel, ColorEditDTO>();
                 cfg.CreateMap<ColorEditDTO, ColorEditModel>();
+
+                cfg.CreateMap<ColorVM, ColorDetailsModel>();
 
                 #endregion
 
