@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagementSystem.Test
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TicketManagementSystem.Database", "TicketManagementSystem.Database\TicketManagementSystem.Database.sqlproj", "{38D38DD6-83D8-4B45-8E91-CFBDE9FF228C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagementSystem.Infrastructure", "TicketManagementSystem.Infrastructure\TicketManagementSystem.Infrastructure.csproj", "{140E5A97-ACB4-4A8B-ADB9-41FCC8122188}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{38D38DD6-83D8-4B45-8E91-CFBDE9FF228C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38D38DD6-83D8-4B45-8E91-CFBDE9FF228C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{38D38DD6-83D8-4B45-8E91-CFBDE9FF228C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{140E5A97-ACB4-4A8B-ADB9-41FCC8122188}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{140E5A97-ACB4-4A8B-ADB9-41FCC8122188}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{140E5A97-ACB4-4A8B-ADB9-41FCC8122188}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{140E5A97-ACB4-4A8B-ADB9-41FCC8122188}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
