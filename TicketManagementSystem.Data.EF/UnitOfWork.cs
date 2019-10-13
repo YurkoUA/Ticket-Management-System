@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using TicketManagementSystem.Data.EF.Interfaces;
-using TicketManagementSystem.Data.EF.Models;
 using TicketManagementSystem.Data.EF.Repositories;
+using TicketManagementSystem.Data.Entities;
 
 namespace TicketManagementSystem.Data.EF
 {
-   public sealed class UnitOfWork : IUnitOfWork, IDisposable
+    public sealed class UnitOfWork : IUnitOfWork, IDisposable
     {
         public UnitOfWork(string connectionString)
         {

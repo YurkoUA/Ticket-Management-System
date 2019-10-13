@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using TicketManagementSystem.Data.EF.Models;
+using TicketManagementSystem.Data.Entities;
 
 namespace TicketManagementSystem.Data.EF.Interfaces
 {

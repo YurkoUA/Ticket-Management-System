@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
 using TicketManagementSystem.Business.Extensions;
-using TicketManagementSystem.Data.EF.Models;
+using TicketManagementSystem.Data.Entities;
 
 namespace TicketManagementSystem.Business.DTO
 {

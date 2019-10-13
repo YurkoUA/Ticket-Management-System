@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
-using TicketManagementSystem.Data.EF.Models;
+using TicketManagementSystem.Data.Entities;
 
 namespace TicketManagementSystem.Business.DTO
 {

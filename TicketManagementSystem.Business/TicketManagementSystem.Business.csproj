@@ -173,6 +173,10 @@
       <Project>{eb767e15-10c8-4471-8101-ae735c6e9a91}</Project>
       <Name>TicketManagementSystem.Data.EF</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TicketManagementSystem.Data\TicketManagementSystem.Data.csproj">
+      <Project>{f6987316-0141-43a4-a74d-9a209f8dc588}</Project>
+      <Name>TicketManagementSystem.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

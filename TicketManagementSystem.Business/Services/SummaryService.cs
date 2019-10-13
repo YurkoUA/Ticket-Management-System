@@ -4,7 +4,7 @@ using System.Linq;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
 using TicketManagementSystem.Data.EF.Interfaces;
-using TicketManagementSystem.Data.EF.Models;
+using TicketManagementSystem.Data.Entities;
 
 namespace TicketManagementSystem.Business.Services
 {

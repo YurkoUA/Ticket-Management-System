@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNet.Identity;
 
-namespace TicketManagementSystem.Data.EF.Models
+namespace TicketManagementSystem.Data.Entities
 {
     [Table("Role")]
     public class Role : IRole<int>

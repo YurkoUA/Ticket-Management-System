@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TicketManagementSystem.Data.EF.Models
+namespace TicketManagementSystem.Data.Entities
 {
     [Table("Login")]
     public class Login

@@ -1,5 +1,5 @@
 ﻿using TicketManagementSystem.Business.DTO;
-using TicketManagementSystem.Data.EF.Models;
+using TicketManagementSystem.Data.Entities;
 
 namespace TicketManagementSystem.Business.Extensions
 {

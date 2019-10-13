@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using AutoMapper;
-using TicketManagementSystem.Data.EF.Models;
 using TicketManagementSystem.Business.DTO;
+using TicketManagementSystem.Data.Entities;
 
 namespace TicketManagementSystem.Business
 {
@@ -59,8 +59,8 @@ namespace TicketManagementSystem.Business
 
                 #region Report
 
-                cfg.CreateMap<Data.EF.Models.Report, DTO.Report.ReportDTO>();
-                cfg.CreateMap<DTO.Report.ReportDTO, Data.EF.Models.Report>();
+                cfg.CreateMap<Data.Entities.Report, DTO.Report.ReportDTO>();
+                cfg.CreateMap<DTO.Report.ReportDTO, Data.Entities.Report>();
 
                 #endregion
 

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using TicketManagementSystem.Data.EF.Models;
 using TicketManagementSystem.Business.DTO;
+using TicketManagementSystem.Data.Entities;
 
 namespace TicketManagementSystem.Business.Interfaces
 {

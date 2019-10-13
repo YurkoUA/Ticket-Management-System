@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
-using TicketManagementSystem.Data.EF.Models;
+using TicketManagementSystem.Data.Entities;
 
-namespace TicketManagementSystem.Data.EF
+namespace TicketManagementSystem.Data
 {
     public class AppDbContext : DbContext
     {

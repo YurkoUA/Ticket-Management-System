@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
-namespace TicketManagementSystem.Data.EF.Models
+namespace TicketManagementSystem.Data.Entities
 {
     [Table("Package")]
     public class Package
@@ -22,7 +22,7 @@ namespace TicketManagementSystem.Data.EF.Models
         public bool IsSpecial { get; set; } = false;
         public bool IsOpened { get; set; } = true;
         public DateTime Date { get; set; } = DateTime.Now.ToUniversalTime();
-        
+
         [StringLength(128)]
         public string Note { get; set; }
 

@@ -2,7 +2,7 @@
 using System.Globalization;
 using Newtonsoft.Json;
 using TicketManagementSystem.Business.Extensions;
-using TicketManagementSystem.Data.EF.Models;
+using TicketManagementSystem.Data.Entities;
 
 namespace TicketManagementSystem.Business.DTO
 {

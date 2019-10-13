@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-namespace TicketManagementSystem.Data.EF.Models
+namespace TicketManagementSystem.Data.Entities
 {
     [Table("Ticket")]
     public class Ticket : IComparable<Ticket>
@@ -19,7 +19,7 @@ namespace TicketManagementSystem.Data.EF.Models
 
         [StringLength(2, MinimumLength = 2)]
         public string SerialNumber { get; set; }
-        
+
         [StringLength(128)]
         public string Note { get; set; }
 
