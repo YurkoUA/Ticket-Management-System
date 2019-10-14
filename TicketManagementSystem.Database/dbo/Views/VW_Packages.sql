@@ -7,10 +7,13 @@ SELECT	[p].[Id]
 		,[p].[IsOpened]
 		,[p].[IsSpecial]
 		,[p].[FirstNumber]
-		,[p].[Nominal]
 		,[p].[Note]
 		,[p].[Date]
 		,COUNT([t].[Id])	AS [TicketsCount]
+
+		-- Nominal
+		,[n].[Id]			AS [NominalId]
+		,[n].[Amount]		AS [NominalAmount]
 
 		-- Serial
 		,[s].[Id]			AS [SerialId]
@@ -22,6 +25,7 @@ SELECT	[p].[Id]
 
 FROM [Package] AS [p]
 
+LEFT JOIN [Nominal] AS [n] ON [n].[Id] = [p].[NominalId]
 LEFT JOIN [Serial] AS [s] ON [s].[Id] = [p].[SerialId]
 LEFT JOIN [Color]	AS [c] ON [c].[Id] = [p].[ColorId]
 LEFT JOIN [Ticket] AS [t] ON [t].[PackageId] = [p].[Id]
@@ -39,9 +43,12 @@ GROUP BY [p].[Id]
 		,[p].[IsOpened]
 		,[p].[IsSpecial]
 		,[p].[FirstNumber]
-		,[p].[Nominal]
 		,[p].[Note]
 		,[p].[Date]
+
+		,[n].[Id]
+		,[n].[Amount]
+
 		,[c].[Id]
 		,[c].[Name]
 

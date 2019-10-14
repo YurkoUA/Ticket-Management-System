@@ -63,6 +63,9 @@
     <Folder Include="dbo\Views\" />
     <Folder Include="dbo\Functions\" />
     <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Scripts" />
+    <Folder Include="Scripts\Post-Deployment" />
+    <Folder Include="Scripts\Pre-Deployment" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Role.sql" />
@@ -79,8 +82,21 @@
     <Build Include="dbo\Functions\fn_Number_IsReversible.sql" />
     <Build Include="dbo\Functions\fn_Number_IsConsistent.sql" />
     <Build Include="dbo\Functions\fn_Number_IsHappy.sql" />
+    <Build Include="dbo\Tables\Nominal.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="TicketManagementSystem.Database.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="Scripts\Script.PreDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\Post-Deployment\01_Nominal_Insert.sql" />
+    <None Include="Scripts\Pre-Deployment\01_Package_Nominal_SaveTempAndCleanUp.sql" />
+    <None Include="Scripts\Post-Deployment\02_Package_NominalId_Update.sql" />
+    <None Include="Scripts\Post-Deployment\03_Ticket_NominalId_Update.sql" />
   </ItemGroup>
 </Project>

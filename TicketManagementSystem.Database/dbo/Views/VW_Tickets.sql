@@ -8,6 +8,9 @@ SELECT	[t].[Id]
 		,[t].[Date]
 		,[t].[Note]
 
+		,[n].[Id]		AS [NominalId]
+		,[n].[Amount]	AS [NominalAmount]
+
 		,[p].[Id]	AS [PackageId]
 		,[p].[Name]	AS [PackageName]
 
@@ -19,6 +22,7 @@ SELECT	[t].[Id]
 
 FROM [Ticket] AS [t]
 
+JOIN [Nominal] AS [n] ON [n].[Id] = [t].[NominalId]
 JOIN [Serial] AS [s] ON [s].[Id] = [t].[SerialId]
 JOIN [Color] AS [c] ON [c].[Id] = [t].[ColorId]
 LEFT JOIN [VW_Packages] AS [p] ON [p].[Id] = [t].[PackageId]
