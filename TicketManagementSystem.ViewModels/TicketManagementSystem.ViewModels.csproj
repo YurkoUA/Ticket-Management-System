@@ -42,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Color\ColorVM.cs" />
+    <Compile Include="Common\CommandResultVM.cs" />
+    <Compile Include="Common\IdentifierVM.cs" />
+    <Compile Include="Nominal\NominalVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

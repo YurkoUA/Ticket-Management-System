@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
 using TicketManagementSystem.Business;
@@ -8,6 +9,10 @@ using TicketManagementSystem.Business.AppSettings;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Enums;
 using TicketManagementSystem.Business.Interfaces;
+using TicketManagementSystem.Domain.Cqrs;
+using TicketManagementSystem.Domain.Package.Commands;
+using TicketManagementSystem.Infrastructure.Domain.Processors;
+using TicketManagementSystem.ViewModels.Nominal;
 using TicketManagementSystem.Web.Hubs;
 
 namespace TicketManagementSystem.Web.Controllers
@@ -24,6 +29,9 @@ namespace TicketManagementSystem.Web.Controllers
         private readonly IPackageValidationService _packageValidationService;
         private readonly ITicketValidationService _ticketValidationService;
 
+        private readonly ICommandProcessorAsync _commandProcessorAsync;
+        private readonly IQueryProcessorAsync _queryProcessorAsync;
+
         public PackageController(IPackageService packageService, 
             IColorService colorService, 
             ISerialService serialService,
@@ -31,7 +39,9 @@ namespace TicketManagementSystem.Web.Controllers
             ICacheService cacheService,
             IAppSettingsService appSettingsService,
             IPackageValidationService packageValidationService,
-            ITicketValidationService ticketValidationService)
+            ITicketValidationService ticketValidationService,
+            ICommandProcessorAsync commandProcessorAsync,
+            IQueryProcessorAsync queryProcessorAsync)
         {
             _packageService = packageService;
             _colorService = colorService;
@@ -41,6 +51,8 @@ namespace TicketManagementSystem.Web.Controllers
             _appSettingsService = appSettingsService;
             _packageValidationService = packageValidationService;
             _ticketValidationService = ticketValidationService;
+            _commandProcessorAsync = commandProcessorAsync;
+            _queryProcessorAsync = queryProcessorAsync;
         }
 
         [HttpGet, AllowAnonymous, OutputCache(Duration = 20, Location = OutputCacheLocation.Client)]
@@ -163,14 +175,22 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
-        public ActionResult Create(bool special = false)
+        public async Task<ActionResult> Create(bool special = false)
         {
             var colors = GetColorsSelectList();
             var series = GetSeriesSelectList();
+            var nominals = await _queryProcessorAsync.ProcessAsync(new EmptyQuery<IEnumerable<NominalVM>>());
 
             if (!special)
             {
-                return View("CreateDefault", new PackageCreateDefaultModel { Colors = colors, Series = series });
+                var selectedNominalId = nominals.FirstOrDefault(n => n.IsDefault).Id;
+                return View("CreateDefault", new PackageCreateDefaultModel
+                {
+                    Colors = colors,
+                    Series = series,
+                    Nominals = nominals,
+                    NominalId = selectedNominalId
+                });
             }
             else
             {
@@ -179,20 +199,18 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Create(PackageCreateDefaultModel viewModel)
+        public async Task<ActionResult> Create(PackageCreateDefaultModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var createDTO = Mapper.Map<PackageCreateDTO>(viewModel);
-                var errors = _packageValidationService.Validate(createDTO);
+                var command = Mapper.Map<CreatePackageCommand>(viewModel);
+                var result = await _commandProcessorAsync.ProcessAsync(command);
 
-                errors.ToModelState(ModelState);
-
-                if (ModelState.IsValid)
+                if (result.IsSuccess)
                 {
-                    var packageId = _packageService.CreatePackage(createDTO).Id;
-                    return SuccessPartial("Пачку успішно створено", Url.Action("Details", new { id = packageId }), "Переглянути");
+                    return SuccessPartial("Пачку успішно створено", Url.Action("Details", new { id = result.Model.Id }), "Переглянути");
                 }
+                return ErrorPartial(result);
             }
             return ErrorPartial(ModelState);
         }

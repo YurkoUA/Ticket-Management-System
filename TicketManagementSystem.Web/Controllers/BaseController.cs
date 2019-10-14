@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
 using AutoMapper;
+using TicketManagementSystem.ViewModels.Common;
 
 namespace TicketManagementSystem.Web.Controllers
 {
@@ -16,6 +17,11 @@ namespace TicketManagementSystem.Web.Controllers
         protected ActionResult ErrorPartial(ModelStateDictionary modelState)
         {
             return PartialView("ErrorListPartial", modelState.ToEnumerableString());
+        }
+
+        protected ActionResult ErrorPartial<TModel>(CommandResultVM<TModel> result)
+        {
+            return PartialView("ErrorListPartial", result.Errors);
         }
 
         protected ActionResult SuccessPartial(string message)

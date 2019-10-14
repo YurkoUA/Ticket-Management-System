@@ -454,6 +454,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TicketManagementSystem.Bootstrap\TicketManagementSystem.Bootstrap.csproj">
+      <Project>{00FFCD56-CDD0-4EE9-ACBC-8A47D5414B4C}</Project>
+      <Name>TicketManagementSystem.Bootstrap</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicketManagementSystem.Business\TicketManagementSystem.Business.csproj">
       <Project>{55b12f31-41fc-4fc6-9ec8-2ff9faac7c62}</Project>
       <Name>TicketManagementSystem.Business</Name>

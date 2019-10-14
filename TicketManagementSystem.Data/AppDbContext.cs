@@ -18,6 +18,7 @@ namespace TicketManagementSystem.Data
         public DbSet<Report> Reports { get; set; }
         public DbSet<Summary> Summary { get; set; }
 
+        public DbSet<Nominal> Nominals { get; set; }
         public DbSet<Color> Colors { get; set; }
         public DbSet<Serial> Series { get; set; }
         public DbSet<Package> Packages { get; set; }

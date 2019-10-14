@@ -4,6 +4,7 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Common;
+using TicketManagementSystem.Bootstrap;
 using TicketManagementSystem.Business.Infrastructure;
 using TicketManagementSystem.Domain.Util;
 using TicketManagementSystem.Web.Util;
@@ -40,7 +41,8 @@ namespace TicketManagementSystem.Web.App_Start
             var modules = new INinjectModule[] 
             {
                 new ServiceModule("DefaultConnection"),
-                new DomainModule("DefaultConnection")
+                new DomainModule("DefaultConnection"),
+                new BootstrapModule()
             };
             kernel = new StandardKernel(modules);
 

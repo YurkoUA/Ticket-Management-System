@@ -17,8 +17,12 @@ namespace TicketManagementSystem.Data.Entities
 
         public int? ColorId { get; set; }
         public int? SerialId { get; set; }
+        public int? NominalId { get; set; }
         public int? FirstNumber { get; set; }
+        
+        [Obsolete]
         public double Nominal { get; set; }
+
         public bool IsSpecial { get; set; } = false;
         public bool IsOpened { get; set; } = true;
         public DateTime Date { get; set; } = DateTime.Now.ToUniversalTime();
@@ -30,6 +34,7 @@ namespace TicketManagementSystem.Data.Entities
 
         public Color Color { get; set; }
         public Serial Serial { get; set; }
+        public Nominal NominalEntity { get; set; }
         public IList<Ticket> Tickets { get; set; } = new List<Ticket>();
 
         #endregion

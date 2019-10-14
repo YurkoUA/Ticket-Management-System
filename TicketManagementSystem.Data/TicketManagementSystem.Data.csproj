@@ -54,6 +54,7 @@
     <Compile Include="AppDbContext.cs" />
     <Compile Include="Entities\Color.cs" />
     <Compile Include="Entities\Login.cs" />
+    <Compile Include="Entities\Nominal.cs" />
     <Compile Include="Entities\Package.cs" />
     <Compile Include="Entities\Report.cs" />
     <Compile Include="Entities\Role.cs" />

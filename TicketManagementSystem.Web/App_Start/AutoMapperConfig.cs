@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TicketManagementSystem.Business.DTO;
+using TicketManagementSystem.Domain.Package.Commands;
 using TicketManagementSystem.ViewModels.Color;
 
 namespace TicketManagementSystem.Web
@@ -81,6 +82,13 @@ namespace TicketManagementSystem.Web
                 cfg.CreateMap<TicketCreateModel, TicketCreateDTO>();
                 cfg.CreateMap<TicketEditDTO, TicketEditModel>();
                 cfg.CreateMap<TicketEditModel, TicketEditDTO>();
+
+                #endregion
+
+                #region CQRS
+
+                cfg.CreateMap<PackageCreateDefaultModel, CreatePackageCommand>()
+                    .ForMember(dest => dest.FirstDigit, opt => opt.MapFrom(src => src.FirstNumber));
 
                 #endregion
             });
