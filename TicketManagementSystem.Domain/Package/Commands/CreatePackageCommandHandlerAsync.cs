@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TicketManagementSystem.Domain.Constants;
 using TicketManagementSystem.Domain.DTO;
+using TicketManagementSystem.Domain.ValidationChain;
+using TicketManagementSystem.Infrastructure.ChainOfResponsibility;
 using TicketManagementSystem.Infrastructure.Data;
 using TicketManagementSystem.Infrastructure.Domain;
 using TicketManagementSystem.Infrastructure.Util;
@@ -27,35 +29,13 @@ namespace TicketManagementSystem.Domain.Package.Commands
         {
             var result = new CommandResultDTO<IdentifierVM>();
 
-            if ((await unitOfWork.Get<Data.Entities.Color>().FindByIdAsync(command.ColorId)) == null)
-            {
-                result.IsSuccess = false;
-                result.Errors.Add(new CommandMessageDTO
-                {
-                    ResourceName = ValidationMessage.COLOR_NOT_EXISTS,
-                    Arguments = new object[] { command.ColorId }
-                });
-            }
+            var chainBuilder = new ChainBuilder<IList<CommandMessageDTO>>();
+            chainBuilder
+                .ConstructChain(new ColorExistsValidator(unitOfWork, command.ColorId))
+                .ConstructChain(new SerialExistsValidator(unitOfWork, command.SerialId))
+                .ConstructChain(new NominalExistsValidator(unitOfWork, command.NominalId));
 
-            if ((await unitOfWork.Get<Data.Entities.Serial>().FindByIdAsync(command.SerialId)) == null)
-            {
-                result.IsSuccess = false;
-                result.Errors.Add(new CommandMessageDTO
-                {
-                    ResourceName = ValidationMessage.SERIAL_NOT_EXISTS,
-                    Arguments = new object[] { command.SerialId }
-                });
-            }
-
-            if ((await unitOfWork.Get<Data.Entities.Nominal>().FindByIdAsync(command.NominalId)) == null)
-            {
-                result.IsSuccess = false;
-                result.Errors.Add(new CommandMessageDTO
-                {
-                    ResourceName = ValidationMessage.NOMINAL_NOT_EXISTS,
-                    Arguments = new object[] { command.NominalId }
-                });
-            }
+            chainBuilder.Head.HandleRequest(result.Errors);
 
             if (result.IsSuccess)
             {

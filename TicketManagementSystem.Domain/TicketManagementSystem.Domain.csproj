@@ -61,6 +61,10 @@
       <DependentUpon>ValidationMessage.resx</DependentUpon>
     </Compile>
     <Compile Include="Util\DomainModule.cs" />
+    <Compile Include="ValidationChain\BaseValidator.cs" />
+    <Compile Include="ValidationChain\ColorExistsValidator.cs" />
+    <Compile Include="ValidationChain\NominalExistsValidator.cs" />
+    <Compile Include="ValidationChain\SerialExistsValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TicketManagementSystem.Data\TicketManagementSystem.Data.csproj">

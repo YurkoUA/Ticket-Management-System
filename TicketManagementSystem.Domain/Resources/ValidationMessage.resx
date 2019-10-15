@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ColorNotExists" xml:space="preserve">
-    <value>Серії ID: {0} не існує.</value>
+    <value>Кольору ID: {0} не існує.</value>
   </data>
   <data name="NominalNotExists" xml:space="preserve">
     <value>Номіналу ID: {0} не існує.</value>
   </data>
   <data name="SerialNotExists" xml:space="preserve">
-    <value>Кольору ID: {0} не існує.</value>
+    <value>Серії ID: {0} не існує.</value>
   </data>
 </root>

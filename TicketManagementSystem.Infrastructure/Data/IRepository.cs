@@ -15,8 +15,8 @@ namespace TicketManagementSystem.Infrastructure.Data
         Task<IQueryable<TEntity>> FindAllIncludingAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties);
         Task<IQueryable<TEntity>> FindAllIncludingAsync(Expression<Func<TEntity, bool>> predicate, params string[] includeProperties);
 
-        Task<TEntity> FindByIdAsync(int id);
-        Task<TEntity> FindByKeysAsync(params object[] values);
+        Task<TEntity> FindAsync(int id);
+        Task<TEntity> FindAsync(params object[] values);
 
         Task<int> CountAsync();
         Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate);
@@ -31,6 +31,12 @@ namespace TicketManagementSystem.Infrastructure.Data
         Task RemoveAsync(TEntity item);
         Task RemoveRangeAsync(IEnumerable<TEntity> items);
         Task RemoveRangeAsync(Expression<Func<TEntity, bool>> predicate);
+
+        #region Sync.
+
+        bool Any(Expression<Func<TEntity, bool>> predicate);
+
+        #endregion
 
         Task SaveAsync();
     }

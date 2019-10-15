@@ -61,7 +61,7 @@ namespace TicketManagementSystem.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Серії ID: {0} не існує..
+        ///   Looks up a localized string similar to Кольору ID: {0} не існує..
         /// </summary>
         public static string ColorNotExists {
             get {
@@ -79,7 +79,7 @@ namespace TicketManagementSystem.Domain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Кольору ID: {0} не існує..
+        ///   Looks up a localized string similar to Серії ID: {0} не існує..
         /// </summary>
         public static string SerialNotExists {
             get {

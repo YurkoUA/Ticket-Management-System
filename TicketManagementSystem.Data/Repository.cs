@@ -63,12 +63,12 @@ namespace TicketManagementSystem.Data
             return all;
         }
 
-        public async Task<TEntity> FindByIdAsync(int id)
+        public async Task<TEntity> FindAsync(int id)
         {
             return await context.Set<TEntity>().FindAsync(id);
         }
 
-        public async Task<TEntity> FindByKeysAsync(params object[] values)
+        public async Task<TEntity> FindAsync(params object[] values)
         {
             return await context.Set<TEntity>().FindAsync(values);
         }
@@ -132,6 +132,15 @@ namespace TicketManagementSystem.Data
             var dbset = context.Set<TEntity>();
             var entitiesToDelete = dbset.Where(predicate);
             await RemoveRangeAsync(entitiesToDelete);
+        }
+
+        #endregion
+
+        #region Sync.
+
+        public bool Any(Expression<Func<TEntity, bool>> predicate)
+        {
+            return context.Set<TEntity>().Any(predicate);
         }
 
         #endregion
