@@ -17,8 +17,10 @@ namespace TicketManagementSystem.Bootstrap.Mapping
     {
         public MapperProfile()
         {
-            CreateMap(typeof(CommandResultDTO<>), typeof(CommandResultVM<>))
-                .ForMember("Errors", opt => opt.ResolveUsing(typeof(CommandMessageDTOResolver), "Errors"));
+            CreateMap(typeof(CommandResultDTO<>), typeof(CommandResultVM<>));
+
+            CreateMap<CommandMessageDTO, string>()
+                .ConvertUsing<CommandMessageDTOResolver>();
 
             CreateMap<Nominal, NominalVM>();
 

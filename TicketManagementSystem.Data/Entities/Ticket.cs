@@ -12,6 +12,7 @@ namespace TicketManagementSystem.Data.Entities
 
         [StringLength(6, MinimumLength = 6)]
         public string Number { get; set; }
+        public int? NominalId { get; set; }
 
         public int? PackageId { get; set; }
         public int ColorId { get; set; }
@@ -29,6 +30,7 @@ namespace TicketManagementSystem.Data.Entities
 
         #region Navigation properties
 
+        public Nominal Nominal { get; set; }
         public Package Package { get; set; }
         public Color Color { get; set; }
         public Serial Serial { get; set; }
