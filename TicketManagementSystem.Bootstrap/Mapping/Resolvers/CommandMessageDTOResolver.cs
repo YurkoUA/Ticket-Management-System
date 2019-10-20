@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
-using System.Resources;
+﻿using System.Resources;
 using AutoMapper;
 using TicketManagementSystem.Domain.DTO;
-using TicketManagementSystem.Domain.Resources;
+using TicketManagementSystem.Resources;
 
 namespace TicketManagementSystem.Bootstrap.Mapping.Resolvers
 {
@@ -16,7 +14,7 @@ namespace TicketManagementSystem.Bootstrap.Mapping.Resolvers
                 return null;
             }
 
-            var rm = new ResourceManager("TicketManagementSystem.Domain.Resources.ValidationMessage", typeof(ValidationMessage).Assembly);
+            var rm = new ResourceManager("TicketManagementSystem.Resources.ValidationMessage", typeof(ValidationMessage).Assembly);
 
             var message = rm.GetString(source.ResourceName);
             message = string.Format(message, source.Arguments);

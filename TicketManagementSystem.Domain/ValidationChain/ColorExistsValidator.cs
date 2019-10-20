@@ -7,8 +7,8 @@ namespace TicketManagementSystem.Domain.ValidationChain
 {
     public class ColorExistsValidator : BaseValidator
     {
-        private int? colorId;
-        private bool isRequired;
+        private readonly int? colorId;
+        private readonly bool isRequired;
 
         public ColorExistsValidator(IUnitOfWork unitOfWork, int? colorId, bool isRequired = true) : base(unitOfWork)
         {
@@ -32,7 +32,7 @@ namespace TicketManagementSystem.Domain.ValidationChain
                 }
             }
 
-            Next?.HandleRequest(model);
+            Continue(model);
         }
     }
 }

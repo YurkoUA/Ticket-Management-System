@@ -7,8 +7,8 @@ namespace TicketManagementSystem.Domain.ValidationChain
 {
     public class SerialExistsValidator : BaseValidator
     {
-        private int? serialId;
-        private bool isRequired;
+        private readonly int? serialId;
+        private readonly bool isRequired;
         
         public SerialExistsValidator(IUnitOfWork unitOfWork, int? serialId, bool isRequired = true) : base(unitOfWork)
         {
@@ -32,7 +32,7 @@ namespace TicketManagementSystem.Domain.ValidationChain
                 }
             }
 
-            Next?.HandleRequest(model);
+            Continue(model);
         }
     }
 }

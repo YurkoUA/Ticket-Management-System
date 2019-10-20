@@ -248,7 +248,7 @@ namespace TicketManagementSystem.Business.Services
 
             //Database.Packages.Remove(package);
 
-            Database.Packages.Remove(id, "Packages");
+            Database.Packages.Remove(id, "Package");
             Database.SaveChanges();
         }
 

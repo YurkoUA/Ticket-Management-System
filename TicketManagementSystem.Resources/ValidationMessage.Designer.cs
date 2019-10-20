@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TicketManagementSystem.Domain.Resources {
+namespace TicketManagementSystem.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace TicketManagementSystem.Domain.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TicketManagementSystem.Domain.Resources.ValidationMessage", typeof(ValidationMessage).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TicketManagementSystem.Resources.ValidationMessage", typeof(ValidationMessage).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -75,6 +75,15 @@ namespace TicketManagementSystem.Domain.Resources {
         public static string NominalNotExists {
             get {
                 return ResourceManager.GetString("NominalNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пачка з іменем &quot;{0}&quot; вже існує..
+        /// </summary>
+        public static string PackageNameExists {
+            get {
+                return ResourceManager.GetString("PackageNameExists", resourceCulture);
             }
         }
         

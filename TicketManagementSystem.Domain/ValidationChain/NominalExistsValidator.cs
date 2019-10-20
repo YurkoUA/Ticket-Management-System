@@ -7,8 +7,8 @@ namespace TicketManagementSystem.Domain.ValidationChain
 {
     public class NominalExistsValidator : BaseValidator
     {
-        private int? nominalId;
-        private bool isRequired;
+        private readonly int? nominalId;
+        private readonly bool isRequired;
 
         public NominalExistsValidator(IUnitOfWork unitOfWork, int? nominalId, bool isRequired = true) : base(unitOfWork)
         {
@@ -32,7 +32,7 @@ namespace TicketManagementSystem.Domain.ValidationChain
                 }
             }
 
-            Next?.HandleRequest(model);
+            Continue(model);
         }
     }
 }

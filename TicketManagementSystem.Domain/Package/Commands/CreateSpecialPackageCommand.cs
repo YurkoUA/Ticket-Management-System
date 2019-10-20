@@ -1,10 +1,9 @@
-﻿using TicketManagementSystem.Domain.DTO;
-using TicketManagementSystem.Infrastructure.Domain;
+﻿using TicketManagementSystem.Infrastructure.Domain;
 using TicketManagementSystem.ViewModels.Common;
 
 namespace TicketManagementSystem.Domain.Package.Commands
 {
-    public class CreateSpecialPackageCommand : ICommand<CommandResultDTO<IdentifierVM>>
+    public class CreateSpecialPackageCommand : ICommand<CommandResultVM<IdentifierVM>>
     {
         public string Name { get; set; }
         public int? ColorId { get; set; }

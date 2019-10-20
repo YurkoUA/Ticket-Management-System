@@ -3,7 +3,6 @@ using Ninject.Modules;
 using TicketManagementSystem.Data;
 using TicketManagementSystem.Domain.Color.Queries;
 using TicketManagementSystem.Domain.Cqrs;
-using TicketManagementSystem.Domain.DTO;
 using TicketManagementSystem.Domain.Nominal.Queries;
 using TicketManagementSystem.Domain.Package.Commands;
 using TicketManagementSystem.Infrastructure.Data;
@@ -37,6 +36,7 @@ namespace TicketManagementSystem.Domain.Util
             Bind<IQueryHandlerAsync<EmptyQuery<IEnumerable<NominalVM>>, IEnumerable<NominalVM>>>().To<GetNominalsQueryHandlerAsync>();
 
             Bind<ICommandHandlerAsync<CreatePackageCommand, CommandResultVM<IdentifierVM>>>().To<CreatePackageCommandHandlerAsync>();
+            Bind<ICommandHandlerAsync<CreateSpecialPackageCommand, CommandResultVM<IdentifierVM>>>().To<CreateSpecialPackageCommandHandlerAsync>();
         }
     }
 }

@@ -90,6 +90,8 @@ namespace TicketManagementSystem.Web
                 cfg.CreateMap<PackageCreateDefaultModel, CreatePackageCommand>()
                     .ForMember(dest => dest.FirstDigit, opt => opt.MapFrom(src => src.FirstNumber));
 
+                cfg.CreateMap<PackageCreateSpecialModel, CreateSpecialPackageCommand>();
+
                 #endregion
             });
 

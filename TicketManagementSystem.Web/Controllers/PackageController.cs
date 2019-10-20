@@ -180,10 +180,10 @@ namespace TicketManagementSystem.Web.Controllers
             var colors = GetColorsSelectList();
             var series = GetSeriesSelectList();
             var nominals = await _queryProcessorAsync.ProcessAsync(new EmptyQuery<IEnumerable<NominalVM>>());
+            var selectedNominalId = nominals.FirstOrDefault(n => n.IsDefault).Id;
 
             if (!special)
             {
-                var selectedNominalId = nominals.FirstOrDefault(n => n.IsDefault).Id;
                 return View("CreateDefault", new PackageCreateDefaultModel
                 {
                     Colors = colors,
@@ -194,7 +194,13 @@ namespace TicketManagementSystem.Web.Controllers
             }
             else
             {
-                return View("CreateSpecial", new PackageCreateSpecialModel { Colors = colors, Series = series });
+                return View("CreateSpecial", new PackageCreateSpecialModel
+                {
+                    Colors = colors,
+                    Series = series,
+                    Nominals = nominals,
+                    NominalId = selectedNominalId
+                });
             }
         }
 
@@ -216,19 +222,18 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult CreateSpecial(PackageCreateSpecialModel viewModel)
+        public async Task<ActionResult> CreateSpecial(PackageCreateSpecialModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var createDTO = Mapper.Map<PackageSpecialCreateDTO>(viewModel);
-                var errors = _packageValidationService.Validate(createDTO);
-                errors.ToModelState(ModelState);
+                var command = Mapper.Map<CreateSpecialPackageCommand>(viewModel);
+                var result = await _commandProcessorAsync.ProcessAsync(command);
 
-                if (ModelState.IsValid)
+                if (result.IsSuccess)
                 {
-                    var packageId = _packageService.CreateSpecialPackage(createDTO).Id;
-                    return SuccessPartial($"Пачку \"{viewModel.Name}\" успішно створено", Url.Action("Details", new { id = packageId }), "Переглянути");
+                    return SuccessPartial("Пачку успішно створено", Url.Action("Details", new { id = result.Model.Id }), "Переглянути");
                 }
+                return ErrorPartial(result);
             }
             return ErrorPartial(ModelState);
         }

@@ -66,6 +66,10 @@
       <Project>{140E5A97-ACB4-4A8B-ADB9-41FCC8122188}</Project>
       <Name>TicketManagementSystem.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TicketManagementSystem.Resources\TicketManagementSystem.Resources.csproj">
+      <Project>{EDD7BB70-2874-45C3-A2A9-774907ECB612}</Project>
+      <Name>TicketManagementSystem.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicketManagementSystem.ViewModels\TicketManagementSystem.ViewModels.csproj">
       <Project>{4ED9573A-3540-4100-828D-FF65E087CB8D}</Project>
       <Name>TicketManagementSystem.ViewModels</Name>

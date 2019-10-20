@@ -123,6 +123,9 @@
   <data name="NominalNotExists" xml:space="preserve">
     <value>Номіналу ID: {0} не існує.</value>
   </data>
+  <data name="PackageNameExists" xml:space="preserve">
+    <value>Пачка з іменем "{0}" вже існує.</value>
+  </data>
   <data name="SerialNotExists" xml:space="preserve">
     <value>Серії ID: {0} не існує.</value>
   </data>

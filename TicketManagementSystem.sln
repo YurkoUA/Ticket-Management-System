@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagementSystem.View
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagementSystem.Bootstrap", "TicketManagementSystem.Bootstrap\TicketManagementSystem.Bootstrap.csproj", "{00FFCD56-CDD0-4EE9-ACBC-8A47D5414B4C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagementSystem.Resources", "TicketManagementSystem.Resources\TicketManagementSystem.Resources.csproj", "{EDD7BB70-2874-45C3-A2A9-774907ECB612}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{00FFCD56-CDD0-4EE9-ACBC-8A47D5414B4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00FFCD56-CDD0-4EE9-ACBC-8A47D5414B4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00FFCD56-CDD0-4EE9-ACBC-8A47D5414B4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDD7BB70-2874-45C3-A2A9-774907ECB612}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD7BB70-2874-45C3-A2A9-774907ECB612}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD7BB70-2874-45C3-A2A9-774907ECB612}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDD7BB70-2874-45C3-A2A9-774907ECB612}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

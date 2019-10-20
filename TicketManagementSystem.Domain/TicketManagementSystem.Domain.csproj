@@ -54,16 +54,13 @@
     <Compile Include="Package\Commands\CreatePackageCommand.cs" />
     <Compile Include="Package\Commands\CreatePackageCommandHandlerAsync.cs" />
     <Compile Include="Package\Commands\CreateSpecialPackageCommand.cs" />
+    <Compile Include="Package\Commands\CreateSpecialPackageCommandHandlerAsync.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\ValidationMessage.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ValidationMessage.resx</DependentUpon>
-    </Compile>
     <Compile Include="Util\DomainModule.cs" />
     <Compile Include="ValidationChain\BaseValidator.cs" />
     <Compile Include="ValidationChain\ColorExistsValidator.cs" />
     <Compile Include="ValidationChain\NominalExistsValidator.cs" />
+    <Compile Include="ValidationChain\PackageNameValidator.cs" />
     <Compile Include="ValidationChain\SerialExistsValidator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +72,10 @@
       <Project>{140e5a97-acb4-4a8b-adb9-41fcc8122188}</Project>
       <Name>TicketManagementSystem.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TicketManagementSystem.Resources\TicketManagementSystem.Resources.csproj">
+      <Project>{edd7bb70-2874-45c3-a2a9-774907ecb612}</Project>
+      <Name>TicketManagementSystem.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TicketManagementSystem.ViewModels\TicketManagementSystem.ViewModels.csproj">
       <Project>{4ED9573A-3540-4100-828D-FF65E087CB8D}</Project>
       <Name>TicketManagementSystem.ViewModels</Name>
@@ -82,12 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\ValidationMessage.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ValidationMessage.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
