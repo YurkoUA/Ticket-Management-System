@@ -10,11 +10,11 @@ using TicketManagementSystem.ViewModels.Color;
 
 namespace TicketManagementSystem.Domain.Color.Queries
 {
-    public class GetColorQueryHandlerAsync : IQueryHandlerAsync<GetColorQuery, ColorVM>
+    public class GetColorQH : IQueryHandlerAsync<GetColorQuery, ColorVM>
     {
         private readonly IUnitOfWork unitOfWork;
 
-        public GetColorQueryHandlerAsync(IUnitOfWork unitOfWork)
+        public GetColorQH(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }

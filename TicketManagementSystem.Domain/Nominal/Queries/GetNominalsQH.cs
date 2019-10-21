@@ -9,12 +9,12 @@ using TicketManagementSystem.ViewModels.Nominal;
 
 namespace TicketManagementSystem.Domain.Nominal.Queries
 {
-    public class GetNominalsQueryHandlerAsync : IQueryHandlerAsync<EmptyQuery<IEnumerable<NominalVM>>, IEnumerable<NominalVM>>
+    public class GetNominalsQH : IQueryHandlerAsync<EmptyQuery<IEnumerable<NominalVM>>, IEnumerable<NominalVM>>
     {
         private readonly IRepository<Data.Entities.Nominal> repo;
         private readonly IEntityService entityService;
 
-        public GetNominalsQueryHandlerAsync(IRepository<Data.Entities.Nominal> repo, IEntityService entityService)
+        public GetNominalsQH(IRepository<Data.Entities.Nominal> repo, IEntityService entityService)
         {
             this.repo = repo;
             this.entityService = entityService;

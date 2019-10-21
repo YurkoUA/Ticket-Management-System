@@ -32,11 +32,11 @@ namespace TicketManagementSystem.Domain.Util
             Bind<IQueryProcessorAsync>().To<QueryProcessorAsync>();
             Bind<ICommandProcessorAsync>().To<CommandProcessorAsync>();
 
-            Bind<IQueryHandlerAsync<GetColorQuery, ColorVM>>().To<GetColorQueryHandlerAsync>();
-            Bind<IQueryHandlerAsync<EmptyQuery<IEnumerable<NominalVM>>, IEnumerable<NominalVM>>>().To<GetNominalsQueryHandlerAsync>();
+            Bind<IQueryHandlerAsync<GetColorQuery, ColorVM>>().To<GetColorQH>();
+            Bind<IQueryHandlerAsync<EmptyQuery<IEnumerable<NominalVM>>, IEnumerable<NominalVM>>>().To<GetNominalsQH>();
 
-            Bind<ICommandHandlerAsync<CreatePackageCommand, CommandResultVM<IdentifierVM>>>().To<CreatePackageCommandHandlerAsync>();
-            Bind<ICommandHandlerAsync<CreateSpecialPackageCommand, CommandResultVM<IdentifierVM>>>().To<CreateSpecialPackageCommandHandlerAsync>();
+            Bind<ICommandHandlerAsync<CreatePackageCommand, CommandResultVM<IdentifierVM>>>().To<CreatePackageCH>();
+            Bind<ICommandHandlerAsync<CreateSpecialPackageCommand, CommandResultVM<IdentifierVM>>>().To<CreateSpecialPackageCH>();
         }
     }
 }

@@ -10,12 +10,12 @@ using TicketManagementSystem.ViewModels.Common;
 
 namespace TicketManagementSystem.Domain.Package.Commands
 {
-    public class CreateSpecialPackageCommandHandlerAsync : ICommandHandlerAsync<CreateSpecialPackageCommand, CommandResultVM<IdentifierVM>>
+    public class CreateSpecialPackageCH : ICommandHandlerAsync<CreateSpecialPackageCommand, CommandResultVM<IdentifierVM>>
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IEntityService entityService;
 
-        public CreateSpecialPackageCommandHandlerAsync(IUnitOfWork unitOfWork, IEntityService entityService)
+        public CreateSpecialPackageCH(IUnitOfWork unitOfWork, IEntityService entityService)
         {
             this.unitOfWork = unitOfWork;
             this.entityService = entityService;

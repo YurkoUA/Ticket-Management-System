@@ -14,12 +14,12 @@ using TicketManagementSystem.ViewModels.Common;
 
 namespace TicketManagementSystem.Domain.Package.Commands
 {
-    public class CreatePackageCommandHandlerAsync : ICommandHandlerAsync<CreatePackageCommand, CommandResultVM<IdentifierVM>>
+    public class CreatePackageCH : ICommandHandlerAsync<CreatePackageCommand, CommandResultVM<IdentifierVM>>
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IEntityService entityService;
 
-        public CreatePackageCommandHandlerAsync(IUnitOfWork unitOfWork, IEntityService entityService)
+        public CreatePackageCH(IUnitOfWork unitOfWork, IEntityService entityService)
         {
             this.unitOfWork = unitOfWork;
             this.entityService = entityService;

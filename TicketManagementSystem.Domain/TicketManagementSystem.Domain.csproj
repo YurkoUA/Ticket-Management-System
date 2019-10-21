@@ -45,16 +45,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Color\Queries\GetColorQuery.cs" />
-    <Compile Include="Color\Queries\GetColorQueryHandlerAsync.cs" />
+    <Compile Include="Color\Queries\GetColorQH.cs" />
     <Compile Include="Constants\ValidationMessage.cs" />
     <Compile Include="Cqrs\EmptyQuery.cs" />
     <Compile Include="DTO\CommandMessageDTO.cs" />
     <Compile Include="DTO\CommandResultDTO.cs" />
-    <Compile Include="Nominal\Queries\GetNominalsQueryHandlerAsync.cs" />
+    <Compile Include="Nominal\Queries\GetNominalsQH.cs" />
     <Compile Include="Package\Commands\CreatePackageCommand.cs" />
-    <Compile Include="Package\Commands\CreatePackageCommandHandlerAsync.cs" />
+    <Compile Include="Package\Commands\CreatePackageCH.cs" />
     <Compile Include="Package\Commands\CreateSpecialPackageCommand.cs" />
-    <Compile Include="Package\Commands\CreateSpecialPackageCommandHandlerAsync.cs" />
+    <Compile Include="Package\Commands\CreateSpecialPackageCH.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\DomainModule.cs" />
     <Compile Include="ValidationChain\BaseValidator.cs" />
