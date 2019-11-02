@@ -34,7 +34,10 @@ namespace TicketManagementSystem.Infrastructure.Data
 
         #region Sync.
 
+        TEntity Find(int id);
         bool Any(Expression<Func<TEntity, bool>> predicate);
+        int Count();
+        int Count(Expression<Func<TEntity, bool>> predicate);
 
         #endregion
 

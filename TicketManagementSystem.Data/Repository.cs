@@ -12,10 +12,12 @@ namespace TicketManagementSystem.Data
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly AppDbContext context;
+        private DbSet<TEntity> pool;
 
         public Repository(AppDbContext context)
         {
             this.context = context;
+            pool = context.Set<TEntity>();
         }
 
         #region Find.
@@ -138,9 +140,24 @@ namespace TicketManagementSystem.Data
 
         #region Sync.
 
+        public TEntity Find(int id)
+        {
+            return pool.Find(id);
+        }
+
         public bool Any(Expression<Func<TEntity, bool>> predicate)
         {
-            return context.Set<TEntity>().Any(predicate);
+            return pool.Any(predicate);
+        }
+
+        public int Count()
+        {
+            return pool.Count();
+        }
+
+        public int Count(Expression<Func<TEntity, bool>> predicate)
+        {
+            return pool.Count(predicate);
         }
 
         #endregion
