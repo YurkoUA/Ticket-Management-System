@@ -50,7 +50,7 @@
                     <option value>(Немає)</option>
                     @foreach (var item in Model.Nominals)
                     {
-                        <option value="@item.Id" selected="@item.IsDefault">@item.Amount грн.</option>
+                        <option value="@item.Id">@item.Amount грн.</option>
                     }
                 </select>
 

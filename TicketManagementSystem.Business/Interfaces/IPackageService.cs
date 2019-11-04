@@ -26,14 +26,8 @@ namespace TicketManagementSystem.Business.Interfaces
 
         PackageDTO GetPackage(int id);
 
-        PackageDTO CreatePackage(PackageCreateDTO packageDTO);
-        PackageDTO CreateSpecialPackage(PackageSpecialCreateDTO packageDTO);
-
         PackageEditDTO GetPackageEdit(int id);
         PackageSpecialEditDTO GetSpecialPackageEdit(int id);
-
-        void EditPackage(PackageEditDTO packageDTO);
-        void EditSpecialPackage(PackageSpecialEditDTO packageDTO);
         
         void Remove(int id);
 

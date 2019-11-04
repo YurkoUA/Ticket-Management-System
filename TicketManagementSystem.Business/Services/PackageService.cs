@@ -162,24 +162,6 @@ namespace TicketManagementSystem.Business.Services
 
         #region CRUD
 
-        public PackageDTO CreatePackage(PackageCreateDTO packageDTO)
-        {
-            var package = Database.Packages.Create(Mapper.Map<Package>(packageDTO));
-            Database.SaveChanges();
-
-            return Mapper.Map<PackageDTO>(package);
-        }
-
-        public PackageDTO CreateSpecialPackage(PackageSpecialCreateDTO packageDTO)
-        {
-            var package = Mapper.Map<Package>(packageDTO);
-            package.IsSpecial = true;
-            package = Database.Packages.Create(package);
-            Database.SaveChanges();
-
-            return Mapper.Map<PackageDTO>(package);
-        }
-
         public PackageEditDTO GetPackageEdit(int id)
         {
             return Database.Packages.GetAll(p => p.Id == id)
@@ -192,44 +174,6 @@ namespace TicketManagementSystem.Business.Services
             return Database.Packages.GetAll(p => p.Id == id)
                 .Select(PackageSpecialEditDTO.CreateFromPackage)
                 .SingleOrDefault();
-        }
-
-        public void EditPackage(PackageEditDTO packageDTO)
-        {
-            var package = Database.Packages.GetById(packageDTO.Id);
-
-            if (package?.IsSpecial == false)
-            {
-                package.ColorId = packageDTO.ColorId;
-                package.SerialId = packageDTO.SerialId;
-                package.FirstNumber = packageDTO.FirstNumber;
-                package.Nominal = packageDTO.Nominal;
-                package.Note = packageDTO.Note;
-
-                Database.Packages.Update(package);
-                Database.SaveChanges(() => {
-                    
-                    Database.ExecuteSql("UPDATE Packages SET SerialId = {0}, ColorId = {1} WHERE Id = {2}",
-                        packageDTO.SerialId, packageDTO.ColorId, packageDTO.Id);
-                });
-            }
-        }
-
-        public void EditSpecialPackage(PackageSpecialEditDTO packageDTO)
-        {
-            var package = Database.Packages.GetById(packageDTO.Id);
-
-            if (package?.IsSpecial == true)
-            {
-                package.Name = packageDTO.Name;
-                package.ColorId = packageDTO.ColorId;
-                package.SerialId = packageDTO.SerialId;
-                package.Nominal = packageDTO.Nominal;
-                package.Note = packageDTO.Note;
-
-                Database.Packages.Update(package);
-                Database.SaveChanges();
-            }
         }
 
         public void Remove(int id)

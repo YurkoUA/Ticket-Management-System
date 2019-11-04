@@ -11,27 +11,27 @@ using TicketManagementSystem.ViewModels.Common;
 
 namespace TicketManagementSystem.Domain.Package.Commands
 {
-    public class EditPackageCH : ICommandHandlerAsync<EditPackageCommand, CommandResultVM<object>>
+    public class EditSpecialPackageCH : ICommandHandlerAsync<EditSpecialPackageCommand, CommandResultVM<object>>
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IEntityService entityService;
 
-        public EditPackageCH(IUnitOfWork unitOfWork, IEntityService entityService)
+        public EditSpecialPackageCH(IUnitOfWork unitOfWork, IEntityService entityService)
         {
             this.unitOfWork = unitOfWork;
             this.entityService = entityService;
         }
 
-        public async Task<CommandResultVM<object>> ExecuteAsync(EditPackageCommand command)
+        public async Task<CommandResultVM<object>> ExecuteAsync(EditSpecialPackageCommand command)
         {
             var result = new CommandResultDTO<object>();
 
             var chainBuilder = new ChainBuilder<IList<CommandMessageDTO>>();
             chainBuilder
-                .ConstructChain(new ColorExistsValidator(unitOfWork, command.ColorId))
-                .ConstructChain(new SerialExistsValidator(unitOfWork, command.SerialId))
-                .ConstructChain(new NominalExistsValidator(unitOfWork, command.NominalId))
-                .ConstructChain(new PackageFirstDigitValidator(unitOfWork, command.Id, command.FirstDigit))
+                .ConstructChain(new PackageNameValidator(unitOfWork, command.Name, command.Id))
+                .ConstructChain(new ColorExistsValidator(unitOfWork, command.ColorId, false))
+                .ConstructChain(new SerialExistsValidator(unitOfWork, command.SerialId, false))
+                .ConstructChain(new NominalExistsValidator(unitOfWork, command.NominalId, false))
                 .ConstructChain(new PackagePropertiesChangedValidator(unitOfWork, new PackagePropertiesChangedValidatorContext
                 {
                     PackageId = command.Id,

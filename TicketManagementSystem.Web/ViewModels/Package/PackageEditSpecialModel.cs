@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using TicketManagementSystem.ViewModels.Nominal;
 
 namespace TicketManagementSystem.Web
 {
@@ -20,9 +22,7 @@ namespace TicketManagementSystem.Web
         public int? SerialId { get; set; }
 
         [Display(Name = "Номінал")]
-        [Required(ErrorMessage = "Необхідно вказати номінал пачки.")]
-        [Range(0.1, double.MaxValue, ErrorMessage = "Номінал не може бути меншим за 0,1.")]
-        public double Nominal { get; set; }
+        public int? NominalId { get; set; }
 
         [Display(Name = "Примітка")]
         [DataType(DataType.MultilineText)]
@@ -34,5 +34,8 @@ namespace TicketManagementSystem.Web
 
         [HiddenInput(DisplayValue = false)]
         public SelectList Series { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public IEnumerable<NominalVM> Nominals { get; set; }
     }
 }

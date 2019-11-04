@@ -15,9 +15,7 @@ namespace TicketManagementSystem.Business.DTO
 
         [Range(0, 9, ErrorMessage = "Повинно бути число від 0 до 9.")]
         public int? FirstNumber { get; set; }
-
-        [Required(ErrorMessage = "Необхідно вказати номінал пачки.")]
-        [Range(0.1, double.MaxValue, ErrorMessage = "Номінал не може бути меншим за 0,1.")]
+        
         [Obsolete]
         public double Nominal { get; set; }
 

@@ -68,10 +68,13 @@
     <Compile Include="Package\Commands\CreateSpecialPackageCH.cs" />
     <Compile Include="Package\Commands\EditPackageCH.cs" />
     <Compile Include="Package\Commands\EditPackageCommand.cs" />
+    <Compile Include="Package\Commands\EditSpecialPackageCH.cs" />
+    <Compile Include="Package\Commands\EditSpecialPackageCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\DomainModule.cs" />
     <Compile Include="ValidationChain\BaseValidator.cs" />
     <Compile Include="ValidationChain\ColorExistsValidator.cs" />
+    <Compile Include="ValidationChain\Models\PackagePropertiesChangedValidatorContext.cs" />
     <Compile Include="ValidationChain\Models\ValidationContext.cs" />
     <Compile Include="ValidationChain\NominalExistsValidator.cs" />
     <Compile Include="ValidationChain\PackageColorValidator.cs" />

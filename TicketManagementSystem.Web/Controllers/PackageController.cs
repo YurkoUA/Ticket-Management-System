@@ -180,10 +180,11 @@ namespace TicketManagementSystem.Web.Controllers
             var colors = GetColorsSelectList();
             var series = GetSeriesSelectList();
             var nominals = await GetNominalSelectList();
-            var selectedNominalId = nominals.FirstOrDefault(n => n.IsDefault).Id;
 
             if (!special)
             {
+                var selectedNominalId = nominals.FirstOrDefault(n => n.IsDefault).Id;
+
                 return View("CreateDefault", new PackageCreateDefaultModel
                 {
                     Colors = colors,
@@ -198,8 +199,7 @@ namespace TicketManagementSystem.Web.Controllers
                 {
                     Colors = colors,
                     Series = series,
-                    Nominals = nominals,
-                    NominalId = selectedNominalId
+                    Nominals = nominals
                 });
             }
         }
@@ -264,7 +264,7 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditSpecial(int id)
+        public async Task<ActionResult> EditSpecial(int id)
         {
             if (_packageService.GetPackage(id)?.IsSpecial == false)
                 return RedirectToAction("Edit", new { id });
@@ -277,6 +277,7 @@ namespace TicketManagementSystem.Web.Controllers
             var packageVM = Mapper.Map<PackageEditSpecialModel>(editSpecDTO);
             packageVM.Colors = GetColorsSelectList();
             packageVM.Series = GetSeriesSelectList();
+            packageVM.Nominals = await GetNominalSelectList();
 
             if (packageVM.ColorId == null) packageVM.ColorId = 0;
             if (packageVM.SerialId == null) packageVM.SerialId = 0;
@@ -308,19 +309,18 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult EditSpecial(PackageEditSpecialModel viewModel)
+        public async Task<ActionResult> EditSpecial(PackageEditSpecialModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var editDTO = Mapper.Map<PackageSpecialEditDTO>(viewModel);
-                var errors = _packageValidationService.Validate(editDTO);
-                errors.ToModelState(ModelState);
+                var command = Mapper.Map<EditSpecialPackageCommand>(viewModel);
+                var result = await _commandProcessorAsync.ProcessAsync(command);
 
-                if (ModelState.IsValid)
+                if (result.IsSuccess)
                 {
-                    _packageService.EditSpecialPackage(editDTO);
                     return SuccessPartial("Пачку успішно відредаговано", Url.Action("Details", new { id = viewModel.Id }), "Переглянути");
                 }
+                return ErrorPartial(result);
             }
             return ErrorPartial(ModelState);
         }

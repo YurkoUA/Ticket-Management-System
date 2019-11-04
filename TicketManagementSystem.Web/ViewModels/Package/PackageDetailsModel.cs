@@ -21,7 +21,7 @@ namespace TicketManagementSystem.Web
         public int TicketsCount { get; set; }
 
         [Display(Name = "Номінал:")]
-        public double Nominal { get; set; }
+        public double? Nominal { get; set; }
 
         [Display(Name = "Перша цифра:")]
         public int? FirstNumber { get; set; }

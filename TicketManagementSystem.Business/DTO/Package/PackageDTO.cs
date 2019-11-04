@@ -56,7 +56,7 @@ namespace TicketManagementSystem.Business.DTO
         #endregion
 
         public int? FirstNumber { get; set; }
-        public double Nominal { get; set; }
+        public double? Nominal { get; set; }
 
         public bool IsSpecial { get; set; }
         public bool IsOpened { get; set; }

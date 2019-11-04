@@ -15,11 +15,12 @@ namespace TicketManagementSystem.Business.DTO
 
         public int? ColorId { get; set; }
         public int? SerialId { get; set; }
-
-        [Required(ErrorMessage = "Необхідно вказати номінал пачки.")]
-        [Range(0.1, double.MaxValue, ErrorMessage = "Номінал не може бути меншим за 0,1.")]
-        public double Nominal { get; set; }
         
+        [Obsolete]
+        public double Nominal { get; set; }
+
+        public int? NominalId { get; set; }
+
         [StringLength(128, ErrorMessage = "Довжина не може перевищувати 128 символів.")]
         public string Note { get; set; }
 
@@ -30,6 +31,7 @@ namespace TicketManagementSystem.Business.DTO
             ColorId = p.ColorId,
             SerialId = p.SerialId,
             Nominal = p.Nominal,
+            NominalId = p.NominalId,
             Note = p.Note
         };
     }

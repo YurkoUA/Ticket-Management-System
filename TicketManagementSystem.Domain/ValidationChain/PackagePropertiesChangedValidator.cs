@@ -3,29 +3,32 @@ using TicketManagementSystem.Data.Entities;
 using TicketManagementSystem.Domain.Constants;
 using TicketManagementSystem.Domain.DTO;
 using TicketManagementSystem.Domain.Package.Commands;
+using TicketManagementSystem.Domain.ValidationChain.Models;
 using TicketManagementSystem.Infrastructure.Data;
 
 namespace TicketManagementSystem.Domain.ValidationChain
 {
     public class PackagePropertiesChangedValidator : BaseValidator
     {
-        private readonly EditPackageCommand command;
+        private readonly PackagePropertiesChangedValidatorContext context;
 
-        public PackagePropertiesChangedValidator(IUnitOfWork unitOfWork, EditPackageCommand command) : base(unitOfWork)
+        public PackagePropertiesChangedValidator(IUnitOfWork unitOfWork, PackagePropertiesChangedValidatorContext context) : base(unitOfWork)
         {
-            this.command = command;
+            this.context = context;
         }
 
         public override void HandleRequest(IList<CommandMessageDTO> model)
         {
             var ticketRepo = unitOfWork.Get<Ticket>();
-            var hasTickets = ticketRepo.Any(t => t.PackageId == command.Id);
+            var hasTickets = ticketRepo.Any(t => t.PackageId == context.PackageId);
 
             if (hasTickets)
             {
-                var package = unitOfWork.Get<Data.Entities.Package>().Find(command.Id);
+                var package = unitOfWork.Get<Data.Entities.Package>().Find(context.PackageId);
 
-                if (command.ColorId != package.ColorId || command.SerialId != package.SerialId || command.NominalId != package.NominalId)
+                if ((context.ColorId.HasValue && context.ColorId != package.ColorId) 
+                    || (context.SerialId.HasValue && context.SerialId != package.SerialId) 
+                    || (context.NominalId.HasValue && context.NominalId != package.NominalId))
                 {
                     model.Add(new CommandMessageDTO
                     {
