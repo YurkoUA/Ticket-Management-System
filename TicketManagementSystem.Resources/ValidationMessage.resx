@@ -123,8 +123,17 @@
   <data name="NominalNotExists" xml:space="preserve">
     <value>Номіналу ID: {0} не існує.</value>
   </data>
+  <data name="PackageFirstDigitCannotBeSet" xml:space="preserve">
+    <value>Неможливо встановити цифу {0}, оскільки пачка містить квитки з іншою.</value>
+  </data>
   <data name="PackageNameExists" xml:space="preserve">
     <value>Пачка з іменем "{0}" вже існує.</value>
+  </data>
+  <data name="PackageNotExists" xml:space="preserve">
+    <value>Пачки ID: {0} не існує.</value>
+  </data>
+  <data name="PackagePropertiesAreDifferent" xml:space="preserve">
+    <value>Неможливо встановити нові колір/серію/номінал, бо пачка містить квитки з іншими.</value>
   </data>
   <data name="SerialNotExists" xml:space="preserve">
     <value>Серії ID: {0} не існує.</value>

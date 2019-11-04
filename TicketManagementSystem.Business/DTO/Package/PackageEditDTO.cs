@@ -18,7 +18,10 @@ namespace TicketManagementSystem.Business.DTO
 
         [Required(ErrorMessage = "Необхідно вказати номінал пачки.")]
         [Range(0.1, double.MaxValue, ErrorMessage = "Номінал не може бути меншим за 0,1.")]
+        [Obsolete]
         public double Nominal { get; set; }
+
+        public int NominalId { get; set; }
 
         [StringLength(128, ErrorMessage = "Довжина не може перевищувати 128 символів.")]
         public string Note { get; set; }
@@ -32,6 +35,7 @@ namespace TicketManagementSystem.Business.DTO
             SerialId = (int)p.SerialId,
             FirstNumber = p.FirstNumber,
             Nominal = p.Nominal,
+            NominalId = p.NominalId.Value,
             Note = p.Note,
             IsEmpty = !p.Tickets.Any()
         };

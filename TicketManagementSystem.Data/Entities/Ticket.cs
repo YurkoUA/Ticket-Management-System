@@ -39,8 +39,8 @@ namespace TicketManagementSystem.Data.Entities
 
         public int CompareTo(Ticket other)
         {
-            return int.Parse(Number.First().ToString())
-                .CompareTo(int.Parse(other.Number.First().ToString()));
+            return int.Parse(Enumerable.First(Number).ToString())
+                .CompareTo(int.Parse(Enumerable.First(other.Number).ToString()));
         }
 
         #region System.Object methods

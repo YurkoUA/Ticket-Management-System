@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using TicketManagementSystem.Data.Entities;
 using TicketManagementSystem.Domain.Constants;
 using TicketManagementSystem.Domain.DTO;
@@ -28,7 +27,8 @@ namespace TicketManagementSystem.Domain.ValidationChain
 
                 if (!isEmpty)
                 {
-                    var supportsAll = !repo.Any(t => Convert.ToInt32(t.Number.First()) != firstDigit.Value);
+                    var firstDigitStr = firstDigit.Value.ToString();
+                    var supportsAll = !repo.Any(t => t.PackageId == packageId && DbFunctions.Left(t.Number, 1) != firstDigitStr);
 
                     if (!supportsAll)
                     {

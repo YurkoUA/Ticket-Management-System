@@ -17,7 +17,7 @@ namespace TicketManagementSystem.Bootstrap.Mapping.Resolvers
             var rm = new ResourceManager("TicketManagementSystem.Resources.ValidationMessage", typeof(ValidationMessage).Assembly);
 
             var message = rm.GetString(source.ResourceName);
-            message = string.Format(message, source.Arguments);
+            message = string.Format(message, source.Arguments ?? new string[] { });
             return message;
         }
     }

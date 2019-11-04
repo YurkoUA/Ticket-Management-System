@@ -32,7 +32,7 @@ namespace TicketManagementSystem.Bootstrap.Mapping
 
         public void Assign<TSource, TDest>(TSource source, TDest dest)
         {
-            mapper.Map<TSource, TDest>(source);
+            mapper.Map(source, dest);
         }
     }
 }

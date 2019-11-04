@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using TicketManagementSystem.Domain.DTO;
 using TicketManagementSystem.Domain.ValidationChain;
@@ -10,38 +13,39 @@ using TicketManagementSystem.ViewModels.Common;
 
 namespace TicketManagementSystem.Domain.Package.Commands
 {
-    public class CreatePackageCH : ICommandHandlerAsync<CreatePackageCommand, CommandResultVM<IdentifierVM>>
+    public class EditPackageCH : ICommandHandlerAsync<EditPackageCommand, CommandResultVM<object>>
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IEntityService entityService;
 
-        public CreatePackageCH(IUnitOfWork unitOfWork, IEntityService entityService)
+        public EditPackageCH(IUnitOfWork unitOfWork, IEntityService entityService)
         {
             this.unitOfWork = unitOfWork;
             this.entityService = entityService;
         }
 
-        public async Task<CommandResultVM<IdentifierVM>> ExecuteAsync(CreatePackageCommand command)
+        public async Task<CommandResultVM<object>> ExecuteAsync(EditPackageCommand command)
         {
-            var result = new CommandResultDTO<IdentifierVM>();
+            var result = new CommandResultDTO<object>();
 
             var chainBuilder = new ChainBuilder<IList<CommandMessageDTO>>();
             chainBuilder
                 .ConstructChain(new ColorExistsValidator(unitOfWork, command.ColorId))
                 .ConstructChain(new SerialExistsValidator(unitOfWork, command.SerialId))
-                .ConstructChain(new NominalExistsValidator(unitOfWork, command.NominalId));
+                .ConstructChain(new NominalExistsValidator(unitOfWork, command.NominalId))
+                .ConstructChain(new PackageFirstDigitValidator(unitOfWork, command.Id, command.FirstDigit))
+                .ConstructChain(new PackagePropertiesChangedValidator(unitOfWork, command));
 
             chainBuilder.Head.HandleRequest(result.Errors);
 
             if (result.IsSuccess)
             {
-                var package = entityService.Convert<CreatePackageCommand, Data.Entities.Package>(command);
-                package = await unitOfWork.Get<Data.Entities.Package>().CreateAsync(package);
+                var package = await unitOfWork.Get<Data.Entities.Package>().FindAsync(command.Id);
+                entityService.Assign(command, package);
                 await unitOfWork.SaveChangesAsync();
-                result.Model = new IdentifierVM { Id = package.Id };
             }
 
-            return entityService.Convert<CommandResultDTO<IdentifierVM>, CommandResultVM<IdentifierVM>>(result);
+            return entityService.Convert<CommandResultDTO<object>, CommandResultVM<object>>(result);
         }
     }
 }

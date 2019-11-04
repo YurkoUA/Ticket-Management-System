@@ -19,7 +19,7 @@ namespace TicketManagementSystem.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ValidationMessage {
@@ -79,11 +79,38 @@ namespace TicketManagementSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Неможливо встановити цифу {0}, оскільки пачка містить квитки з іншою..
+        /// </summary>
+        public static string PackageFirstDigitCannotBeSet {
+            get {
+                return ResourceManager.GetString("PackageFirstDigitCannotBeSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Пачка з іменем &quot;{0}&quot; вже існує..
         /// </summary>
         public static string PackageNameExists {
             get {
                 return ResourceManager.GetString("PackageNameExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пачки ID: {0} не існує..
+        /// </summary>
+        public static string PackageNotExists {
+            get {
+                return ResourceManager.GetString("PackageNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неможливо встановити нові колір/серію/номінал, бо пачка містить квитки з іншими..
+        /// </summary>
+        public static string PackagePropertiesAreDifferent {
+            get {
+                return ResourceManager.GetString("PackagePropertiesAreDifferent", resourceCulture);
             }
         }
         

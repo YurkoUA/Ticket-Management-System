@@ -179,7 +179,7 @@ namespace TicketManagementSystem.Web.Controllers
         {
             var colors = GetColorsSelectList();
             var series = GetSeriesSelectList();
-            var nominals = await _queryProcessorAsync.ProcessAsync(new EmptyQuery<IEnumerable<NominalVM>>());
+            var nominals = await GetNominalSelectList();
             var selectedNominalId = nominals.FirstOrDefault(n => n.IsDefault).Id;
 
             if (!special)
@@ -239,7 +239,7 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
             if (_packageService.GetPackage(id)?.IsSpecial == true)
                 return RedirectToAction("EditSpecial", new { id });
@@ -252,6 +252,7 @@ namespace TicketManagementSystem.Web.Controllers
             var packageVM = Mapper.Map<PackageEditDefaultModel>(editDTO);
             packageVM.Colors = GetColorsSelectList();
             packageVM.Series = GetSeriesSelectList();
+            packageVM.Nominals = await GetNominalSelectList();
 
             if (Request.IsAjaxRequest())
             {
@@ -290,19 +291,18 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Edit(PackageEditDefaultModel viewModel)
+        public async Task<ActionResult> Edit(PackageEditDefaultModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var editDTO = Mapper.Map<PackageEditDTO>(viewModel);
-                var errors = _packageValidationService.Validate(editDTO);
-                errors.ToModelState(ModelState);
+                var command = Mapper.Map<PackageEditDefaultModel, EditPackageCommand>(viewModel);
+                var result = await _commandProcessorAsync.ProcessAsync(command);
 
-                if (ModelState.IsValid)
+                if (result.IsSuccess)
                 {
-                    _packageService.EditPackage(editDTO);
                     return SuccessPartial("Пачку успішно відредаговано", Url.Action("Details", new { id = viewModel.Id }), "Переглянути");
                 }
+                return ErrorPartial(result);
             }
             return ErrorPartial(ModelState);
         }
@@ -541,6 +541,11 @@ namespace TicketManagementSystem.Web.Controllers
             }
 
             return new SelectList(series, "Id", "Name");
+        }
+
+        private async Task<IEnumerable<NominalVM>> GetNominalSelectList()
+        {
+            return await _queryProcessorAsync.ProcessAsync(new EmptyQuery<IEnumerable<NominalVM>>());
         }
 
         #endregion

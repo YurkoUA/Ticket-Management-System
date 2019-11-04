@@ -19,9 +19,9 @@ namespace TicketManagementSystem.Domain.ValidationChain
         public override void HandleRequest(IList<CommandMessageDTO> model)
         {
             var ticketRepo = unitOfWork.Get<Ticket>();
-            var isEmpty = ticketRepo.Any(t => t.PackageId == command.Id);
+            var hasTickets = ticketRepo.Any(t => t.PackageId == command.Id);
 
-            if (!isEmpty)
+            if (hasTickets)
             {
                 var package = unitOfWork.Get<Data.Entities.Package>().Find(command.Id);
 

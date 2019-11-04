@@ -32,6 +32,9 @@ namespace TicketManagementSystem.Bootstrap.Mapping
             CreateMap<CreateSpecialPackageCommand, Package>()
                 .ForMember(dest => dest.IsSpecial, opt => opt.UseValue(true));
 
+            CreateMap<EditPackageCommand, Package>()
+                .ForMember(dest => dest.FirstNumber, opt => opt.MapFrom(src => src.FirstDigit));
+
             #endregion
         }
     }

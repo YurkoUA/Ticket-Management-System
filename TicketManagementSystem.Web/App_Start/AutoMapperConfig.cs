@@ -92,6 +92,9 @@ namespace TicketManagementSystem.Web
 
                 cfg.CreateMap<PackageCreateSpecialModel, CreateSpecialPackageCommand>();
 
+                cfg.CreateMap<PackageEditDefaultModel, EditPackageCommand>()
+                    .ForMember(dest => dest.FirstDigit, opt => opt.MapFrom(src => src.FirstNumber));
+
                 #endregion
             });
 
