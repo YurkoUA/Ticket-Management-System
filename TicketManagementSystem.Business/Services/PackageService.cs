@@ -41,7 +41,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<PackageDTO> FindByName(string name)
         {
-            var packages = Database.Packages.GetAllIncluding(p => p.Color, p => p.Serial, p => p.Tickets)
+            var packages = Database.Packages.GetAllIncluding(p => p.Color, p => p.Serial, p => p.NominalEntity, p => p.Tickets)
                 .AsEnumerable()
                 .Where(p => p.ToString().Contains(name));
 
@@ -50,7 +50,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<PackageDTO> GetPackages()
         {
-            return Database.Packages.GetAllIncluding(p => p.Color, p => p.Serial)
+            return Database.Packages.GetAllIncluding(p => p.Color, p => p.Serial, p => p.NominalEntity)
                 .OrderByDescending(p => p.IsOpened)
                 .ThenByDescending(p => p.IsSpecial)
                 .ThenByDescending(p => p.Id)
@@ -59,7 +59,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<PackageDTO> GetPackages(int skip, int take)
         {
-            return Database.Packages.GetAllIncluding(p => p.Color, p => p.Serial)
+            return Database.Packages.GetAllIncluding(p => p.Color, p => p.Serial, p => p.NominalEntity)
                 .OrderByDescending(p => p.IsOpened)
                 .ThenByDescending(p => p.IsSpecial)
                 .ThenByDescending(p => p.Id)
@@ -70,7 +70,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<PackageDTO> GetPackages(PackagesFilter filter)
         {
-            return Database.Packages.GetAllIncluding(GetExpressionByFilter(filter), p => p.Color, p => p.Serial)
+            return Database.Packages.GetAllIncluding(GetExpressionByFilter(filter), p => p.Color, p => p.Serial, p => p.NominalEntity)
                 .OrderByDescending(p => p.IsOpened)
                 .ThenByDescending(p => p.IsSpecial)
                 .ThenByDescending(p => p.Id)
@@ -79,7 +79,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<PackageDTO> GetPackages(int skip, int take, PackagesFilter filter)
         {
-            return Database.Packages.GetAllIncluding(GetExpressionByFilter(filter), p => p.Color, p => p.Serial)
+            return Database.Packages.GetAllIncluding(GetExpressionByFilter(filter), p => p.Color, p => p.Serial, p => p.NominalEntity)
                 .OrderByDescending(p => p.IsOpened)
                 .ThenByDescending(p => p.IsSpecial)
                 .ThenByDescending(p => p.Id)
@@ -90,19 +90,19 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<PackageDTO> GetPackagesByColor(int colorId)
         {
-            return Database.Packages.GetAllIncluding(p => p.ColorId == colorId, p => p.Color, p => p.Serial)
+            return Database.Packages.GetAllIncluding(p => p.ColorId == colorId, p => p.Color, p => p.Serial, p => p.NominalEntity)
                 .Select(PackageDTO.CreateFromPackage);
         }
 
         public IEnumerable<PackageDTO> GetPackagesBySerial(int serialId)
         {
-            return Database.Packages.GetAllIncluding(p => p.SerialId == serialId, p => p.Color, p => p.Serial)
+            return Database.Packages.GetAllIncluding(p => p.SerialId == serialId, p => p.Color, p => p.Serial, p => p.NominalEntity)
                 .Select(PackageDTO.CreateFromPackage);
         }
 
         public IEnumerable<TicketDTO> GetPackageTickets(int packageId, bool orderByNumber = false)
         {
-            var tickets = Database.Tickets.GetAllIncluding(t => t.PackageId == packageId, t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Color, t => t.Package.Serial);
+            var tickets = Database.Tickets.GetAllIncluding(t => t.PackageId == packageId, t => t.Color, t => t.Serial, t => t.Package, t => t.Package.Color, t => t.Package.Serial, t => t.Package.NominalEntity);
 
             if (!tickets.Any())
                 return null;
@@ -119,7 +119,7 @@ namespace TicketManagementSystem.Business.Services
                     && (p.SerialId == null || p.SerialId == serialId)
                     && p.IsOpened;
 
-            var packages = Database.Packages.GetAllIncluding(filter, p => p.Color, p => p.Serial);
+            var packages = Database.Packages.GetAllIncluding(filter, p => p.Color, p => p.Serial, p => p.NominalEntity);
 
             if (number != null)
             {
@@ -134,7 +134,7 @@ namespace TicketManagementSystem.Business.Services
 
         public IEnumerable<PackageDTO> Filter(PackageFilterDTO filter)
         {
-            IQueryable<Package> packages = Database.Packages.GetAllIncluding(p => p.Color, p => p.Serial, p => p.Tickets);
+            IQueryable<Package> packages = Database.Packages.GetAllIncluding(p => p.Color, p => p.Serial, p => p.NominalEntity, p => p.Tickets);
 
             if (filter.ColorId != null)
                 packages = packages.Where(p => p.ColorId == filter.ColorId);
@@ -155,7 +155,7 @@ namespace TicketManagementSystem.Business.Services
 
         public PackageDTO GetPackage(int id)
         {
-            return Database.Packages.GetAllIncluding(p => p.Id == id, p => p.Color, p => p.Serial)
+            return Database.Packages.GetAllIncluding(p => p.Id == id, p => p.Color, p => p.Serial, p => p.NominalEntity)
                 .Select(PackageDTO.CreateFromPackage)
                 .SingleOrDefault();
         }

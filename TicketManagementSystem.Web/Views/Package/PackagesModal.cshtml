@@ -22,7 +22,7 @@
             {
                 <tr>
                     <td>@Html.DisplayFor(modelItem => package.Id)</td>
-                    <td>@Html.ActionLink(package.Name, "Details", "Package", new { id = package.Id }, new { }) </td>
+                    <td>@Html.ActionLink(package.Name, "Details", "Package", new { id = package.Id }, new { }) <sup>@package.Nominal</sup></td>
                     <td>@Html.DisplayFor(modelItem => package.TicketsCount)</td>
                     <td>@Html.DisplayFor(modelItem => package.Status)</td>
                 </tr>

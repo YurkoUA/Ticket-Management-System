@@ -122,7 +122,7 @@ namespace TicketManagementSystem.Business.DTO
             SerialName = p.Serial.Name,
             
             FirstNumber = p.FirstNumber,
-            Nominal = p.Nominal,
+            Nominal = p.NominalEntity.Amount,
 
             IsSpecial = p.IsSpecial,
             IsOpened = p.IsOpened,

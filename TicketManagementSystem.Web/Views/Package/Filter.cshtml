@@ -40,7 +40,6 @@
                         <th>Назва</th>
                         <th>Квитків</th>
                         <th>Статус</th>
-                        <th>Номінал</th>
                         <th>Перша цифра</th>
                     </tr>
                 </thead>
@@ -50,10 +49,9 @@
                     {
                         <tr>
                             <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                            <td>@Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { })</td>
+                            <td>@Html.ActionLink(item.Name, "Details", new { id = item.Id }, new { }) <sup>@item.Nominal</sup></td>
                             <td>@Html.DisplayFor(modelItem => item.TicketsCount)</td>
                             <td>@Html.DisplayFor(modelItem => item.Status)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Nominal)</td>
                             <td>@Html.DisplayFor(modelItem => item.FirstNumber)</td>
                         </tr>
                     }

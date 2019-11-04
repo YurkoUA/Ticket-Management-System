@@ -16,7 +16,7 @@
             {
                 <tr>
                     <td>@item.Id</td>
-                    <td>@Html.ActionLink(item.Name, "Details", "Package", new { id = item.Id }, new { target = "_blank" })</td>
+                    <td>@Html.ActionLink(item.Name, "Details", "Package", new { id = item.Id }, new { target = "_blank" }) <sup>@item.Nominal</sup></td>
                     <td>@item.TicketsCount</td>
                 </tr>
             }
