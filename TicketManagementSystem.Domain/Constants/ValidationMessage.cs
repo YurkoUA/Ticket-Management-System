@@ -9,5 +9,6 @@
         public const string PACKAGE_NOT_EXISTS = "PackageNotExists";
         public const string PACKAGE_PROPERTIES_DIFFERENT = "PackagePropertiesAreDifferent";
         public const string PACKAGE_FIRST_DIGIT_CANNOT_BE_SET = "PackageFirstDigitCannotBeSet";
+        public const string TICKET_ALREADY_EXISTS = "";
     }
 }

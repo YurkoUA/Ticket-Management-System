@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using TicketManagementSystem.Business.Attributes;
+using TicketManagementSystem.ViewModels.Nominal;
 
 namespace TicketManagementSystem.Web
 {
@@ -20,6 +21,9 @@ namespace TicketManagementSystem.Web
 
         [Display(Name = "Серія")]
         public int SerialId { get; set; }
+
+        [Display(Name = "Номінал")]
+        public int NominalId { get; set; }
 
         [Display(Name = "Номер серії")]
         [Required(ErrorMessage = "Необхідно вказати номер серії.")]
@@ -42,6 +46,9 @@ namespace TicketManagementSystem.Web
 
         [HiddenInput(DisplayValue = false)]
         public SelectList Packages { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public IEnumerable<NominalVM> Nominals { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

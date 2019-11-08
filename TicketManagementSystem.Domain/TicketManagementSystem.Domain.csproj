@@ -70,11 +70,14 @@
     <Compile Include="Package\Commands\EditPackageCommand.cs" />
     <Compile Include="Package\Commands\EditSpecialPackageCH.cs" />
     <Compile Include="Package\Commands\EditSpecialPackageCommand.cs" />
+    <Compile Include="Package\Queries\GetCompatiblePackagesQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ticket\Commands\CreateTicketCommand.cs" />
     <Compile Include="Util\DomainModule.cs" />
     <Compile Include="ValidationChain\BaseValidator.cs" />
     <Compile Include="ValidationChain\ColorExistsValidator.cs" />
     <Compile Include="ValidationChain\Models\PackagePropertiesChangedValidatorContext.cs" />
+    <Compile Include="ValidationChain\Models\TicketNumberValidatorContext.cs" />
     <Compile Include="ValidationChain\Models\ValidationContext.cs" />
     <Compile Include="ValidationChain\NominalExistsValidator.cs" />
     <Compile Include="ValidationChain\PackageColorValidator.cs" />
@@ -83,6 +86,7 @@
     <Compile Include="ValidationChain\PackagePropertiesChangedValidator.cs" />
     <Compile Include="ValidationChain\PackageNameValidator.cs" />
     <Compile Include="ValidationChain\SerialExistsValidator.cs" />
+    <Compile Include="ValidationChain\TicketNumberValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TicketManagementSystem.Data\TicketManagementSystem.Data.csproj">
@@ -106,9 +110,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Package\Queries\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
