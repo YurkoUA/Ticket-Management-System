@@ -83,6 +83,11 @@
     <Build Include="dbo\Functions\fn_Number_IsConsistent.sql" />
     <Build Include="dbo\Functions\fn_Number_IsHappy.sql" />
     <Build Include="dbo\Tables\Nominal.sql" />
+    <Build Include="dbo\Tables\tChartType.sql" />
+    <Build Include="dbo\Tables\tStatisticsPage.sql" />
+    <Build Include="dbo\Tables\tStatisticsChart.sql" />
+    <Build Include="dbo\Tables\tChartComputingStrategy.sql" />
+    <Build Include="dbo\Stored Procedures\USP_Statistics_Series.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="TicketManagementSystem.Database.refactorlog" />
@@ -98,5 +103,8 @@
     <None Include="Scripts\Pre-Deployment\01_Package_Nominal_SaveTempAndCleanUp.sql" />
     <None Include="Scripts\Post-Deployment\02_Package_NominalId_Update.sql" />
     <None Include="Scripts\Post-Deployment\03_Ticket_NominalId_Update.sql" />
+    <None Include="Scripts\Post-Deployment\04_tChartType_Insert.sql" />
+    <None Include="Scripts\Post-Deployment\05_tChartComputingStrategy_Insert.sql" />
+    <None Include="Scripts\Post-Deployment\06_tStatisticsChart_Insert.sql" />
   </ItemGroup>
 </Project>
