@@ -203,6 +203,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Api\Controllers\PackageController.cs" />
     <Compile Include="Areas\Api\Controllers\StatisticsController.cs" />
+    <Compile Include="Areas\Api\Controllers\StatisticsEngineController.cs" />
     <Compile Include="Controllers\TicketController_Note.cs" />
     <Compile Include="Data\AjaxPagination.cs" />
     <Compile Include="Helpers\CustomHelpers.cs" />

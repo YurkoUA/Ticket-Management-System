@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TicketManagementSystem.Infrastructure.Data
 {
@@ -6,6 +7,7 @@ namespace TicketManagementSystem.Infrastructure.Data
     {
         IRepository<TEntity> Get<TEntity>() where TEntity : class;
         Task ExecuteProcedureAsync(string name, params object[] parameters);
+        Task<IEnumerable<T>> ExecuteProcedureAsync<T>(string name, params object[] parameters);
         Task SaveChangesAsync();
     }
 }

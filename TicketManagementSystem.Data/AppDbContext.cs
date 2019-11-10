@@ -23,5 +23,7 @@ namespace TicketManagementSystem.Data
         public DbSet<Serial> Series { get; set; }
         public DbSet<Package> Packages { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
+
+        public DbSet<StatisticsChart> StatisticsCharts { get; set; }
     }
 }

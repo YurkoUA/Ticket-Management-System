@@ -5,12 +5,14 @@ using TicketManagementSystem.Domain.Color.Queries;
 using TicketManagementSystem.Domain.Cqrs;
 using TicketManagementSystem.Domain.Nominal.Queries;
 using TicketManagementSystem.Domain.Package.Commands;
+using TicketManagementSystem.Domain.Statistics.Queries;
 using TicketManagementSystem.Infrastructure.Data;
 using TicketManagementSystem.Infrastructure.Domain;
 using TicketManagementSystem.Infrastructure.Domain.Processors;
 using TicketManagementSystem.ViewModels.Color;
 using TicketManagementSystem.ViewModels.Common;
 using TicketManagementSystem.ViewModels.Nominal;
+using TicketManagementSystem.ViewModels.Statistics;
 
 namespace TicketManagementSystem.Domain.Util
 {
@@ -40,6 +42,8 @@ namespace TicketManagementSystem.Domain.Util
 
             Bind<ICommandHandlerAsync<EditPackageCommand, CommandResultVM<object>>>().To<EditPackageCH>();
             Bind<ICommandHandlerAsync<EditSpecialPackageCommand, CommandResultVM<object>>>().To<EditSpecialPackageCH>();
+
+            Bind<IQueryHandlerAsync<GetChartsQuery, IEnumerable<ChartInfoVM>>>().To<GetChartsQH>();
         }
     }
 }

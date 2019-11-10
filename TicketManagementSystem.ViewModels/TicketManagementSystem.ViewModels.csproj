@@ -47,6 +47,11 @@
     <Compile Include="Common\KeyValueStringPairVM.cs" />
     <Compile Include="Nominal\NominalVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Statistics\ChartDataItemVM.cs" />
+    <Compile Include="Statistics\ChartDataVM.cs" />
+    <Compile Include="Statistics\ChartInfoVM.cs" />
+    <Compile Include="Statistics\Enums\ChartComputingStrategy.cs" />
+    <Compile Include="Statistics\Enums\ChartType.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
