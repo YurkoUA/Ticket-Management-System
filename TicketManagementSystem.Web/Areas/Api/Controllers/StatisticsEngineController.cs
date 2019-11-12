@@ -22,5 +22,13 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
             var charts = await queryProcessorAsync.ProcessAsync(query ?? new GetChartsQuery());
             return Ok(charts);
         }
+
+        [HttpGet]
+        [Route("Data")]
+        public async Task<IHttpActionResult> Data([FromUri]GetChartDataQuery query)
+        {
+            var data = await queryProcessorAsync.ProcessAsync(query);
+            return Ok(data);
+        }
     }
 }

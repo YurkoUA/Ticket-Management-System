@@ -9,10 +9,10 @@ namespace TicketManagementSystem.Domain.Statistics.Queries
         public int ChartId { get; set; }
 
         // Period.
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         // Moment.
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
     }
 }

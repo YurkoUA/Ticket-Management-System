@@ -30,6 +30,7 @@ namespace TicketManagementSystem.Domain.Util
             Bind<AppDbContext>().To<AppDbContext>().WithConstructorArgument(_connectionString);
             Bind(typeof(IRepository<>)).To(typeof(Repository<>));
             Bind<IUnitOfWork>().To<UnitOfWork>();
+            Bind<IParameterFactory>().To<SqlParameterFactory>();
 
             Bind<IQueryProcessorAsync>().To<QueryProcessorAsync>();
             Bind<ICommandProcessorAsync>().To<CommandProcessorAsync>();
@@ -44,6 +45,7 @@ namespace TicketManagementSystem.Domain.Util
             Bind<ICommandHandlerAsync<EditSpecialPackageCommand, CommandResultVM<object>>>().To<EditSpecialPackageCH>();
 
             Bind<IQueryHandlerAsync<GetChartsQuery, IEnumerable<ChartInfoVM>>>().To<GetChartsQH>();
+            Bind<IQueryHandlerAsync<GetChartDataQuery, ChartDataVM>>().To<GetChartDataQH>();
         }
     }
 }

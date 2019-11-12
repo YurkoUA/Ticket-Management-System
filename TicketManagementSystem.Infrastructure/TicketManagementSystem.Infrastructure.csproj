@@ -47,6 +47,7 @@
     <Compile Include="ChainOfResponsibility\ChainBuilder.cs" />
     <Compile Include="ChainOfResponsibility\IChainBuilder.cs" />
     <Compile Include="ChainOfResponsibility\IChainElement.cs" />
+    <Compile Include="Data\IParameterFactory.cs" />
     <Compile Include="Data\IRepository.cs" />
     <Compile Include="Data\IUnitOfWork.cs" />
     <Compile Include="Domain\ICommand.cs" />
