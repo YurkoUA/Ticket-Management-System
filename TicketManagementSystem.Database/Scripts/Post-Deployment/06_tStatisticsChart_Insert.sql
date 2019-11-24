@@ -15,11 +15,15 @@
 )
 
 INSERT INTO @tStatisticsChart_06([Id], [Title], [KeyTitle], [ValueTitle], [TypeId], [ComputingStrategyId], [PageId], [SortOrder], [SPName], [Color], [Is3D], [IsLegend])
-VALUES	(1, N'Квитки за серіями', N'Серія', N'Квитків', 1, 2, NULL, 1, 'USP_Statistics_Series', NULL, 1, 1) -- Pie/Moment.
+VALUES	(1, N'Квитки за серіями',		N'Серія', N'Квитків',	1, 2, NULL, 1, 'USP_Statistics_Series', NULL, 1, 1) -- Pie/Moment.
+		,(2, N'Квитки за кольорами',	N'Колір', N'Квитків',	1, 2, NULL, 2, 'USP_Statistics_Colors', NULL, 1, 1) -- Pie/Moment.
+		,(3, N'Квитки за першою цифрою',N'Цифра', N'Квитків',	1, 2, NULL, 3, 'USP_Statistics_FirstDigit', NULL, 1, 1) -- Pie/Moment.
+		,(4, N'Квитки за номіналом',	N'Номінал', N'Квитків', 1, 2, NULL, 4, 'USP_Statistics_Nominals', NULL, 1, 1) -- Pie/Moment.
+		,(5, N'Щасливі/Звичайні',		N'Тип', N'Квитків',		1, 2, NULL, 5, 'USP_Statistics_Happy', NULL, 1, 1) -- Pie/Moment.
 
 INSERT INTO [tStatisticsChart]([Id], [Title], [KeyTitle], [ValueTitle], [TypeId], [ComputingStrategyId], [PageId], [SortOrder], [SPName], [Color], [Is3D], [IsLegend])
 SELECT	[temp].[Id], [temp].[Title], [temp].[KeyTitle], [temp].[ValueTitle], [temp].[TypeId], [temp].[ComputingStrategyId], [temp].[PageId], 
 		[temp].[SortOrder], [temp].[SPName], [temp].[Color], [temp].[Is3D], [temp].[IsLegend]
 FROM @tStatisticsChart_06 AS [temp]
-LEFT JOIN [tStatisticsPage] AS [actual] ON [actual].[Id] = [temp].[Id]
+LEFT JOIN [tStatisticsChart] AS [actual] ON [actual].[Id] = [temp].[Id]
 WHERE [actual].[Id] IS NULL
