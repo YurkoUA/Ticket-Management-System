@@ -7,6 +7,8 @@ namespace TicketManagementSystem.Data.Entities
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string KeyTitle { get; set; }
+        public string ValueTitle { get; set; }
         public int TypeId { get; set; }
         public int ComputingStrategyId { get; set; }
         public int? PageId { get; set; }

@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Статистика";
+}
+
+<h2>@ViewBag.Title</h2>
+<p>@Html.ActionLink("Перейти до старої сторінки", "Legacy")</p>
+<hr />
+
+<p>
+    Статистика станом на @Html.DisplayDateTime(DateTime.Now.ToUniversalTime(), "G")
+</p>
+
+<div id="charts-container" class="row"></div>
+
+@section scripts {
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    @Scripts.Render("~/bundles/statistics-engine/js")
+
+    <script>
+        $(document).ready(function () {
+            var service = new StatisticsService();
+            var business = new StatisticsBusiness(service);
+            var controller = new StatisticsController(business);
+
+            controller.InitializePage();
+        });
+    </script>
+}

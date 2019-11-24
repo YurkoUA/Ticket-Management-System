@@ -1,0 +1,3 @@
+﻿type ChartData = {
+    Data: ChartDataItem[];
+}

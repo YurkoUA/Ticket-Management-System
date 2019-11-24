@@ -2,6 +2,8 @@
 (
 	[Id] INT NOT NULL,
 	[Title] NVARCHAR(50) NOT NULL,
+	[KeyTitle] NVARCHAR(10) NOT NULL,
+	[ValueTitle] NVARCHAR(10) NOT NULL,
 	[TypeId] INT NOT NULL,
 	[ComputingStrategyId] INT NOT NULL,
 	[PageId] INT NULL,

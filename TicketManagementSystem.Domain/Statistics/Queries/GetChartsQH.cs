@@ -24,6 +24,7 @@ namespace TicketManagementSystem.Domain.Statistics.Queries
         {
             var charts = (await unitOfWork.Get<StatisticsChart>()
                     .FindAllAsync(c => !query.PageId.HasValue || c.PageId == query.PageId))
+                .OrderBy(c => c.SortOrder)
                 .AsEnumerable();
 
             var chartsVm = entityService.ConvertCollection<StatisticsChart, ChartInfoVM>(charts);

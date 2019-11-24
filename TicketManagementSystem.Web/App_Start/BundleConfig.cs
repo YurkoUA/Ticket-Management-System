@@ -1,4 +1,5 @@
 ﻿using System.Web.Optimization;
+using TicketManagementSystem.Web.App_Start.Bundles;
 
 namespace TicketManagementSystem.Web
 {
@@ -24,6 +25,8 @@ namespace TicketManagementSystem.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            ScriptBundles.RegisterBundles(bundles);
         }
     }
 }
