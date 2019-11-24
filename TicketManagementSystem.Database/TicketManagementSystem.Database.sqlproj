@@ -92,6 +92,7 @@
     <Build Include="dbo\Stored Procedures\USP_Statistics_FirstDigit.sql" />
     <Build Include="dbo\Stored Procedures\USP_Statistics_Happy.sql" />
     <Build Include="dbo\Stored Procedures\USP_Statistics_Nominals.sql" />
+    <Build Include="dbo\Stored Procedures\USP_Statistics_Tickets_Monthly.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="TicketManagementSystem.Database.refactorlog" />

@@ -22,13 +22,13 @@ namespace TicketManagementSystem.Data
 
         public async Task ExecuteProcedureAsync(string name, IEnumerable<IDbDataParameter> parameters)
         {
-            var paramsNames = parameters.Select(p => $"@{p.ParameterName} ");
+            var paramsNames = parameters.Select(p => $"@{p.ParameterName}, ");
             await context.Database.ExecuteSqlCommandAsync($"EXEC {name} {paramsNames}", parameters);
         }
 
         public async Task<IEnumerable<T>> ExecuteProcedureAsync<T>(string name, IEnumerable<IDbDataParameter> parameters)
         {
-            var paramsNames = string.Join(" ", parameters.Select(p => $"@{p.ParameterName}"));
+            var paramsNames = string.Join(", ", parameters.Select(p => $"@{p.ParameterName}"));
             return await context.Database.SqlQuery<T>($"EXEC {name} {paramsNames}", parameters.ToArray()).ToListAsync();
         }
 

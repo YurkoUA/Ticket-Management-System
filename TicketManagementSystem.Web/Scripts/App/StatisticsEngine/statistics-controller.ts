@@ -31,11 +31,17 @@ class StatisticsController {
         const chartType = ChartType[chart.Type];
         const googleChart = new google.visualization[chartType](document.getElementById(elementId));
 
+        const options: any = {
+            title: chart.Title,
+            is3D: chart.Is3D
+        };
+
+        if (!chart.IsLegend) {
+            options.legend = { position: 'none' };
+        }
+
         if (googleChart) {
-            googleChart.draw(dataTable, {
-                title: chart.Title,
-                is3D: chart.Is3D
-            });
+            googleChart.draw(dataTable, options);
         }
     }
 
