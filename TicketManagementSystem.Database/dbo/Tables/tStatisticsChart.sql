@@ -11,7 +11,8 @@
 	[SPName] NVARCHAR(30) NOT NULL,
 	[Color] NVARCHAR(15) NULL,
 	[Is3D] BIT NULL,
-	[IsLegend] BIT NULL
+	[IsLegend] BIT NULL,
+	[StyleClass] NVARCHAR(MAX) NULL
 
 	CONSTRAINT [PK_tStatisticsChart] PRIMARY KEY ([Id]),
 	CONSTRAINT [FK_tStatisticsChart_tChartType] FOREIGN KEY ([TypeId]) REFERENCES [tChartType]([Id]),

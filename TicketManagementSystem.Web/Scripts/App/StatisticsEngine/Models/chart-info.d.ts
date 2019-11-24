@@ -8,4 +8,5 @@
     Color: string;
     Is3D: boolean;
     IsLegend: boolean;
+    StyleClass: string;
 }

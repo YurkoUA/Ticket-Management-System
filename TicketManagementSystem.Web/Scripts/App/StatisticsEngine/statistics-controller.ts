@@ -14,16 +14,19 @@ class StatisticsController {
 
     private LoadData(charts: ChartInfo[]): void {
         for (let c of charts) {
+            this.CreateChartElement(c);
             this.business.GetChartData(c.Id);
         }
     }
 
-    private DrawChart(chart: ChartInfo, data: any): void {
+    private CreateChartElement(chart: ChartInfo): void {
         const container = $("#charts-container");
-        const elementId = `chart-${chart.Id}`;
-        const chartElement = $(`<div id="${elementId}" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pie-chart"></div>`)
+        const chartElement = $(`<div id="chart-${chart.Id}" class="${chart.StyleClass}"></div>`)
         container.append(chartElement);
+    }
 
+    private DrawChart(chart: ChartInfo, data: any): void {
+        const elementId = `chart-${chart.Id}`;
         const dataTable = google.visualization.arrayToDataTable(data);
         const chartType = ChartType[chart.Type];
         const googleChart = new google.visualization[chartType](document.getElementById(elementId));

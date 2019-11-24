@@ -13,5 +13,6 @@ namespace TicketManagementSystem.ViewModels.Statistics
         public string Color { get; set; }
         public bool Is3D { get; set; }
         public bool IsLegend { get; set; }
+        public string StyleClass { get; set; }
     }
 }
