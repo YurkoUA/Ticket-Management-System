@@ -46,6 +46,7 @@ namespace TicketManagementSystem.Domain.Util
 
             Bind<IQueryHandlerAsync<GetChartsQuery, IEnumerable<ChartInfoVM>>>().To<GetChartsQH>();
             Bind<IQueryHandlerAsync<GetChartDataQuery, ChartDataVM>>().To<GetChartDataQH>();
+            Bind<IQueryHandlerAsync<EmptyQuery<IEnumerable<PageVM>>, IEnumerable<PageVM>>>().To<GetPagesQH>();
         }
     }
 }

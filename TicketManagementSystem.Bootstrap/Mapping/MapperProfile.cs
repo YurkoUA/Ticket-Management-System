@@ -47,6 +47,8 @@ namespace TicketManagementSystem.Bootstrap.Mapping
                 .ForMember(dest => dest.ComputingStrategy, opt => opt.MapFrom(src => (ChartComputingStrategy)src.ComputingStrategyId))
                 .ForMember(dest => dest.Type, opt => opt.MapFrom(src => (ChartType)src.TypeId));
 
+            CreateMap<StatisticsPage, PageVM>();
+
             #endregion
         }
     }

@@ -1,10 +1,12 @@
 ﻿declare var google;
+declare var Vue;
 
 class StatisticsController {
     constructor(private business: StatisticsBusiness) {
     }
 
     public InitializePage(pageId?: number): void {
+        this.CustomizePageContainer();
         this.ApplyBindings();
         this.BindEvents();
 
@@ -46,11 +48,21 @@ class StatisticsController {
     }
 
     private ApplyBindings(): void {
+        let vueModel: any = {
+            el: "#statistics-engine-container"
+        };
 
+        vueModel.data = this.business.Model;
+
+        new Vue(vueModel);
     }
 
     private BindEvents(): void {
         this.business.OnChartListReceived = (c) => this.LoadData(c);
         this.business.OnChartDataReceived = (c, d) => this.DrawChart(c, d);
+    }
+
+    private CustomizePageContainer(): void {
+        $(document).trigger("container.fluid");
     }
 }

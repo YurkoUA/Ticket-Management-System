@@ -1,4 +1,11 @@
-﻿convertDate();
+﻿$(document).ready(function () {
+    convertDate();
+
+    $(document).off("container.fluid").on("container.fluid", function () {
+        $("div.container").addClass("container-fluid");
+        $("div.container").removeClass("container");
+    });
+});
 
 function showModal(data) {
     $('#modal-window-content').html(data);

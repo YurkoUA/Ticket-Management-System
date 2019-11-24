@@ -1,4 +1,6 @@
-﻿@{
+﻿@model int?
+
+@{
     ViewBag.Title = "Статистика";
 }
 
@@ -10,7 +12,20 @@
     Статистика станом на @Html.DisplayDateTime(DateTime.Now.ToUniversalTime(), "G")
 </p>
 
-<div id="charts-container" class="row"></div>
+<hr />
+
+<div id="statistics-engine-container" class="row">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+        <div class="list-group" v-for="page in Pages">
+            <a v-bind:href="'/Statistics/Index/' + page.Id" class="list-group-item">{{page.Name}}</a>
+        </div>
+    </div>
+
+    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+        <div id="charts-container" class="row"></div>
+    </div>
+</div>
+
 
 @section scripts {
     <script src="https://www.gstatic.com/charts/loader.js"></script>
@@ -22,7 +37,18 @@
             var business = new StatisticsBusiness(service);
             var controller = new StatisticsController(business);
 
-            controller.InitializePage();
+            var pageId = null;
+
+            @{ 
+                if (Model.HasValue)
+                {
+                    <text>
+                        pageId = @Model.Value
+                    </text>
+                }
+            }
+
+            controller.InitializePage(pageId);
         });
     </script>
 }

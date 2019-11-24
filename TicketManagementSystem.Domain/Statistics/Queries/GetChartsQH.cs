@@ -23,7 +23,7 @@ namespace TicketManagementSystem.Domain.Statistics.Queries
         public async Task<IEnumerable<ChartInfoVM>> GetAsync(GetChartsQuery query)
         {
             var charts = (await unitOfWork.Get<StatisticsChart>()
-                    .FindAllAsync(c => !query.PageId.HasValue || c.PageId == query.PageId))
+                    .FindAllAsync(c => (!query.PageId.HasValue && !c.PageId.HasValue) || (query.PageId.HasValue && c.PageId == query.PageId)))
                 .OrderBy(c => c.SortOrder)
                 .AsEnumerable();
 

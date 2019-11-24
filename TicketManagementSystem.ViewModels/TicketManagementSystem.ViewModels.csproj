@@ -52,6 +52,7 @@
     <Compile Include="Statistics\ChartInfoVM.cs" />
     <Compile Include="Statistics\Enums\ChartComputingStrategy.cs" />
     <Compile Include="Statistics\Enums\ChartType.cs" />
+    <Compile Include="Statistics\PageVM.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

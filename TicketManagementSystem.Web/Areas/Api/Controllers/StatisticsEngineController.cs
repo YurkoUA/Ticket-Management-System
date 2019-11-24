@@ -1,7 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
+using TicketManagementSystem.Domain.Cqrs;
 using TicketManagementSystem.Domain.Statistics.Queries;
 using TicketManagementSystem.Infrastructure.Domain.Processors;
+using TicketManagementSystem.ViewModels.Statistics;
 
 namespace TicketManagementSystem.Web.Areas.Api.Controllers
 {
@@ -29,6 +32,14 @@ namespace TicketManagementSystem.Web.Areas.Api.Controllers
         {
             var data = await queryProcessorAsync.ProcessAsync(query);
             return Ok(data);
+        }
+
+        [HttpGet]
+        [Route("Pages")]
+        public async Task<IHttpActionResult> Pages()
+        {
+            var pages = await queryProcessorAsync.ProcessAsync(new EmptyQuery<IEnumerable<PageVM>>());
+            return Ok(pages);
         }
     }
 }

@@ -111,5 +111,6 @@
     <None Include="Scripts\Post-Deployment\04_tChartType_Insert.sql" />
     <None Include="Scripts\Post-Deployment\05_tChartComputingStrategy_Insert.sql" />
     <None Include="Scripts\Post-Deployment\06_tStatisticsChart_Insert.sql" />
+    <None Include="Scripts\Post-Deployment\06_tStatisticsPage_Insert.sql" />
   </ItemGroup>
 </Project>

@@ -502,6 +502,7 @@
     <TypeScriptCompile Include="Scripts\App\StatisticsEngine\Models\chart-data.d.ts" />
     <TypeScriptCompile Include="Scripts\App\StatisticsEngine\Models\chart-info.d.ts" />
     <TypeScriptCompile Include="Scripts\App\StatisticsEngine\Models\chart-type-enum.ts" />
+    <TypeScriptCompile Include="Scripts\App\StatisticsEngine\Models\page.d.ts" />
     <TypeScriptCompile Include="Scripts\App\StatisticsEngine\statistics-controller.ts" />
     <TypeScriptCompile Include="Scripts\App\StatisticsEngine\Models\statistics-page-model.ts" />
     <TypeScriptCompile Include="Scripts\App\StatisticsEngine\statistics-business.ts" />

@@ -6,7 +6,7 @@ namespace TicketManagementSystem.Web.Controllers
     [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient)]
     public class StatisticsController : Controller
     {
-        public ActionResult Index() => View("~/Views/Statistics/Engine/Index.cshtml");
+        public ActionResult Index(int? id) => View("~/Views/Statistics/Engine/Index.cshtml", id);
 
         public ActionResult Legacy() => View("~/Views/Statistics/Index.cshtml");
 

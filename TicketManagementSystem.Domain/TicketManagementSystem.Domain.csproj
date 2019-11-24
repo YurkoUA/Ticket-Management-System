@@ -76,6 +76,7 @@
     <Compile Include="Statistics\Queries\GetChartDataQuery.cs" />
     <Compile Include="Statistics\Queries\GetChartsQH.cs" />
     <Compile Include="Statistics\Queries\GetChartsQuery.cs" />
+    <Compile Include="Statistics\Queries\GetPagesQH.cs" />
     <Compile Include="Ticket\Commands\CreateTicketCommand.cs" />
     <Compile Include="Util\DomainModule.cs" />
     <Compile Include="ValidationChain\BaseValidator.cs" />

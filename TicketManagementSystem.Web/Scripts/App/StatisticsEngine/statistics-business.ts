@@ -11,6 +11,14 @@
     public OnPageOpen(pageId?: number): void {
         this.pageId = pageId;
         this.GetCharts();
+        this.GetPages();
+    }
+
+    public GetPages(): void {
+        this.service.GetPages()
+            .done((pages: Page[]) => {
+                this.Model.Pages = pages;
+            });
     }
 
     public GetCharts(): void {

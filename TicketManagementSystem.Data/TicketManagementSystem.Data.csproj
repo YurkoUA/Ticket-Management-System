@@ -60,6 +60,7 @@
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Serial.cs" />
     <Compile Include="Entities\StatisticsChart.cs" />
+    <Compile Include="Entities\StatisticsPage.cs" />
     <Compile Include="Entities\Summary.cs" />
     <Compile Include="Entities\Ticket.cs" />
     <Compile Include="Entities\User.cs" />
