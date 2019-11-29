@@ -38,6 +38,8 @@ namespace TicketManagementSystem.Domain.Util
             Bind<IStatisticsFormatterFactory>().To<StatisticsFormatterFactory>();
 
             Bind<IStatisticsFormatter>().To<TicketMonthSummaryFormatter>().Named(Chart.TicketMonthSummary.ToString());
+            Bind<IStatisticsFormatter>().To<TicketMonthSummaryFormatter>().Named(Chart.HappyTicketMonthSummary.ToString());
+            Bind<IStatisticsFormatter>().To<TicketMonthSummaryFormatter>().Named(Chart.PackageTicketMonthSummary.ToString());
 
             Bind<IQueryProcessorAsync>().To<QueryProcessorAsync>();
             Bind<ICommandProcessorAsync>().To<CommandProcessorAsync>();

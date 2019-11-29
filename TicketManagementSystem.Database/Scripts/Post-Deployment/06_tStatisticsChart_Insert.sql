@@ -8,7 +8,7 @@
 	[ComputingStrategyId] INT NOT NULL,
 	[PageId] INT NULL,
 	[SortOrder] INT NOT NULL,
-	[SPName] NVARCHAR(30) NOT NULL,
+	[SPName] NVARCHAR(50) NOT NULL,
 	[Color] NVARCHAR(15) NULL,
 	[Is3D] BIT NULL,
 	[IsLegend] BIT NULL,
@@ -23,8 +23,12 @@ VALUES	(1, N'Квитки за серіями',		N'Серія', N'Квитків
 		,(3, N'Квитки за першою цифрою',N'Цифра', N'Квитків',	1, 2, NULL, 3, 'USP_Statistics_FirstDigit', NULL, 1, 1, @06_PieChart_DefaultStyle) -- Pie/Moment.
 		,(4, N'Квитки за номіналом',	N'Номінал', N'Квитків', 1, 2, NULL, 4, 'USP_Statistics_Nominals', NULL, 1, 1, @06_PieChart_DefaultStyle) -- Pie/Moment.
 		,(5, N'Щасливі/Звичайні',		N'Тип', N'Квитків',		1, 2, NULL, 5, 'USP_Statistics_Happy', NULL, 1, 1, @06_PieChart_DefaultStyle) -- Pie/Moment.
-		,(6, N'Кількість зібраних квитків за місяцями',
-										N'Місяць', N'Квитків',	3, 1, 1, 1, 'USP_Statistics_Tickets_Monthly', NULL, 1, 0, 'col-md-12 chart') -- Line/Period.
+		,(6, N'Темпи зростання кількості квитків',
+										N'Місяць', N'Квитків',	3, 1, 1, 2, 'USP_Statistics_Tickets_Monthly', 'blue', 1, 0, 'col-md-12 chart') -- Line/Period.
+		,(7, N'Темпи зростання кількості щасливих квитків',
+										N'Місяць', N'Квитків',	3, 1, 1, 3, 'USP_Statistics_HappyTickets_Monthly', 'green', 1, 0, 'col-md-12 chart') -- Line/Period.
+		,(8, N'Темпи зростання кількості пачок',
+										N'Місяць', N'Пачок',	3, 1, 1, 4, 'USP_Statistics_Packages_Monthly', 'red', 1, 0, 'col-md-12 chart') -- Line/Period.
 
 INSERT INTO [tStatisticsChart]([Id], [Title], [KeyTitle], [ValueTitle], [TypeId], [ComputingStrategyId], [PageId], [SortOrder], [SPName], [Color], [Is3D], [IsLegend], [StyleClass])
 SELECT	[temp].[Id], [temp].[Title], [temp].[KeyTitle], [temp].[ValueTitle], [temp].[TypeId], [temp].[ComputingStrategyId], [temp].[PageId], 

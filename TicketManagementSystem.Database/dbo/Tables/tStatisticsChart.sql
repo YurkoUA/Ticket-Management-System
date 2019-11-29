@@ -8,7 +8,7 @@
 	[ComputingStrategyId] INT NOT NULL,
 	[PageId] INT NULL,
 	[SortOrder] INT NOT NULL,
-	[SPName] NVARCHAR(30) NOT NULL,
+	[SPName] NVARCHAR(50) NOT NULL,
 	[Color] NVARCHAR(15) NULL,
 	[Is3D] BIT NULL,
 	[IsLegend] BIT NULL,
