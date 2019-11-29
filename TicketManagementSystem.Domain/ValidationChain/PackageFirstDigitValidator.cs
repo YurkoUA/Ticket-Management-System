@@ -22,7 +22,7 @@ namespace TicketManagementSystem.Domain.ValidationChain
         {
             if (firstDigit.HasValue)
             {
-                var repo = unitOfWork.Get<Ticket>();
+                var repo = unitOfWork.Get<Data.Entities.Ticket>();
                 var isEmpty = !repo.Any(t => t.PackageId == packageId);
 
                 if (!isEmpty)
