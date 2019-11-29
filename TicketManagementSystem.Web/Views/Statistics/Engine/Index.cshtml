@@ -15,14 +15,17 @@
 <hr />
 
 <div id="statistics-engine-container" class="row">
-    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-        <div class="list-group" v-for="page in Pages">
-            <a v-bind:href="'/Statistics/Index/' + page.Id" class="list-group-item">{{page.Name}}</a>
-        </div>
-    </div>
+    <select id="se-pages-list" name="se-pages-list" class="form-control col-md-offset-5" 
+            v-if="Pages && Pages.length > 0"
+            v-on:change="openPage($event)">
+        <option>==ГОЛОВНА==</option>
+        <option v-for="page in Pages" :value="page.Id">{{page.Name}}</option>
+    </select>
 
-    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-        <div id="charts-container" class="row"></div>
+    <div id="charts-container" class="row" v-if="Charts && Charts.length > 0">
+        <div v-for="chart in Charts"
+             v-bind:id="'chart-' + chart.Id"
+             :class="chart.StyleClass"></div>
     </div>
 </div>
 

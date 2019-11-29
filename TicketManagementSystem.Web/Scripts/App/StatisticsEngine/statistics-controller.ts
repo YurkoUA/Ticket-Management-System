@@ -16,15 +16,8 @@ class StatisticsController {
 
     private LoadData(charts: ChartInfo[]): void {
         for (let c of charts) {
-            this.CreateChartElement(c);
             this.business.GetChartData(c.Id);
         }
-    }
-
-    private CreateChartElement(chart: ChartInfo): void {
-        const container = $("#charts-container");
-        const chartElement = $(`<div id="chart-${chart.Id}" class="${chart.StyleClass}"></div>`)
-        container.append(chartElement);
     }
 
     private DrawChart(chart: ChartInfo, data: any): void {
@@ -48,11 +41,15 @@ class StatisticsController {
     }
 
     private ApplyBindings(): void {
-        let vueModel: any = {
-            el: "#statistics-engine-container"
-        };
+        let _this = this;
 
-        vueModel.data = this.business.Model;
+        let vueModel: any = {
+            el: "#statistics-engine-container",
+            data: _this.business.Model,
+            methods: {
+                openPage: (e: any) => _this.business.OnPageOpen(e.target.value)
+            }
+        };
 
         new Vue(vueModel);
     }
