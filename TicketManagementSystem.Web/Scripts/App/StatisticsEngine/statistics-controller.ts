@@ -35,6 +35,11 @@ class StatisticsController {
             options.legend = { position: 'none' };
         }
 
+        // TODO: Colors by data.
+        if (chart.Color) {
+            options.colors = [chart.Color];
+        }
+
         if (googleChart) {
             googleChart.draw(dataTable, options);
         }
