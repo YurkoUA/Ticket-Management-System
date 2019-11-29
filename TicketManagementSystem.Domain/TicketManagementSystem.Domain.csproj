@@ -72,6 +72,8 @@
     <Compile Include="Package\Commands\EditSpecialPackageCommand.cs" />
     <Compile Include="Package\Queries\GetCompatiblePackagesQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Statistics\Formatters\StatisticsFormatterFactory.cs" />
+    <Compile Include="Statistics\Formatters\TicketMonthSummaryFormatter.cs" />
     <Compile Include="Statistics\Queries\GetChartDataQH.cs" />
     <Compile Include="Statistics\Queries\GetChartDataQuery.cs" />
     <Compile Include="Statistics\Queries\GetChartsQH.cs" />

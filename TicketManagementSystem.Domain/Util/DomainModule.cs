@@ -5,14 +5,17 @@ using TicketManagementSystem.Domain.Color.Queries;
 using TicketManagementSystem.Domain.Cqrs;
 using TicketManagementSystem.Domain.Nominal.Queries;
 using TicketManagementSystem.Domain.Package.Commands;
+using TicketManagementSystem.Domain.Statistics.Formatters;
 using TicketManagementSystem.Domain.Statistics.Queries;
 using TicketManagementSystem.Infrastructure.Data;
 using TicketManagementSystem.Infrastructure.Domain;
 using TicketManagementSystem.Infrastructure.Domain.Processors;
+using TicketManagementSystem.Infrastructure.Interfaces;
 using TicketManagementSystem.ViewModels.Color;
 using TicketManagementSystem.ViewModels.Common;
 using TicketManagementSystem.ViewModels.Nominal;
 using TicketManagementSystem.ViewModels.Statistics;
+using TicketManagementSystem.ViewModels.Statistics.Enums;
 
 namespace TicketManagementSystem.Domain.Util
 {
@@ -31,6 +34,10 @@ namespace TicketManagementSystem.Domain.Util
             Bind(typeof(IRepository<>)).To(typeof(Repository<>));
             Bind<IUnitOfWork>().To<UnitOfWork>();
             Bind<IParameterFactory>().To<SqlParameterFactory>();
+
+            Bind<IStatisticsFormatterFactory>().To<StatisticsFormatterFactory>();
+
+            Bind<IStatisticsFormatter>().To<TicketMonthSummaryFormatter>().Named(Chart.TicketMonthSummary.ToString());
 
             Bind<IQueryProcessorAsync>().To<QueryProcessorAsync>();
             Bind<ICommandProcessorAsync>().To<CommandProcessorAsync>();

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TicketManagementSystem.Data.Entities;
 using TicketManagementSystem.Infrastructure.Data;
 using TicketManagementSystem.Infrastructure.Domain;
+using TicketManagementSystem.Infrastructure.Interfaces;
 using TicketManagementSystem.ViewModels.Statistics;
 using TicketManagementSystem.ViewModels.Statistics.Enums;
 
@@ -14,11 +15,15 @@ namespace TicketManagementSystem.Domain.Statistics.Queries
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IParameterFactory parameterFactory;
+        private readonly IStatisticsFormatterFactory statisticsFormatterFactory;
 
-        public GetChartDataQH(IUnitOfWork unitOfWork, IParameterFactory parameterFactory)
+        public GetChartDataQH(IUnitOfWork unitOfWork,
+            IParameterFactory parameterFactory,
+            IStatisticsFormatterFactory statisticsFormatterFactory)
         {
             this.unitOfWork = unitOfWork;
             this.parameterFactory = parameterFactory;
+            this.statisticsFormatterFactory = statisticsFormatterFactory;
         }
 
         public async Task<ChartDataVM> GetAsync(GetChartDataQuery query)
@@ -33,10 +38,14 @@ namespace TicketManagementSystem.Domain.Statistics.Queries
 
             var parameters = GetParameters(query, (ChartComputingStrategy)chart.ComputingStrategyId);
             var chartData = await unitOfWork.ExecuteProcedureAsync<ChartDataItemVM>(chart.SPName, parameters);
-            return new ChartDataVM
+            var dataVM = new ChartDataVM
             {
                 Data = chartData
             };
+
+            statisticsFormatterFactory.GetFormatter((Chart)chart.Id)?.Format(dataVM);
+
+            return dataVM;
         }
 
         internal IEnumerable<IDbDataParameter> GetParameters(GetChartDataQuery query, ChartComputingStrategy computingStrategy)
