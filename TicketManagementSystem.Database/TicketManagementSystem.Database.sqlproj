@@ -105,5 +105,9 @@
     <None Include="Scripts\Pre-Deployment\01_Package_Nominal_SaveTempAndCleanUp.sql" />
     <None Include="Scripts\Post-Deployment\02_Package_NominalId_Update.sql" />
     <None Include="Scripts\Post-Deployment\03_Ticket_NominalId_Update.sql" />
+    <None Include="Scripts\Post-Deployment\08_Bucket_Insert.sql" />
+    <None Include="Scripts\Post-Deployment\09_DocumentType_Insert.sql" />
+    <None Include="Scripts\Post-Deployment\10_ReportType_Insert.sql" />
+    <None Include="Scripts\Post-Deployment\11_ReportTypeDocumentType_Insert.sql" />
   </ItemGroup>
 </Project>
