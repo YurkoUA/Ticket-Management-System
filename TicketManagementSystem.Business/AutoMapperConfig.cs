@@ -59,8 +59,8 @@ namespace TicketManagementSystem.Business
 
                 #region Report
 
-                cfg.CreateMap<Data.Entities.Report, DTO.Report.ReportDTO>();
-                cfg.CreateMap<DTO.Report.ReportDTO, Data.Entities.Report>();
+                cfg.CreateMap<Data.Entities.ReportLegacy, DTO.Report.ReportDTO>();
+                cfg.CreateMap<DTO.Report.ReportDTO, Data.Entities.ReportLegacy>();
 
                 #endregion
 

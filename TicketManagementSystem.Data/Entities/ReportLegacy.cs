@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TicketManagementSystem.Data.Entities
 {
-    [Table("Report")]
-    public class Report
+    [Table("Report_Legacy")]
+    public class ReportLegacy
     {
         public int Id { get; set; }
         public DateTime Date { get; set; } = DateTime.Now.ToUniversalTime();
@@ -24,7 +24,7 @@ namespace TicketManagementSystem.Data.Entities
 
         public override bool Equals(object obj)
         {
-            if (obj is Report report)
+            if (obj is ReportLegacy report)
             {
                 return report.Id == Id;
             }

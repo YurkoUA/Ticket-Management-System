@@ -76,13 +76,20 @@
     <Build Include="dbo\Tables\Package.sql" />
     <Build Include="dbo\Tables\Ticket.sql" />
     <Build Include="dbo\Tables\Summary.sql" />
-    <Build Include="dbo\Tables\Report.sql" />
+    <Build Include="dbo\Tables\Report_Legacy.sql" />
     <Build Include="dbo\Views\VW_Packages.sql" />
     <Build Include="dbo\Views\VW_Tickets.sql" />
     <Build Include="dbo\Functions\fn_Number_IsReversible.sql" />
     <Build Include="dbo\Functions\fn_Number_IsConsistent.sql" />
     <Build Include="dbo\Functions\fn_Number_IsHappy.sql" />
     <Build Include="dbo\Tables\Nominal.sql" />
+    <Build Include="dbo\Tables\Bucket.sql" />
+    <Build Include="dbo\Tables\DocumentType.sql" />
+    <Build Include="dbo\Tables\Document.sql" />
+    <Build Include="dbo\Tables\ReportType.sql" />
+    <Build Include="dbo\Tables\ReportTypeDocumentType.sql" />
+    <Build Include="dbo\Tables\Report.sql" />
+    <Build Include="dbo\Tables\ReportDocument.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="TicketManagementSystem.Database.refactorlog" />

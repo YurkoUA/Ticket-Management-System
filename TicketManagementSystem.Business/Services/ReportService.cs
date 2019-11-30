@@ -49,7 +49,7 @@ namespace TicketManagementSystem.Business.Services
 
         public ReportDTO CreateReport(bool isAutomatic)
         {
-            var report = new Data.Entities.Report
+            var report = new Data.Entities.ReportLegacy
             {
                 IsAutomatic = isAutomatic
             };
@@ -58,7 +58,7 @@ namespace TicketManagementSystem.Business.Services
 
         public void SaveReport(ReportDTO reportDTO)
         {
-            Database.Reports.Create(Mapper.Map<Data.Entities.Report>(reportDTO));
+            Database.Reports.Create(Mapper.Map<Data.Entities.ReportLegacy>(reportDTO));
             Database.SaveChanges();
         }
 

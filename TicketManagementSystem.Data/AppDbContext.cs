@@ -15,7 +15,7 @@ namespace TicketManagementSystem.Data
         public DbSet<Login> Logins { get; set; }
         public DbSet<Role> Roles { get; set; }
 
-        public DbSet<Report> Reports { get; set; }
+        public DbSet<ReportLegacy> Reports { get; set; }
         public DbSet<Summary> Summary { get; set; }
 
         public DbSet<Nominal> Nominals { get; set; }

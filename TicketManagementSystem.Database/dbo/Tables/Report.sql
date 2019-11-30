@@ -1,7 +1,11 @@
-﻿CREATE TABLE [dbo].[Report] (
-    [Id]          INT      IDENTITY (1, 1) NOT NULL,
-    [Date]        DATETIME NOT NULL,
-    [IsAutomatic] BIT      NOT NULL,
-    CONSTRAINT [PK_Report] PRIMARY KEY CLUSTERED ([Id] ASC)
-);
+﻿CREATE TABLE [dbo].[Report]
+(
+	[Id] INT NOT NULL IDENTITY,
+	[TypeId] INT NOT NULL,
+	[DateCreated] DATETIME NOT NULL CONSTRAINT [DF_Report_DateCreated] DEFAULT(GETUTCDATE()),
+	[IsAutomatical] BIT NOT NULL CONSTRAINT [DF_Report_IsAutomatical] DEFAULT(0),
+	[ReportDataId] NVARCHAR(100) NULL
 
+	CONSTRAINT [PK_Report] PRIMARY KEY ([Id]),
+	CONSTRAINT [FK_Report_ReportType] FOREIGN KEY ([TypeId]) REFERENCES [ReportType]([Id])
+)

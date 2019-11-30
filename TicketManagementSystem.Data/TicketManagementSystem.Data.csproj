@@ -56,7 +56,7 @@
     <Compile Include="Entities\Login.cs" />
     <Compile Include="Entities\Nominal.cs" />
     <Compile Include="Entities\Package.cs" />
-    <Compile Include="Entities\Report.cs" />
+    <Compile Include="Entities\ReportLegacy.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Serial.cs" />
     <Compile Include="Entities\Summary.cs" />
