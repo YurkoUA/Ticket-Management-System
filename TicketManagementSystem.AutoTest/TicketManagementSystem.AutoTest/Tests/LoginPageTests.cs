@@ -12,20 +12,14 @@ using TicketManagementSystem.AutoTest.Util;
 namespace TicketManagementSystem.AutoTest.Tests
 {
     [TestClass]
-    public class LoginPageTests
+    public class LoginPageTests : BaseTest
     {
         [TestMethod]
         public void LoginPerformedSuccessfully()
         {
-            var url = "http://localhost:55557/";
-            var browser = SupportedBrowser.Chrome;
+            _driver.Navigate().GoToUrl(_testOptions.Url);
 
-            var factory = new WebDriverFactory();
-            var driver = factory.CreateDriver(browser);
-
-            driver.Navigate().GoToUrl(url);
-
-            var homePage = new HomePage(driver);
+            var homePage = new HomePage(_driver);
 
             homePage.VerifyLoginLinkIsDisplayed();
 
@@ -38,8 +32,6 @@ namespace TicketManagementSystem.AutoTest.Tests
             loginPage.VerifyBrowserUrl();
             loginPage.VerifyUserProfileLinkIsDisplayed("admin");
             loginPage.VerifyLogoutLinkIsDisplayed();
-
-            driver.Close();
         }
     }
 }
