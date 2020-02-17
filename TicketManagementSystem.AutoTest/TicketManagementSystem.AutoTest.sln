@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagementSystem.AutoTest", "TicketManagementSystem.AutoTest\TicketManagementSystem.AutoTest.csproj", "{9728C2AA-1CA6-4EAF-9013-8A9C3AE516B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagementSystem.AutoTest.Data", "TicketManagementSystem.AutoTest.Data\TicketManagementSystem.AutoTest.Data.csproj", "{969A3769-E72E-450D-B435-62F05CF2731B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9728C2AA-1CA6-4EAF-9013-8A9C3AE516B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9728C2AA-1CA6-4EAF-9013-8A9C3AE516B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9728C2AA-1CA6-4EAF-9013-8A9C3AE516B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{969A3769-E72E-450D-B435-62F05CF2731B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{969A3769-E72E-450D-B435-62F05CF2731B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{969A3769-E72E-450D-B435-62F05CF2731B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{969A3769-E72E-450D-B435-62F05CF2731B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

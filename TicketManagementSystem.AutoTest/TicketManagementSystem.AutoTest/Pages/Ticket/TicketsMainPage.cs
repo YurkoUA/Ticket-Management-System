@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using TicketManagementSystem.AutoTest.Pages.Ticket.Modal;
 using TicketManagementSystem.AutoTest.Util;
 
 namespace TicketManagementSystem.AutoTest.Pages.Ticket
@@ -24,9 +25,10 @@ namespace TicketManagementSystem.AutoTest.Pages.Ticket
 
         #region Methods.
 
-        public void OpenTicketSearch()
+        public TicketSearchModal OpenTicketSearch()
         {
             SearchTicketsLink?.Click();
+            return new TicketSearchModal(this, _context);
         }
 
         #endregion

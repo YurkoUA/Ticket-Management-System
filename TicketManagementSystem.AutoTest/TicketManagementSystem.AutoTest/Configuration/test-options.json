@@ -1,6 +1,8 @@
 {
   "Browser": 1,
   "Url": "http://localhost:55557/",
+  "ConnectionString": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=DB_A2BA4D_ticketms;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
+
   "Login": "admin",
   "Password": "AutoTest"
 }

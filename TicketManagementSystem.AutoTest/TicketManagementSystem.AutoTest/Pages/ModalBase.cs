@@ -15,5 +15,20 @@ namespace TicketManagementSystem.AutoTest.Pages
             _parent = parent;
             _context = context;
         }
+
+        #region Elements.
+
+        public IWebElement CloseButton => _driver.FindElement(By.CssSelector(".modal .modal-dialog > div > div.modal-header > button.close[data-dismiss=modal]"));
+
+        #endregion
+
+        #region Methods.
+
+        public void Close()
+        {
+            CloseButton?.Click();
+        }
+
+        #endregion
     }
 }
