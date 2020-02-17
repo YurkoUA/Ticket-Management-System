@@ -60,7 +60,9 @@
     <Compile Include="Infrastructure\WebDriverFactory.cs" />
     <Compile Include="Pages\HomePage.cs" />
     <Compile Include="Pages\LoginPage.cs" />
+    <Compile Include="Pages\ModalBase.cs" />
     <Compile Include="Pages\PageBase.cs" />
+    <Compile Include="Pages\Ticket\Modal\TicketSearchModal.cs" />
     <Compile Include="Pages\Ticket\TicketsMainPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\BaseTest.cs" />

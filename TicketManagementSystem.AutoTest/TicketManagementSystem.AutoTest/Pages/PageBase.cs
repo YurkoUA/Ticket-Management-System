@@ -73,12 +73,12 @@ namespace TicketManagementSystem.AutoTest.Pages
 
         public void VerifyLoginLinkIsDisplayed()
         {
-            Assert.IsNotNull(LoginLink);
+            Assert.IsNotNull(LoginLink, "Login link is not displayed");
         }
 
         public void VerifyLogoutLinkIsDisplayed()
         {
-            Assert.IsNotNull(LogoutLink);
+            Assert.IsNotNull(LogoutLink, "Logout link is not displayed");
         }
 
         #endregion
