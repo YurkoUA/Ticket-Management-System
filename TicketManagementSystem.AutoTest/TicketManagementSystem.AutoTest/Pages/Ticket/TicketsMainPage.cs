@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using TicketManagementSystem.AutoTest.Util;
 
 namespace TicketManagementSystem.AutoTest.Pages.Ticket
 {
@@ -11,7 +12,7 @@ namespace TicketManagementSystem.AutoTest.Pages.Ticket
     {
         public override string Url => "Ticket";
 
-        public TicketsMainPage(IWebDriver driver) : base(driver)
+        public TicketsMainPage(InternalTestContext context) : base(context)
         {
         }
 

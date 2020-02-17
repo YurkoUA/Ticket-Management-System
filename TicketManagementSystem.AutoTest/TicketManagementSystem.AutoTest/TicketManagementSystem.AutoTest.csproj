@@ -66,6 +66,7 @@
     <Compile Include="Tests\BaseTest.cs" />
     <Compile Include="Tests\LoginPageTests.cs" />
     <Compile Include="Tests\Ticket\TicketMainPageTests.cs" />
+    <Compile Include="Util\InternalTestContext.cs" />
     <Compile Include="Util\OptionsHelper.cs" />
     <Compile Include="Util\SupportedBrowser.cs" />
     <Compile Include="Util\TestOptions.cs" />

@@ -5,17 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using TicketManagementSystem.AutoTest.Util;
 
 namespace TicketManagementSystem.AutoTest.Pages
 {
     public abstract class PageBase
     {
         public virtual string Url => "";
-        protected readonly IWebDriver _driver;
+        protected readonly InternalTestContext _context;
+        protected IWebDriver _driver => _context?.Driver;
 
-        public PageBase(IWebDriver driver)
+        public PageBase(InternalTestContext context)
         {
-            this._driver = driver;
+            this._context = context;
         }
 
         #region Elements.
@@ -41,22 +43,21 @@ namespace TicketManagementSystem.AutoTest.Pages
 
         #region Methods.
 
-        public void Open(string root)
+        public void Open()
         {
-            // TODO: Remove "root".
-            _driver.Navigate().GoToUrl(root + Url);
+            _driver.Navigate().GoToUrl(_context.TestOptions.Url + Url);
         }
 
         public HomePage Logout()
         {
             LogoutLink?.Click();
-            return new HomePage(_driver);
+            return new HomePage(_context);
         }
 
         public LoginPage OpenProfile()
         {
             ProfileLink?.Click();
-            return new LoginPage(_driver);
+            return new LoginPage(_context);
         }
 
         #endregion

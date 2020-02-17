@@ -18,19 +18,18 @@ namespace TicketManagementSystem.AutoTest.Tests
         [Description("User logs in and logs out")]
         public void Login_Logout_Are_PerformedSuccessfully()
         {
-            _driver.Navigate().GoToUrl(_testOptions.Url);
-
-            var homePage = new HomePage(_driver);
+            var homePage = new HomePage(_context);
+            homePage.Open();
 
             homePage.VerifyLoginLinkIsDisplayed();
 
             var loginPage = homePage.OpenLoginPage();
-            loginPage.Login(_testOptions.Login, _testOptions.Password);
+            loginPage.Login(_context.TestOptions.Login, _context.TestOptions.Password);
 
             Thread.Sleep(1000);
 
             loginPage.VerifyBrowserUrl();
-            loginPage.VerifyUserProfileLinkIsDisplayed(_testOptions.Login);
+            loginPage.VerifyUserProfileLinkIsDisplayed(_context.TestOptions.Login);
             loginPage.VerifyLogoutLinkIsDisplayed();
 
             loginPage.Logout();

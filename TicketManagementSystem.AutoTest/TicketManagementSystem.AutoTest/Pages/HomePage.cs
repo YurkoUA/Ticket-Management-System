@@ -5,29 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using TicketManagementSystem.AutoTest.Util;
 
 namespace TicketManagementSystem.AutoTest.Pages
 {
     public class HomePage : PageBase
     {
-        public HomePage(IWebDriver driver) : base(driver)
+        public HomePage(InternalTestContext context) : base(context)
         {
         }
 
         public LoginPage OpenLoginPage()
         {
             LoginLink.Click();
-            return new LoginPage(_driver);
-        }
-
-        public void Logout()
-        {
-            LogoutLink.Click();
-        }
-
-        public void OpenProfile()
-        {
-            ProfileLink.Click();
+            return new LoginPage(_context);
         }
 
         #region Asserters.

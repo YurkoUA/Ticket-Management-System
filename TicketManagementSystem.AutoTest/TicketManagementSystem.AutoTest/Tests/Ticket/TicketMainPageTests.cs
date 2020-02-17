@@ -14,14 +14,14 @@ namespace TicketManagementSystem.AutoTest.Tests.Ticket
         [ClassInitialize]
         public static void Initialize(TestContext testContext)
         {
-            var loginPage = new LoginPage(_driver);
-            loginPage.Open(_testOptions.Url);
-            loginPage.Login(_testOptions.Login, _testOptions.Password);
+            var loginPage = new LoginPage(_context);
+            loginPage.Open();
+            loginPage.Login(_context.TestOptions.Login, _context.TestOptions.Password);
 
             Thread.Sleep(1000);
 
-            page = new TicketsMainPage(_driver);
-            page.Open(_testOptions.Url);
+            page = new TicketsMainPage(_context);
+            page.Open();
         }
 
         [ClassCleanup]

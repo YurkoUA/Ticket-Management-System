@@ -1,11 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using TicketManagementSystem.AutoTest.Util;
 
 namespace TicketManagementSystem.AutoTest.Pages
 {
     public class LoginPage : PageBase
     {
-        public LoginPage(IWebDriver driver) : base(driver)
+        public LoginPage(InternalTestContext context) : base(context)
         {
         }
 

@@ -13,22 +13,21 @@ namespace TicketManagementSystem.AutoTest.Tests
     [TestClass]
     public abstract class BaseTest
     {
-        protected static IWebDriver _driver;
-        protected static TestOptions _testOptions;
+        protected static InternalTestContext _context = new InternalTestContext();
 
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext testContext)
         {
-            _testOptions = OptionsHelper.GetTestOptions();
-            _driver = new WebDriverFactory().CreateDriver(_testOptions.Browser);
-            _driver.Manage().Cookies.DeleteAllCookies();
-            _driver.Manage().Window.FullScreen();
+            _context.TestOptions = OptionsHelper.GetTestOptions();
+            _context.Driver = new WebDriverFactory().CreateDriver(_context.TestOptions.Browser);
+            _context.Driver?.Manage().Cookies.DeleteAllCookies();
+            _context.Driver?.Manage().Window.FullScreen();
         }
 
         [AssemblyCleanup]
         public static void AssemblyCleanup()
         {
-            _driver?.Close();
+            _context?.Driver?.Close();
         }
     }
 }
