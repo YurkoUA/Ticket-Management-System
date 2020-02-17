@@ -31,6 +31,7 @@ namespace TicketManagementSystem.AutoTest.Tests
 
             var loginPage = homePage.OpenLoginPage();
             loginPage.FillForm("admin", "AutoTest");
+            loginPage.Login();
 
             Thread.Sleep(1000);
 

@@ -26,7 +26,10 @@ namespace TicketManagementSystem.AutoTest.Pages
 
             PasswordField.Clear();
             PasswordField.SendKeys(password);
+        }
 
+        public void Login()
+        {
             LoginButton.Click();
         }
 
