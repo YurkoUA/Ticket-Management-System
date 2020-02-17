@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using TicketManagementSystem.Domain.Constants;
 using TicketManagementSystem.Domain.DTO;
+using TicketManagementSystem.Domain.DTO.Ticket;
 using TicketManagementSystem.Domain.ValidationChain.Models;
 using TicketManagementSystem.Infrastructure.Data;
 
@@ -10,33 +11,33 @@ namespace TicketManagementSystem.Domain.ValidationChain
 {
     public class TicketNumberValidator : BaseValidator
     {
-        private readonly TicketNumberValidatorContext context;
+        private readonly TicketDTO ticket;
 
-        public TicketNumberValidator(IUnitOfWork unitOfWork, TicketNumberValidatorContext context) : base(unitOfWork)
+        public TicketNumberValidator(IUnitOfWork unitOfWork, TicketDTO ticket) : base(unitOfWork)
         {
-            this.context = context;
+            this.ticket = ticket;
         }
 
         public override void HandleRequest(IList<CommandMessageDTO> model)
         {
             Expression<Func<Data.Entities.Ticket, bool>> expression = null;
 
-            if (context.Id.HasValue)
+            if (ticket.Id.HasValue)
             {
-                expression = t => t.Number == context.Number
-                    && t.NominalId == context.NominalId
-                    && t.ColorId == context.ColorId
-                    && t.SerialId == context.SerialId
-                    && t.SerialNumber == context.SerialNumber
-                    && t.Id != context.Id.Value;
+                expression = t => t.Number == ticket.Number
+                    && t.NominalId == ticket.NominalId
+                    && t.ColorId == ticket.ColorId
+                    && t.SerialId == ticket.SerialId
+                    && t.SerialNumber == ticket.SerialNumber
+                    && t.Id != ticket.Id.Value;
             }
             else
             {
-                expression = t => t.Number == context.Number 
-                    && t.NominalId == context.NominalId
-                    && t.ColorId == context.ColorId
-                    && t.SerialId == context.SerialId
-                    && t.SerialNumber == context.SerialNumber;
+                expression = t => t.Number == ticket.Number 
+                    && t.NominalId == ticket.NominalId
+                    && t.ColorId == ticket.ColorId
+                    && t.SerialId == ticket.SerialId
+                    && t.SerialNumber == ticket.SerialNumber;
             }
 
             var isValid = !unitOfWork.Get<Data.Entities.Ticket>().Any(expression);
@@ -46,9 +47,11 @@ namespace TicketManagementSystem.Domain.ValidationChain
                 model.Add(new CommandMessageDTO
                 {
                     ResourceName = ValidationMessage.TICKET_ALREADY_EXISTS,
-                    Arguments = new object[] { context.Number }
+                    Arguments = new object[] { ticket.Number }
                 });
             }
+
+            Continue(model);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace TicketManagementSystem.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ValidationMessage {
@@ -79,11 +79,29 @@ namespace TicketManagementSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Пачка закрита..
+        /// </summary>
+        public static string PackageClosed {
+            get {
+                return ResourceManager.GetString("PackageClosed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Неможливо встановити цифу {0}, оскільки пачка містить квитки з іншою..
         /// </summary>
         public static string PackageFirstDigitCannotBeSet {
             get {
                 return ResourceManager.GetString("PackageFirstDigitCannotBeSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Перша цифра квитка не підтримується пачкою..
+        /// </summary>
+        public static string PackageFirstDigitDiffFromTicket {
+            get {
+                return ResourceManager.GetString("PackageFirstDigitDiffFromTicket", resourceCulture);
             }
         }
         
@@ -97,11 +115,29 @@ namespace TicketManagementSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Номінал, колір або серія квитка не підтримуються пачкою..
+        /// </summary>
+        public static string PackageNomColSerDiffFromTicket {
+            get {
+                return ResourceManager.GetString("PackageNomColSerDiffFromTicket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Пачки ID: {0} не існує..
         /// </summary>
         public static string PackageNotExists {
             get {
                 return ResourceManager.GetString("PackageNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пачка відкрита..
+        /// </summary>
+        public static string PackageOpened {
+            get {
+                return ResourceManager.GetString("PackageOpened", resourceCulture);
             }
         }
         
@@ -120,6 +156,15 @@ namespace TicketManagementSystem.Resources {
         public static string SerialNotExists {
             get {
                 return ResourceManager.GetString("SerialNotExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Квиток з таким номером вже існує..
+        /// </summary>
+        public static string TicketAlreadyExists {
+            get {
+                return ResourceManager.GetString("TicketAlreadyExists", resourceCulture);
             }
         }
     }

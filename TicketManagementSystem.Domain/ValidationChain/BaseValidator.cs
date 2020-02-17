@@ -22,5 +22,14 @@ namespace TicketManagementSystem.Domain.ValidationChain
         {
             Next?.HandleRequest(model);
         }
+
+        public void AddError(IList<CommandMessageDTO> model, string resourceName, params object[] args)
+        {
+            model.Add(new CommandMessageDTO
+            {
+                ResourceName = resourceName,
+                Arguments = args
+            });
+        }
     }
 }

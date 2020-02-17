@@ -27,58 +27,6 @@ namespace TicketManagementSystem.Business.Validation
             _colorService = colorService;
         }
 
-        public IEnumerable<string> Validate(TicketCreateDTO createDTO)
-        {
-            var errors = new List<string>();
-            errors.AddRange(ValidateObject(createDTO));
-
-            if (_ticketService.Exists(Mapper.Map<TicketDTO>(createDTO)))
-            {
-                errors.Add("Такий квиток вже існує.");
-            }
-
-            if (!_colorService.ExistsById(createDTO.ColorId))
-            {
-                errors.Add($"Кольору ID: {createDTO.ColorId} не існує.");
-            }
-
-            if (!_serialService.ExistsById(createDTO.SerialId))
-            {
-                errors.Add($"Серії ID: {createDTO.SerialId} не існує.");
-            }
-
-            if (createDTO.PackageId != null)
-            {
-                var package = Database.Packages.GetById((int)createDTO.PackageId);
-
-                if (package == null)
-                {
-                    errors.Add($"Пачки ID: {createDTO.PackageId} не існує.");
-                }
-                else if (!package.IsOpened)
-                {
-                    errors.Add($"Пачка \"{package.ToString()}\" закрита.");
-                }
-                else if (package.FirstNumber != null && package.FirstNumber != int.Parse(createDTO.Number.First().ToString()))
-                {
-                    errors.Add($"До пачки \"{package.ToString()}\" можна додавати лише квитки на цифру {package.FirstNumber}.");
-                }
-                else
-                {
-                    if (package.ColorId != null && package.ColorId != createDTO.ColorId)
-                    {
-                        errors.Add("Колір квитка не збігається з кольором пачки.");
-                    }
-
-                    if (package.SerialId != null && package.SerialId != createDTO.SerialId)
-                    {
-                        errors.Add("Серія квитка не збігається з серією пачки.");
-                    }
-                }
-            }
-            return errors;
-        }
-
         public IEnumerable<string> Validate(TicketEditDTO editDTO)
         {
             var errors = new List<string>();

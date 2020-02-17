@@ -14,18 +14,12 @@ namespace TicketManagementSystem.Business.Services
     public class TicketService : Service, ITicketService
     {
         private readonly IPackageService _packageService;
-        private readonly ISerialService _serialService;
-        private readonly IColorService _colorService;
 
         public TicketService
             (IUnitOfWork database,
-            IPackageService packageService,
-            ISerialService serialService,
-            IColorService colorService) : base(database)
+            IPackageService packageService) : base(database)
         {
             _packageService = packageService;
-            _serialService = serialService;
-            _colorService = colorService;
         }
 
         public int TotalCount => Database.Tickets.GetCount();
@@ -258,13 +252,6 @@ namespace TicketManagementSystem.Business.Services
         }
 
         #endregion
-
-        public TicketDTO Create(TicketCreateDTO ticketDTO)
-        {
-            var ticket = Database.Tickets.Create(Mapper.Map<Ticket>(ticketDTO));
-            Database.SaveChanges();
-            return Mapper.Map<TicketDTO>(ticket);
-        }
 
         public void Edit(TicketEditDTO ticketDTO)
         {

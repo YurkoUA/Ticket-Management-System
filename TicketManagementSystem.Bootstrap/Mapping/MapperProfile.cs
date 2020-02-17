@@ -7,7 +7,9 @@ using AutoMapper;
 using TicketManagementSystem.Bootstrap.Mapping.Resolvers;
 using TicketManagementSystem.Data.Entities;
 using TicketManagementSystem.Domain.DTO;
+using TicketManagementSystem.Domain.DTO.Ticket;
 using TicketManagementSystem.Domain.Package.Commands;
+using TicketManagementSystem.Domain.Ticket.Commands;
 using TicketManagementSystem.ViewModels.Common;
 using TicketManagementSystem.ViewModels.Nominal;
 
@@ -36,6 +38,12 @@ namespace TicketManagementSystem.Bootstrap.Mapping
                 .ForMember(dest => dest.FirstNumber, opt => opt.MapFrom(src => src.FirstDigit));
 
             CreateMap<EditSpecialPackageCommand, Package>();
+
+            #endregion
+
+            #region Ticket.
+
+            CreateMap<CreateTicketCommand, TicketDTO>();
 
             #endregion
         }

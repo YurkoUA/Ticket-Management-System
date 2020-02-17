@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Domain.Package.Commands;
+using TicketManagementSystem.Domain.Ticket.Commands;
 using TicketManagementSystem.ViewModels.Color;
 
 namespace TicketManagementSystem.Web
@@ -96,6 +97,8 @@ namespace TicketManagementSystem.Web
                     .ForMember(dest => dest.FirstDigit, opt => opt.MapFrom(src => src.FirstNumber));
 
                 cfg.CreateMap<PackageEditSpecialModel, EditSpecialPackageCommand>();
+
+                cfg.CreateMap<TicketCreateModel, CreateTicketCommand>();
 
                 #endregion
             });

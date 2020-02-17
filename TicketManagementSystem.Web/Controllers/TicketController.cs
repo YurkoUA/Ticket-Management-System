@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
 using TicketManagementSystem.Business;
 using TicketManagementSystem.Business.AppSettings;
 using TicketManagementSystem.Business.DTO;
 using TicketManagementSystem.Business.Interfaces;
+using TicketManagementSystem.Domain.Cqrs;
+using TicketManagementSystem.Domain.Ticket.Commands;
+using TicketManagementSystem.Infrastructure.Domain.Processors;
+using TicketManagementSystem.ViewModels.Nominal;
 using TicketManagementSystem.Web.Hubs;
 
 namespace TicketManagementSystem.Web.Controllers
@@ -25,6 +30,9 @@ namespace TicketManagementSystem.Web.Controllers
         private readonly ITicketValidationService _ticketValidationService;
         private readonly ITicketNotesService _ticketNotesService;
 
+        private readonly ICommandProcessorAsync _commandProcessorAsync;
+        private readonly IQueryProcessorAsync _queryProcessorAsync;
+
         public TicketController(
             ITicketService ticketService,
             ITicketService2 ticketService2,
@@ -34,7 +42,9 @@ namespace TicketManagementSystem.Web.Controllers
             ICacheService cacheService,
             IAppSettingsService appSettingsService,
             ITicketValidationService ticketValidationService,
-            ITicketNotesService ticketNotesService)
+            ITicketNotesService ticketNotesService,
+            ICommandProcessorAsync commandProcessorAsync,
+            IQueryProcessorAsync queryProcessorAsync)
         {
             _ticketService = ticketService;
             _ticketService2 = ticketService2;
@@ -45,6 +55,8 @@ namespace TicketManagementSystem.Web.Controllers
             _appSettingsService = appSettingsService;
             _ticketValidationService = ticketValidationService;
             _ticketNotesService = ticketNotesService;
+            _commandProcessorAsync = commandProcessorAsync;
+            _queryProcessorAsync = queryProcessorAsync;
         }
 
         #region Index, Unallocated, Happy, Details
@@ -219,31 +231,30 @@ namespace TicketManagementSystem.Web.Controllers
         #region CRUD
 
         [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             var viewModel = new TicketCreateModel
             {
                 Colors = GetColorsList(),
-                Series = GetSeriesList()
+                Series = GetSeriesList(),
+                Nominals = await GetNominalSelectList()
             };
             return View(viewModel);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Create(TicketCreateModel model)
+        public async Task<ActionResult> Create(TicketCreateModel model)
         {
             if (ModelState.IsValid)
             {
-                var createDTO = Mapper.Map<TicketCreateDTO>(model);
-                var errors = _ticketValidationService.Validate(createDTO);
+                var command = Mapper.Map<CreateTicketCommand>(model);
+                var result = await _commandProcessorAsync.ProcessAsync(command);
 
-                errors.ToModelState(ModelState);
-
-                if (ModelState.IsValid)
+                if (result.IsSuccess)
                 {
-                    var ticket = _ticketService.Create(createDTO);
-                    return SuccessPartial($"Квиток №{model.Number} успішно додано!", Url.Action("Details", new { id = ticket.Id }), "Переглянути");
+                    return SuccessPartial($"Квиток №{model.Number} успішно додано!", Url.Action("Details", new { id = result.Model.Id }), "Переглянути");
                 }
+                return ErrorPartial(result);
             }
             return ErrorPartial(ModelState);
         }
@@ -502,6 +513,11 @@ namespace TicketManagementSystem.Web.Controllers
             }
             
             return new SelectList(series, "Id", "Name");
+        }
+
+        private async Task<IEnumerable<NominalVM>> GetNominalSelectList()
+        {
+            return await _queryProcessorAsync.ProcessAsync(new EmptyQuery<IEnumerable<NominalVM>>());
         }
 
         private SelectList GetPackagesList(int colorId, int serialId, int? number = null)

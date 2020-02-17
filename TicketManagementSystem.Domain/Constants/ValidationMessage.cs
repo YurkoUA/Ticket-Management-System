@@ -9,6 +9,10 @@
         public const string PACKAGE_NOT_EXISTS = "PackageNotExists";
         public const string PACKAGE_PROPERTIES_DIFFERENT = "PackagePropertiesAreDifferent";
         public const string PACKAGE_FIRST_DIGIT_CANNOT_BE_SET = "PackageFirstDigitCannotBeSet";
-        public const string TICKET_ALREADY_EXISTS = "";
+        public const string TICKET_ALREADY_EXISTS = "TicketAlreadyExists";
+        public const string PACKAGE_CLOSED = "PackageClosed";
+        public const string PACKAGE_OPENED = "PackageOpened";
+        public const string PACKAGE_NOM_COL_SER_ARE_DIFF_FROM_TICKET = "PackageNomColSerDiffFromTicket";
+        public const string PACKAGE_FIRST_DIGIT_DIFF_FROM_TICKET = "PackageFirstDigitDiffFromTicket";
     }
 }

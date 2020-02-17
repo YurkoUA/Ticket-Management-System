@@ -123,19 +123,34 @@
   <data name="NominalNotExists" xml:space="preserve">
     <value>Номіналу ID: {0} не існує.</value>
   </data>
+  <data name="PackageClosed" xml:space="preserve">
+    <value>Пачка закрита.</value>
+  </data>
   <data name="PackageFirstDigitCannotBeSet" xml:space="preserve">
     <value>Неможливо встановити цифу {0}, оскільки пачка містить квитки з іншою.</value>
+  </data>
+  <data name="PackageFirstDigitDiffFromTicket" xml:space="preserve">
+    <value>Перша цифра квитка не підтримується пачкою.</value>
   </data>
   <data name="PackageNameExists" xml:space="preserve">
     <value>Пачка з іменем "{0}" вже існує.</value>
   </data>
+  <data name="PackageNomColSerDiffFromTicket" xml:space="preserve">
+    <value>Номінал, колір або серія квитка не підтримуються пачкою.</value>
+  </data>
   <data name="PackageNotExists" xml:space="preserve">
     <value>Пачки ID: {0} не існує.</value>
+  </data>
+  <data name="PackageOpened" xml:space="preserve">
+    <value>Пачка відкрита.</value>
   </data>
   <data name="PackagePropertiesAreDifferent" xml:space="preserve">
     <value>Неможливо встановити нові колір/серію/номінал, бо пачка містить квитки з іншими.</value>
   </data>
   <data name="SerialNotExists" xml:space="preserve">
     <value>Серії ID: {0} не існує.</value>
+  </data>
+  <data name="TicketAlreadyExists" xml:space="preserve">
+    <value>Квиток з таким номером вже існує.</value>
   </data>
 </root>

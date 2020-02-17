@@ -61,6 +61,7 @@
     <Compile Include="Cqrs\EmptyQuery.cs" />
     <Compile Include="DTO\CommandMessageDTO.cs" />
     <Compile Include="DTO\CommandResultDTO.cs" />
+    <Compile Include="DTO\Ticket\TicketDTO.cs" />
     <Compile Include="Nominal\Queries\GetNominalsQH.cs" />
     <Compile Include="Package\Commands\CreatePackageCommand.cs" />
     <Compile Include="Package\Commands\CreatePackageCH.cs" />
@@ -72,12 +73,12 @@
     <Compile Include="Package\Commands\EditSpecialPackageCommand.cs" />
     <Compile Include="Package\Queries\GetCompatiblePackagesQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ticket\Commands\CreateTicketCH.cs" />
     <Compile Include="Ticket\Commands\CreateTicketCommand.cs" />
     <Compile Include="Util\DomainModule.cs" />
     <Compile Include="ValidationChain\BaseValidator.cs" />
     <Compile Include="ValidationChain\ColorExistsValidator.cs" />
     <Compile Include="ValidationChain\Models\PackagePropertiesChangedValidatorContext.cs" />
-    <Compile Include="ValidationChain\Models\TicketNumberValidatorContext.cs" />
     <Compile Include="ValidationChain\Models\ValidationContext.cs" />
     <Compile Include="ValidationChain\NominalExistsValidator.cs" />
     <Compile Include="ValidationChain\PackageColorValidator.cs" />
@@ -85,6 +86,8 @@
     <Compile Include="ValidationChain\PackageFirstDigitValidator.cs" />
     <Compile Include="ValidationChain\PackagePropertiesChangedValidator.cs" />
     <Compile Include="ValidationChain\PackageNameValidator.cs" />
+    <Compile Include="ValidationChain\PackageStateValidator.cs" />
+    <Compile Include="ValidationChain\PackageSupportsTicketValidator.cs" />
     <Compile Include="ValidationChain\SerialExistsValidator.cs" />
     <Compile Include="ValidationChain\TicketNumberValidator.cs" />
   </ItemGroup>

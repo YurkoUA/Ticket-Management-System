@@ -5,6 +5,7 @@ using TicketManagementSystem.Domain.Color.Queries;
 using TicketManagementSystem.Domain.Cqrs;
 using TicketManagementSystem.Domain.Nominal.Queries;
 using TicketManagementSystem.Domain.Package.Commands;
+using TicketManagementSystem.Domain.Ticket.Commands;
 using TicketManagementSystem.Infrastructure.Data;
 using TicketManagementSystem.Infrastructure.Domain;
 using TicketManagementSystem.Infrastructure.Domain.Processors;
@@ -16,7 +17,7 @@ namespace TicketManagementSystem.Domain.Util
 {
     public class DomainModule : NinjectModule
     {
-        private string _connectionString;
+        private readonly string _connectionString;
 
         public DomainModule(string connectionString)
         {
@@ -40,6 +41,8 @@ namespace TicketManagementSystem.Domain.Util
 
             Bind<ICommandHandlerAsync<EditPackageCommand, CommandResultVM<object>>>().To<EditPackageCH>();
             Bind<ICommandHandlerAsync<EditSpecialPackageCommand, CommandResultVM<object>>>().To<EditSpecialPackageCH>();
+
+            Bind<ICommandHandlerAsync<CreateTicketCommand, CommandResultVM<IdentifierVM>>>().To<CreateTicketCH>();
         }
     }
 }
