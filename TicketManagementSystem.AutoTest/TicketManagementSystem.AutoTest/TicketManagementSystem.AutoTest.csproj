@@ -61,9 +61,11 @@
     <Compile Include="Pages\HomePage.cs" />
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Pages\PageBase.cs" />
+    <Compile Include="Pages\Ticket\TicketsMainPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\BaseTest.cs" />
     <Compile Include="Tests\LoginPageTests.cs" />
+    <Compile Include="Tests\Ticket\TicketMainPageTests.cs" />
     <Compile Include="Util\OptionsHelper.cs" />
     <Compile Include="Util\SupportedBrowser.cs" />
     <Compile Include="Util\TestOptions.cs" />

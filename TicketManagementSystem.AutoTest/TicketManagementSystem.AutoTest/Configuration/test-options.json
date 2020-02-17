@@ -1,4 +1,6 @@
 {
   "Browser": 1,
-  "Url": "http://localhost:55557/"
+  "Url": "http://localhost:55557/",
+  "Login": "admin",
+  "Password": "AutoTest"
 }

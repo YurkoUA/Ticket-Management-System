@@ -14,18 +14,19 @@ namespace TicketManagementSystem.AutoTest.Tests
     public abstract class BaseTest
     {
         protected static IWebDriver _driver;
-        protected TestOptions _testOptions;
+        protected static TestOptions _testOptions;
 
-        [TestInitialize]
-        public void Initialize()
+        [AssemblyInitialize]
+        public static void AssemblyInitialize(TestContext testContext)
         {
             _testOptions = OptionsHelper.GetTestOptions();
             _driver = new WebDriverFactory().CreateDriver(_testOptions.Browser);
             _driver.Manage().Cookies.DeleteAllCookies();
+            _driver.Manage().Window.FullScreen();
         }
 
         [AssemblyCleanup]
-        public static void Cleanup()
+        public static void AssemblyCleanup()
         {
             _driver?.Close();
         }

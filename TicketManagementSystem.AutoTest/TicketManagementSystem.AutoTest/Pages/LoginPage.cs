@@ -9,6 +9,8 @@ namespace TicketManagementSystem.AutoTest.Pages
         {
         }
 
+        public override string Url => "Account/Login";
+
         #region Elements.
 
         public IWebElement LoginField => _driver.FindElement(By.CssSelector("#Login"));
@@ -31,6 +33,12 @@ namespace TicketManagementSystem.AutoTest.Pages
         public void Login()
         {
             LoginButton.Click();
+        }
+
+        public void Login(string userName, string password)
+        {
+            FillForm(userName, password);
+            Login();
         }
 
         #endregion

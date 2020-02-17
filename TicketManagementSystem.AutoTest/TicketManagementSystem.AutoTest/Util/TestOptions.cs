@@ -4,5 +4,9 @@
     {
         public string Url { get; set; }
         public SupportedBrowser Browser { get; set; }
+
+        // TODO: Move outta here.
+        public string Login { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -15,7 +15,8 @@ namespace TicketManagementSystem.AutoTest.Tests
     public class LoginPageTests : BaseTest
     {
         [TestMethod]
-        public void LoginPerformedSuccessfully()
+        [Description("User logs in and logs out")]
+        public void Login_Logout_Are_PerformedSuccessfully()
         {
             _driver.Navigate().GoToUrl(_testOptions.Url);
 
@@ -24,14 +25,19 @@ namespace TicketManagementSystem.AutoTest.Tests
             homePage.VerifyLoginLinkIsDisplayed();
 
             var loginPage = homePage.OpenLoginPage();
-            loginPage.FillForm("admin", "AutoTest");
-            loginPage.Login();
+            loginPage.Login(_testOptions.Login, _testOptions.Password);
 
             Thread.Sleep(1000);
 
             loginPage.VerifyBrowserUrl();
-            loginPage.VerifyUserProfileLinkIsDisplayed("admin");
+            loginPage.VerifyUserProfileLinkIsDisplayed(_testOptions.Login);
             loginPage.VerifyLogoutLinkIsDisplayed();
+
+            loginPage.Logout();
+
+            Thread.Sleep(1000);
+
+            loginPage.VerifyLoginLinkIsDisplayed();
         }
     }
 }
