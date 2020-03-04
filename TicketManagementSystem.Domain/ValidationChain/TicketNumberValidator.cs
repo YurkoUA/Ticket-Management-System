@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using TicketManagementSystem.Domain.Constants;
 using TicketManagementSystem.Domain.DTO;
@@ -40,7 +41,7 @@ namespace TicketManagementSystem.Domain.ValidationChain
                     && t.SerialNumber == ticket.SerialNumber;
             }
 
-            var isValid = !unitOfWork.Get<Data.Entities.Ticket>().Any(expression);
+            var isValid = !unitOfWork.Get<Data.Entities.Ticket>().FindAll().Any(expression);
 
             if (!isValid)
             {

@@ -34,6 +34,9 @@ namespace TicketManagementSystem.Infrastructure.Data
 
         #region Sync.
 
+        IQueryable<TEntity> FindAll();
+        IQueryable<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate);
+
         TEntity Find(int id);
         bool Any(Expression<Func<TEntity, bool>> predicate);
         int Count();

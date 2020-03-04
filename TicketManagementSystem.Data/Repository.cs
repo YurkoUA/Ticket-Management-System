@@ -140,6 +140,16 @@ namespace TicketManagementSystem.Data
 
         #region Sync.
 
+        public IQueryable<TEntity> FindAll()
+        {
+            return pool;
+        }
+
+        public IQueryable<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate)
+        {
+            return pool.Where(predicate);
+        }
+
         public TEntity Find(int id)
         {
             return pool.Find(id);
