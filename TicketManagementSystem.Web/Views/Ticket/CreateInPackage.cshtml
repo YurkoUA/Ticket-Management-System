@@ -67,6 +67,27 @@
             @Html.HiddenFor(model => model.SerialId)
         }
 
+        @if (Model.CanSelectNominal)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.NominalId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    <select id="NominalId" name="NominalId" class="form-control">
+                        @foreach (var item in Model.Nominals)
+                        {
+                            <option value="@item.Id" selected="@item.IsDefault">@item.Amount грн.</option>
+                        }
+                    </select>
+
+                    @Html.ValidationMessageFor(model => model.NominalId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.NominalId)
+        }
+
         <div class="form-group">
             @Html.LabelFor(model => model.SerialNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-3">

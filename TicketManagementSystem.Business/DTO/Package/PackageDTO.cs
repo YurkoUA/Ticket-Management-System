@@ -20,6 +20,8 @@ namespace TicketManagementSystem.Business.DTO
         public int? ColorId { get; set; }
         [JsonIgnore]
         public int? SerialId { get; set; }
+        [JsonIgnore]
+        public int? NominalId { get; set; }
 
         [JsonIgnore]
         public string ColorName { get; set; }
@@ -120,6 +122,8 @@ namespace TicketManagementSystem.Business.DTO
 
             SerialId = p.SerialId,
             SerialName = p.Serial.Name,
+
+            NominalId = p.NominalId,
             
             FirstNumber = p.FirstNumber,
             Nominal = p.NominalEntity.Amount,

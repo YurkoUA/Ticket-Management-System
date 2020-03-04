@@ -260,7 +260,7 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet, OutputCache(Duration = 60, Location = OutputCacheLocation.Client)]
-        public ActionResult CreateInPackage(int id)
+        public async Task<ActionResult> CreateInPackage(int id)
         {
             var package = _packageService.GetPackage(id);
 
@@ -291,6 +291,16 @@ namespace TicketManagementSystem.Web.Controllers
             {
                 viewModel.CanSelectSerial = true;
                 viewModel.Series = GetSeriesList();
+            }
+
+            if (package.NominalId != null)
+            {
+                viewModel.NominalId = (int)package.NominalId;
+            }
+            else
+            {
+                viewModel.CanSelectNominal = true;
+                viewModel.Nominals = await GetNominalSelectList();
             }
 
             return View(viewModel);

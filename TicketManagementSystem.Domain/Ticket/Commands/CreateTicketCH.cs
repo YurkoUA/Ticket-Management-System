@@ -35,14 +35,14 @@ namespace TicketManagementSystem.Domain.Ticket.Commands
             chainBuilder
                 .ConstructChain(new ColorExistsValidator(unitOfWork, command.ColorId))
                 .ConstructChain(new SerialExistsValidator(unitOfWork, command.SerialId))
-                .ConstructChain(new NominalExistsValidator(unitOfWork, command.NominalId));
+                .ConstructChain(new NominalExistsValidator(unitOfWork, command.NominalId))
+                .ConstructChain(new TicketNumberValidator(unitOfWork, dto));
 
             if (command.PackageId.HasValue)
             {
                 chainBuilder
                     .ConstructChain(new PackageExistsValidator(unitOfWork, command.PackageId, false))
                     .ConstructChain(new PackageStateValidator(unitOfWork, command.PackageId.Value))
-                    .ConstructChain(new TicketNumberValidator(unitOfWork, dto))
                     .ConstructChain(new PackageSupportsTicketValidator(unitOfWork, dto));
             }
 
