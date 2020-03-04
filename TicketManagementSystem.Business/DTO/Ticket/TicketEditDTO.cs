@@ -11,9 +11,11 @@ namespace TicketManagementSystem.Business.DTO
         public int Id { get; set; }        
         public int ColorId { get; set; }        
         public int SerialId { get; set; }
+        public int? NominalId { get; set; }
 
         public bool CanSelectColor { get; set; } = true;
         public bool CanSelectSerial { get; set; } = true;
+        public bool CanSelectNominal { get; set; } = true;
 
         [Required(ErrorMessage = "Необхідно вказати номер серії.")]
         [SerialNumber(ErrorMessage = "Номер серії повинен бути від 01 до 50.")]
@@ -30,6 +32,7 @@ namespace TicketManagementSystem.Business.DTO
             Id = t.Id,
             ColorId = t.ColorId,
             SerialId = t.SerialId,
+            NominalId = t.NominalId,
             SerialNumber = t.SerialNumber,
             Note = t.Note,
             Date = t.Date

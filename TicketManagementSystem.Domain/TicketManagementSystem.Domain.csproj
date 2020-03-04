@@ -75,6 +75,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ticket\Commands\CreateTicketCH.cs" />
     <Compile Include="Ticket\Commands\CreateTicketCommand.cs" />
+    <Compile Include="Ticket\Commands\EditTicketCH.cs" />
+    <Compile Include="Ticket\Commands\EditTicketCommand.cs" />
     <Compile Include="Util\DomainModule.cs" />
     <Compile Include="ValidationChain\BaseValidator.cs" />
     <Compile Include="ValidationChain\ColorExistsValidator.cs" />

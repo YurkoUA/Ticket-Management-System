@@ -43,6 +43,7 @@ namespace TicketManagementSystem.Domain.Util
             Bind<ICommandHandlerAsync<EditSpecialPackageCommand, CommandResultVM<object>>>().To<EditSpecialPackageCH>();
 
             Bind<ICommandHandlerAsync<CreateTicketCommand, CommandResultVM<IdentifierVM>>>().To<CreateTicketCH>();
+            Bind<ICommandHandlerAsync<EditTicketCommand, CommandResultVM<object>>>().To<EditTicketCH>();
         }
     }
 }

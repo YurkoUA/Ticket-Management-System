@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicketManagementSystem.Domain.DTO;
 using TicketManagementSystem.Domain.DTO.Ticket;
 using TicketManagementSystem.Domain.ValidationChain;
-using TicketManagementSystem.Domain.ValidationChain.Models;
 using TicketManagementSystem.Infrastructure.ChainOfResponsibility;
 using TicketManagementSystem.Infrastructure.Data;
 using TicketManagementSystem.Infrastructure.Domain;

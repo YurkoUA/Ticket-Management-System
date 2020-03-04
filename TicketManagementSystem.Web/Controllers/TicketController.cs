@@ -307,7 +307,7 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
             var ticket = _ticketService.GetEdit(id);
             
@@ -321,6 +321,9 @@ namespace TicketManagementSystem.Web.Controllers
             if (ticketVM.CanSelectSerial)
                 ticketVM.Series = GetSeriesList();
 
+            if (ticketVM.CanSelectNominal)
+                ticketVM.Nominals = await GetNominalSelectList();
+
             if (Request.IsAjaxRequest())
             {
                 return PartialView("EditPartial", ticketVM);
@@ -331,20 +334,18 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Edit(TicketEditModel model)
+        public async Task<ActionResult> Edit(TicketEditModel model)
         {
             if (ModelState.IsValid)
             {
-                var editDTO = Mapper.Map<TicketEditDTO>(model);
-                var errors = _ticketValidationService.Validate(editDTO);
+                var command = Mapper.Map<EditTicketCommand>(model);
+                var result = await _commandProcessorAsync.ProcessAsync(command);
 
-                errors.ToModelState(ModelState);
-
-                if (ModelState.IsValid)
+                if (result.IsSuccess)
                 {
-                    _ticketService.Edit(Mapper.Map<TicketEditDTO>(model));
-                    return SuccessPartial("Зміни збережено!", Url.Action("Details", new { id = model.Id }), "Переглянути");
+                    return SuccessPartial($"Зміни збережено!", Url.Action("Details", new { id = model.Id }), "Переглянути");
                 }
+                return ErrorPartial(result);
             }
             return ErrorPartial(ModelState);
         }

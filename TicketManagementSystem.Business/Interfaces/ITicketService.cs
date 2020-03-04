@@ -32,7 +32,6 @@ namespace TicketManagementSystem.Business.Interfaces
 
         TicketEditDTO GetEdit(int id);
 
-        void Edit(TicketEditDTO ticketDTO);
         void Remove(int id);
 
         void CreateMany(TicketCreateDTO[] createDTO);

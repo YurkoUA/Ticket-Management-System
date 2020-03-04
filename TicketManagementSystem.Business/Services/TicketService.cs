@@ -247,28 +247,12 @@ namespace TicketManagementSystem.Business.Services
             var dto = Mapper.Map<TicketEditDTO>(ticket);
             dto.CanSelectColor = ticket.Package?.ColorId == null;
             dto.CanSelectSerial = ticket.Package?.SerialId == null;
+            dto.CanSelectNominal = ticket.Package?.NominalId == null;
 
             return dto;
         }
 
         #endregion
-
-        public void Edit(TicketEditDTO ticketDTO)
-        {
-            var ticket = Database.Tickets.GetById(ticketDTO.Id);
-
-            if (ticket != null)
-            {
-                ticket.ColorId = ticketDTO.ColorId;
-                ticket.SerialId = ticketDTO.SerialId;
-                ticket.SerialNumber = ticketDTO.SerialNumber;
-                ticket.Note = ticketDTO.Note;
-                ticket.Date = ticketDTO.Date;
-
-                Database.Tickets.Update(ticket);
-                Database.SaveChanges();
-            }
-        }
 
         public void Remove(int id)
         {

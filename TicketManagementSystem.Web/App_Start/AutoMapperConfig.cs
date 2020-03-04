@@ -99,6 +99,7 @@ namespace TicketManagementSystem.Web
                 cfg.CreateMap<PackageEditSpecialModel, EditSpecialPackageCommand>();
 
                 cfg.CreateMap<TicketCreateModel, CreateTicketCommand>();
+                cfg.CreateMap<TicketEditModel, EditTicketCommand>();
 
                 #endregion
             });
