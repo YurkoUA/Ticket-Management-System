@@ -44,6 +44,7 @@ namespace TicketManagementSystem.Domain.Util
 
             Bind<ICommandHandlerAsync<CreateTicketCommand, CommandResultVM<IdentifierVM>>>().To<CreateTicketCH>();
             Bind<ICommandHandlerAsync<EditTicketCommand, CommandResultVM<object>>>().To<EditTicketCH>();
+            Bind<ICommandHandlerAsync<RemoveTicketCommand>>().To<RemoveTicketCH>();
         }
     }
 }

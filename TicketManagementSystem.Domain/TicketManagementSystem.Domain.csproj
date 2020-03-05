@@ -77,6 +77,8 @@
     <Compile Include="Ticket\Commands\CreateTicketCommand.cs" />
     <Compile Include="Ticket\Commands\EditTicketCH.cs" />
     <Compile Include="Ticket\Commands\EditTicketCommand.cs" />
+    <Compile Include="Ticket\Commands\RemoveTicketCH.cs" />
+    <Compile Include="Ticket\Commands\RemoveTicketCommand.cs" />
     <Compile Include="Util\DomainModule.cs" />
     <Compile Include="ValidationChain\BaseValidator.cs" />
     <Compile Include="ValidationChain\ColorExistsValidator.cs" />

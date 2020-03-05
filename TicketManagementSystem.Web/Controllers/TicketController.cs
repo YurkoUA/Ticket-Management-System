@@ -369,7 +369,7 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             if (!_ticketService.ExistsById(id))
             {
@@ -378,7 +378,7 @@ namespace TicketManagementSystem.Web.Controllers
             }
             else
             {
-                _ticketService.Remove(id);
+                await _commandProcessorAsync.ProcessAsync(new RemoveTicketCommand { TicketId = id });
 
                 TicketsHub.RemoveTicketsIds(new[] { id });
                 return SuccessPartial("Квиток видалено.");

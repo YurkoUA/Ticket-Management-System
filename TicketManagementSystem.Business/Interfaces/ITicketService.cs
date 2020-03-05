@@ -32,10 +32,6 @@ namespace TicketManagementSystem.Business.Interfaces
 
         TicketEditDTO GetEdit(int id);
 
-        void Remove(int id);
-
-        void CreateMany(TicketCreateDTO[] createDTO);
-
         void ChangeNumber(int ticketId, string number);
         void MoveToPackage(int ticketId, int packageId);
         void MoveToPackage(int ticketId, int packageId, out bool isUnallocated);

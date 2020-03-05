@@ -254,23 +254,6 @@ namespace TicketManagementSystem.Business.Services
 
         #endregion
 
-        public void Remove(int id)
-        {
-            var ticket = Database.Tickets.GetById(id);
-
-            if (ticket != null)
-            {
-                Database.Tickets.Remove(ticket);
-                Database.SaveChanges();
-            }
-        }
-
-        public void CreateMany(TicketCreateDTO[] createDTO)
-        {
-            // TODO: CreateMany.
-            throw new NotImplementedException();
-        }
-
         public void ChangeNumber(int ticketId, string number)
         {
             var ticket = Database.Tickets.GetById(ticketId);
