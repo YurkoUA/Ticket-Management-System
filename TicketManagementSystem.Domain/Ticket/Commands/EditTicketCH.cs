@@ -49,7 +49,6 @@ namespace TicketManagementSystem.Domain.Ticket.Commands
             {
                 chainBuilder
                     .ConstructChain(new PackageExistsValidator(unitOfWork, dto.PackageId, false))
-                    .ConstructChain(new PackageStateValidator(unitOfWork, dto.PackageId.Value))
                     .ConstructChain(new PackageSupportsTicketValidator(unitOfWork, dto));
             }
 
@@ -64,6 +63,9 @@ namespace TicketManagementSystem.Domain.Ticket.Commands
                 original.Note = command.Note;
                 original.Date = command.Date;
             }
+
+            await ticketRepo.UpdateAsync(original);
+            await unitOfWork.SaveChangesAsync();
 
             return entityService.Convert<CommandResultDTO<object>, CommandResultVM<object>>(result);
         }
