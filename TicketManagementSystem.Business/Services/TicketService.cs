@@ -254,18 +254,6 @@ namespace TicketManagementSystem.Business.Services
 
         #endregion
 
-        public void ChangeNumber(int ticketId, string number)
-        {
-            var ticket = Database.Tickets.GetById(ticketId);
-
-            if (ticket == null)
-                return;
-
-            ticket.Number = number;
-            Database.Tickets.Update(ticket);
-            Database.SaveChanges();
-        }
-
         #region Move.
 
         public void MoveToPackage(int ticketId, int packageId)

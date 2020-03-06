@@ -100,6 +100,7 @@ namespace TicketManagementSystem.Web
 
                 cfg.CreateMap<TicketCreateModel, CreateTicketCommand>();
                 cfg.CreateMap<TicketEditModel, EditTicketCommand>();
+                cfg.CreateMap<TicketChangeNumberModel, ChangeNumberCommand>();
 
                 #endregion
             });

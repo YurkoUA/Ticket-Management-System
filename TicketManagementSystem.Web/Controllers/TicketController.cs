@@ -448,18 +448,18 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult ChangeNumber(TicketChangeNumberModel viewModel)
+        public async Task<ActionResult> ChangeNumber(TicketChangeNumberModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var errors = _ticketValidationService.ValidateChangeNumber(viewModel.Id, viewModel.Number);
-                errors.ToModelState(ModelState);
+                var command = Mapper.Map<ChangeNumberCommand>(viewModel);
+                var result = await _commandProcessorAsync.ProcessAsync(command);
 
-                if (ModelState.IsValid)
+                if (result.IsSuccess)
                 {
-                    _ticketService.ChangeNumber(viewModel.Id, viewModel.Number);
                     return SuccessPartial($"Номер квитка змінено на №{viewModel.Number}.");
                 }
+                return ErrorPartial(result);
             }
             return ErrorPartial(ModelState);
         }

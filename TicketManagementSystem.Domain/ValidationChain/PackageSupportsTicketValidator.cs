@@ -21,22 +21,25 @@ namespace TicketManagementSystem.Domain.ValidationChain
 
         public override void HandleRequest(IList<CommandMessageDTO> model)
         {
-            var package = unitOfWork.Get<Data.Entities.Package>().Find(ticket.PackageId.Value);
-
-            if (package.NominalId != ticket.NominalId
-                || package.ColorId != ticket.ColorId
-                || package.SerialId != ticket.SerialId)
+            if (ticket.PackageId.HasValue)
             {
-                AddError(model, ValidationMessage.PACKAGE_NOM_COL_SER_ARE_DIFF_FROM_TICKET);
-            }
+                var package = unitOfWork.Get<Data.Entities.Package>().Find(ticket.PackageId.Value);
 
-            if (package.FirstNumber.HasValue)
-            {
-                var ticketFirstDigit = int.Parse(ticket.Number.First().ToString());
-
-                if (package.FirstNumber != ticketFirstDigit)
+                if (package?.NominalId != ticket.NominalId
+                    || package?.ColorId != ticket.ColorId
+                    || package?.SerialId != ticket.SerialId)
                 {
-                    AddError(model, ValidationMessage.PACKAGE_FIRST_DIGIT_DIFF_FROM_TICKET);
+                    AddError(model, ValidationMessage.PACKAGE_NOM_COL_SER_ARE_DIFF_FROM_TICKET);
+                }
+
+                if (package != null && package.FirstNumber.HasValue)
+                {
+                    var ticketFirstDigit = int.Parse(ticket.Number.First().ToString());
+
+                    if (package.FirstNumber != ticketFirstDigit)
+                    {
+                        AddError(model, ValidationMessage.PACKAGE_FIRST_DIGIT_DIFF_FROM_TICKET);
+                    }
                 }
             }
 

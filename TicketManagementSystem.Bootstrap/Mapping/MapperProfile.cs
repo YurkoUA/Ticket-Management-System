@@ -47,6 +47,8 @@ namespace TicketManagementSystem.Bootstrap.Mapping
             CreateMap<EditTicketCommand, TicketDTO>();
             CreateMap<CreateTicketCommand, Ticket>();
 
+            CreateMap<Ticket, TicketDTO>();
+
             #endregion
         }
     }
