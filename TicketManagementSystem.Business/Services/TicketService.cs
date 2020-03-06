@@ -256,21 +256,6 @@ namespace TicketManagementSystem.Business.Services
 
         #region Move.
 
-        public void MoveToPackage(int ticketId, int packageId)
-        {
-            if (!_packageService.ExistsById(packageId))
-                return;
-
-            var ticket = Database.Tickets.GetById(ticketId);
-
-            if (ticket == null)
-                return;
-
-            ticket.PackageId = packageId;
-            Database.Tickets.Update(ticket);
-            Database.SaveChanges();
-        }
-
         public void MoveToPackage(int ticketId, int packageId, out bool isUnallocated)
         {
             isUnallocated = false;

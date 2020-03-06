@@ -102,6 +102,9 @@ namespace TicketManagementSystem.Web
                 cfg.CreateMap<TicketEditModel, EditTicketCommand>();
                 cfg.CreateMap<TicketChangeNumberModel, ChangeNumberCommand>();
 
+                cfg.CreateMap<TicketMoveModel, MoveTicketCommand>()
+                    .ForMember(dest => dest.TicketId, opt => opt.MapFrom(src => src.Id));
+
                 #endregion
             });
 

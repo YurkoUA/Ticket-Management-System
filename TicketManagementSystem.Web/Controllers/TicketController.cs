@@ -409,22 +409,22 @@ namespace TicketManagementSystem.Web.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Move(TicketMoveModel viewModel)
+        public async Task<ActionResult> Move(TicketMoveModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var errors = _ticketValidationService.ValidateMoveToPackage(viewModel.Id, viewModel.PackageId);
-                errors.ToModelState(ModelState);
+                var command = Mapper.Map<MoveTicketCommand>(viewModel);
+                var result = await _commandProcessorAsync.ProcessAsync(command);
 
-                if (ModelState.IsValid)
+                if (result.IsSuccess)
                 {
-                    _ticketService.MoveToPackage(viewModel.Id, viewModel.PackageId);
-
                     if (viewModel.IsUnallocated)
+                    {
                         TicketsHub.RemoveTicketsIds(new[] { viewModel.Id });
-
+                    }
                     return SuccessPartial("Квиток успішно переміщено.");
                 }
+                return ErrorPartial(result);
             }
             return ErrorPartial(ModelState);
         }

@@ -32,7 +32,6 @@ namespace TicketManagementSystem.Business.Interfaces
 
         TicketEditDTO GetEdit(int id);
 
-        void MoveToPackage(int ticketId, int packageId);
         void MoveToPackage(int ticketId, int packageId, out bool isUnallocated);
         void MoveFewToPackage(int packageId, params int[] ticketsIds);
 
