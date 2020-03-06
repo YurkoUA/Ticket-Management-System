@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
     <Compile Include="Domain\ValidationChain\TicketNumberValidatorTest.cs" />
+    <Compile Include="Domain\ValidationChain\PackageFirstDigitValidatorTest.cs" />
     <Compile Include="Helpers\CollectionAssertHelper.cs" />
     <Compile Include="PaginationTests.cs" />
     <Compile Include="PaginationTests_2.cs" />
