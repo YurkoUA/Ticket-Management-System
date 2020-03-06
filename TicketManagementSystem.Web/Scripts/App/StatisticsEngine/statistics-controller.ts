@@ -52,7 +52,7 @@ class StatisticsController {
             el: "#statistics-engine-container",
             data: _this.business.Model,
             methods: {
-                openPage: (e: any) => _this.business.OnPageOpen(e.target.value)
+                openPage: (number: number) => _this.business.OnPageOpen(number)
             }
         };
 

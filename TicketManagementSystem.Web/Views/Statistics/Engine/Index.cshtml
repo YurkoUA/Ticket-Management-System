@@ -14,13 +14,18 @@
 
 <hr />
 
-<div id="statistics-engine-container" class="row">
-    <select id="se-pages-list" name="se-pages-list" class="form-control col-md-offset-5" 
-            v-if="Pages && Pages.length > 0"
-            v-on:change="openPage($event)">
-        <option>==ГОЛОВНА==</option>
-        <option v-for="page in Pages" :value="page.Id">{{page.Name}}</option>
-    </select>
+<div id="statistics-engine-container">
+    <div id="se-page-header" class="row">
+        <ul class="nav nav-pills col-md-2 col-md-offset-5" v-if="Pages && Pages.length > 0">
+            <li role="presentation" v-bind:class="{ 'active': !CurrentPageId || CurrentPageId == 0 }">
+                <a href="#" v-on:click="openPage(null)">ГОЛОВНА</a>
+            </li>
+
+            <li role="presentation" v-for="page in Pages" v-bind:class="{ 'active': page.Id == CurrentPageId }">
+                <a href="#" v-on:click="openPage(page.Id)">{{page.Name}}</a>
+            </li>
+        </ul>
+    </div>
 
     <div id="charts-container" class="row" v-if="Charts && Charts.length > 0">
         <div v-for="chart in Charts"

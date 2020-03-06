@@ -1,6 +1,5 @@
 ﻿class StatisticsBusiness {
     public Model: StatisticsPage = new StatisticsPage();
-    private pageId?: number;
 
     public OnChartListReceived: (charts: ChartInfo[]) => void;
     public OnChartDataReceived: (chart: ChartInfo, data: any) => void;
@@ -9,7 +8,7 @@
     }
 
     public OnPageOpen(pageId?: number): void {
-        this.pageId = pageId;
+        this.Model.CurrentPageId = pageId
         this.GetCharts();
         this.GetPages();
     }
@@ -22,7 +21,7 @@
     }
 
     public GetCharts(): void {
-        this.service.GetCharts(this.pageId)
+        this.service.GetCharts(this.Model.CurrentPageId)
             .done((charts: ChartInfo[]) => {
                 this.Model.Charts = charts;
                 this.OnChartListReceived(charts);
