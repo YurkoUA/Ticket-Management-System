@@ -52,7 +52,10 @@ class StatisticsController {
             el: "#statistics-engine-container",
             data: _this.business.Model,
             methods: {
-                openPage: (number: number) => _this.business.OnPageOpen(number)
+                openPage: (number: number) => _this.business.OnPageOpen(number),
+                openChartFilterModal: (chart: ChartInfo) => _this.OpenChartFilterModal(chart)
+            },
+            components: {
             }
         };
 
@@ -66,5 +69,10 @@ class StatisticsController {
 
     private CustomizePageContainer(): void {
         $(document).trigger("container.fluid");
+    }
+
+    private OpenChartFilterModal(chart: ChartInfo): void {
+        this.business.Model.OpenedChart.Chart = chart;
+        $("#se-chart-filter-modal")["modal"]("show");
     }
 }

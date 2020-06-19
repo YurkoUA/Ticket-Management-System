@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Статистика";
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js" />
 }
 
 <h2>@ViewBag.Title</h2>
@@ -16,7 +17,7 @@
 
 <div id="statistics-engine-container">
     <div id="se-page-header" class="row">
-        <ul class="nav nav-pills col-md-2 col-md-offset-5" v-if="Pages && Pages.length > 0">
+        <ul class="nav nav-pills" v-if="Pages && Pages.length > 0">
             <li role="presentation" v-bind:class="{ 'active': !CurrentPageId || CurrentPageId == 0 }">
                 <a href="#" v-on:click="openPage(null)">ГОЛОВНА</a>
             </li>
@@ -30,8 +31,11 @@
     <div id="charts-container" class="row" v-if="Charts && Charts.length > 0">
         <div v-for="chart in Charts"
              v-bind:id="'chart-' + chart.Id"
-             :class="chart.StyleClass"></div>
+             :class="chart.StyleClass"
+             v-on:dblclick="openChartFilterModal(chart)"></div>
     </div>
+
+    @Html.Partial("~/Views/Statistics/Engine/_ChartFilterModal.cshtml")
 </div>
 
 
@@ -47,7 +51,7 @@
 
             var pageId = null;
 
-            @{ 
+            @{
                 if (Model.HasValue)
                 {
                     <text>
